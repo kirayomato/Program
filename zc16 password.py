@@ -86,5 +86,3 @@ p=str(p)
 q=str(q)
 r=str(r)
 print('%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s'%(b[1],c[2],d[3],e[4],f[5],h[6],i[7],j[8],k[9],l[10],m[11],n[12],o[13],p[14],q[15],r[16]))
-
-
