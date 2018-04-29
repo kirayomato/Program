@@ -1,4 +1,4 @@
-﻿import math
+import math
 a=str(input('输入一串数字或字母:',))
 a=a.replace('a','01')
 a=a.replace('b','02')
