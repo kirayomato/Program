@@ -1,7 +1,7 @@
-a=int(input('输入一个数:',))
+a=eval(input('输入一个数:',))
 i=2
 b=1
-if a <= 1:
+if a <= 1 or not isinstance(a,int):
 	print('error')
 else:
 	while i< a:
