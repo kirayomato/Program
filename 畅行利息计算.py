@@ -13,6 +13,6 @@ else :
 	if 0<=t<=7:
 		w=1.01*x
 	else:
-		w=1.01*x+0.12*x*t/365
+		w=1.01*x+0.12*x*(t-7)/365
 w=math.ceil(w)
 print('还款金额=',w)
