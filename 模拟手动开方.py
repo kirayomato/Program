@@ -1,23 +1,24 @@
 import math
 a=eval(input('被开方数=',))
-if a < 0:
-	print('error')
-	sys.exit(0)
+j=a
 b=int(input('有效位数=',))
 c=math.floor(math.log(a,10)+1)
-j=a
+if a < 0:
+	a=-a
+if 0<abs(a)<1:
+	a=str(a)
+	a=a.replace('0.', '')
+	a=int(a)*10**(2*b+2)
+else:
+	a=a*10**(2*b+2)
 a=str(a)
-o=1
-while o<2*b:
-	a += '0'
-	o=o+1
 f=0
 g=0
 e=''
 if c%2 == 0:
 	i=0
 	t=2
-	while t/2 <= b:
+	while (t-2)/2 <= b:
 		e=str(e)
 		l= a[i:t]
 		e+= l
@@ -45,7 +46,7 @@ else:
 	g=10*g+n
 	i=1
 	t=3
-	while t/2 <= b:
+	while (t-2)/2 <= b:
 		e=str(e)
 		l= a[i:t]
 		e+= l
@@ -59,7 +60,10 @@ else:
 		g=10*g+n
 		i=i+2
 		t=t+2
-p=math.floor(math.log(j**0.5,10)+1)
+p=math.floor(math.log(abs(j)**0.5,10)+1)
 u=math.floor(math.log(g,10)+1)
 g=(g*10**(p-u))
-print(round(g,b-p))
+if j >=0:
+	print(round(g,b-p))
+else :
+	print(round(g,b-p),'i')
