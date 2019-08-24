@@ -1,26 +1,25 @@
 import math
-a=eval(input('被开方数=',))
-j=a
+a=str(input('被开方数=',))
+j=eval(a)
 b=int(input('有效位数=',))
-c=math.floor(math.log(a,10)+1)
-if a < 0:
-	a=-a
-if 0<abs(a)<1:
-	a=str(a)
-	a=a.replace('0.', '')
-	a=int(a)*10**(2*b+2)
-else:
-	a=a*10**(2*b+2)
-a=str(a)
+c=math.floor(math.log(j,10)+1)
 f=0
 g=0
 e=''
-if c%2 == 0:
+if j < 0:
+	a=a.replace('-', '')
+a=str(a)
+a=a.replace('.', '')
+o=1
+while o<= 2*b+2:
+	o=o+1
+	a+='0'
+if c%2 == 0 and j>=1:
 	i=0
 	t=2
 	while (t-2)/2 <= b:
 		e=str(e)
-		l= a[i:t]
+		l=a[i:t]
 		e+= l
 		e=int(e)
 		n=9
