@@ -1,6 +1,6 @@
 import math
 a=str(input('输入一串数字或字母:',))
-a=a.replace(' ','01')
+a=a.replace(' ','00')
 a=a.replace('a','01')
 a=a.replace('b','02')
 a=a.replace('c','03')
