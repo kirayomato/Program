@@ -1,4 +1,4 @@
-﻿import random
+import random
 import math
 a=eval(input('抽号数量:',))
 i=1
