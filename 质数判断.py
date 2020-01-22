@@ -1,15 +1,20 @@
 a=eval(input('输入一个数:',))
+a0=a
 i=2
-b=1
+c='1'
 if a <= 1 or not isinstance(a,int):
 	print('error')
 else:
-	while i< a:
+	while i<= a:
 		b=a%i
-		i=i+1
 		if b == 0:
-			break
-if b == 0:
-	print('合数')
-elif i == a:
+			a=a/i
+			c+='x'+str(i)
+			if i == a0 :
+				break
+			i=1
+		i=i+1			
+if i==a0:
 	print('质数')
+else:
+	print('合数',a0,'=',c[2:])
