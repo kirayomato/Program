@@ -1,6 +1,6 @@
 a=input('需要转换的数：',)
-b=eval(input('原进制：',))
-c=eval(input('目标进制：',))
+b=int(input('原进制：',))
+c=int(input('目标进制：',))
 dic={10:'A',11:'B',12:'C',13:'D',14:'E',15:'F'}
 DICT = dict(zip(dic.values(), dic.keys()))
 d=0
