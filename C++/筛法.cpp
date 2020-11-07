@@ -7,7 +7,7 @@ bool prime(int);
 int main()
 {
     int i, t,num;
-    cout << "结束范围：";
+    cout << "结束值：";
     cin >> num;
     for (i = 0;i <= num;i++)
     {
