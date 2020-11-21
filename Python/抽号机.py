@@ -1,5 +1,4 @@
 import random
-import math
 
 a = int(input('抽号数量:', ))
 print('输入抽号范围')
