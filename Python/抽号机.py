@@ -12,13 +12,7 @@ if a > m - n + 1:
     print('error')
 else:
     while i < a:
-        g = random.randint(m, 9 * m)
-        t = 0
-        while t < 10:
-            g *= random.randint(m, 9 * m)
-            t += 1
-        g = int(str(g)[1:])
-        g = int(g*10**(-int(math.log(g, 10))) * random.randint(m, 9 * m)) % len(r)
+        g = random.randint(0, len(r)-1)
         l.append(r[g])
         del r[g]
         i += 1
