@@ -8,21 +8,17 @@ m = int(input('上限:', ))
 i = 0
 r = [i for i in range(n, m + 1)]
 l = []
-
 if a > m - n + 1:
     print('error')
 else:
     while i < a:
-        c = random.randint(1, 9)
-        b = random.randint(1, 9)
-        d = random.randint(1, 9)
-        e = random.randint(1, 9)
-        f = random.randint(1, 9)
-        h = random.randint(1, 9)
-        j = random.randint(1, 9)
-        g = (math.sin(c) * math.cos(b) * math.tan(d) +
-             math.sin(e) * math.cos(f) * math.tan(h)) * j
-        g = int(abs(g)) % len(r)
+        g = random.randint(m, 9 * m)
+        t = 0
+        while t < 10:
+            g *= random.randint(m, 9 * m)
+            t += 1
+        g = int(str(g)[1:])
+        g = int(g*10**(-int(math.log(g, 10))) * random.randint(m, 9 * m)) % len(r)
         l.append(r[g])
         del r[g]
         i += 1
