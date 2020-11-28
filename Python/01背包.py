@@ -17,6 +17,5 @@ else:
             if we[i] > j:
                 choose[i][j] = choose[i - 1][j]
             else:
-                choose[i][j] = max(
-                    choose[i - 1][j - we[i]] + pr[i], choose[i - 1][j])
+                choose[i][j] = max(choose[i - 1][j - we[i]] + pr[i], choose[i - 1][j])
     print("max value:", choose[-1][-1])
