@@ -13,5 +13,5 @@ def frange(x):
             l += [i + j for i in lt for j in lp]
         return l
 
-for x in set(frange(a)):
+for x in sorted(set(frange(a))):
     print(x, end=' ')
