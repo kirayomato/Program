@@ -52,7 +52,7 @@ mat = [mat[book[i]] for i in range(m)]
 sp = [0] * (m + n)
 for i in range(n + m):
     for j in range(m):
-        if mat[j][i] != 0:
+        if abs(mat[j][i]) >= 10:
             sp[i] = max(sp[i], int(log(abs(mat[j][i]), 10)))
 
 for i in mat:
