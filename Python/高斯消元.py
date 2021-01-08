@@ -57,6 +57,7 @@ for i in range(n + m):
 
 for i in mat:
     print('|', end="")
+    u=1
     for j in range(n + m):
         if i[j] == 0:
             i[j] = 0
@@ -68,4 +69,7 @@ for i in mat:
             print('%s%.3f' % (' ' * (sp[j] - t + 1), i[j]), end=" ")
         else:
             print('%s%.3f' % (' ' * (sp[j] - t), i[j]), end=" ")
+        if u==n:
+         print('|', end=" ")
+        u+=1
     print('|')
