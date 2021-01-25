@@ -2,7 +2,7 @@ import sys
 a = input('需要转换的数：',)
 b = int(input('原进制：',))
 c = int(input('目标进制：',))
-if c < 1 or b < 1 or c > 36 or b > 36:
+if c <= 1 or b <= 1 or c > 36 or b > 36:
     print('Error')
 else:
     dic = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5',
