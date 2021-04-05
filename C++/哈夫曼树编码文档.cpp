@@ -15,7 +15,14 @@ struct node
 bool operator<(node a, node b) 
 {
     if (a.value == b.value)
+    {
+        if (a.cha == NULL)
+            return true;
+        else if (b.cha == NULL)
+            return false;
+        else
         return a.cha > b.cha;
+    }
     return a.value > b.value;
 }
 node crno(int x, char y)
@@ -51,7 +58,7 @@ int main()
     s1 = encode(s);
     cout << "编码:"<< s1 <<endl;
     s2 = decode(s1);
-    cout << "解码:"<< s2<<endl;
+    cout << "解码:"<< s2 <<endl;
     return 0;
 }
 void CreateHT()
@@ -61,7 +68,7 @@ void CreateHT()
     {
         node* n1 = new node(p.top());p.pop();
         node* n2 = new node(p.top());p.pop();
-        n3 = crno(n1->value + n2->value, -1);
+        n3 = crno(n1->value + n2->value, NULL);
         if (hason(*n1))
         {
             n3.right = n1;
@@ -77,7 +84,7 @@ void CreateHT()
 }
 void ins(node n, string s)
 {
-    if (n.cha > 0)
+    if (n.cha !=NULL)
     {
         mpa[s] = n.cha;
         mpb[n.cha] = s;
