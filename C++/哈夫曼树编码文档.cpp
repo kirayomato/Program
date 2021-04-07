@@ -3,29 +3,22 @@
 #include<queue>
 #include<map>
 using namespace std;
-string s,s1,s2;
+string s, s1, s2;
 int num[128] = { 0 };
 struct node
 {
     node* left;
     node* right;
     int value;
-    char cha ;
+    int cha;
 };
-bool operator<(node a, node b) 
+bool operator<(node a, node b)
 {
     if (a.value == b.value)
-    {
-        if (a.cha == NULL)
-            return true;
-        else if (b.cha == NULL)
-            return false;
-        else
         return a.cha > b.cha;
-    }
     return a.value > b.value;
 }
-node crno(int x, char y)
+node crno(int x, int y)
 {
     node n;
     n.value = x;
@@ -47,18 +40,18 @@ int main()
     ios::sync_with_stdio(false);
     getline(cin, s);
     for (int i = 0;i < s.size();++i)
-            ++num[(int)s[i]];
+        ++num[(int)s[i]];
     for (int i = 0;i < 128;++i)
     {
         if (num[i] > 0)
-            p.push(crno(num[i], (char)i));
+            p.push(crno(num[i], i));
     }
     CreateHT();
     ins(p.top(), "");
     s1 = encode(s);
-    cout << "编码:"<< s1 <<endl;
+    cout << "编码:" << s1 << endl;
     s2 = decode(s1);
-    cout << "解码:"<< s2 <<endl;
+    cout << "解码:" << s2 << endl;
     return 0;
 }
 void CreateHT()
@@ -68,7 +61,7 @@ void CreateHT()
     {
         node* n1 = new node(p.top());p.pop();
         node* n2 = new node(p.top());p.pop();
-        n3 = crno(n1->value + n2->value, NULL);
+        n3 = crno(n1->value + n2->value, 128);
         if (hason(*n1))
         {
             n3.right = n1;
@@ -84,10 +77,10 @@ void CreateHT()
 }
 void ins(node n, string s)
 {
-    if (n.cha !=NULL)
+    if (n.cha < 128)
     {
-        mpa[s] = n.cha;
-        mpb[n.cha] = s;
+        mpa[s] = (char)n.cha;
+        mpb[(char)n.cha] = s;
     }
     if (n.left != NULL)
         ins(*n.left, s + "0");
@@ -116,8 +109,8 @@ string encode(string s)
 }
 string decode(string s)
 {
-    string s0="";
-    string s1="";
+    string s0 = "";
+    string s1 = "";
     for (int i = 0;i < s.size();++i)
     {
         s0 += s[i];
