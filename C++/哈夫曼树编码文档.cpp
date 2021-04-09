@@ -96,15 +96,9 @@ bool hason(node n)
 }
 string encode(string s)
 {
-    string s1 = s;
-    map<char, string>::iterator it;
-    for (it = mpb.begin();it != mpb.end();++it)
-    {
-        while (s1.find(it->first) != string::npos)
-        {
-            s1 = s1.replace(s1.find(it->first), 1, it->second);
-        }
-    }
+    string s1 = "";
+    for (int i = 0;i < s.size();++i)
+        s1 += mpb[s[i]];
     return s1;
 }
 string decode(string s)
