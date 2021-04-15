@@ -1,28 +1,21 @@
-import queue
 from math import log
+from math import ceil
 a = list(map(eval, input().split()))
 
-
-def rmq(a):
-    b = []
-    q = queue.Queue()
-    q.put(a)
-    while q.qsize() != 0:
-        t = q.get()
-        b.append(min(t))
-        if len(t) > 1:
-            n = len(t)
-            if n % 2 == 0:
-                n = int(n / 2)
-            else:
-                n = int(n / 2) + 1
-            q.put(t[:n])
-            q.put(t[n:])
-
-    return b
+t = len(a)
+b = [0] * (2 ** (ceil(log(t, 2) + 1)) - 1)
 
 
-b = rmq(a)
+def lrmq(list_a, list_b, pos, left, right):
+    if left == right:
+        list_b[pos] = list_a[left]
+    else:
+        lrmq(list_a, list_b, 2 * pos + 1, left, (left + right) // 2)
+        lrmq(list_a, list_b, 2 * pos + 2, (left + right) // 2 + 1, right)
+        list_b[pos] = min(list_b[2 * pos + 1], list_b[2 * pos + 2])
+
+
+lrmq(a, b, 0, 0, t - 1)
 n = int(log(len(b), 2)) + 1
 for i in range(n):
     t = 2 ** i - 1
@@ -30,5 +23,8 @@ for i in range(n):
     for j in range(2**i):
         if j + t == len(b):
             break
-        print(b[j + t], end=" " * (2**(n - i) - 1))
+        if b[j + t] == 0:
+            print(" ", end=" " * (2 ** (n - i) - 1))
+        else:
+            print(b[j + t], end=" " * (2**(n - i) - 1))
     print()
