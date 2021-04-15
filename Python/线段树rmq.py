@@ -3,7 +3,7 @@ from math import ceil
 a = list(map(eval, input().split()))
 
 t = len(a)
-b = [0] * (2 ** (ceil(log(t, 2) + 1)) - 1)
+b = [float('inf')] * (2 ** (ceil(log(t, 2) + 1)) - 1)
 
 
 def lrmq(list_a, list_b, pos, left, right):
@@ -23,7 +23,7 @@ for i in range(n):
     for j in range(2**i):
         if j + t == len(b):
             break
-        if b[j + t] == 0:
+        if b[j + t] == float('inf'):
             print(" ", end=" " * (2 ** (n - i) - 1))
         else:
             print(b[j + t], end=" " * (2**(n - i) - 1))
