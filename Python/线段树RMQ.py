@@ -67,4 +67,4 @@ for i in range(n):
                 print(" ", end=" " * (2 ** (n - i) - 1))
             else:
                 print(b[j + t], end=" " * (2**(n - i) - 1))
-    print()
+        print()
