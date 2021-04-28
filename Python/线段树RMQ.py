@@ -1,18 +1,18 @@
 from math import log
 from math import ceil
 a = list(map(eval, input().split()))
-[x, y] = list(map(eval, input().split()))
-[i, j] = list(map(eval, input().split()))
+[x, y] = list(map(eval, input().split()))  # query from x to y
+[i, j] = list(map(eval, input().split()))  # update pos(i) to j
 t = len(a)
 b = [float('inf')] * (2 ** (ceil(log(t, 2) + 1)) - 1)
 
 
-def lrmq(list_a, list_b, pos, left, right):
+def st(list_a, list_b, pos, left, right):
     if left == right:
         list_b[pos] = list_a[left]
     else:
-        lrmq(list_a, list_b, 2 * pos + 1, left, (left + right) // 2)
-        lrmq(list_a, list_b, 2 * pos + 2, (left + right) // 2 + 1, right)
+        st(list_a, list_b, 2 * pos + 1, left, (left + right) // 2)
+        st(list_a, list_b, 2 * pos + 2, (left + right) // 2 + 1, right)
         list_b[pos] = min(list_b[2 * pos + 1], list_b[2 * pos + 2])
 
 
@@ -53,18 +53,22 @@ def update(list_a, list_b, pos, value):
         list_b[posb] = min(list_b[2 * posb + 1], list_b[2 * posb + 2])
 
 
-lrmq(a, b, 0, 0, t - 1)
-update(a, b, i - 1, j)
-print(query(a, b, x - 1, y - 1))
-n = int(log(len(b), 2)) + 1
-for i in range(n):
+def printst(list_b):
+    n = int(log(len(list_b), 2)) + 1
+    for i in range(n):
         t = 2 ** i - 1
-        print(" " * (2**(n - i - 1) - 1), end="")
-        for j in range(2**i):
-            if j + t == len(b):
+        print(" " * (2 ** (n - i - 1) - 1), end="")
+        for j in range(2 ** i):
+            if j + t == len(list_b):
                 break
-            if b[j + t] == float('inf'):
+            if list_b[j + t] == float('inf'):
                 print(" ", end=" " * (2 ** (n - i) - 1))
             else:
-                print(b[j + t], end=" " * (2**(n - i) - 1))
+                print(list_b[j + t], end=" " * (2 ** (n - i) - 1))
         print()
+
+
+st(a, b, 0, 0, t - 1)
+update(a, b, i - 1, j)
+print(query(a, b, x - 1, y - 1))
+printst(b)
