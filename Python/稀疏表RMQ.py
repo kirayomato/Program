@@ -20,10 +20,10 @@ def init_st(x):
 
 def rmq(dp, l, r):
     if l == r:
-        return dp[0][l]
+        return dp[0][l-1]
     else:
         n = int(log(r - l, 2))
-        return min(dp[n][l - 1], dp[n][max(l, r - 2**n)])
+        return min(dp[n][max(0,l - 1)], dp[n][max(l, r - 2**n)])
 
 
 dp = init_st(a)
