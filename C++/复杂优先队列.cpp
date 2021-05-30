@@ -9,7 +9,7 @@ struct cmp
         return p1.second > p2.second; //小顶堆
     }
 };
-priority_queue<P, vector<P>, cmp> que
+priority_queue<P, vector<P>, cmp> que;
 
 //结构体
 struct node
