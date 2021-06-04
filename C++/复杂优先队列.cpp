@@ -17,6 +17,7 @@ priority_queue<P, vector<P>, cmp> que;
 struct node
 {
     int value;
+    node(int x) :value(x){}
 };
 bool operator<(const node &a, const node &b)
 {
