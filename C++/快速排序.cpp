@@ -1,4 +1,4 @@
-include <iostream>
+#include <iostream>
 #include <vector>
 using namespace std;
 vector<double> vec;
@@ -6,7 +6,7 @@ vector<double> quicksort(vector<double> &v);
 
 int main()
 {
-    cout << "输入数组(以非数字结束)：";
+    cout << "输入数组(回车结束)：";
     double i;
     while (cin >> i)
     {
