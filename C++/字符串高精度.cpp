@@ -68,5 +68,5 @@ string strmul(string x, string y)
         t = stradd(t, a);
         x = x + '0';
     }
-    return x == "" ? "0" : x;
+    return t == "" ? "0" : t;
 }
