@@ -1,14 +1,6 @@
 #include<string>
 string stradd(string x, string y)//仅支持非负整数
 {
-    int i = 0;
-    while (x[i] == '0')
-        ++i;
-    x = x.substr(i);
-    i = 0;
-    while (y[i] == '0')
-        ++i;
-    y = y.substr(i);
     while (x.size() < y.size())
         x.insert(0, "0");
     while (x.size() > y.size())
@@ -29,18 +21,14 @@ string stradd(string x, string y)//仅支持非负整数
     }
     if (t2 > 0)
         x = char(t2 + '0') + x;
-    return x=="" ?"0":x;
+    int i = 0, n = x.size();
+    while (x[i] == '0' && i < n - 1)
+        ++i;
+    x = x.substr(i, n);
+    return x;
 }
 string strmul(string x, string y)
 {
-    int i = 0;
-    while (x[i] == '0')
-        ++i;
-    x = x.substr(i);
-    i = 0;
-    while (y[i] == '0')
-        ++i;
-    y = y.substr(i);
     while (x.size() < y.size())
         x.insert(0, "0");
     while (x.size() > y.size())
@@ -53,7 +41,7 @@ string strmul(string x, string y)
         string a = x;
         for (ita = a.rbegin();ita != a.rend();++ita)
         {
-            t1 = (*ita-'0') * (*itb - '0') + t2;
+            t1 = (*ita - '0') * (*itb - '0') + t2;
             if (t1 >= 10)
             {
                 t2 = t1 / 10;
@@ -68,5 +56,9 @@ string strmul(string x, string y)
         t = stradd(t, a);
         x = x + '0';
     }
-    return t == "" ? "0" : t;
+    int i = 0, n = t.size();
+    while (t[i]=='0'&&i<n-1)
+        ++i;
+    t = t.substr(i,n);
+    return t;
 }
