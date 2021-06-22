@@ -10,8 +10,8 @@ def frange(x):
         for i in range(t):
             lp = frange(x[:i] + x[i + 1:])
             l += [x[i] + j for j in lp]
-        return l
+        return sorted(set(l))
 
 
-for x in sorted(set(frange(a))):
+for x in frange(a):
     print(x, end=' ')
