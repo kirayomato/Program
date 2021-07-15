@@ -1,17 +1,17 @@
 #include<queue>
 using namespace std;
 //pair 
-typedef pair<int, int> P;
+typedef pair<int, int> p;
 struct cmp
 {
-    bool operator()(const P p1, const P p2)
+    bool operator()(const p p1, const p p2)
 	{
 		if(p1.second != p2.second)
 			return p1.second > p2.second;//小顶堆
 		return p1.first > p2.first;
 	}
 };
-priority_queue<P, vector<P>, cmp> que;
+priority_queue<p, vector<p>, cmp> que;
 
 //结构体
 struct node
