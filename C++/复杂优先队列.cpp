@@ -25,3 +25,21 @@ bool operator<(const node &a, const node &b)
     return a.value > b.value;//小顶堆
 }
 priority_queue<node> p;
+//力扣链表用
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode* next) : val(x), next(next) {}
+};
+struct ln
+{
+    ListNode* t;
+    ln(ListNode* ln) : t(ln) {}
+    bool operator<(const ln& a) const
+    {
+        return t->val > a.t->val;
+    }
+};
+priority_queue<ln> q;
