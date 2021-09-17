@@ -1,11 +1,11 @@
+#include<unordered_map>
 class Trie {
     char chr;
-    vector<Trie*> mp;
+    unordered_map<char,Trie*> mp;
 public:
     Trie(char s = 0)
     {
         chr = s;
-        mp.resize(128);
     }
     void insert(string word)
     {
