@@ -1,11 +1,11 @@
-#include<unordered_map>
 class Trie {
-public:
     char chr;
-    unordered_map<char, Trie*> mp;
-    Trie(char s=' ')
+    vector<Trie*> mp;
+public:
+    Trie(char s = 0)
     {
         chr = s;
+        mp.resize(128);
     }
     void insert(string word)
     {
@@ -13,10 +13,10 @@ public:
         if (word == "")
         {
             t = new Trie();
-            mp[' '] = t;
+            mp[0] = t;
             return;
         }
-        if (mp.find(word[0]) == mp.end())
+        if (mp[word[0]]==nullptr)
         {
             t = new Trie(word[0]);
             mp[word[0]] = t;
@@ -25,29 +25,26 @@ public:
             t = mp[word[0]];
         t->insert(word.substr(1, word.size()));
     }
-    bool search(string word)
+    Trie* searchprefix(string prefix,Trie* t)
     {
-        Trie* t = this;
-        for (char c : word)
-        {
-            if (t->mp.find(c) == t->mp.end())
-                return false;
-            else
-                t = t->mp[c];
-        }
-        if (t->mp.find(' ') != t->mp.end())
-            return true;
-        return false;
-    }
-    bool startsWith(string prefix) {
-        Trie* t = this;
         for (char c : prefix)
         {
-            if (t->mp.find(c) == t->mp.end())
-                return false;
+            if (t->mp[c] == nullptr)
+                return nullptr;
             else
                 t = t->mp[c];
         }
-        return true;
+        return t;
+    }
+    bool startsWith(string prefix)
+    {
+        return searchprefix(prefix,this)!=nullptr;
+    }
+    bool search(string word)
+    {
+        Trie* t = searchprefix(word, this);
+        if ( t != nullptr && t->mp[0]!=nullptr)
+                return true;
+        return false;
     }
 };
