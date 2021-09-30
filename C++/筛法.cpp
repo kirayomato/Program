@@ -1,25 +1,15 @@
-#include <iostream>
 #include <vector>
 using namespace std;
-vector<int> vec;
-int main()
+vector<int> FilterPrime(int num)
 {
-    int i, t, num;
-    cout << "结束值：";
-    cin >> num;
-    for (i = 0;i <= num;i++)
-    {
-        vec.push_back(i);
-    }
-    for (i = 2;i <= num;i++)
-    {
-        if (vec[i]!=0)
-        {
-            int n = num / vec[i];
-            for (t = 2;t <= n;t++)
-                vec[vec[i] * t] = 0;
-        }
-    }
+    vector<int> vec(num + 1);
+    for (int i = 0;i <= num;i++)
+        vec[i] = i;
+    vec[1] = 0;
+    for (int i = 2;i <= num/2;i++)
+        if (vec[i] != 0)
+            for (int t = 2;t * i <= num;t++)
+                vec[i * t] = 0;
     for (vector<int>::iterator it = vec.begin();it != vec.end();)
     {
         if (*it == 0)
@@ -27,9 +17,5 @@ int main()
         else
             it++;
     }
-    for (i = 1;i < vec.size();i++)
-    {
-        cout << vec[i] << " ";
-    }
-    return 0;
+    return vec;
 }
