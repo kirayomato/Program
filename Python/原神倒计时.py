@@ -1,7 +1,7 @@
 import win32api
 from datetime import datetime, timedelta
 from apscheduler.schedulers.blocking import BlockingScheduler
-a = eval(input("hour:",) or "9")  # default:9
+a = eval(input("hour:",) or "9")    # default:9
 b = eval(input("minute:",) or "0")  # default:0
 t = 3600 * a + 60 * b
 dt = datetime.now() + timedelta(seconds=t)
