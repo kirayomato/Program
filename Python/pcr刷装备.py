@@ -11,7 +11,7 @@ class CheckPoint:
         self.rtimes -= bat
 
     def show(self):
-        print("{:<7} {:<4} {:<4} {:<2}".format(self.name, self.times, self.rtimes, self._id))
+        print("{}\t{}\t\t{}\t\t{}".format(self.name, self.times, self.rtimes, self._id))
 
 
 def strcut(s):
@@ -22,7 +22,7 @@ def brush(a):
     for k, v in d.items():
         if a in k:
             print(k)
-            print("{:<5} {:<3} {:<2} {:<2}".format("地图", "次数", "推荐", "ID"))
+            print("{}\t{}\t{}\t{}".format("地图", "次数", "推荐", "ID"))
             for i in v:
                 i.show()
     print("输入地图id 次数(输入0退出)")
