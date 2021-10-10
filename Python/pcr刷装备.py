@@ -11,7 +11,7 @@ class CheckPoint:
         self.rtimes -= bat
 
     def show(self):
-        print("{}\t{}\t\t{}\t\t{}".format(self.name, self.times, self.rtimes, self._id))
+        print("{}\t{}\t{}\t{}".format(self.name, self.times, self.rtimes, self._id))
 
 
 def strcut(s):
