@@ -1,3 +1,6 @@
+addr = "D:/Download/规划结果 2110100044.csv"  # 从 pcr.satroki.tech 获得csv文件
+
+
 class CheckPoint:
     def __init__(self, name, times, rtimes, drops, _id):
         self.name = name
@@ -38,22 +41,18 @@ def brush(a):
 l = []
 d = {}
 j = 0
-addr = input("文件地址:",)  # 从 pcr.satroki.tech 获得csv文件
 with open(addr, 'r', encoding='utf-8') as f:
     f.readline()
-    while True:
-        try:
-            s = f.readline().split(',')
-            l.append(CheckPoint(s[0], s[1], s[2], s[3:], j))
-            for i in s[3:]:
-                st = strcut(i)
-                if st in d:
-                    d[st].append(l[j])
-                else:
-                    d[st] = [l[j]]
-            j += 1
-        except BaseException:
-            break
+    for s in f:
+        s = s.split(',')
+        l.append(CheckPoint(s[0], s[1], s[2], s[3:], j))
+        for i in s[3:]:
+            st = strcut(i)
+            if st in d:
+                d[st].append(l[j])
+            else:
+                d[st] = [l[j]]
+        j += 1
 while True:
     a = input("输入装备名(输入0退出):",)
     if a != '0':
