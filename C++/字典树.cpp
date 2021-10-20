@@ -1,31 +1,34 @@
-#include<unordered_map>
 class Trie {
     char chr;
-    unordered_map<char,Trie*> mp;
+    unordered_map<char, Trie*> mp;
 public:
     Trie(char s = 0)
     {
         chr = s;
     }
-    void insert(string word)
+    void add(string& word, int pos)
     {
         Trie* t;
-        if (word == "")
+        if (word == "" || pos >= word.size())
         {
             t = new Trie();
             mp[0] = t;
             return;
         }
-        if (mp[word[0]]==nullptr)
+        if (mp[word[pos]] == nullptr)
         {
-            t = new Trie(word[0]);
-            mp[word[0]] = t;
+            t = new Trie(word[pos]);
+            mp[word[pos]] = t;
         }
         else
-            t = mp[word[0]];
-        t->insert(word.substr(1, word.size()));
+            t = mp[word[pos]];
+        t->add(word, pos + 1);
     }
-    Trie* searchprefix(string prefix,Trie* t)
+    void insert(string word)
+    {
+        this->add(word, 0);
+    }
+    Trie* searchprefix(string prefix, Trie* t)
     {
         for (char c : prefix)
         {
@@ -38,13 +41,13 @@ public:
     }
     bool startsWith(string prefix)
     {
-        return searchprefix(prefix,this)!=nullptr;
+        return searchprefix(prefix, this) != nullptr;
     }
     bool search(string word)
     {
         Trie* t = searchprefix(word, this);
-        if ( t != nullptr && t->mp[0]!=nullptr)
-                return true;
+        if (t != nullptr && t->mp[0] != nullptr)
+            return true;
         return false;
     }
 };
