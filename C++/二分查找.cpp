@@ -46,7 +46,7 @@ int bigger_bound(vector<int>& nums, int target)
 }
 int re_lower_bound(vector<int>&nums, int target)
 {
-    int left = 1, right = x;
+   int left = 0, right = nums.size() - 1;
     while (left < right)
     {
         int mid = left + (right - left) / 2 + 1;
@@ -59,12 +59,12 @@ int re_lower_bound(vector<int>&nums, int target)
 }
 int lower_bound(vector<int>& nums, int target)
 {
-    int left = 1, right = x;
+    int left = 0, right = nums.size() - 1;
     while (left < right)
     {
         int mid = left + (right - left) / 2;
         if (nums[mid] < 2 * target)
-            left = mid+1;
+            left = mid + 1;
         else
             right = mid;
     }
