@@ -44,3 +44,29 @@ int bigger_bound(vector<int>& nums, int target)
         return -1;
     return left;
 }
+int re_lower_bound(vector<int>&nums, int target)
+{
+    int left = 1, right = x;
+    while (left < right)
+    {
+        int mid = left + (right - left) / 2 + 1;
+        if (nums[mid] <= 2 * target)
+            left = mid;
+        else
+            right = mid - 1;
+    }
+    return left;
+}
+int lower_bound(vector<int>& nums, int target)
+{
+    int left = 1, right = x;
+    while (left < right)
+    {
+        int mid = left + (right - left) / 2;
+        if (nums[mid] < 2 * target)
+            left = mid+1;
+        else
+            right = mid;
+    }
+    return left;
+}
