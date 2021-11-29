@@ -1,5 +1,4 @@
 #include<queue>
-using namespace std;
 //pair 
 typedef pair<int, int> p;
 struct cmp
@@ -13,6 +12,16 @@ struct cmp
 };
 priority_queue<p, vector<p>, cmp> que;
 
+//another version for pair
+typedef pair<int, int> p;
+auto cmp = [&](const p& p1, const p& p2)
+{
+    if (p1.second != p2.second)
+        return p1.second > p2.second;//小顶堆
+    return p1.first > p2.first;
+};
+priority_queue<p, vector<p>, decltype(cmp)> que(cmp);
+
 //结构体
 struct node
 {
@@ -24,7 +33,8 @@ bool operator<(const node &a, const node &b)
 {
     return a.value > b.value;//小顶堆
 }
-priority_queue<node> p;
+priority_queue<node> que;
+
 //力扣链表用
 struct ListNode {
     int val;
@@ -42,4 +52,4 @@ struct ln
         return t->val > a.t->val;
     }
 };
-priority_queue<ln> q;
+priority_queue<ln> que;
