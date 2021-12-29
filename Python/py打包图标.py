@@ -11,7 +11,8 @@ with open("icon.py","a") as f:
     f.write("'")
     
 #Then in main.py
-from base64 import b64encode
+from base64 import b64decode
+from os import remove
 from icon import Icon
 with open('tmp.ico', 'wb') as tmp:
     tmp.write(b64decode(Icon().img))
