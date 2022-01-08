@@ -26,6 +26,7 @@ def ft(x, y):
 t = 10
 N = 1000
 x = np.linspace(-t, t, N+1)
+y0 = np.piecewise(x, [abs(x) <= 1/2, abs(x) > 1], [1, 0])
 y = np.piecewise(x, [x < 0, x >= 0], [0, lambda x: np.exp(-x)])
 y1 = np.cos(x)+np.sin(3*x)
 ft(x, y1)
