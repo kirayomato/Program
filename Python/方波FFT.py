@@ -16,7 +16,8 @@ def fft(t1, t2):  # 周期t2，脉宽t1
         for i in lx:
             y2[k+M] += np.real(np.exp(-1j*k*x[i]*w0))
     y2 /= (N+1)/t2
-    print(lk[M], y2[M])
     plt.plot(lk, y2)
     plt.show()
 
+
+fft(1,10)
