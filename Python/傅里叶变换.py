@@ -4,8 +4,8 @@ from math import cos, sin
 
 
 def ft(x, y):
-    M = 1000  # 傅里叶级数个数
-    wm = 5  
+    M = 1000  # 傅里叶采样个数
+    wm = 5    # 最大ω值
     N = len(x)
     t = x[-1]-x[0]
     y1 = [0]*(2*M+1)
@@ -19,11 +19,18 @@ def ft(x, y):
     lx = np.linspace(-wm, wm, 2*M+1)
     plt.plot(lx, y2, color='r', label='Real')
     plt.plot(lx, y1, color='b', label='Imaginary')
+    plt.xlabel('ω')
+    plt.ylabel('H(ω)')
     plt.legend(loc='best')
+    ax = plt.gca()
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+    ax.spines['bottom'].set_position(('data', 0))
+    ax.spines['left'].set_position(('data', 0))
     plt.show()
 
 
-t = 10
+t = 5
 N = 1000
 x = np.linspace(-t, t, N+1)
 y0 = np.piecewise(x, [abs(x) <= 1/2, abs(x) > 1], [1, 0])
