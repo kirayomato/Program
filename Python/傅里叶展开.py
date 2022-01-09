@@ -16,11 +16,18 @@ def fe(x, y, w0):  # w0为基频
     plt.bar(np.arange(-M, M+1), y2, color='r', width=0.5, label='Real')
     plt.bar(np.arange(-M, M+1)+0.5, y1, color='b', width=0.5, label='Imaginary')
     plt.legend(loc='best')
+    plt.xlabel('n/ω0', loc='right')
+    plt.ylabel('H(ω)', loc='top', rotation=0)
+    ax = plt.gca()
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+    ax.spines['bottom'].set_position(('data', 0))
+    ax.spines['left'].set_position(('data', 0))
     plt.show()
 
 
 t = 10
-N = 10000
+N = 1000
 x = np.linspace(-t, t, N+1)
 y = np.cos(x)+np.sin(3*x)
 fe(x, y, 1)
