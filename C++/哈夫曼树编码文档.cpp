@@ -1,51 +1,43 @@
 #include<iostream>
 #include<string>
 #include<queue>
-#include<map>
+#include<unordered_map>
 using namespace std;
-string s, s1, s2;
-int num[128] = { 0 };
 struct node
 {
     node* left;
     node* right;
     int value;
     int cha;
+    node():left(NULL),right(NULL),value(0),cha(0){}
+    node(int x,int y):left(NULL),right(NULL),value(x),cha(y){}
 };
-bool operator<(node a, node b)
+bool operator<(const node& a, const node& b)
 {
     if (a.value == b.value)
         return a.cha > b.cha;
     return a.value > b.value;
 }
-node crno(int x, int y)
-{
-    node n;
-    n.value = x;
-    n.cha = y;
-    n.left = NULL;
-    n.right = NULL;
-    return n;
-}
 void CreateHT();
-void ins(node n, string s);
+void ins(const node& n, const string& s);
+bool hason(const node& n);
+string encode(const string& s);
+string decode(const string& s);
+string s, s1, s2;
+int num[128];
 priority_queue<node> p;
-map<string, char> mpa;
-map<char, string> mpb;
-bool hason(node n);
-string encode(string s);
-string decode(string s);
+unordered_map<string, char> mpa;
+unordered_map<char, string> mpb;
 int main()
 {
     ios::sync_with_stdio(false);
     getline(cin, s);
-    for (int i = 0;i < s.size();++i)
+    int n=s.size();
+    for (int i = 0;i < n;++i)
         ++num[(int)s[i]];
     for (int i = 0;i < 128;++i)
-    {
         if (num[i] > 0)
-            p.push(crno(num[i], i));
-    }
+            p.push(node(num[i], i));
     CreateHT();
     ins(p.top(), "");
     s1 = encode(s);
@@ -61,7 +53,7 @@ void CreateHT()
     {
         node* n1 = new node(p.top());p.pop();
         node* n2 = new node(p.top());p.pop();
-        n3 = crno(n1->value + n2->value, 128);
+        n3 = node(n1->value + n2->value, 128);
         if (hason(*n1))
         {
             n3.right = n1;
@@ -75,7 +67,7 @@ void CreateHT()
         p.push(n3);
     }
 }
-void ins(node n, string s)
+void ins(const node& n, const string& s)
 {
     if (n.cha < 128)
     {
@@ -87,25 +79,27 @@ void ins(node n, string s)
     if (n.right != NULL)
         ins(*n.right, s + "1");
 }
-bool hason(node n)
+bool hason(const node& n)
 {
     if (n.left != NULL || n.right != NULL)
         return true;
     else
         return false;
 }
-string encode(string s)
+string encode(const string& s)
 {
     string s1 = "";
-    for (int i = 0;i < s.size();++i)
+    int n=s.size();
+    for (int i = 0;i < n;++i)
         s1 += mpb[s[i]];
     return s1;
 }
-string decode(string s)
+string decode(const string& s)
 {
     string s0 = "";
     string s1 = "";
-    for (int i = 0;i < s.size();++i)
+    int n=s.size();
+    for (int i = 0;i < n;++i)
     {
         s0 += s[i];
         if (mpa.find(s0) != mpa.end())
