@@ -32,7 +32,7 @@ def search(list_b, left, right, i, j, pos):
 
 
 def query(list_a, list_b, left, right):
-    return search(list_b, 0, len(list_a) - 1, left, right, 0)
+    return search(list_b, 0, len(list_a) - 1, left-1, right-1, 0)
 
 
 def update(list_a, list_b, pos, value):
@@ -70,5 +70,5 @@ def printst(list_b):
 
 st(a, b, 0, 0, t - 1)
 update(a, b, i - 1, j)
-print(query(a, b, x - 1, y - 1))
+print(query(a, b, x, y))
 printst(b)
