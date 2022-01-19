@@ -9,12 +9,7 @@
 using namespace std;
 typedef long long ll;
 typedef pair<int, int> p;
-static constexpr int inf = 2.1e9;
-static constexpr int int_array_max = 6e8;
-static constexpr ll inf2 = 9.2e18;
 static constexpr int mod = 1e9 + 7;
-static constexpr int mod2 = 998244353;
-static constexpr int nxt[4][2] = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 static constexpr int N = 1e5 + 50;
 static constexpr int mm = 73;
 int k;
@@ -97,15 +92,4 @@ void solve()
             r = mid - 1;
     }
     cout << s[res.first].substr(res.second, ans);
-}
-int main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    cout.tie(0);
-    cout.setf(ios::fixed);
-    cout.precision(0);
-    solve();
-    cout << flush;
-    return 0;
 }
