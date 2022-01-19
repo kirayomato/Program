@@ -7,19 +7,10 @@
 #define lis(i,n) i,i+n
 #include <bits/stdc++.h>
 using namespace std;
-typedef long long ll;
-typedef unsigned int ui;
-static constexpr int inf = 2.1e9;
-static constexpr ll inf2 = 9.2e18;
-static constexpr int mod = 1e9 + 7;
-static constexpr int mod2 = 998244353;
-static constexpr int nxt[4][2] = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 static constexpr int N = 3e5 + 50;
-static constexpr int int_array_max = 6e8;
 int a[N],d[N];
 int sum;
-int n,m;
-int maxn;
+int n,m,maxn;
 int cnt[N];
 vector<int>vt;
 struct edge 
@@ -98,16 +89,4 @@ void solve()
     }
     F(0, i, m)
         cout << a[i] << "\n";
-
-}
-int main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    cout.tie(0);
-    cout.setf(ios::fixed);
-    cout.precision(0);
-    solve();
-    cout << flush;
-    return 0;
 }
