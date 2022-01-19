@@ -9,8 +9,8 @@
 using namespace std;
 typedef long long ll;
 typedef unsigned int ui;
-static constexpr int inf = 0x7ff00000;
-static constexpr ll inf2 = 0x7ff0000000000000;
+static constexpr int inf = 2.1e9;
+static constexpr ll inf2 = 9.2e18;
 static constexpr int mod = 1e9 + 7;
 static constexpr int mod2 = 998244353;
 static constexpr int nxt[4][2] = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
@@ -60,6 +60,19 @@ void solve()
     unique(vect(vt));
     F(0, i, n)
         d[i] = lower_bound(vect(vt), d[i]) - vt.begin()+1;
+    //Another Version
+    //int k = 1;
+    //F(0, i, n) 
+    //{
+    //    cin >> d[i];
+    //    if (!mp.count(d[i]))
+    //    {
+    //        mp[d[i]] = k;
+    //        d[i] = k++;
+    //    }
+    //    else
+    //        d[i] = mp[d[i]];
+    //}
     cin >> m;
     maxn = sqrt(n);
     F(0, i, m)
