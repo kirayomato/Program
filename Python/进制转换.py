@@ -1,10 +1,4 @@
-import sys
-a = input('需要转换的数：',)
-b = int(input('原进制：',))
-c = int(input('目标进制：',))
-if c <= 1 or b <= 1 or c > 36 or b > 36:
-    print('Error')
-else:
+def base_convert(a, b, c, pre=1e-3):
     dic = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5',
            6: '6', 7: '7', 8: '8', 9: '9', 10: 'A', 11: 'B',
            12: 'C', 13: 'D', 14: 'E', 15: 'F', 16: 'G', 17: 'H',
@@ -12,17 +6,30 @@ else:
            24: 'O', 25: 'P', 26: 'Q', 27: 'R', 28: 'S', 29: 'T',
            30: 'U', 31: 'V', 32: 'W', 33: 'X', 34: 'Y', 35: 'Z'}
     DICT = dict(zip(dic.values(), dic.keys()))
-    d = 0
-    n = len(a)
-    for i in range(n):
-        t = DICT[a[-i - 1]]
-        if t >= b:
-            print('Error')
-            sys.exit()
-        else:
+    if '.' not in a:
+        a += '.'
+    a1, a2 = str(a.upper()).split('.')
+    n, m = len(a1), len(a2)
+    r1 = r2 = ''
+    if a1 != '':
+        d = 0
+        for i in range(n):
+            t = DICT[a1[-i - 1]]
             d += t * b**i
-    r = ''
-    while d > 0:
-        r = dic[d % c] + r
-        d //= c
-    print('目标数：', r)
+        while d > 0:
+            r1 = dic[d % c] + r1
+            d //= c
+    else:
+        r1 = '0'
+    if a2 == '':
+        return r1
+    d = 0
+    for i in range(m):
+        t = DICT[a2[i]]
+        d += t * b**(-i-1)
+    while d > pre:
+        d *= c
+        r2 += dic[int(d)]
+        d -= int(d)
+        pre *= c
+    return r1+"."+r2
