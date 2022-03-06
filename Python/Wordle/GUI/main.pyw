@@ -1,4 +1,5 @@
 from base64 import b64decode
+from collections import Counter
 from os import remove
 from sys import argv
 
@@ -27,15 +28,21 @@ class Dlg(QDialog, Ui_Dialog):
     def Guess(self):
         b, c = self.inputBrowser.toPlainText().split("\n")
         self.inputBrowser.clear()
-        # b:The Wotd you input in Wordle, Don't use words with repeated letters
+        # b:The Wotd you input in Wordle
         # c:The color of each box, Gray:0 Yellow:1 Green:2
         if len(b) != 5 or len(c) != 5:
             return
+        l = Counter()
         for j in range(5):
             i = 0
+            if c[j] != "0":
+                l[b[j]] += 1
             if c[j] == "0":
                 while i < self.n:
-                    if b[j] in self.a[i]:
+                    ll = Counter()
+                    for ch in self.a[i]:
+                        ll[ch] += 1
+                    if ll[b[j]] > l[b[j]]:
                         self.dele(i)
                     else:
                         i += 1
