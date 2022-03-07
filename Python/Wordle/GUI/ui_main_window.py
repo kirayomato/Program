@@ -69,10 +69,18 @@ class Ui_Dialog(object):
         self.num.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.num.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.num.setObjectName("num")
+        self.guess_2 = QtWidgets.QPushButton(Dialog)
+        self.guess_2.setGeometry(QtCore.QRect(45, 230, 70, 25))
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        font.setPointSize(14)
+        self.guess_2.setFont(font)
+        self.guess_2.setObjectName("guess_2")
 
         self.retranslateUi(Dialog)
         self.printans.clicked.connect(Dialog.PrintAns)
         self.guess.clicked.connect(Dialog.Guess)
+        self.guess_2.clicked.connect(Dialog.Reset)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
@@ -96,3 +104,4 @@ class Ui_Dialog(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Consolas\',\'Consolas\'; font-size:16pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.guess_2.setText(_translate("Dialog", "Reset"))

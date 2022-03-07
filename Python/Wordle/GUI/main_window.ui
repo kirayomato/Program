@@ -171,6 +171,25 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="guess_2">
+   <property name="geometry">
+    <rect>
+     <x>45</x>
+     <y>230</y>
+     <width>70</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Reset</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>
@@ -206,9 +225,26 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>guess_2</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>Reset()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>88</x>
+     <y>239</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>126</x>
+     <y>209</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>PrintAns()</slot>
   <slot>Guess()</slot>
+  <slot>Reset()</slot>
  </slots>
 </ui>
