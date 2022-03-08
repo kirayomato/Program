@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox
 from ui_main_window import Ui_Dialog
 from icon import Icon
 from win32api import ShellExecute
+from random import randint
 
 
 class Dlg(QDialog, Ui_Dialog):
@@ -71,17 +72,20 @@ class Dlg(QDialog, Ui_Dialog):
     def PrintAns(self):
         self.ansBrowser.clear()
         words = sorted(self.words[:self.lens])
-        j = 0
+        j = True
         i = 0
         while i < self.lens:
-            if j == 0:
+            if j:
                 self.ansBrowser.insertPlainText(words[i])
-                j += 1
             else:
                 self.ansBrowser.insertPlainText(" " + words[i] + "\n")
-                j -= 1
+            j ^= 1
             i += 1
             QApplication.processEvents()
+
+    def RandomGuess(self):
+        ch = self.words[randint(0, self.lens-1)]
+        self.inputBrowser.setText(ch + "\n")
 
     def Reset(self):
         reply = QMessageBox.warning(
@@ -104,10 +108,7 @@ if __name__ == "__main__":
     remove('tmp.ico')
     dlg.show()
     ShellExecute(
-        0,
-        'open',
+        0, 'open',
         "https://www.nytimes.com/games/wordle/index.html",
-        '',
-        '',
-        1)
+        '', '', 1)
     exit(app.exec_())
