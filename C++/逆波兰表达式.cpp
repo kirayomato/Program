@@ -25,7 +25,7 @@ double Reverse_Polish_Notation(string s)
                     q1.push(a / b);
             }
             else
-                q1.push(stof(temp));
+                q1.push(stod(temp));
             temp = "";
         }
     }
