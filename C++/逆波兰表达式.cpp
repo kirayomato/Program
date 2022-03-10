@@ -1,7 +1,7 @@
-int Reverse_Polish_Notation(string s)
+double Reverse_Polish_Notation(string s)
 {
     string temp = "";
-    stack<int> q1;
+    stack<double> q1;
     int n = s.size();
     for (int i = 0; i < n; ++i)
     {
@@ -11,9 +11,9 @@ int Reverse_Polish_Notation(string s)
         {
             if (temp[0] < '0' && temp.size() == 1)
             {
-                int b = q1.top();
+                double b = q1.top();
                 q1.pop();
-                int a = q1.top();
+                double a = q1.top();
                 q1.pop();
                 if (temp == "+")
                     q1.push(a + b);
