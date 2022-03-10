@@ -9,7 +9,7 @@ double Polish_Notation(string s)
             temp = s[i] + temp;
         if (s[i] == ' ' || i == 0)
         {
-            if (temp[0] < '0')
+            if (temp[0] < '0' && temp.size() == 1)
             {
                 double a = q1.top();
                 q1.pop();
