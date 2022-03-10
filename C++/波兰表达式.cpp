@@ -1,23 +1,20 @@
-#include<iostream>
-#include<string>
-#include<stack>
-using namespace std;
-string s,temp="";
-stack<double> q1;
-int main()
+double Polish_Notation(string s)
 {
-    ios::sync_with_stdio(false);
-    getline(cin, s);
-    for (int i = s.size();i >= 0;--i)
+    string temp = "";
+    stack<double> q1;
+    int n = s.size() - 1;
+    for (int i = n; i >= 0; --i)
     {
-        if(s[i] != ' ')
+        if (s[i] != ' ')
             temp = s[i] + temp;
-        if (s[i] == ' '||i==0)
+        if (s[i] == ' ' || i == 0)
         {
             if (temp[0] < '0')
             {
-                double a = q1.top();q1.pop();
-                double b = q1.top();q1.pop();
+                double a = q1.top();
+                q1.pop();
+                double b = q1.top();
+                q1.pop();
                 if (temp == "+")
                     q1.push(a + b);
                 if (temp == "-")
@@ -32,6 +29,5 @@ int main()
             temp = "";
         }
     }
-    cout << q1.top();
-    return 0;
+    return q1.top();
 }
