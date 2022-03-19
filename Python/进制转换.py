@@ -42,3 +42,34 @@ def base_convert(ori_num, ori_base, tar_base, pre=1):
         d -= int(d)
         pre *= tar_base
     return r1+"."+r2
+
+
+# 任意进制转二进制补码
+def ttscom(ori_num, ori_base, pre=1):
+    l = list(base_convert(ori_num, ori_base, 2, pre))
+    if l[0] == '-':
+        l[0] = '0'
+        n = len(l)
+        for i in range(n):
+            if l[i] == '.':
+                continue
+            l[i] = int(l[i]) ^ 1
+        t = 1
+        for i in reversed(range(n)):
+            if l[i] == '.':
+                continue
+            t1 = l[i]+t
+            if t1 > 1:
+                t = 1
+                t1 %= 2
+            else:
+                t = 0
+            l[i] = t1
+            if not t:
+                break
+        for i in range(n-1):
+            if l[i+1] != l[i]:
+                break
+        return ''.join(map(str, l[i:]))
+    else:
+        return '0'+''.join(l)
