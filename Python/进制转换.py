@@ -45,9 +45,10 @@ def base_convert(ori_num, ori_base, tar_base, pre=1):
 
 
 # 任意进制转二进制补码
-def ttscom(ori_num, ori_base, pre=1):
-    l = list(base_convert(ori_num, ori_base, 2, pre))
-    if l[0] == '-':
+def ttscom(num, base=10, pre=1):
+    ans = base_convert(num, base, 2, pre)
+    if ans[0] == '-':
+        l = list(ans)
         l[0] = '0'
         n = len(l)
         for i in range(n):
@@ -72,4 +73,22 @@ def ttscom(ori_num, ori_base, pre=1):
                 break
         return ''.join(map(str, l[i:]))
     else:
-        return '0'+''.join(l)
+        return '0' + ans
+    
+    
+# 二进制补码转任意进制
+def ftscom(num, base=10, pre=1):
+    if num[0] == '0':
+        return base_convert(num[1:], 2, base, pre)
+    else:
+        if '.' not in num:
+            num += '.'
+        a1, a2 = num.upper().split('.')
+        d = 0
+        n, m = len(a1), len(a2)
+        for i in range(n-1):
+            d -= int(a1[-i - 1]) * 2**i
+        d += 2**(n-1)
+        for i in range(m):
+            d -= int(a2[i]) * 2**(-i-1)
+        return '-'+base_convert(str(d), 10, base, pre)
