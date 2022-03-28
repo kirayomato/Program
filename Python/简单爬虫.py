@@ -37,7 +37,8 @@ def get(url, cookie, header):
     return context
 
 
-def search(url, word):
+def search(url, i, word):
+    url = url % i
     context = get(url, cookie, header)
     if isinstance(context, str):
         print(i, context)
@@ -60,7 +61,7 @@ if __name__ == "__main__":
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
         'Connection': 'keep-alive'
     }
-    l = ["犬山", "苔"]
+    l = ["犬山"]
     for i in range(395, 396):
-        url = "https://bbs.nga.cn/read.php?tid=22516870&page=%d" % i
-        search(url, l)
+        url = "https://bbs.nga.cn/read.php?tid=22516870&page=%d"
+        search(url, i, l)
