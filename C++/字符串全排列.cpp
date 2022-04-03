@@ -17,16 +17,6 @@ void uni_per(string s,vector<string>& res, string output, int pos, int len)
             output.erase(output.begin() + pos);
         }
 }
-vector<string> unique_permutation(string s)
-{
-    vector<string> ans;
-    vis.resize(s.size());
-    sort(s.begin(), s.end());
-    permute(s,ans, "", 0, s.size());
-    return ans;
-}
-
-
 void per(vector<string>& res, string output, int first, int len)
 {
     if (first == len)
