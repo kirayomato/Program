@@ -1,9 +1,4 @@
 from math import log
-a = list(map(eval, input().split()))
-[x, y] = list(map(eval, input().split()))  # query from x to y
-[i, j] = list(map(eval, input().split()))  # update pos(i) to j
-n = len(a)
-st = [float('inf')] * (4*n)
 
 
 def init(nums, st, pos, left, right):
@@ -48,21 +43,26 @@ def update(st, pos, value, n):
         st[posb] = min(st[2 * posb + 1], st[2 * posb + 2])
 
 
-def printst(list_b):
-    n = int(log(len(list_b), 2)) + 1
+def printst(st):
+    n = int(log(len(st), 2)) + 1
     for i in range(n):
         t = 2 ** i - 1
         print(" " * (2 ** (n - i - 1) - 1), end="")
         for j in range(2 ** i):
-            if j + t == len(list_b):
+            if j + t == len(st):
                 break
-            if list_b[j + t] == float('inf'):
+            if st[j + t] == float('inf'):
                 print(" ", end=" " * (2 ** (n - i) - 1))
             else:
-                print(list_b[j + t], end=" " * (2 ** (n - i) - 1))
+                print(st[j + t], end=" " * (2 ** (n - i) - 1))
         print()
 
 
+a = list(map(eval, input().split()))
+[x, y] = list(map(eval, input().split()))  # query from x to y
+[i, j] = list(map(eval, input().split()))  # update pos(i) to j
+n = len(a)
+st = [float('inf')] * (4*n)
 init(a, st, 0, 0, n - 1)
 update(st, i, j, n)
 print(search(st, 0, n-1, x, y, 0))
