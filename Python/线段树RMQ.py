@@ -1,44 +1,39 @@
 from math import log
-from math import ceil
 a = list(map(eval, input().split()))
 [x, y] = list(map(eval, input().split()))  # query from x to y
 [i, j] = list(map(eval, input().split()))  # update pos(i) to j
-t = len(a)
-b = [float('inf')] * (2 ** (ceil(log(t, 2) + 1)) - 1)
+n = len(a)
+st = [float('inf')] * (4*n)
 
 
-def st(list_a, list_b, pos, left, right):
+def init(nums, st, pos, left, right):
     if left == right:
-        list_b[pos] = list_a[left]
+        st[pos] = nums[left]
     else:
-        st(list_a, list_b, 2 * pos + 1, left, (left + right) // 2)
-        st(list_a, list_b, 2 * pos + 2, (left + right) // 2 + 1, right)
-        list_b[pos] = min(list_b[2 * pos + 1], list_b[2 * pos + 2])
+        init(nums, st, 2 * pos + 1, left, (left + right) // 2)
+        init(nums, st, 2 * pos + 2, (left + right) // 2 + 1, right)
+        st[pos] = min(st[2 * pos + 1], st[2 * pos + 2])
 
 
-def search(list_b, left, right, i, j, pos):
-    if j < left or i > right:
+def search(st, i, j, left, right, pos):  # [left,right]
+    if right < i or left > j:
         return float('inf')
-    if i <= left and j >= right:
-        return list_b[pos]
-    mid = (left + right) // 2
-    if i > mid:
-        return search(list_b, mid + 1, right, i, j, 2 * pos + 2)
-    elif j <= mid:
-        return search(list_b, left, mid, i, j, 2 * pos + 1)
+    if left <= i and right >= j:
+        return st[pos]
+    mid = (i + j) // 2
+    if left > mid:
+        return search(st, mid + 1, j, left, right, 2 * pos + 2)
+    elif right <= mid:
+        return search(st, i, mid, left, right, 2 * pos + 1)
     else:
-        return min(search(list_b, mid + 1, right, i, j, 2 * pos + 2),
-                   search(list_b, left, mid, i, j, 2 * pos + 1))
+        return min(search(st, mid + 1, j, left, right, 2 * pos + 2),
+                   search(st, i, mid, left, right, 2 * pos + 1))
 
 
-def query(list_a, list_b, left, right):
-    return search(list_b, 0, len(list_a) - 1, left-1, right-1, 0)
-
-
-def update(list_a, list_b, pos, value):
+def update(st, pos, value, n):
     posb = 0
     left = 0
-    right = len(list_a) - 1
+    right = n - 1
     while right > left:
         mid = (left + right) // 2
         if pos > mid:
@@ -47,10 +42,10 @@ def update(list_a, list_b, pos, value):
         else:
             right = mid
             posb = 2 * posb + 1
-    list_b[posb] = value
+    st[posb] = value
     while posb > 0:
         posb = int((posb - 1) / 2)
-        list_b[posb] = min(list_b[2 * posb + 1], list_b[2 * posb + 2])
+        st[posb] = min(st[2 * posb + 1], st[2 * posb + 2])
 
 
 def printst(list_b):
@@ -68,7 +63,7 @@ def printst(list_b):
         print()
 
 
-st(a, b, 0, 0, t - 1)
-update(a, b, i - 1, j)
-print(query(a, b, x, y))
-printst(b)
+init(a, st, 0, 0, n - 1)
+update(st, i, j, n)
+print(search(st, 0, n-1, x, y, 0))
+printst(st)
