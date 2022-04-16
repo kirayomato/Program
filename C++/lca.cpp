@@ -51,7 +51,7 @@ int lca(int x, int y)
         if(!tmp)
             break
     }
-    while (x != y)
+    if (x != y)
     {
         _F(30, i, 0)
         {
