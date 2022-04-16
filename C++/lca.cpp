@@ -1,15 +1,15 @@
 vector<vector<int>>G;
 vector<int>mp;
 int fa[N][31];
-void bfs()
+void bfs(int s)
 {
+    bool vis[N]={0};
+    queue<int> q;
     F(0, i, n)
         fill(fa[i], fa[i] + 31, -1);
-    bool vis[N];
-    queue<int> q;
-    q.emplace(0);
-    vis[0] = 1;
-    mp[0] = 0;
+    q.emplace(s);
+    vis[s] = 1;
+    mp[s] = 0;
     WE(q)
     {
         int i = FR(q);
