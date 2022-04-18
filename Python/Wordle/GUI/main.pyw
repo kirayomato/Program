@@ -37,6 +37,7 @@ class Dlg(QDialog, Ui_Dialog):
         if len(b) != 5 or len(c) != 5:
             return
         l = Counter()
+        b = b.lower()
         for k, v in enumerate(b):
             if c[k] != "0":
                 l[v] += 1
