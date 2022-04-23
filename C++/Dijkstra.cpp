@@ -1,19 +1,18 @@
-static constexpr int inf = 0x7ff00000;
 unordered_map<int, unordered_map<int, int>>dis;
 int ans[N];
 bool vis[N];
-struct edge
+struct point
 {
     int f;
     int l;
-    edge() :f(0), l(0) {}
-    edge(int x, int z) :f(x), l(z) {}
+    point() :f(0), l(0) {}
+    point(int x, int z) :f(x), l(z) {}
 };
-bool operator<(const edge& a, const edge& b)
+bool operator<(const point& a, const point& b)
 {
     return a.l > b.l;//小顶堆
 }
-priority_queue<edge> q;
+priority_queue<point> q;
 void dij(int s)
 {
     ans[s] = 0;
