@@ -3,7 +3,7 @@ int c[4 * N];
 ll a[N],b[N<<2];
 void pu(int pb)
 {
-    b[pb] = b[pb * 2 + 1] + b[pb * 2 + 2]
+    b[pb] = b[pb * 2 + 1] + b[pb * 2 + 2];
 }
 void init(int pos, int l, int r)
 {
@@ -35,7 +35,7 @@ void pd(int pos, int l, int r)
 ll search(int l, int r, int i, int j, int pos)
 {
     if (i <= l && j >= r)
-        return b[pos] % mod2;
+        return b[pos];
     pd(pos, l, r);
     int mid = (l + r) >> 1;
     ll ans = 0;
