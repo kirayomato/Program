@@ -8,7 +8,7 @@ void pu(int pb)
 void init(int pos, int l, int r)
 {
     if (l == r)
-        b[pos] = a[l] % mod2;
+        b[pos] = a[l];
     else
     {
         int mid = (l + r) >> 1;
