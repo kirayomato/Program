@@ -20,7 +20,7 @@ void init(int pos, int l, int r)
 void upt(int pos, int l, int r, int k)
 {
     c[pos] += k;
-    b[pos] = b[pos] + (ll)k * ((ll)r - l + 1)
+    b[pos] = b[pos] + (ll)k * ((ll)r - l + 1);
 }
 void pd(int pos, int l, int r)
 {
