@@ -11,7 +11,7 @@ inline int getsize(TreeNode* root)
 {
 	return root ? root->size : 0;
 }
-inline void upt(TreeNode* root)
+inline void pu(TreeNode* root)
 {
 	if (root)
 		root->size = getsize(root->left) + getsize(root->right) + cnt[root->val + N];
@@ -34,6 +34,11 @@ void de(TreeNode** root)
 	TreeNode* r = (*root)->left;
 	stack<TreeNode*>st;
 	st.emplace(r);
+	if (!r)
+	{
+		*root = (*root)->right;
+		return;
+	}
 	if (!r->right)
 	{
 		r->right = (*root)->right;
@@ -49,7 +54,7 @@ void de(TreeNode** root)
 	r->right = r->right->left;
 	WE(st)
 	{
-		upt(st.top());
+		pu(st.top());
 		st.pop();
 	}
 }
@@ -60,53 +65,47 @@ void del(TreeNode** root, int val)
 		(*root)->size--;
 		if (cnt[val + N])
 			return;
-		int ls = getsize((*root)->left);
-		int rs = getsize((*root)->right);
-		if (!(ls || rs))
-			(*root) = nullptr;
-		else if (!ls)
-			(*root) = (*root)->right;
-		else if (!rs)
-			(*root) = (*root)->left;
-		else
-			de(root);
+		de(root);
 	}
 	else if (val > (*root)->val)
 		del(&(*root)->right, val);
 	else
 		del(&(*root)->left, val);
-	upt(*root);
+	pu(*root);
 }
-int findrk(TreeNode* root, int val)
-{
+int findrk(TreeNode* root, int val) {
 	if (val < root->val)
 		return findrk(root->left, val);
+
 	if (val > root->val)
 		return cnt[root->val + N] + getsize(root->left) + findrk(root->right, val);
+
 	return getsize(root->left) + 1;
 }
-int findx(TreeNode* root, int val)
-{
+int findx(TreeNode* root, int val) {
 	int l = getsize(root->left);
+
 	if (val <= l)
 		return findx(root->left, val);
+
 	if (val > l + cnt[root->val + N])
-		return findx(root->right, val - l - cnt[root->val+N]);
+		return findx(root->right, val - l - cnt[root->val + N]);
+
 	return root->val;
 }
-int find_prev(TreeNode* root, int val)
-{
+int find_prev(TreeNode* root, int val) {
 	if (!root)
 		return -inf;
+
 	if (val > root->val)
 		return max(find_prev(root->right, val), root->val);
 	else
 		return find_prev(root->left, val);
 }
-int find_next(TreeNode* root, int val)
-{
+int find_next(TreeNode* root, int val) {
 	if (!root)
 		return inf;
+
 	if (val >= root->val)
 		return find_next(root->right, val);
 	else
