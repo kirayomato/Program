@@ -73,7 +73,8 @@ void del(TreeNode** root, int val)
 		del(&(*root)->left, val);
 	pu(*root);
 }
-int findrk(TreeNode* root, int val) {
+int findrk(TreeNode* root, int val) 
+{
 	if (val < root->val)
 		return findrk(root->left, val);
 
@@ -82,7 +83,8 @@ int findrk(TreeNode* root, int val) {
 
 	return getsize(root->left) + 1;
 }
-int findx(TreeNode* root, int val) {
+int findx(TreeNode* root, int val) 
+{
 	int l = getsize(root->left);
 
 	if (val <= l)
@@ -93,7 +95,8 @@ int findx(TreeNode* root, int val) {
 
 	return root->val;
 }
-int find_prev(TreeNode* root, int val) {
+int find_prev(TreeNode* root, int val) 
+{
 	if (!root)
 		return -inf;
 
@@ -102,7 +105,8 @@ int find_prev(TreeNode* root, int val) {
 	else
 		return find_prev(root->left, val);
 }
-int find_next(TreeNode* root, int val) {
+int find_next(TreeNode* root, int val) 
+{
 	if (!root)
 		return inf;
 
