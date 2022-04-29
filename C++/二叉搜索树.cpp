@@ -97,7 +97,7 @@ int findx(TreeNode* root, int val)
 int find_prev(TreeNode* root, int val)
 {
 	if (!root)
-		return -1;
+		return -inf;
 	if (val > root->val)
 		return max(find_prev(root->right, val), root->val);
 	else
@@ -137,7 +137,7 @@ void solve()
 		else if (x == 5)
 		{
 			int j = find_prev(root, y);
-			if (j == -1)
+			if (j == -inf)
 				cout << "NOT FOUND\n";
 			else
 				cout << j << "\n";
