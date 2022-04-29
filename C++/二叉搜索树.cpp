@@ -152,14 +152,3 @@ void solve()
 		}
 	}
 }
-int main()
-{
-	ios::sync_with_stdio(false);
-	cin.tie(0); cout.tie(0);
-	cout.setf(ios::fixed);
-	cout.precision(0);
-	//cin >> T;
-	//while (T--)
-	solve();
-	return 0;
-}
