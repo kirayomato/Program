@@ -66,25 +66,15 @@ void insert(TreeNode** root, int val)
 	*root = merge(p.first, p.second);
 	pu(*root);
 }
-void del(TreeNode** root, int val) {
+void del(TreeNode** root, int val) 
+{
 	if ((*root)->val == val) {
 		(*root)->size--;
 		if (cnt[val + N])
 			return;
-		int ls = getsize((*root)->left);
-		int rs = getsize((*root)->right);
-		if (!(ls || rs))
-			(*root) = nullptr;
-		else if (!ls)
-			(*root) = (*root)->right;
-		else if (!rs)
-			(*root) = (*root)->left;
-		else
-		{
-			ptt o = split(*root, val - 1);
-			ptt p = split(o.second, val);
-			*root = merge(o.first, p.second);
-		}
+		ptt o = split(*root, val - 1);
+		ptt p = split(o.second, val);
+		*root = merge(o.first, p.second);
 	}
 	else if (val > (*root)->val)
 		del(&(*root)->right, val);
