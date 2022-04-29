@@ -68,7 +68,8 @@ void insert(TreeNode** root, int val)
 }
 void del(TreeNode** root, int val) 
 {
-	if ((*root)->val == val) {
+	if ((*root)->val == val) 
+    {
 		(*root)->size--;
 		if (cnt[val + N])
 			return;
