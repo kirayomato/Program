@@ -1,5 +1,5 @@
 int n, m;
-int c[4 * N];
+int c[N<<2];
 ll a[N],b[N<<2];
 void pu(int pb)
 {
