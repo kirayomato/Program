@@ -1,12 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
-#define F(a, i, j) for (int i = a; i < j; ++i)
-#define FA(i, j) for (auto&i : j)
-#define _F(a, i, j) for (int i = a; i >= j; --i)
-#define WE(i) while(!i.empty())
-#define vect(i) i.begin(),i.end()
-#define lis(i,n) i,i+n
-#include <bits/stdc++.h>
-using namespace std;
 static constexpr int N = 3e5 + 50;
 int a[N],d[N];
 int sum;
@@ -47,10 +38,10 @@ void solve()
         vt.emplace_back(d[i]);
     }
     //  数据离散化
-    sort(vect(vt));
-    unique(vect(vt));
+    sort(VEC(vt));
+	vt.erase(unique(VEC(vt)));
     F(0, i, n)
-        d[i] = lower_bound(vect(vt), d[i]) - vt.begin()+1;
+        d[i] = lower_bound(VEC(vt), d[i]) - vt.begin()+1;
     //Another Version
     //int k = 1;
     //F(0, i, n) 
@@ -72,7 +63,7 @@ void solve()
         v[i].l--;
         v[i].id = i;
     }
-    sort(lis(v,m));
+    sort(LST(v,m));
     int l = 0,r = 0;
     F(0,i,m) 
     {
