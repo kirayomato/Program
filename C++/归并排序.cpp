@@ -1,7 +1,7 @@
 void mers(vector<int>& v, int x, int y)
 {
 	int n = y - x;
-	if (n == 1)
+	if (n <= 1)
 		return;
 	else
 	{
@@ -33,7 +33,7 @@ void mers(vector<int>& v, int x, int y)
 ll mers(vector<int>&v, int x, int y)
 {
     int n = y - x;
-    if (n == 1)
+    if (n <= 1)
         return 0;
     else
     {
