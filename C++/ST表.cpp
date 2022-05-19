@@ -1,4 +1,4 @@
-ll a[N][64];
+ll a[64][N];
 void init()
 {
 	int t = log2(n);
@@ -7,11 +7,11 @@ void init()
 		int k = 1 << (i - 1);
 		int p = n - 2 * k + 1;
 		for (int j = 0;j < p;++j)
-			a[j][i] = max(a[j][i - 1], a[j + k][i - 1]);
+			a[i][j] = max(a[i - 1][j], a[i - 1][j + k]);
 	}
 }
 ll query(int l, int r)
 {
 	int t = log2(r - l + 1);
-	return max(a[l - 1][t], a[r - (1 << t)][t]);
+	return max(a[t][l - 1], a[t][r - (1 << t)]);
 }
