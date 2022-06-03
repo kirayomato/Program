@@ -13,7 +13,7 @@ void prefix_function(string& s)
     }
 }
 int z[N];
-void z_function(string s)
+void z_function(string& s)
 {
 	int n = s.size(), l = 0, r = 0;
 	F(0, i, n)
