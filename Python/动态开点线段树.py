@@ -1,7 +1,6 @@
 class SegmentTree:
     def __init__(self) -> None:
-        self.val = 0
-        self.edit = 0
+        self.val, self.edit = 0, 0
         self.lson, self.rson = None, None
 
     def upt(self, k, l, r):
@@ -9,7 +8,7 @@ class SegmentTree:
         self.val += k
 
     def pd(self, l, r):
-        mid = int((l+r)/2)
+        mid = (l+r)>>1
         if self.edit:
             if not self.lson:
                 self.lson = SegmentTree()
@@ -24,7 +23,7 @@ class SegmentTree:
             return self.val
         self.pd(l, r)
         ans = 0
-        mid = int((l+r)/2)
+        mid = (l+r)>>1
         if j > mid:
             if self.rson:
                 ans = max(ans, self.rson.search(mid+1, r, i, j))
@@ -45,7 +44,7 @@ class SegmentTree:
             self.upt(k, l, r)
             return
         self.pd(l, r)
-        mid = int((l+r)/2)
+        mid = (l+r)>>1
         if j > mid:
             if not self.rson:
                 self.rson = SegmentTree()
