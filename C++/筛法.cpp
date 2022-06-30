@@ -1,4 +1,4 @@
-vector<int> countPrimes(int n) 
+vector<int> EratosthenesPrimes(int n) 
 {
     vector<int> ans,pri(n+1);
     F(1,i,n+1)
