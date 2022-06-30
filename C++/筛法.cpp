@@ -1,21 +1,22 @@
-#include <vector>
-using namespace std;
-vector<int> FilterPrime(int num)
+vector<int> countPrimes(int n) 
 {
-    vector<int> vec(num + 1);
-    for (int i = 0;i <= num;i++)
-        vec[i] = i;
-    vec[1] = 0;
-    for (int i = 2;i <= num/2;i++)
-        if (vec[i] != 0)
-            for (int t = 2;t * i <= num;t++)
-                vec[i * t] = 0;
-    for (vector<int>::iterator it = vec.begin();it != vec.end();)
+    vector<int> ans,pri(n+1);
+    F(1,i,n+1)
+        pri[i]=i;
+    F(2,i,n+1)
     {
-        if (*it == 0)
-            it = vec.erase(it);
-        else
-            it++;
+        if(pri[i]==0)
+            continue;
+        if(i<=sqrt(n))
+        {
+            int k=i*i;
+            while(k<=n)
+            {
+                pri[k]=0;
+                k+=i;
+            }
+        }
+        ans.emplace_back(i);
     }
-    return vec;
+    return ans;
 }
