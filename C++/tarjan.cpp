@@ -34,6 +34,7 @@ void tarjan(int u)
 	}
 }
 // 割点
+int gd[N];
 void tarjan(int u,int f)
 {
 	dfn[u] = cnt++;
@@ -58,6 +59,7 @@ void tarjan(int u,int f)
 		gd[u] = 1;
 }
 // 割边
+int gb[N],fa[N];
 void tarjan(int u,int f)
 {
 	dfn[u] = cnt++;
