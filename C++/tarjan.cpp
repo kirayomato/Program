@@ -1,5 +1,5 @@
 int dfn[N], low[N],in_st[N],sc[N],sz[N];
-vector<set<int>>G;
+vector<vector<int>>G;
 stack<int> st;
 int cnt = 1, num = 1;
 // 强连通分量
