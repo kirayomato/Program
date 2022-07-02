@@ -57,3 +57,24 @@ void tarjan(int u,int f)
 	if (u == f && chi > 1)
 		gd[u] = 1;
 }
+// 割边
+void tarjan(int u,int f)
+{
+	dfn[u] = cnt++;
+	low[u] = dfn[u];
+	fa[u] = f;
+	FA(v, G[u])
+	{
+		if (v == f)
+			continue;
+		if (!dfn[v])
+		{
+			tarjan(v,u);
+			low[u] = min(low[u], low[v]);
+			if (low[v] > dfn[u])
+				gb[v] = 1;
+		}
+		else
+			low[u] = min(low[u], dfn[v]);
+	}
+}
