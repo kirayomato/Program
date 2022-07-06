@@ -1,4 +1,4 @@
-int fa[N], dp[N];
+int fa[N], sz[N];
 int gf(int x)
 {
 	if (x == fa[x])
@@ -12,9 +12,9 @@ void uni(int x, int y)
 	y = gf(y);
 	if (x != y)
 	{
-		if (dp[x] > dp[y])
+		if (sz[x] > sz[y])
 			swap(x, y);
-		dp[y] += dp[x];
+		sz[y] += sz[x];
 		fa[x] = y;
 	}
 }
