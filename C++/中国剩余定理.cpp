@@ -12,15 +12,15 @@ void exgcd(ll a, ll b, ll& x, ll& y)
     exgcd(b, a % b, y, x);
     y -= a / b * x;
 }
-ll number_theoretic_reciprocal(ll a, ll b)
+ll number_theoretic_reciprocal(ll a, ll mod)
 {
-    ll x = 0,y=0;
+	ll x = 0, y = 0;
     // 求逆元：a,b互质,y任意,x为逆元
     // ax+by=gcd(a,b)=1 -> ax%b=1
-    exgcd(a, b, x, y);
-    ll t = b / gcd(a, b);
-    x = (x % t + t) % t;
-    return x;
+	exgcd(a, mod, x, y);
+	ll t = mod / gcd(a, mod);
+	x = (x % t + t) % t;
+	return x;
 }
 //要求两两互质
 ll crt(unordered_map<int, int>mp) 
