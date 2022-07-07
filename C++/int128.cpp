@@ -4,6 +4,11 @@ string int128_to_string(__int128 x)
 	if (x == 0)
 		return "0";
 	bool f = 0;
+	if(x<0)
+	{
+		x=-x;
+		f=1;
+	}
 	while (x)
 	{
 		char t = x % 10 + '0';
