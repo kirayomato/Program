@@ -35,3 +35,31 @@ __int128 string_to_int128(string x)
 		ans = -ans;
 	return ans;
 }
+void print(__int128 x)
+{
+	static constexpr ll k=1e18;
+	if(x<0)
+	{
+		cout<<'-';
+		x=-x;
+	}
+	if(x<k)
+		cout<<(ll)x;
+	else
+	{
+		cout<<(ll)(x/k);
+		ll t=x%k;
+		if(t==0)
+		{
+			F(0,i,18)
+				cout<<0;
+		}
+		else
+		{
+			int a=ceil(log10(t));
+			F(a,i,18)
+				cout<<0;
+			cout<<t;
+		}
+	}
+}
