@@ -73,9 +73,9 @@ vector<int> mobius(int n)
 	}
 	return mobius;
 }
-vector<int> linear_sieve(int n)
+vector<ll> linear_sieve(int n)
 {
-	vector<int> f(n + 1), num(n + 1), pri;
+	vector<ll> f(n + 1), num(n + 1), pri;
 	num[1] = 1;
 	f[1] = 1;
 	F(2, i, n + 1)
