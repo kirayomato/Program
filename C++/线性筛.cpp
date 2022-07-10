@@ -83,8 +83,7 @@ vector<ll> linear_sieve(int n)
 		if (!f[i])
 		{
 			pri.emplace_back(i);
-			// 计算f(p)
-			f[i] = 
+			f[i] = // 计算f(p)
 			num[i] = 1;
 		}
 		FA(j, pri)
@@ -96,7 +95,7 @@ vector<ll> linear_sieve(int n)
 				num[(ll)i * j] = num[i] + 1;
 				int i0 = i / pow(j, num[i]);
 				if (i0 == 1)
-					f[(ll)i * j] =  // 计算f(p^k)
+					f[(ll)i * j] = // 计算f(p^k)
 				else
 					f[(ll)i * j] = f[i0] * f[(ll)i * j / i0];
 				break;
