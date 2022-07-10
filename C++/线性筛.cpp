@@ -73,6 +73,43 @@ vector<int> mobius(int n)
 	}
 	return mobius;
 }
+vector<int> linear_sieve(int n)
+{
+	vector<int> f(n + 1), num(n + 1), pri;
+	num[1] = 1;
+	f[1] = 1;
+	F(2, i, n + 1)
+	{
+		if (!f[i])
+		{
+			pri.emplace_back(i);
+			// 计算f(p)
+			f[i] = 
+			num[i] = 1;
+		}
+		FA(j, pri)
+		{
+			if (i * j > n)
+				break;
+			if (i % j == 0)
+			{
+				num[(ll)i * j] = num[i] + 1;
+				int i0 = i / pow(j, num[i]);
+				if (i0 == 1)
+					f[(ll)i * j] =  // 计算f(p^k)
+				else
+					f[(ll)i * j] = f[i0] * f[(ll)i * j / i0];
+				break;
+			}
+			else
+			{
+				f[(ll)i * j] = f[i] * f[j];
+				num[(ll)i * j] = 1;
+			}
+		}
+	}
+	return f;
+}
 vector<int> theta0(int n)
 {
 	vector<int> theta0(n + 1), num(n + 1), pri;
