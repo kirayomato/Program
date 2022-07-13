@@ -9,12 +9,11 @@ vector<int> EratosthenesPrimes(int n)
             continue;
         if(i<=sqrt(n))
         {
-            int k=i*i;
-            while(k<=n)
-            {
-                pri[k]=0;
-                k+=i;
-            }
+			for(int k=i*i;k<=n;k+=i)
+			{
+				pri[k] = 0;
+				b[k] *= i;
+			}
         }
         ans.emplace_back(i);
     }
