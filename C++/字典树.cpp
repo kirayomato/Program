@@ -9,7 +9,7 @@ public:
 	void add(string& word, int pos)
 	{
 		Trie* t;
-		if (word == "" || pos >= word.size())
+		if (pos >= word.size())
 		{
 			t = new Trie();
 			mp[0] = t;
