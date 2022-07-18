@@ -38,6 +38,7 @@ __int128 string_to_int128(string x)
 void print(__int128 x)
 {
 	static constexpr ll k=1e18;
+	static constexpr ll k1=1e17;
 	if(x<0)
 	{
 		cout<<'-';
@@ -49,17 +50,10 @@ void print(__int128 x)
 	{
 		cout<<(ll)(x/k);
 		ll t=x%k;
-		if(t==0)
+		F(0,i,18)
 		{
-			F(0,i,18)
-				cout<<0;
-		}
-		else
-		{
-			int a=ceil(log10(t));
-			F(a,i,18)
-				cout<<0;
-			cout<<t;
+			cout<<t/k1;
+			t=(t%k1)*10;
 		}
 	}
 }
