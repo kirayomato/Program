@@ -72,27 +72,16 @@ ll Pollard_Rho(ll x)
 	}
 	return d;
 }
-map<ll, int> divide(ll x)
+void divide(ll x, map<ll, int>&mp)
 {
-	map<ll, int> mp;
 	if (x <= 1)
-		return mp;
+		return ;
 	if (millerRabin(x))
 	{
-		mp[x] = 1;
-		return mp;
+		mp[x] ++;
+		return;
 	}
-	int cnt = 0;
 	ll k = Pollard_Rho(x);
-	while (x % k == 0)
-	{
-		x /= k;
-		cnt++;
-	}
-	map<ll, int> mp1 = divide(x), mp2 = divide(k);
-	FA(i, mp1)
-		mp[i.first] += i.second;
-	FA(i, mp2)
-		mp[i.first] += i.second * cnt;
-	return mp;
+	divide(x/k,mp);
+	divide(k,mp);
 }
