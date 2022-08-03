@@ -39,9 +39,7 @@ void solve()
     }
     //  数据离散化
     sort(VEC(vt));
-    auto it = unique(VEC(vt));
-    if(it != vt.end())
-        vt.erase(it, vt.end());
+    vt.erase(unique(VEC(vt)), vt.end());
     F(0, i, n)
         d[i] = lower_bound(VEC(vt), d[i]) - vt.begin()+1;
     //Another Version
