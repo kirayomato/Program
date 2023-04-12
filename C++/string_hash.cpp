@@ -1,9 +1,8 @@
 static constexpr int BASE = 73;
 static constexpr int mod = 1e9 + 7;
-typedef long long ll;
 vector<ll> string_hash(string s)
 {
-    n = s.size();
+    int n = s.size();
     vector<ll> has(n+1);
     F(0, i, n)
         has[i+1] = (s[i] + (has[i] * BASE) % mod) % mod;
