@@ -1,6 +1,4 @@
-#include <iostream>
-#include <unordered_map>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 struct node
 {
@@ -14,15 +12,14 @@ struct node
 vector<node*> mp;
 int n, q;
 bool rev = false;
-void insert(node* l, node* i)
+void insert(node* l, node* r) // add node r to the right of node l
 {
-    i->left->right = i->right;
-    i->right->left = i->left;
-    i->left = l;
-    i->right = l->right;
-    l->right->left = i;
-    l->right = i;
-
+    r->left->right = r->right;
+    r->right->left = r->left;
+    r->left = l;
+    r->right = l->right;
+    l->right->left = r;
+    l->right = r;
 }
 void print(node* head)
 {
@@ -32,19 +29,23 @@ void print(node* head)
             head = head->right;
         else
             head = head->left;
-        printf("%d ", head->val);
+        cout<<head->val<<" ";
     }
 }
 int main()
 {
-    scanf("%d%d", &n, &q);
+    ios::sync_with_stdio(false);
+    cin.tie(0); cout.tie(0);
+    cout.setf(ios::fixed); 
+    cout.precision(0);
+    cin>>n>>q;
     mp.resize(n+1);
     node* head = new node(0);
     node* h0 = head;
     for (int i = 0; i < n; ++i)
     {
         int k;
-        scanf("%d", &k);
+        cin>>k;
         node* t = new node(k, h0);
         mp[k] = t;
         h0->right = t;
@@ -56,10 +57,10 @@ int main()
     {
         int t, x, y;
         node *p1=head,*p2 = head;
-        scanf("%d",&t);
+        cin>>t;
         if (t != 4)
         {
-            scanf("%d%d", &x, &y);
+            cin>>x>>y;
             p1 = mp[x];
             p2 = mp[y];
         }
@@ -92,9 +93,7 @@ int main()
         }
         case 4:
         {
-            node* p = tail;
-            tail = head;
-            head = p;
+            swap(head,tail);
             rev ^= 1;
         }
         }
