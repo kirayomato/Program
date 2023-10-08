@@ -73,7 +73,7 @@ void del(TreeNode** root, int val)
 		del(&(*root)->left, val);
 	pu(*root);
 }
-int findrk(TreeNode* root, int val) 
+int findrk(TreeNode* root, int val) // 查询 x 数的排名(排名定义为比当前数小的数的个数 + 1)
 {
 	if (val < root->val)
 		return findrk(root->left, val);
@@ -83,7 +83,7 @@ int findrk(TreeNode* root, int val)
 
 	return getsize(root->left) + 1;
 }
-int findx(TreeNode* root, int val) 
+int findx(TreeNode* root, int val) // 查询排名为 x 的数
 {
 	int l = getsize(root->left);
 
