@@ -145,7 +145,8 @@
                             _lastCompleteTime: 0
                         },
                         isWhiteList: false,
-                        roomidList: []
+                        roomidList: [],
+                        roomidList2: []
                     }
                 },
                 OtherTasks: {
