@@ -22,7 +22,6 @@
 // todo 关闭得奖提示后，下次发送的得奖提示会继续使用之前的获奖数量（得奖提示关闭后应该清空计数）
 // todo 活动直播间红包第二次不会重新抽取
 var people = 0;
-var roomid = 0;
 var gold = 0;
 (async function () {
     'use strict';
@@ -43,7 +42,6 @@ var gold = 0;
 
     roomId = res.data.room_id
     const uid = res.data.uid
-    roomid = roomId
     let rankGold = undefined
 
     while ($('.tab-list.dp-flex').children().length == 0) {
@@ -105,7 +103,7 @@ async function fetcher(url) {
     // 你可以在这里枚举不想抽取的红包价值，单位是电池
     // e.g. const goldBlockEnumList = [16,20,100];
     var goldBlockEnumList = [];
-    var dar = 0
+    var drawed = 0
     const RED_PACKET_ICON = "🧧";
     const GIFT_ICON = "🎁";
     const ROOM_ID = await ROOM_INFO_API.getRid();
@@ -268,7 +266,7 @@ async function fetcher(url) {
         gold = Math.round(message.data.total_price / 100);
         const t = 5000 * (1 + Math.random())
         await sleep(t)
-        dar = 0
+        drawed = 0
         console.info(`【Red Packet】检测到红包(${gold},${num0}) ${new Date(Setting.Beijing_ts)}`)
         if (GM_getValue(`Date`) != Setting.Beijing_date) {
             GM_setValue(`Date`, Setting.Beijing_date);
@@ -282,7 +280,7 @@ async function fetcher(url) {
         if (new Date().valueOf() - GM_getValue(`ConTS`) > TimeDelta && new Date().valueOf() > GM_getValue(`TimeOut`)) {
             GM_setValue(`ConCount`, 0)
         }
-        if ((GM_getValue(`Small_Count`) >= 8 || GM_getValue(`Count`) >= 12) && new Date().getHours() < 22) {
+        if (GM_getValue(`Small_Count`) >= 8 && GM_getValue(`Count`) >= 12 && new Date().getHours() < 16 + Math.min(6, GM_getValue(`Count`) / 2)) {
             doorSill = 20;
             goldBlockEnumList.push(4000);
         }
@@ -329,14 +327,14 @@ async function fetcher(url) {
         }
         console.info(`【Red Packet】抽取红包${gold} ${new Date(Setting.Beijing_ts)}`)
         let gf = GM_getValue(`GiftList0`);
-        if (!(roomid in gf))
-            gf[roomid] = {};
-        if (gold in gf[roomid])
-            gf[roomid][gold] += 1;
+        if (!(ROOM_ID in gf))
+            gf[ROOM_ID] = {};
+        if (gold in gf[ROOM_ID])
+            gf[ROOM_ID][gold] += 1;
         else
-            gf[roomid][gold] = 1;
+            gf[ROOM_ID][gold] = 1;
         GM_setValue(`GiftList0`, gf)
-        dar = 1
+        drawed = 1
         let cnt = GM_getValue(`ConCount`) + 1
         if (cnt == 1) {
             GM_setValue(`ConTS`, new Date().valueOf())
@@ -556,21 +554,21 @@ async function fetcher(url) {
                 }
                 let gf = GM_getValue(`GiftList`);
                 let gn = message.data.awards[winner[3]].award_name;
-                if (!(roomid in gf))
-                    gf[roomid] = {};
-                if (gn in gf[roomid])
-                    gf[roomid][gn] += 1;
+                if (!(ROOM_ID in gf))
+                    gf[ROOM_ID] = {};
+                if (gn in gf[ROOM_ID])
+                    gf[ROOM_ID][gn] += 1;
                 else
-                    gf[roomid][gn] = 1;
+                    gf[ROOM_ID][gn] = 1;
                 GM_setValue(`GiftList`, gf)
                 GM_setValue(`Earn`, GM_getValue(`Earn`) + message.data.awards[winner[3]].award_price / 100)
                 giftCount++;
                 flag = 1
-                console.info(`【Red Packet】获得：${message.data.awards[winner[3]].award_name} ${new Date(Setting.Beijing_ts)}`)
+                console.info(`【Red Packet】获得：${message.data.awards[winner[3]].award_name} price= ${message.data.awards[winner[3]].award_price / 100} ${new Date(Setting.Beijing_ts)}`)
                 break;
             }
         }
-        if (!flag && dar) {
+        if (!flag && drawed) {
             showMessage("未中奖", "warning", "提示", 15 * 60 * 1000);
             console.info(`【Red Packet】未中奖 ${new Date(Setting.Beijing_ts)}`)
         }
