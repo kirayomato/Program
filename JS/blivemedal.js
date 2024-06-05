@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         blivemedal
 // @namespace    http://tampermonkey.net/
-// @version      0.10.1
+// @version      0.10.2
 // @description  拯救B站直播换牌子的用户体验
 // @author       xfgryujk
 // @include      /https?:\/\/live\.bilibili\.com\/?\??.*/
@@ -13,6 +13,8 @@
 // @require      https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/element-ui/2.15.7/index.js
 // @resource     element-ui-css https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/element-ui/2.15.7/theme-chalk/index.css
 // @grant        GM_getResourceText
+// @downloadURL https://update.greasyfork.org/scripts/418957/blivemedal.user.js
+// @updateURL https://update.greasyfork.org/scripts/418957/blivemedal.meta.js
 // ==/UserScript==
 
 // grant不能是none，为了和网页的全局变量隔离。直播间网页全局变量有Vue，会导致element-ui出错
@@ -231,7 +233,7 @@
           <el-table-column label="等级" prop="medal.level" width="80" sortable></el-table-column>
           <el-table-column label="主播昵称" prop="anchor_info.nick_name" width="160" sortable
             :sort-method="(a, b) => a.anchor_info.nick_name.localeCompare(b.anchor_info.nick_name)"
-          >
+            >
             <template slot-scope="scope">
               <el-link type="primary" :underline="false" target="_blank" :href="'https://live.bilibili.com/' + scope.row.room_info.room_id">
                 {{ scope.row.anchor_info.nick_name }}
@@ -239,9 +241,6 @@
               <el-badge v-if="scope.row.room_info.living_status" is-dot></el-badge>
             </template>
           </el-table-column>
-          <el-table-column label="标题" prop="room_info.title" width="160" sortable
-            :sort-method="(a, b) => a.room_info.title.localeCompare(b.room_info.title)"
-          ></el-table-column>
           <el-table-column label="亲密度" prop="medal.intimacy" width="120" sortable>
             <template slot-scope="scope">
               {{ scope.row.medal.intimacy }} / {{ scope.row.medal.next_intimacy }}
@@ -299,7 +298,7 @@
       sortedMedals() {
         let curRoomId
         try {
-          curRoomId = unsafeWindow.__NEPTUNE_IS_MY_WAIFU__.roomInfoRes.data.room_info.room_id
+          curRoomId = unsafeWindow.BilibiliLive.ROOMID
         } catch {
           curRoomId = 0
         }
@@ -327,7 +326,7 @@
               return diff
             }
           }
-          return a.medal.medal_name.localeCompare(b.medal.medal_name)
+          return 0
         })
 
         return [...curMedal, ...curRoomMedal, ...medals]
@@ -495,7 +494,14 @@
   }
 
   async function getCurMedal() {
-    let rsp = (await apiClient.get('/live_user/v1/UserInfo/get_weared_medal')).data
+    let csrfToken = getCsrfToken()
+    let data = new FormData()
+    data.append('source', 1)
+    data.append('uid', unsafeWindow.BilibiliLive.UID)
+    data.append('target_id', unsafeWindow.BilibiliLive.ANCHOR_UID)
+    data.append('csrf_token', csrfToken)
+    data.append('csrf', csrfToken)
+    let rsp = (await apiClient.post('/live_user/v1/UserInfo/get_weared_medal', data)).data
     if (rsp.code !== 0) {
       throw new Error(rsp.message)
     }
