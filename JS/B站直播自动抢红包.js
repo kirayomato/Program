@@ -102,7 +102,7 @@ async function fetcher(url) {
     var doorSill = 0;
     // 你可以在这里枚举不想抽取的红包价值，单位是电池
     // e.g. const goldBlockEnumList = [16,20,100];
-    var goldBlockEnumList = [];
+    var goldBlockEnumList = [4000];
     var drawed = 0
     const RED_PACKET_ICON = "🧧";
     const GIFT_ICON = "🎁";
@@ -271,7 +271,7 @@ async function fetcher(url) {
         if (GM_getValue(`Date`) != Setting.Beijing_date) {
             GM_setValue(`Date`, Setting.Beijing_date);
             GM_setValue(`Count`, 0)
-            GM_setValue(`Small_Count`, 0)
+            GM_setValue(`Big_Count`, 0)
             GM_setValue(`Earn`, 0)
             GM_setValue(`GiftList`, {})
         }
@@ -280,7 +280,7 @@ async function fetcher(url) {
         if (new Date().valueOf() - GM_getValue(`ConTS`) > TimeDelta && new Date().valueOf() > GM_getValue(`TimeOut`)) {
             GM_setValue(`ConCount`, 0)
         }
-        if (GM_getValue(`Small_Count`) >= 8 && GM_getValue(`Count`) >= 12 && new Date().getHours() < 16 + Math.min(6, GM_getValue(`Count`) / 2)) {
+        if (GM_getValue(`Big_Count`) >= 6 && GM_getValue(`Count`) >= 12 && new Date().getHours() < 16 + Math.min(6, GM_getValue(`Count`) / 2)) {
             doorSill = 20;
             goldBlockEnumList.push(4000);
         }
@@ -524,8 +524,8 @@ async function fetcher(url) {
         for (let winner of message.data.winner_info) {
             if (Setting.UID == winner[0]) {
                 GM_setValue(`Count`, GM_getValue(`Count`) + 1)
-                if (message.data.awards[winner[3]].award_price / 100 == 1) {
-                    GM_setValue(`Small_Count`, GM_getValue(`Small_Count`) + 1)
+                if (message.data.awards[winner[3]].award_price / 100 > 1) {
+                    GM_setValue(`Big_Count`, GM_getValue(`Big_Count`) + 1)
                 }
                 let award = awards[winner[3]] || {};
                 award.count = (award.count >> 0) + 1;
