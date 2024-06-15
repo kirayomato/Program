@@ -282,7 +282,6 @@ async function fetcher(url) {
         }
         if (GM_getValue(`Big_Count`) >= 6 && GM_getValue(`Count`) >= 12 && new Date().getHours() < 16 + Math.min(6, GM_getValue(`Count`) / 2)) {
             doorSill = 20;
-            goldBlockEnumList.push(4000);
         }
         else {
             doorSill = 0
