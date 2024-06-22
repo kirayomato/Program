@@ -102,7 +102,7 @@ async function fetcher(url) {
     var doorSill = 0;
     // 你可以在这里枚举不想抽取的红包价值，单位是电池
     // e.g. const goldBlockEnumList = [16,20,100];
-    var goldBlockEnumList = [4000];
+    var goldBlockEnumList = [];
     var drawed = 0
     const RED_PACKET_ICON = "🧧";
     const GIFT_ICON = "🎁";
