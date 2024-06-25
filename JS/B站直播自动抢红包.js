@@ -39,32 +39,8 @@ var gold = 0;
         console.warn(`不在直播，已略过`)
         return
     }
-
     roomId = res.data.room_id
     const uid = res.data.uid
-    let rankGold = undefined
-
-    while ($('.tab-list.dp-flex').children().length == 0) {
-        console.warn(`找不到Tab元素，等待3秒。`)
-        await new Promise((res,) => setTimeout(res, 3000)) // wait 3 seconds
-    }
-
-    const keywords = ['高能榜', '高能用户']
-    let keyword;
-    for (const element of $('.tab-list.dp-flex').children()) {
-        console.log(element.innerText)
-        const kw = keywords.find(s => element.innerText.startsWith(s))
-        console.log(kw)
-        if (kw) {
-            rankGold = element
-            keyword = kw
-        }
-    }
-    if (!rankGold || !keyword) {
-        console.warn(`找不到高能榜元素。`)
-        return
-    }
-
     setInterval(async () => {
         try {
             const data = await fetcher(`https://api.live.bilibili.com/xlive/general-interface/v1/rank/getOnlineGoldRank?ruid=${uid}&roomId=${roomId}&page=1&pageSize=1`)
