@@ -87,7 +87,7 @@ async function fetcher(url) {
     }
 
     const data = await res.json()
-    console.debug(data)
+    // console.debug(data)
     if (data.code != 0) {
         throw new Error(`B站API请求错误: ${data.message}`)
     }
@@ -96,7 +96,7 @@ async function fetcher(url) {
 ; (async function () {
 
     if (!document.cookie.match(/bili_jct=(\w*); /)) { return; }
-
+    GetToday();
     // 抢红包门槛，只有红包价值大于等于门槛的时候才会抢
     // 单位是电池
     var doorSill = 0;
@@ -167,7 +167,7 @@ async function fetcher(url) {
     formData.set("platform", "android");
     formData.set("version", "6.79.0");
     formData.set("statistics", "%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%226.79.0%22%2C%22abtest%22%3A%22%22%7D");
-
+    GetToday();
     bliveproxy.addCommandHandler("POPULARITY_RED_POCKET_START", async (message) => {
         let failed = await drawRedPacket(message);
         // 参数错误时重试
@@ -654,4 +654,20 @@ async function fetcher(url) {
             });
     }
 
+    async function GetToday() {
+        fetch(`https://api.live.bilibili.com/xlive/web-room/v1/gift/bag_list`, {
+            method: 'GET',
+            credentials: 'include' // 携带同源和跨域的cookies
+        }).then(res => res.json())
+            .then(json => {
+                let cnt = 0;
+                const ts = new Date().valueOf() / 1000 + 3 * 24 * 3600;
+                const data = json.data
+                for (const i of data.list) {
+                    if (i.expire_at > ts && i.gift_type == 0)
+                        cnt += i.gift_num;
+                }
+                GM_setValue(`Count`, cnt)
+            });
+    }
 })();
