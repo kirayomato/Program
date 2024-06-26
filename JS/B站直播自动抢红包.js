@@ -72,7 +72,6 @@ async function fetcher(url) {
 ; (async function () {
 
     if (!document.cookie.match(/bili_jct=(\w*); /)) { return; }
-    GetToday();
     // 抢红包门槛，只有红包价值大于等于门槛的时候才会抢
     // 单位是电池
     var doorSill = 0;
@@ -143,7 +142,6 @@ async function fetcher(url) {
     formData.set("platform", "android");
     formData.set("version", "6.79.0");
     formData.set("statistics", "%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%226.79.0%22%2C%22abtest%22%3A%22%22%7D");
-    GetToday();
     bliveproxy.addCommandHandler("POPULARITY_RED_POCKET_START", async (message) => {
         let failed = await drawRedPacket(message);
         // 参数错误时重试
@@ -165,7 +163,13 @@ async function fetcher(url) {
             clearTimeout(timeout);
         }
     });
-
+    if (GM_getValue(`Date`) != Setting.Beijing_date) {
+        GM_setValue(`Date`, Setting.Beijing_date);
+        GM_setValue(`Count`, 0)
+        GM_setValue(`Big_Count`, 0)
+        GM_setValue(`Earn`, 0)
+        GM_setValue(`GiftList`, {})
+    }
     getLottery();
 
     function getLottery() {
@@ -232,25 +236,17 @@ async function fetcher(url) {
         });
     }
     async function drawRedPacket(message, force) {
+        GetToday();
         let num0 = 0
-        var i;
-        for (i of message.data.awards) {
+        for (var i of message.data.awards) {
             num0 += i.num
         }
         let countdown = (message.data.end_time - message.data.current_time) * 1000;
         // 电池门槛
         gold = Math.round(message.data.total_price / 100);
-        const t = 5000 * (1 + Math.random())
-        await sleep(t)
+        await sleep(5000 * (1 + Math.random()))
         drawed = 0
         console.info(`【Red Packet】检测到红包(${gold},${num0}) ${new Date(Setting.Beijing_ts)}`)
-        if (GM_getValue(`Date`) != Setting.Beijing_date) {
-            GM_setValue(`Date`, Setting.Beijing_date);
-            GM_setValue(`Count`, 0)
-            GM_setValue(`Big_Count`, 0)
-            GM_setValue(`Earn`, 0)
-            GM_setValue(`GiftList`, {})
-        }
         console.info(`【Red Packet】房间人数${people} ${new Date(Setting.Beijing_ts)}`)
         let TimeDelta = GM_getValue(`TimeDelta`)
         if (new Date().valueOf() - GM_getValue(`ConTS`) > TimeDelta && new Date().valueOf() > GM_getValue(`TimeOut`)) {
