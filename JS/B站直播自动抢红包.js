@@ -539,7 +539,7 @@ async function fetcher(url) {
                 GM_setValue(`Earn`, GM_getValue(`Earn`) + message.data.awards[winner[3]].award_price / 100)
                 giftCount++;
                 flag = 1
-                console.info(`【Red Packet】获得：${message.data.awards[winner[3]].award_name} price= ${message.data.awards[winner[3]].award_price / 100} ${new Date(Setting.Beijing_ts)}`)
+                console.info(`【Red Packet】获得：${message.data.awards[winner[3]].award_name} price= ${message.data.awards[winner[3]].award_price / 100} count = ${GM_getValue(`Count`)} ${new Date(Setting.Beijing_ts)}`)
                 break;
             }
         }
@@ -643,7 +643,10 @@ async function fetcher(url) {
                     if (i.expire_at > ts && i.gift_type == 0)
                         cnt += i.gift_num;
                 }
-                GM_setValue(`Count`, cnt)
+                if (cnt != GM_getValue(`Count`)) {
+                    GM_setValue(`Count`, cnt);
+                    console.info(`【Red Packet】Set Count to ${cnt}`);
+                }
             });
     }
 })();
