@@ -639,7 +639,7 @@ async function fetcher(url) {
                     if (i.expire_at > ts && i.gift_type == 0)
                         cnt += i.gift_num;
                 }
-                if (cnt != GM_getValue(`Count`)) {
+                if (cnt > GM_getValue(`Count`)) {
                     GM_setValue(`Count`, cnt);
                     console.info(`【Red Packet】Set Count to ${cnt}`);
                 }
