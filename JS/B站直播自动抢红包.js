@@ -645,4 +645,31 @@ async function fetcher(url) {
                 }
             });
     }
+    async function SendGift() {
+        const url = 'https://api.live.bilibili.com/xlive/revenue/v1/gift/sendBag';
+        let data = new FormData();
+        data.set("uid", Setting.UID)
+        data.set("bag_id", 397037492)
+        data.set("gift_id", 1)
+        data.set("gift_num", 1)
+        data.set("platform", "pc")
+        data.set("send_ruid", 0)
+        data.set("storm_beat_id", 0)
+        data.set("price", 0)
+        data.set("biz_code", "live")
+        data.set("biz_id", ROOM_ID)
+        data.set("ruid", ROOM_USER_ID)
+        data.set("rnd", Date.now())
+        data.set("csrf_token", Setting.TOKEN)
+        fetch(url, {
+            credentials: "include",
+            method: 'POST',
+            body: data
+        })
+            .then(res => res.json())
+            .then(json => {
+                console.info(`【Red Packet】Send Gift`, json);
+                return json; // 如果响应成功，解析JSON
+            });
+    };
 })();
