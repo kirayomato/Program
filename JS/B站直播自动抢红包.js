@@ -263,7 +263,7 @@ async function fetcher(url) {
             console.info(`【Red Packet】达到每日礼物上限 ${new Date(Setting.Beijing_ts)}`)
             return;
         }
-        if (gold >= 100 && GM_getValue(`ConCount`) < 6 && people < 60 * num0) {
+        if (gold/num0 >= 5 && GM_getValue(`ConCount`) < 6 && people < 60 * num0) {
             console.info(`【Red Packet】大额红包${gold}，强制抽取 ${new Date(Setting.Beijing_ts)}`)
         }
         else {
@@ -301,7 +301,7 @@ async function fetcher(url) {
         if (!(ROOM_ID in gf))
             gf[ROOM_ID] = {};
         if (gold in gf[ROOM_ID])
-            gf[ROOM_ID][gold] += 1;
+            gf[ROOM_ID][gold]++;
         else
             gf[ROOM_ID][gold] = 1;
         GM_setValue(`GiftList0`, gf)
@@ -494,10 +494,8 @@ async function fetcher(url) {
         let flag = 0
         for (let winner of message.data.winner_info) {
             if (Setting.UID == winner[0]) {
+                let price = message.data.awards[winner[3]].award_price / 100;
                 GM_setValue(`Count`, GM_getValue(`Count`) + 1)
-                if (message.data.awards[winner[3]].award_price / 100 > 1) {
-                    GM_setValue(`Big_Count`, GM_getValue(`Big_Count`) + 1)
-                }
                 let award = awards[winner[3]] || {};
                 award.count = (award.count >> 0) + 1;
                 award.notice && award.notice.remove();
@@ -512,7 +510,7 @@ async function fetcher(url) {
                         <span class="coin-type dp-i-block v-middle none-select">
                             <i class="currency-icon" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAABDBJREFUaAXVWt1rFFcU/92Z3Z3sJiHRxBhNRe0ihSLSF20fBBWDL/og2Pf+A774IKGU0gXf2jcf/RMsQkXwg4IgVKxUUBB9SJssRtGQaLr52J1sZmduz93qujt752Nn713WE8jOPeeee36/O+d+zQzwiQtThZ8/K2QwZBxAzctGtmlhDVP4h7GCF1k3okIqwh7LzDmBL+Iv1NxDsRyqVKvIrtH/b2PVD6lkhNjimxaMw+A8HvgPrXJ+jhcLox+KSX/VEPC84UQA0hhK5NfkpIZAU4O9vow1Bji/auLN822B4KpsBOCB5kDDFrbz14VNqd3LcEx9v8IYC204dBbi85e+ANzLFOAo5XhOGkinkrES9ctNDOICmywsyUIFEuALl/Jw3CfUs13nqSxwRzrGijRaDrGJwobfLziFHPdnZeANC8hM+GO3l70twFmlsL6s4nw/1tlFcvjJ7xRMQKSNKjEHgaGD8Vuz54HyLNVvSX8pnpBZiMfosviYOqqZ/RzI7vO7SPGEEPD797icy8cK2L8EWBpgA5Ek+peAgG6Y/UHAfvMrSn8ew9bynUhAnVbQfgectafYXPkD3KvCeXe3U3yR9bUS4LV1VJZvNkAY1njjWtWFVgLlpRvw3I+LkpGZVIW70Y42Altrj+Fs/N0IJC4Ma2dLWUVBCwGvtorK0u02fIa1q03XrUIDAY7K4nUatLSv8ckncQeqq4/gVIo+6LQmMRMs0+eD2HNWYC//3gZeKAxLbGXU33CFLXKUF3+j1HHkBDTMQPWOkUZLoKz++wA1+2Wgp2GJKdSDV5mjFfk2PLs9zQKdQwxh54EQt1YTdzdgvw1fZZ3SQ5QeToO7lbozM3MYPXxL5FZrYx2WFBGw6cjsNkIbBIqLv6aZSIyPZmHikGPQjrNLUULAyOzA8GffQcz/qYHdMGi2WV+4gtrmYiC8XH6GbN0PQSUEBMpUbp/4aYgnzrYBYk2cQXqb9IQY4BGs7r4LZG1zh/ZAtsxS307k9l+Q2pIotRAI6n3xDGcw/wMg8l+RaCJQksKzJs8hNXpEakuq1EOABrNfzIEpZPee96u7LveEAAND7sCPlDrR7z46ZaSHgG8GssaOIzX8VafYYtXXTsCkNSE7cToWmCSV9BBw1+pYROoM7jqrZMUNIqeFQHroS4JOTwfHT8K0poJiK9ErW4mb0WTHp5EdO0GnmOgHU81+Sa613IE6EBXgefRbWH0EknRnsw9tR+jQ0KyRXvcvAcm5WsYghABbljn0RGe/AOw5fygpnrBBfJ9aoDlQgdTK9MbleXRD4gAktiHvT20tDgwCT5uEEZihZyGnlLyd5PRtgejVxMIWMIJfZO6BKcTyhVmk8DWRuEfzYftTKllrqnWMlSn+NZjpb9hY4f/V0ReD+crSYv1jjlepHVKjLiWvcezBYtQXLf8BGOoetC6LwK8AAAAASUVORK5CYII=&quot;);"></i>
                         </span>
-                        <span class="text">${Math.round(message.data.awards[winner[3]].award_price / 100) * award.count}</span>
+                        <span class="text">${Math.round(price) * award.count}</span>
                     </span>
                 `, "success", `中奖啦！(${GM_getValue(`Count`)})`, false, (p) => {
                     // 关闭提示框时清空礼物计数
@@ -520,22 +518,31 @@ async function fetcher(url) {
                     // console.log(JSON.stringify(award));
                     // award.count = 0;
                 });
+                let bag_id = awards[winner[2]];
+                let gf = GM_getValue(`GiftList`);
+                let gift_name = message.data.awards[winner[3]].award_name;
+
+                console.info(`【Red Packet】获得：${gift_name} price= ${price} count= ${GM_getValue(`Count`)} room= ${ROOM_ID} ${new Date(Setting.Beijing_ts)}`)
+                if (price > 1) {
+                    GM_setValue(`Big_Count`, GM_getValue(`Big_Count`) + 1)
+                }
+                if (price > 100) {
+                    // SendGift(gift_name,price,bag_id, gift_id);
+                }
+
                 if (award.count == 1) {
                     awards[winner[3]] = award;
                 }
-                let gf = GM_getValue(`GiftList`);
-                let gn = message.data.awards[winner[3]].award_name;
                 if (!(ROOM_ID in gf))
                     gf[ROOM_ID] = {};
-                if (gn in gf[ROOM_ID])
-                    gf[ROOM_ID][gn] += 1;
+                if (gift_name in gf[ROOM_ID])
+                    gf[ROOM_ID][gift_name]++;
                 else
-                    gf[ROOM_ID][gn] = 1;
+                    gf[ROOM_ID][gift_name] = 1;
                 GM_setValue(`GiftList`, gf)
-                GM_setValue(`Earn`, GM_getValue(`Earn`) + message.data.awards[winner[3]].award_price / 100)
+                GM_setValue(`Earn`, GM_getValue(`Earn`) + price)
                 giftCount++;
                 flag = 1
-                console.info(`【Red Packet】获得：${message.data.awards[winner[3]].award_name} price= ${message.data.awards[winner[3]].award_price / 100} count= ${GM_getValue(`Count`)} room= ${ROOM_ID} ${new Date(Setting.Beijing_ts)}`)
                 break;
             }
         }
@@ -633,10 +640,10 @@ async function fetcher(url) {
         }).then(res => res.json())
             .then(json => {
                 let cnt = 0;
-                const ts = new Date().valueOf() / 1000 + 3 * 24 * 3600;
                 const data = json.data
                 for (const i of data.list) {
-                    if (i.expire_at > ts && i.gift_type == 0)
+                    let ts = (i.expire_at - new Date().valueOf() / 1000) / 24 / 3600
+                    if (3 < ts < 4 && i.gift_type == 0)
                         cnt += i.gift_num;
                 }
                 if (cnt > GM_getValue(`Count`)) {
@@ -645,17 +652,17 @@ async function fetcher(url) {
                 }
             });
     }
-    async function SendGift() {
-        const url = 'https://api.live.bilibili.com/xlive/revenue/v1/gift/sendBag';
+    async function SendGift(name,price,bag_id, gift_id) {
+        const url = 'http://api.live.bilibili.com/gift/v2/live/bag_send';
         let data = new FormData();
         data.set("uid", Setting.UID)
-        data.set("bag_id", 397037492)
-        data.set("gift_id", 1)
+        data.set("bag_id", bag_id)
+        data.set("gift_id", gift_id)
         data.set("gift_num", 1)
         data.set("platform", "pc")
         data.set("send_ruid", 0)
         data.set("storm_beat_id", 0)
-        data.set("price", 0)
+        data.set("price", price)
         data.set("biz_code", "live")
         data.set("biz_id", ROOM_ID)
         data.set("ruid", ROOM_USER_ID)
@@ -668,8 +675,9 @@ async function fetcher(url) {
         })
             .then(res => res.json())
             .then(json => {
-                console.info(`【Red Packet】Send Gift`, json);
-                return json; // 如果响应成功，解析JSON
+                console.info(`【Red Packet】大额礼物自动送出:${name}(${price}) ${new Date(Setting.Beijing_ts)}`)
+                console.info(json)
+                // return json; // 如果响应成功，解析JSON
             });
     };
 })();
