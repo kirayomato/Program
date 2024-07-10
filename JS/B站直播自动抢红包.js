@@ -263,7 +263,7 @@ async function fetcher(url) {
             console.info(`【Red Packet】达到每日礼物上限 ${new Date(Setting.Beijing_ts)}`)
             return;
         }
-        if (gold/num0 >= 5 && GM_getValue(`ConCount`) < 6 && people < 60 * num0) {
+        if (gold / num0 >= 5 && GM_getValue(`ConCount`) < 6 && people < 60 * num0) {
             console.info(`【Red Packet】大额红包${gold}，强制抽取 ${new Date(Setting.Beijing_ts)}`)
         }
         else {
@@ -527,7 +527,7 @@ async function fetcher(url) {
                     GM_setValue(`Big_Count`, GM_getValue(`Big_Count`) + 1)
                 }
                 if (price > 100) {
-                    // SendGift(gift_name,price,bag_id, gift_id);
+                    SendGift(gift_name, price, bag_id, winner[3]);
                 }
 
                 if (award.count == 1) {
@@ -643,7 +643,7 @@ async function fetcher(url) {
                 const data = json.data
                 for (const i of data.list) {
                     let ts = (i.expire_at - new Date().valueOf() / 1000) / 24 / 3600
-                    if (3 < ts < 4 && i.gift_type == 0)
+                    if (3 < ts && ts < 4 && i.gift_type == 0)
                         cnt += i.gift_num;
                 }
                 if (cnt > GM_getValue(`Count`)) {
@@ -652,7 +652,7 @@ async function fetcher(url) {
                 }
             });
     }
-    async function SendGift(name,price,bag_id, gift_id) {
+    async function SendGift(name, price, bag_id, gift_id) {
         const url = 'http://api.live.bilibili.com/gift/v2/live/bag_send';
         let data = new FormData();
         data.set("uid", Setting.UID)
