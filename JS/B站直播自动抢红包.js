@@ -499,6 +499,7 @@ async function fetcher(url) {
         // }
         removeDrawBtn();
         let follow = unpacking;
+        let count = GM_getValue(`Count`)
         unpacking = false;
         notice && (notice.style.display = "none");
         let flag = 0
@@ -655,7 +656,7 @@ async function fetcher(url) {
                     if (3 < ts && ts < 4 && i.gift_type == 0)
                         cnt += i.gift_num;
                 }
-                if (cnt > count) {
+                if (cnt > GM_getValue(`Count`)) {
                     GM_setValue(`Count`, cnt);
                     console.info(`【Red Packet】Set Count to ${cnt}`);
                 }
