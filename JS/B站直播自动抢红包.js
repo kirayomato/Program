@@ -243,6 +243,7 @@ async function fetcher(url) {
     }
     async function drawRedPacket(message, force) {
         await GetToday();
+        let count = GM_getValue(`Count`);
         let num0 = 0
         for (var i of message.data.awards) {
             num0 += i.num
@@ -261,16 +262,16 @@ async function fetcher(url) {
             console.info(`【Red Packet】未关注主播 ${Setting.Beijing_date}`);
             return;
         }
-        if (GM_getValue(`Count`) >= 16 || GM_getValue(`limitWarning-${Setting.UID}`) == Setting.Beijing_date) {
+        if (count >= 16 || GM_getValue(`limitWarning-${Setting.UID}`) == Setting.Beijing_date) {
             showMessage(`达到每日礼物上限`, "warning", `红包${gold}`, countdown)
-            console.info(`【Red Packet】达到每日礼物上限 ${Setting.Beijing_date}`)
+            console.info(`【Red Packet】count=${count} 达到每日礼物上限 ${Setting.Beijing_date}`)
             return;
         }
 
         if (Date.now() - GM_getValue(`ConTS`) > TimeDelta) {
             GM_setValue(`ConCount`, 0)
         }
-        if (GM_getValue(`Big_Count`) >= 6 && GM_getValue(`Count`) >= 12 && new Date().getHours() < 16 + Math.min(6, GM_getValue(`Count`) / 2)) {
+        if (GM_getValue(`Big_Count`) >= 6 && count >= 12 && new Date().getHours() < 16 + Math.min(6, count / 2)) {
             doorSill = 20;
         }
         else {
@@ -296,7 +297,7 @@ async function fetcher(url) {
                 return;
             }
             if (people < 50 || people < 5 * num0) {
-                console.info(`【Red Packet】人少${people}，强制抽取 ${Setting.Beijing_date}`)
+                console.info(`【Red Packet】房间人数较少${people}，无视门限 ${Setting.Beijing_date}`)
             }
             else if (doorSill > gold || goldBlockEnumList.includes(gold)) {
                 showMessage(`金额${gold}低于门限：${doorSill}`, "info", null, countdown)
@@ -504,7 +505,7 @@ async function fetcher(url) {
         for (let winner of message.data.winner_info) {
             if (Setting.UID == winner[0]) {
                 let price = message.data.awards[winner[3]].award_price / 100;
-                GM_setValue(`Count`, GM_getValue(`Count`) + 1)
+                GM_setValue(`Count`, count + 1)
                 let award = awards[winner[3]] || {};
                 award.count = (award.count >> 0) + 1;
                 award.notice && award.notice.remove();
@@ -521,7 +522,7 @@ async function fetcher(url) {
                         </span>
                         <span class="text">${Math.round(price) * award.count}</span>
                     </span>
-                `, "success", `中奖啦！(${GM_getValue(`Count`)})`, false, (p) => {
+                `, "success", `中奖啦！(${count})`, false, (p) => {
                     // 关闭提示框时清空礼物计数
                     // alert(`清空 ${message.data.awards[winner[3]]} 的计数`);
                     // console.log(JSON.stringify(award));
@@ -530,7 +531,7 @@ async function fetcher(url) {
                 let gf = GM_getValue(`GiftList`);
                 let gift_name = message.data.awards[winner[3]].award_name;
 
-                console.info(`【Red Packet】获得：${gift_name} price= ${price} count= ${GM_getValue(`Count`)} room= ${ROOM_ID} ${Setting.Beijing_date}`)
+                console.info(`【Red Packet】获得：${gift_name} price= ${price} count= ${count} room= ${ROOM_ID} ${Setting.Beijing_date}`)
                 if (price > 1) {
                     GM_setValue(`Big_Count`, GM_getValue(`Big_Count`) + 1)
                 }
@@ -654,7 +655,7 @@ async function fetcher(url) {
                     if (3 < ts && ts < 4 && i.gift_type == 0)
                         cnt += i.gift_num;
                 }
-                if (cnt > GM_getValue(`Count`)) {
+                if (cnt > count) {
                     GM_setValue(`Count`, cnt);
                     console.info(`【Red Packet】Set Count to ${cnt}`);
                 }
