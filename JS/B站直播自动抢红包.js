@@ -93,7 +93,7 @@ async function fetcher(url) {
             return regex && regex[1];
         },
         get Beijing_date() {    // eg. 2022/10/15
-            return new Date(Setting.Beijing_ts).toLocaleDateString("zh-CN");
+            return Setting.Beijing_date.toLocaleDateString("zh-CN");
         },
         get Beijing_ts() {
             let local = new Date();
@@ -163,12 +163,18 @@ async function fetcher(url) {
             clearTimeout(timeout);
         }
     });
+    if (GM_getValue('GiftList0') === undefined)
+        GM_setValue('GiftList0', {})
+
     if (GM_getValue(`Date`) != Setting.Beijing_date) {
         GM_setValue(`Date`, Setting.Beijing_date);
         GM_setValue(`Count`, 0)
         GM_setValue(`Big_Count`, 0)
         GM_setValue(`Earn`, 0)
         GM_setValue(`GiftList`, {})
+        GM_setValue(`ConCount`, 0)
+        GM_setValue(`ConTS`, 0)
+        GM_setValue(`TimeOut`, 0)
     }
     getLottery();
 
@@ -236,7 +242,7 @@ async function fetcher(url) {
         });
     }
     async function drawRedPacket(message, force) {
-        GetToday();
+        await GetToday();
         let num0 = 0
         for (var i of message.data.awards) {
             num0 += i.num
@@ -246,10 +252,22 @@ async function fetcher(url) {
         gold = Math.round(message.data.total_price / 100);
         await sleep(5000 * (1 + Math.random()))
         drawed = 0
-        console.info(`【Red Packet】检测到红包(${gold},${num0}) ${new Date(Setting.Beijing_ts)}`)
-        console.info(`【Red Packet】房间人数${people} ${new Date(Setting.Beijing_ts)}`)
-        let TimeDelta = GM_getValue(`TimeDelta`)
-        if (new Date().valueOf() - GM_getValue(`ConTS`) > TimeDelta && new Date().valueOf() > GM_getValue(`TimeOut`)) {
+        console.info(`【Red Packet】检测到红包(${gold},${num0}) ${Setting.Beijing_date}`)
+        console.info(`【Red Packet】房间人数${people} ${Setting.Beijing_date}`)
+        if (people == 0)
+            people = 100;
+        const TimeDelta = 1800000
+        if (!FOLLOWED) {
+            console.info(`【Red Packet】未关注主播 ${Setting.Beijing_date}`);
+            return;
+        }
+        if (GM_getValue(`Count`) >= 16 || GM_getValue(`limitWarning-${Setting.UID}`) == Setting.Beijing_date) {
+            showMessage(`达到每日礼物上限`, "warning", `红包${gold}`, countdown)
+            console.info(`【Red Packet】达到每日礼物上限 ${Setting.Beijing_date}`)
+            return;
+        }
+
+        if (Date.now() - GM_getValue(`ConTS`) > TimeDelta) {
             GM_setValue(`ConCount`, 0)
         }
         if (GM_getValue(`Big_Count`) >= 6 && GM_getValue(`Count`) >= 12 && new Date().getHours() < 16 + Math.min(6, GM_getValue(`Count`) / 2)) {
@@ -258,45 +276,36 @@ async function fetcher(url) {
         else {
             doorSill = 0
         }
-        if (GM_getValue(`Count`) >= GM_getValue(`Limit`)) {
-            showMessage(`达到每日礼物上限`, "warning", `红包${gold}`, countdown)
-            console.info(`【Red Packet】达到每日礼物上限 ${new Date(Setting.Beijing_ts)}`)
-            return;
+        if (gold / num0 < 2) {
+            showMessage(`跳过低价值红包(${gold}/${num0})`, "info", null, countdown)
+            console.info(`【Red Packet】跳过低价值红包(${gold}/${num0}) ${Setting.Beijing_date}`)
+            return
         }
         if (gold / num0 >= 5 && GM_getValue(`ConCount`) < 6 && people < 60 * num0) {
-            console.info(`【Red Packet】大额红包${gold}，强制抽取 ${new Date(Setting.Beijing_ts)}`)
+            console.info(`【Red Packet】大额红包(${gold}/${num0})，强制抽取 ${Setting.Beijing_date}`)
         }
         else {
-            if (new Date().valueOf() < GM_getValue(`TimeOut`)) {
+            if (Date.now() < GM_getValue(`TimeOut`)) {
                 showMessage(`下次抽奖时间：${new Date(GM_getValue(`TimeOut`)).toTimeString()}`, "info", `红包${gold}`, countdown)
-                console.info(`【Red Packet】下次抽奖时间${new Date(GM_getValue(`TimeOut`)).toTimeString()} ${new Date(Setting.Beijing_ts)}`)
+                console.info(`【Red Packet】下次抽奖时间${new Date(GM_getValue(`TimeOut`)).toTimeString()} ${Setting.Beijing_date}`)
                 return;
             }
             if (people > 40 * num0) {
                 showMessage(`房间人数${people}高于阈值${40 * num0}`, "info", null, countdown)
-                console.info(`【Red Packet】房间人数${people}高于阈值${40 * num0} ${new Date(Setting.Beijing_ts)}`)
+                console.info(`【Red Packet】房间人数${people}高于阈值${40 * num0} ${Setting.Beijing_date}`)
                 return;
             }
-        }
-        if (!force) {
-            // 每日上限
-            if (GM_getValue(`limitWarning-${Setting.UID}`) == Setting.Beijing_date) {
-                //addDrawBtn(message);
-                return;
+            if (people < 50 || people < 5 * num0) {
+                console.info(`【Red Packet】人少${people}，强制抽取 ${Setting.Beijing_date}`)
             }
-            if (!FOLLOWED) {
-                console.info(`【Red Packet】未关注主播 ${new Date(Setting.Beijing_ts)}`);
-                //addDrawBtn(message);
-                return;
-            }
-            if (doorSill > gold || goldBlockEnumList.includes(gold)) {
+            else if (doorSill > gold || goldBlockEnumList.includes(gold)) {
                 showMessage(`金额${gold}低于门限：${doorSill}`, "info", null, countdown)
-                console.info(`【Red Packet】金额${gold}低于门限：${doorSill} ${new Date(Setting.Beijing_ts)}`)
+                console.info(`【Red Packet】金额${gold}低于门限：${doorSill} ${Setting.Beijing_date}`)
                 //addDrawBtn(message);
                 return;
             }
         }
-        console.info(`【Red Packet】抽取红包${gold} ${new Date(Setting.Beijing_ts)}`)
+        console.info(`【Red Packet】抽取红包${gold} ${Setting.Beijing_date}`)
         let gf = GM_getValue(`GiftList0`);
         if (!(ROOM_ID in gf))
             gf[ROOM_ID] = {};
@@ -308,12 +317,12 @@ async function fetcher(url) {
         drawed = 1
         let cnt = GM_getValue(`ConCount`) + 1
         if (cnt == 1) {
-            GM_setValue(`ConTS`, new Date().valueOf())
+            GM_setValue(`ConTS`, Date.now())
         }
         GM_setValue(`ConCount`, cnt)
         if (cnt >= 4) {
-            GM_setValue(`TimeOut`, new Date().valueOf() + TimeDelta)
-            console.info(`【Red Packet】触发CD，下次抽奖时间${new Date(GM_getValue(`TimeOut`)).toTimeString()} ${new Date(Setting.Beijing_ts)}`)
+            GM_setValue(`TimeOut`, Date.now() + TimeDelta)
+            console.info(`【Red Packet】触发CD，下次抽奖时间${new Date(GM_getValue(`TimeOut`)).toTimeString()} ${Setting.Beijing_date}`)
         }
         clearTimeout(timeout);
         timeout = null;
@@ -518,16 +527,15 @@ async function fetcher(url) {
                     // console.log(JSON.stringify(award));
                     // award.count = 0;
                 });
-                let bag_id = awards[winner[2]];
                 let gf = GM_getValue(`GiftList`);
                 let gift_name = message.data.awards[winner[3]].award_name;
 
-                console.info(`【Red Packet】获得：${gift_name} price= ${price} count= ${GM_getValue(`Count`)} room= ${ROOM_ID} ${new Date(Setting.Beijing_ts)}`)
+                console.info(`【Red Packet】获得：${gift_name} price= ${price} count= ${GM_getValue(`Count`)} room= ${ROOM_ID} ${Setting.Beijing_date}`)
                 if (price > 1) {
                     GM_setValue(`Big_Count`, GM_getValue(`Big_Count`) + 1)
                 }
                 if (price > 100) {
-                    SendGift(gift_name, price, bag_id, winner[3]);
+                    SendGift(gift_name, price, winner[2], winner[3]);
                 }
 
                 if (award.count == 1) {
@@ -548,7 +556,7 @@ async function fetcher(url) {
         }
         if (!flag && drawed) {
             showMessage("未中奖", "warning", "提示", 15 * 60 * 1000);
-            console.info(`【Red Packet】未中奖 ${new Date(Setting.Beijing_ts)}`)
+            console.info(`【Red Packet】未中奖 ${Setting.Beijing_date}`)
         }
         updateTabTitle();
         if ((!FOLLOWED) && follow) {
@@ -642,7 +650,7 @@ async function fetcher(url) {
                 let cnt = 0;
                 const data = json.data
                 for (const i of data.list) {
-                    let ts = (i.expire_at - new Date().valueOf() / 1000) / 24 / 3600
+                    let ts = (i.expire_at - Date.now() / 1000) / 24 / 3600
                     if (3 < ts && ts < 4 && i.gift_type == 0)
                         cnt += i.gift_num;
                 }
@@ -675,7 +683,7 @@ async function fetcher(url) {
         })
             .then(res => res.json())
             .then(json => {
-                console.info(`【Red Packet】大额礼物自动送出:${name}(${price}) ${new Date(Setting.Beijing_ts)}`)
+                console.info(`【Red Packet】大额礼物自动送出:${name}(${price}) ${Setting.Beijing_date}`)
                 console.info(json)
                 // return json; // 如果响应成功，解析JSON
             });
