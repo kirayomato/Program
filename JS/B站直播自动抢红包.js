@@ -93,7 +93,7 @@ async function fetcher(url) {
             return regex && regex[1];
         },
         get Beijing_date() {    // eg. 2022/10/15
-            return Setting.Beijing_date.toLocaleDateString("zh-CN");
+            return new Date(Setting.Beijing_ts).toLocaleDateString("zh-CN");
         },
         get Beijing_ts() {
             let local = new Date();
