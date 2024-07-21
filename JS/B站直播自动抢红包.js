@@ -506,7 +506,8 @@ async function fetcher(url) {
         for (let winner of message.data.winner_info) {
             if (Setting.UID == winner[0]) {
                 let price = message.data.awards[winner[3]].award_price / 100;
-                GM_setValue(`Count`, count + 1)
+                count++;
+                GM_setValue(`Count`, count)
                 let award = awards[winner[3]] || {};
                 award.count = (award.count >> 0) + 1;
                 award.notice && award.notice.remove();
