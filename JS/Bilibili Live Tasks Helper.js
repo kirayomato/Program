@@ -1919,9 +1919,11 @@
                     this.status = "running";
                     const idList = this.getRoomidUidList();
                     if (idList) {
-                        for (const [roomid, target_id] of idList) {
-                            await this.like(roomid, target_id);
-                            await sleep(2e3);
+                        for (let j = 0; j < 50; ++j) {
+                            for (const [roomid, target_id] of idList) {
+                                await this.like(roomid, target_id);
+                                await sleep(2e3);
+                            }
                         }
                         this.config._lastCompleteTime = tsm();
                         this.status = "done";
@@ -2300,10 +2302,13 @@
                     const roomIdList = this.getRoomidList();
                     if (roomIdList) {
                         const danmuList = this.config.list;
-                        for (let i = 0; i < roomIdList.length; i++) {
-                            const danmu = danmuList[i % danmuList.length];
-                            await this.sendDanmu(danmu, roomIdList[i]);
-                            await sleep(2e3);
+                        for (let j = 0; j < 10; j++) {
+                            for (let i = 0; i < roomIdList.length; i++) {
+                                const danmu = danmuList[i % danmuList.length];
+                                await this.sendDanmu(danmu, roomIdList[i]);
+                                await sleep(2e3);
+                            }
+                            await sleep(300 * 1e3)
                         }
                         this.config._lastCompleteTime = tsm();
                         this.status = "done";
