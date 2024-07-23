@@ -1,0 +1,330 @@
+{
+    "cache": {
+        "lastAliveHeartBeatTime": 1719502908382
+    },
+    "modules": {
+        "DailyTasks": {
+            "MainSiteTasks": {
+                "login": {
+                    "enabled": true,
+                    "_lastCompleteTime": 1719435900025
+                },
+                "watch": {
+                    "enabled": true,
+                    "_lastCompleteTime": 1719435900010
+                },
+                "coin": {
+                    "enabled": false,
+                    "num": 1,
+                    "_lastCompleteTime": 0
+                },
+                "share": {
+                    "enabled": true,
+                    "_lastCompleteTime": 1719435900030
+                }
+            },
+            "LiveTasks": {
+                "sign": {
+                    "enabled": true,
+                    "_lastCompleteTime": 1719435900196
+                },
+                "medalTasks": {
+                    "danmu": {
+                        "enabled": true,
+                        "list": [
+                            "(⌒▽⌒)",
+                            "（￣▽￣）",
+                            "(=・ω・=)",
+                            "(｀・ω・´)",
+                            "(〜￣△￣)〜",
+                            "(･∀･)",
+                            "(°∀°)ﾉ",
+                            "╮(￣▽￣)╭",
+                            "_(:3」∠)_",
+                            "(^・ω・^ )",
+                            "(●￣(ｴ)￣●)",
+                            "ε=ε=(ノ≧∇≦)ノ",
+                            "⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄",
+                            "←◡←",
+                            "(●'◡'●)ﾉ♥"
+                        ],
+                        "_lastCompleteTime": 1719436439163
+                    },
+                    "like": {
+                        "enabled": true,
+                        "_lastCompleteTime": 1719436429755
+                    },
+                    "watch": {
+                        "enabled": true,
+                        "time": 120,
+                        "_watchedSecondsToday": 0,
+                        "_lastWatchTime": 1719436427586,
+                        "_lastCompleteTime": 1719436427591
+                    },
+                    "isWhiteList": false,
+                    "roomidList": [
+                        22087280,
+                        22484141,
+                        22111450,
+                        22349494,
+                        22671795,
+                        21641569,
+                        21627536,
+                        21752694,
+                        392523,
+                        21129632,
+                        704808,
+                        21144047,
+                        22349497,
+                        22439372,
+                        21752710,
+                        21752719,
+                        23256987,
+                        21131813,
+                        664481,
+                        21130785,
+                        22349508,
+                        21572617,
+                        1156041,
+                        12845193,
+                        429744,
+                        8899503,
+                        22387056,
+                        22349492,
+                        22154078,
+                        21421141,
+                        21752686,
+                        21908209,
+                        22131380,
+                        21452118,
+                        14222920,
+                        21652717,
+                        21399689,
+                        22205953,
+                        21660284,
+                        22232161,
+                        21583736,
+                        21420932,
+                        22159299,
+                        22074371,
+                        21417013,
+                        22459139,
+                        22571958,
+                        21908196,
+                        21696953,
+                        12386041,
+                        21575222,
+                        21133979,
+                        21720308,
+                        21304638,
+                        4664126,
+                        21463227,
+                        876396,
+                        21712635,
+                        6129586,
+                        21132965,
+                        21267062,
+                        21584153,
+                        22232141,
+                        88615,
+                        21317217,
+                        21307497,
+                        8725120,
+                        337374,
+                        21449061,
+                        21450685,
+                        10358807,
+                        21656037,
+                        21575212,
+                        21811136,
+                        21610636,
+                        21656036,
+                        22386431,
+                        21463247,
+                        21302352,
+                        22055164,
+                        21955596,
+                        22347054,
+                        14052636,
+                        21685677,
+                        22543154,
+                        21919321,
+                        1321846,
+                        22459102,
+                        21547904,
+                        12770821,
+                        8725320,
+                        21671418,
+                        21449068,
+                        21908182,
+                        21320551,
+                        14639938,
+                        22055072,
+                        22232167,
+                        21654212,
+                        21573665,
+                        22349506,
+                        21575226,
+                        21449083,
+                        3012597,
+                        22428702,
+                        21415012,
+                        22095341,
+                        21013446,
+                        14275133,
+                        88615,
+                        42062,
+                        21195828,
+                        27798865,
+                        21413565,
+                        21448649,
+                        947447,
+                        190577,
+                        22470212,
+                        21219990,
+                        21403609,
+                        11588230,
+                        22067425,
+                        21799389,
+                        22347045,
+                        21300316,
+                        21545232,
+                        21396545,
+                        21547895,
+                        21693682,
+                        22853788,
+                        88615,
+                        4418655,
+                        22321043,
+                        22047448,
+                        22918711,
+                        10112,
+                        43835,
+                        74644,
+                        21618138,
+                        33942,
+                        21664698,
+                        27518032,
+                        22667136,
+                        88615,
+                        24812685,
+                        837039,
+                        21737386,
+                        21463249,
+                        866400
+                    ],
+                    "roomidList2": [
+                        23945583,
+                        22344968,
+                        3473884,
+                        850221,
+                        370468,
+                        23075997,
+                        4634167,
+                        21708004,
+                        27628019,
+                        23805078,
+                        22966160,
+                        31368686,
+                        31368705,
+                        23260993,
+                        21403601,
+                        1766909591
+                    ]
+                }
+            },
+            "OtherTasks": {
+                "groupSign": {
+                    "enabled": false,
+                    "_lastCompleteTime": 0
+                },
+                "silverToCoin": {
+                    "enabled": true,
+                    "_lastCompleteTime": 1719435900193
+                },
+                "coinToSilver": {
+                    "enabled": false,
+                    "num": 1,
+                    "_lastCompleteTime": 0
+                },
+                "getYearVipPrivilege": {
+                    "enabled": false,
+                    "_nextReceiveTime": 0
+                }
+            }
+        },
+        "EnhanceExperience": {
+            "switchLiveStreamQuality": {
+                "enabled": false,
+                "qualityDesc": "原画"
+            },
+            "banp2p": {
+                "enabled": false
+            },
+            "noReport": {
+                "enabled": false
+            },
+            "noSleep": {
+                "enabled": false
+            },
+            "invisibility": {
+                "enabled": false
+            },
+            "wearFansMedal": {
+                "enabled": false
+            },
+            "showContributionUserNum": {
+                "enabled": false
+            }
+        },
+        "RemoveElement": {
+            "removePKBox": {
+                "enabled": false
+            },
+            "removeLiveWaterMark": {
+                "enabled": false
+            },
+            "removeShopPopover": {
+                "enabled": false
+            },
+            "removeGameParty": {
+                "enabled": false
+            },
+            "removeGiftPopover": {
+                "enabled": false
+            },
+            "removeMicPopover": {
+                "enabled": false
+            },
+            "removeComboCard": {
+                "enabled": false
+            },
+            "removeRank": {
+                "enabled": false
+            },
+            "removeGiftPlanet": {
+                "enabled": false
+            },
+            "removeActivityBanner": {
+                "enabled": false
+            },
+            "removePKBanner": {
+                "enabled": false
+            },
+            "removeFlipView": {
+                "enabled": false
+            },
+            "removeRecommendRoom": {
+                "enabled": false
+            },
+            "removeLiveMosaic": {
+                "enabled": false
+            }
+        }
+    },
+    "ui": {
+        "isCollapse": false,
+        "isShowPanel": false,
+        "activeMenuIndex": "OtherTasks"
+    }
+}
