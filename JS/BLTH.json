@@ -56,7 +56,7 @@
                     },
                     "watch": {
                         "enabled": true,
-                        "time": 120,
+                        "time": 30,
                         "_watchedSecondsToday": 0,
                         "_lastWatchTime": 1719436427586,
                         "_lastCompleteTime": 1719436427591

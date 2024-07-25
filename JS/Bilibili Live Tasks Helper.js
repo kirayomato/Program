@@ -2167,6 +2167,19 @@
                 return null;
             }
         }
+        getRoomidList() {
+            const biliStore = useBiliStore();
+            if (biliStore.filteredFansMedals) {
+                let roomIdList = biliStore.filteredFansMedals.filter(
+                    (medal) => medal.medal.today_feed < 200 && medal.room_info.room_id != 910884 && (this.medalTasksConfig.isWhiteList ? this.medalTasksConfig.roomidList.includes(medal.room_info.room_id) : !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id))
+                ).map((medal) => medal.room_info.room_id)
+                this.logger.log(`发送弹幕列表${roomIdList}(${roomIdList.length})`)
+                return roomIdList;
+            } else {
+                this.status = "error";
+                return null;
+            }
+        }
         /**
          * 获取指定直播间的 area_id 和 parent_area_id
          *
@@ -2293,11 +2306,12 @@
                     const roomIdList = this.getRoomidList();
                     if (roomIdList) {
                         const danmuList = this.config.list;
-                        for (let i = 0; i < roomIdList.length; i++) {
-                            for (let j = 0; j < 10; j++) {
+                        let interval = Math.max(2, 600 / roomIdList.length)
+                        for (let i = 0; i < 20; i++) {
+                            for (let j = 0; j < roomIdList.length; j++) {
                                 const danmu = danmuList[(i * 10 + j) % danmuList.length];
-                                await this.sendDanmu(danmu, roomIdList[i]);
-                                await sleep(2e3);
+                                await this.sendDanmu(danmu, roomIdList[j]);
+                                await sleep(interval * 1e3);
                             }
                         }
                         this.config._lastCompleteTime = tsm();
