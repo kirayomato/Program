@@ -7,11 +7,11 @@
             "MainSiteTasks": {
                 "login": {
                     "enabled": true,
-                    "_lastCompleteTime": 1719435900025
+                    "_lastCompleteTime": 0
                 },
                 "watch": {
                     "enabled": true,
-                    "_lastCompleteTime": 1719435900010
+                    "_lastCompleteTime": 0
                 },
                 "coin": {
                     "enabled": false,
@@ -20,13 +20,13 @@
                 },
                 "share": {
                     "enabled": true,
-                    "_lastCompleteTime": 1719435900030
+                    "_lastCompleteTime": 0
                 }
             },
             "LiveTasks": {
                 "sign": {
                     "enabled": true,
-                    "_lastCompleteTime": 1719435900196
+                    "_lastCompleteTime": 0
                 },
                 "medalTasks": {
                     "danmu": {
@@ -48,18 +48,18 @@
                             "←◡←",
                             "(●'◡'●)ﾉ♥"
                         ],
-                        "_lastCompleteTime": 1719436439163
+                        "_lastCompleteTime": 0
                     },
                     "like": {
                         "enabled": true,
-                        "_lastCompleteTime": 1719436429755
+                        "_lastCompleteTime": 0
                     },
                     "watch": {
                         "enabled": true,
                         "time": 30,
                         "_watchedSecondsToday": 0,
                         "_lastWatchTime": 1719436427586,
-                        "_lastCompleteTime": 1719436427591
+                        "_lastCompleteTime": 0
                     },
                     "isWhiteList": false,
                     "roomidList": [
@@ -211,7 +211,8 @@
                         837039,
                         21737386,
                         21463249,
-                        866400
+                        866400,
+                        30655190
                     ],
                     "roomidList2": [
                         23945583,
@@ -240,7 +241,7 @@
                 },
                 "silverToCoin": {
                     "enabled": true,
-                    "_lastCompleteTime": 1719435900193
+                    "_lastCompleteTime": 0
                 },
                 "coinToSilver": {
                     "enabled": false,

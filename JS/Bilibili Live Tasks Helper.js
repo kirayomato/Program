@@ -705,7 +705,7 @@
             }
         }
     }
-    luxon.Settings.defaultZone = "Asia/Shanghai";
+    luxon.Settings.defaultZone = "Etc/GMT-3";
     function isTimestampToday(timestamp, hour = 0, minute = 5) {
         const time = luxon.DateTime.fromMillis(timestamp);
         const startOfADay = luxon.DateTime.now().set({
