@@ -2306,13 +2306,10 @@
                     const roomIdList = this.getRoomidList();
                     if (roomIdList) {
                         const danmuList = this.config.list;
-                        let interval = Math.max(2, 600 / roomIdList.length)
-                        for (let i = 0; i < 20; i++) {
-                            for (let j = 0; j < roomIdList.length; j++) {
-                                const danmu = danmuList[(i * 10 + j) % danmuList.length];
-                                await this.sendDanmu(danmu, roomIdList[j]);
-                                await sleep(interval * 1e3);
-                            }
+                        for (let j = 0; j < roomIdList.length; j++) {
+                            const danmu = danmuList[Math.floor(Math.random() * danmuList.length)];
+                            await this.sendDanmu(danmu, roomIdList[j]);
+                            await sleep(5e3);
                         }
                         this.config._lastCompleteTime = tsm();
                         this.status = "done";
