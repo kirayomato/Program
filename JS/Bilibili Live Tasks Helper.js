@@ -1813,7 +1813,7 @@
             const biliStore = useBiliStore();
             if (biliStore.filteredFansMedals) {
                 let idList1 = biliStore.filteredFansMedals.filter(
-                    (medal) => (this.medalTasksConfig.isWhiteList ? this.medalTasksConfig.roomidList.includes(medal.room_info.room_id) : !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id))
+                    (medal) => (this.medalTasksConfig.isWhiteList ? this.medalTasksConfig.roomidList.includes(medal.room_info.room_id) : !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)) && !medal.medal.is_lighted
                 ).map((medal) => [medal.room_info.room_id, medal.medal.target_id])
                 this.logger.log(`点亮直播列表${idList1}(${idList1.length})`)
                 return idList1;
@@ -1878,14 +1878,13 @@
                     const medalList = this.getMedalList();
                     if (medalList) {
                         for (let i = 0; i < medalList.length; i++) {
-                            const roomid = medalList[i].room_info.room_id;
-                            const target_id = medalList[i].medal.target_id;
+                            const [roomid, target_id] = medalList[i];
                             if (this.config.mode === "like") {
-                                await this.like(roomid, target_id, _.random(31, 33));
+                                await this.like(roomid, target_id, _.random(35, 40));
                             } else {
                                 await this.sendDanmu(this.config.danmuList[i % this.config.danmuList.length], roomid);
                             }
-                            await sleep(2e3);
+                            await sleep(5e3);
                         }
                         this.config._lastCompleteTime = tsm();
                         this.status = "done";
