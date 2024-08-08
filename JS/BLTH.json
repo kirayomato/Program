@@ -1,6 +1,6 @@
 {
     "cache": {
-        "lastAliveHeartBeatTime": 1719502908382
+        "lastAliveHeartBeatTime": 0
     },
     "modules": {
         "DailyTasks": {
@@ -29,36 +29,11 @@
                     "_lastCompleteTime": 0
                 },
                 "medalTasks": {
-                    "danmu": {
-                        "enabled": true,
-                        "list": [
-                            "(⌒▽⌒)",
-                            "（￣▽￣）",
-                            "(=・ω・=)",
-                            "(｀・ω・´)",
-                            "(〜￣△￣)〜",
-                            "(･∀･)",
-                            "(°∀°)ﾉ",
-                            "╮(￣▽￣)╭",
-                            "_(:3」∠)_",
-                            "(^・ω・^ )",
-                            "(●￣(ｴ)￣●)",
-                            "ε=ε=(ノ≧∇≦)ノ",
-                            "⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄",
-                            "←◡←",
-                            "(●'◡'●)ﾉ♥"
-                        ],
-                        "_lastCompleteTime": 0
-                    },
-                    "like": {
-                        "enabled": true,
-                        "_lastCompleteTime": 0
-                    },
                     "watch": {
                         "enabled": true,
                         "time": 30,
                         "_watchedSecondsToday": 0,
-                        "_lastWatchTime": 1719436427586,
+                        "_lastWatchTime": 0,
                         "_lastCompleteTime": 0
                     },
                     "isWhiteList": false,
@@ -231,7 +206,29 @@
                         23260993,
                         21403601,
                         1766909591
-                    ]
+                    ],
+                    "light": {
+                        "enabled": true,
+                        "mode": "danmu",
+                        "danmuList": [
+                            "(⌒▽⌒)",
+                            "（￣▽￣）",
+                            "(=・ω・=)",
+                            "(｀・ω・´)",
+                            "(〜￣△￣)〜",
+                            "(･∀･)",
+                            "(°∀°)ﾉ",
+                            "╮(￣▽￣)╭",
+                            "_(:3」∠)_",
+                            "(^・ω・^ )",
+                            "(●￣(ｴ)￣●)",
+                            "ε=ε=(ノ≧∇≦)ノ",
+                            "⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄",
+                            "←◡←",
+                            "(●'◡'●)ﾉ♥"
+                        ],
+                        "_lastCompleteTime": 0
+                    }
                 }
             },
             "OtherTasks": {
@@ -263,15 +260,12 @@
                 "enabled": false
             },
             "noReport": {
-                "enabled": false
+                "enabled": true
             },
             "noSleep": {
-                "enabled": false
+                "enabled": true
             },
             "invisibility": {
-                "enabled": false
-            },
-            "wearFansMedal": {
                 "enabled": false
             },
             "showContributionUserNum": {
@@ -325,7 +319,7 @@
     },
     "ui": {
         "isCollapse": false,
-        "isShowPanel": false,
-        "activeMenuIndex": "OtherTasks"
+        "isShowPanel": true,
+        "activeMenuIndex": "EnhanceExperience"
     }
 }
