@@ -1814,7 +1814,7 @@
             if (biliStore.filteredFansMedals) {
                 let idList1 = biliStore.filteredFansMedals.filter(
                     (medal) => (this.medalTasksConfig.isWhiteList ? this.medalTasksConfig.roomidList.includes(medal.room_info.room_id) : !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)) && !medal.medal.is_lighted);
-                this.logger.log(`点亮直播列表${idList1}(${idList1.length})`)
+                this.logger.log(`点亮列表:${idList1.map((medal) => [medal.room_info.room_id])}(${idList1.length})`)
                 return idList1;
             } else {
                 this.status = "error";
