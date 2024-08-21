@@ -558,7 +558,7 @@ async function fetcher(url) {
                 if (price > 1) {
                     GM_setValue(`Big_Count`, GM_getValue(`Big_Count`) + 1)
                 }
-                if (price > 100) {
+                if (price >= 100) {
                     SendGift(gift_name, price, winner[2], winner[3]);
                 }
 
