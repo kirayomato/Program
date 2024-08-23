@@ -666,23 +666,24 @@ async function fetcher(url) {
     }
 
     async function GetToday() {
-        fetch(`https://api.live.bilibili.com/xlive/web-room/v1/gift/bag_list`, {
+        const response = await fetch(`https://api.live.bilibili.com/xlive/web-room/v1/gift/bag_list`, {
             method: 'GET',
             credentials: 'include' // 携带同源和跨域的cookies
-        }).then(res => res.json())
-            .then(json => {
-                let cnt = 0;
-                const data = json.data
-                for (const i of data.list) {
-                    let ts = (i.expire_at - Date.now() / 1000) / 24 / 3600
-                    if (3 < ts && ts < 4 && i.gift_type == 0)
-                        cnt += i.gift_num;
-                }
-                if (cnt > GM_getValue(`Count`)) {
-                    GM_setValue(`Count`, cnt);
-                    console.info(`【Red Packet】Set Count to ${cnt}`);
-                }
-            });
+        });
+        const json = await response.json();
+
+        let cnt = 0;
+        const data = json.data;
+        for (const i of data.list) {
+            let ts = (i.expire_at - Date.now() / 1000) / 24 / 3600;
+            if (3 < ts && ts < 4 && i.gift_type == 0) {
+                cnt += i.gift_num;
+            }
+        }
+        if (cnt > GM_getValue(`Count`)) {
+            GM_setValue(`Count`, cnt);
+            console.info(`【Red Packet】Set Count to ${cnt} ${new Date()}`);
+        }
     }
     async function SendGift(name, price, bag_id, gift_id) {
         const url = 'http://api.live.bilibili.com/gift/v2/live/bag_send';
