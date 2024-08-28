@@ -939,8 +939,9 @@
             sendEmoji: (msg, roomid, mode = 1, fontsize = 25, color = 16777215, bubble = 0, dm_type = 1) => {
                 const biliStore = useBiliStore();
                 const bili_jct = biliStore.cookies.bili_jct;
-                return request.live.post("/msg/send", void 0, {
-                    data: packFormData({
+                return request.live.post(
+                    "/msg/send",
+                    packFormData({
                         bubble,
                         msg,
                         color,
@@ -952,11 +953,8 @@
                         roomid,
                         csrf: bili_jct,
                         csrf_token: bili_jct
-                    }),
-                    headers: {
-                        "Content-Type": "multipart/form-data"
-                    }
-                });
+                    })
+                );
             },
             likeReport: (room_id, anchor_id, click_time = 1, visit_id = "") => {
                 const biliStore = useBiliStore();
