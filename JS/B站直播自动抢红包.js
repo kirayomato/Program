@@ -686,6 +686,7 @@ async function fetcher(url) {
         }
     }
     async function SendGift(name, price, bag_id, gift_id) {
+        await sleep(60000)
         const url = 'http://api.live.bilibili.com/gift/v2/live/bag_send';
         let data = new FormData();
         data.set("uid", Setting.UID)
