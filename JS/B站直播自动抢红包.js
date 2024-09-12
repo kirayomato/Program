@@ -714,16 +714,20 @@ async function fetcher(url) {
         })
             .then(res => res.json())
             .then(json => {
-                console.info(`【Red Packet】大额礼物自动送出:${name}(${price}) room:${ROOM_ID} ${new Date()}`)
-                console.info(`【Red Packet】`, json)
-                // return json; // 如果响应成功，解析JSON
+                if (json['code'] == 0) {
+                    console.info(`【Red Packet】大额礼物自动送出:${name}(${price}) room:${ROOM_ID} ${new Date()}`);
+                }
+                else {
+                    console.info(`【Red Packet】礼物赠送失败:${name}(${price}) room:${ROOM_ID} ${new Date()}`)
+                    console.info(`【Red Packet】`, JSON.stringify(json))
+                }
             });
     };
     function packFormData(json) {
         const formData = new FormData();
         _.forEach(json, (value, key) => formData.append(key, value.toString()));
         return formData;
-    }
+    };
     async function sendEmoji(roomid, mode = 1, fontsize = 25, color = 16777215, bubble = 0, dm_type = 1) {
         const url = 'https://api.live.bilibili.com/msg/send'
         const emoji = ["official_348", "official_332", "official_335", "official_345", "official_346", "official_147", "official_124", "official_146"]
@@ -748,9 +752,13 @@ async function fetcher(url) {
         })
             .then(res => res.json())
             .then(json => {
-                console.info(`【Red Packet】发送表情:${msg} room:${ROOM_ID} ${new Date()}`)
-                console.info(`【Red Packet】`, json)
-                // return json; // 如果响应成功，解析JSON
+                if (json['code'] == 0) {
+                    console.info(`【Red Packet】发送表情:${msg} room:${roomid} ${new Date()}`);
+                }
+                else {
+                    console.info(`【Red Packet】发送表情失败 room:${roomid} ${new Date()}`);
+                    console.info(`【Red Packet】`, JSON.stringify(json))
+                }
             });
-    }
+    };
 })();
