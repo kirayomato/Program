@@ -324,6 +324,7 @@ async function fetcher(url) {
             }
         }
         console.info(`【Red Packet】抽取红包${gold} room:${ROOM_ID} ${new Date()}`)
+        sendEmoji(ROOM_ID)
         let gf = GM_getValue(`GiftList0`);
         if (!(ROOM_ID in gf))
             gf[ROOM_ID] = {};
@@ -718,4 +719,37 @@ async function fetcher(url) {
                 // return json; // 如果响应成功，解析JSON
             });
     };
+    function packFormData(json) {
+        const formData = new FormData();
+        _.forEach(json, (value, key) => formData.append(key, value.toString()));
+        return formData;
+    }
+    async function sendEmoji(roomid, mode = 1, fontsize = 25, color = 16777215, bubble = 0, dm_type = 1) {
+        const url = 'https://api.live.bilibili.com/msg/send'
+        const emoji = ["official_348", "official_332", "official_335", "official_345", "official_346", "official_147", "official_124", "official_146"]
+        const msg = emoji[Math.floor(Math.random() * emoji.length)];
+        const data = packFormData({
+            bubble,
+            msg,
+            color,
+            mode,
+            dm_type,
+            // emoticonOptions,
+            fontsize,
+            rnd: Date.now(),
+            roomid,
+            csrf: Setting.TOKEN,
+            csrf_token: Setting.TOKEN
+        });
+        fetch(url, {
+            credentials: "include",
+            method: 'POST',
+            body: data
+        })
+            .then(res => res.json())
+            .then(json => {
+                console.info(`【Red Packet】`, json)
+                // return json; // 如果响应成功，解析JSON
+            });
+    }
 })();
