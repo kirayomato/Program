@@ -270,13 +270,13 @@ async function fetcher(url) {
         gold = Math.round(message.data.total_price / 100);
         await sleep(5000 * (1 + Math.random()))
         drawed = 0
-        console.info(`【Red Packet】检测到红包(${gold},${num0}) ${new Date()}`)
-        console.info(`【Red Packet】房间人数${people} ${new Date()}`)
+        console.info(`【Red Packet】检测到红包(${gold},${num0}) room:${ROOM_ID} ${new Date()}`)
+        console.info(`【Red Packet】房间人数${people} room:${ROOM_ID} ${new Date()}`)
         if (people == 0)
             people = 100;
         const TimeDelta = 1800000
         if (!FOLLOWED) {
-            console.info(`【Red Packet】未关注主播 ${new Date()}`);
+            console.info(`【Red Packet】未关注主播 room:${ROOM_ID} ${new Date()}`);
             return;
         }
         if (count >= 16 || GM_getValue(`limitWarning-${Setting.UID}`) == Setting.Beijing_date) {
@@ -323,14 +323,18 @@ async function fetcher(url) {
                 return;
             }
         }
-        console.info(`【Red Packet】抽取红包${gold} ${new Date()}`)
+        console.info(`【Red Packet】抽取红包${gold} room:${ROOM_ID} ${new Date()}`)
         let gf = GM_getValue(`GiftList0`);
         if (!(ROOM_ID in gf))
             gf[ROOM_ID] = {};
-        if (gold in gf[ROOM_ID])
-            gf[ROOM_ID][gold]++;
+        let date = new Date();
+        let current = `${date.getFullYear()}/${date.getMonth() + 1}`
+        if (!(current in gf[ROOM_ID]))
+            gf[ROOM_ID][current] = {}
+        if (gold in gf[ROOM_ID][current])
+            gf[ROOM_ID][current][gold]++;
         else
-            gf[ROOM_ID][gold] = 1;
+            gf[ROOM_ID][current][gold] = 1;
         GM_setValue(`GiftList0`, gf)
         drawed = 1
         let cnt = GM_getValue(`ConCount`) + 1
@@ -580,7 +584,7 @@ async function fetcher(url) {
         }
         if (!flag && drawed) {
             showMessage("未中奖", "warning", "提示", 15 * 60 * 1000);
-            console.info(`【Red Packet】未中奖 ${new Date()}`)
+            console.info(`【Red Packet】未中奖  room:${ROOM_ID} ${new Date()}`)
         }
         updateTabTitle();
         if ((!FOLLOWED) && follow) {
@@ -709,7 +713,7 @@ async function fetcher(url) {
         })
             .then(res => res.json())
             .then(json => {
-                console.info(`【Red Packet】大额礼物自动送出:${name}(${price}) ${new Date()}`)
+                console.info(`【Red Packet】大额礼物自动送出:${name}(${price}) room:${ROOM_ID} ${new Date()}`)
                 console.info(`【Red Packet】`, json)
                 // return json; // 如果响应成功，解析JSON
             });
