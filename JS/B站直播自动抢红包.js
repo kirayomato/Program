@@ -748,6 +748,7 @@ async function fetcher(url) {
         })
             .then(res => res.json())
             .then(json => {
+                console.info(`【Red Packet】发送表情:${msg} room:${ROOM_ID} ${new Date()}`)
                 console.info(`【Red Packet】`, json)
                 // return json; // 如果响应成功，解析JSON
             });
