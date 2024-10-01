@@ -32,9 +32,9 @@
                     "watch": {
                         "enabled": true,
                         "time": 30,
-                        "_watchedSecondsToday": 0,
                         "_lastWatchTime": 0,
-                        "_lastCompleteTime": 0
+                        "_lastCompleteTime": 0,
+                        "_watchingProgress": {}
                     },
                     "isWhiteList": false,
                     "roomidList": [
@@ -101,7 +101,6 @@
                         21267062,
                         21584153,
                         22232141,
-                        88615,
                         21317217,
                         21307497,
                         8725120,
@@ -168,7 +167,6 @@
                         21547895,
                         21693682,
                         22853788,
-                        88615,
                         4418655,
                         22321043,
                         22047448,
@@ -181,7 +179,6 @@
                         21664698,
                         27518032,
                         22667136,
-                        88615,
                         24812685,
                         837039,
                         21737386,
@@ -206,7 +203,8 @@
                         31368705,
                         23260993,
                         21403601,
-                        1766909591
+                        1766909591,
+                        1011107
                     ],
                     "light": {
                         "enabled": true,
@@ -308,9 +306,6 @@
             },
             "invisibility": {
                 "enabled": false
-            },
-            "showContributionUserNum": {
-                "enabled": false
             }
         },
         "RemoveElement": {
@@ -338,15 +333,6 @@
             "removeRank": {
                 "enabled": false
             },
-            "removeGiftPlanet": {
-                "enabled": false
-            },
-            "removeActivityBanner": {
-                "enabled": false
-            },
-            "removePKBanner": {
-                "enabled": false
-            },
             "removeFlipView": {
                 "enabled": false
             },
@@ -355,12 +341,17 @@
             },
             "removeLiveMosaic": {
                 "enabled": false
+            },
+            "removeHeaderStuff": {
+                "enabled": false
             }
         }
     },
     "ui": {
         "isCollapse": false,
         "isShowPanel": true,
-        "activeMenuIndex": "EnhanceExperience"
+        "activeMenuIndex": "LiveTasks",
+        "panelWidthPercent": 40,
+        "medalInfoPanelSortMode": false
     }
 }
