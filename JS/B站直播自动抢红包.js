@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            B站直播自动抢红包
-// @version         0.2.12
+// @version         0.2.13
 // @description     进房间自动抢红包，抢完自动取关（需满足条件）
 // @author          Pronax
 // @include         /https:\/\/live\.bilibili\.com\/(blanc\/)?\d+/
@@ -79,10 +79,11 @@ async function fetcher(url) {
     // 抢红包门槛，只有红包价值大于等于门槛的时候才会抢
     // 单位是电池
     var doorSill = 0;
+    var drawed = 0
     // 你可以在这里枚举不想抽取的红包价值，单位是电池
     // e.g. const goldBlockEnumList = [16,20,100];
     const goldBlockEnumList = [];
-    var drawed = 0
+
     const RED_PACKET_ICON = "🧧";
     const GIFT_ICON = "🎁";
     const ROOM_ID = await ROOM_INFO_API.getRid();
@@ -259,6 +260,8 @@ async function fetcher(url) {
         });
     }
     async function drawRedPacket(message, force) {
+        // 防止收不到开奖信息页面状态卡住
+        let countdown = (message.data.end_time - message.data.current_time) * 1000;
         await GetToday();
         let count = GM_getValue(`Count`);
         let num0 = 0
@@ -308,7 +311,7 @@ async function fetcher(url) {
                 return;
             }
             if (people > 40 * num0) {
-                showMessage(`房间人数${people}高于阈值${40 * num0}`, "info", null, countdown)
+                showMessage(`房间人数${people}高于阈值${40 * num0}`, "info", `红包${gold}`, countdown)
                 console.info(`【Red Packet】房间人数${people}高于阈值${40 * num0} ${new Date()}`)
                 return;
             }
@@ -348,8 +351,6 @@ async function fetcher(url) {
         }
         clearTimeout(timeout);
         timeout = null;
-        // 防止收不到开奖信息页面状态卡住
-        let countdown = (message.data.end_time - message.data.current_time) * 1000;
         setTimeout(() => {
             if (unpacking) {
                 let obj = {
@@ -387,6 +388,7 @@ async function fetcher(url) {
                         throw new Error("返参错误");
                     }
                     if (json.code !== 0 || json.data.join_status !== 1) {
+                        console.log("红包请求返回：", JSON.stringify(json));
                         switch (json.code) {
                             case 1009109:       // 每日上限
                                 removeDrawBtn();
@@ -425,12 +427,14 @@ async function fetcher(url) {
                                 removeDrawBtn();
                                 break;
                             case 1009106:       // 参数错误 ？？？
-                            case -352:          // 当前操作异常，请升级至最新版本后重
                                 resolve(true);
                                 return;
+                            case -352:          // 当前操作异常，请升级至最新版本后重试
+                                json.message = "当前操作异常，使用手机端通过验证码后再试"
+                                addDrawBtn(message);
                             default:
                         }
-                        resolve(false);
+                        resolve(false); // false时不进行重试，也不会添加抢红包按钮
                         showMessage(json.message, "error", "抢红包失败", false);
                     } else {
                         removeDrawBtn();
@@ -529,9 +533,9 @@ async function fetcher(url) {
         removeDrawBtn();
         let follow = unpacking;
         let count = GM_getValue(`Count`)
+        let flag = 0
         unpacking = false;
         notice && (notice.style.display = "none");
-        let flag = 0
         for (let winner of message.data.winner_info) {
             if (Setting.UID == winner[0]) {
                 let price = message.data.awards[winner[3]].award_price / 100;
