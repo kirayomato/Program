@@ -394,7 +394,7 @@ async function fetcher(url) {
                         throw new Error("返参错误");
                     }
                     if (json.code !== 0 || json.data.join_status !== 1) {
-                        console.log("【Red Packet】红包请求返回：", JSON.stringify(json));
+                        console.info("【Red Packet】红包请求返回：", JSON.stringify(json));
                         switch (json.code) {
                             case 1009109:       // 每日上限
                                 removeDrawBtn();
@@ -437,6 +437,7 @@ async function fetcher(url) {
                                 return;
                             case -352:          // 当前操作异常，请升级至最新版本后重试
                                 json.message = "当前操作异常，使用手机端通过验证码后再试"
+                                console.info(`【Red Packet】${json.message}`);
                                 addDrawBtn(message);
                             default:
                         }
