@@ -133,6 +133,7 @@ async function fetcher(url) {
     let timeout;
     let giftCount = 0;
     let unpacking = false;
+    let forbid = 0;
     // let giftList = new Map();
     let awards = {};
 
@@ -186,6 +187,7 @@ async function fetcher(url) {
         GM_setValue(`ConCount`, 0)
         GM_setValue(`ConTS`, 0)
         GM_setValue(`TimeOut`, 0)
+        GM_setValue(`LastTS`, 0)
     }
     getLottery();
 
@@ -271,15 +273,23 @@ async function fetcher(url) {
         // 电池门槛
         gold = Math.round(message.data.total_price / 100);
         drawed = 0
-        const TimeDelta = 300 * 1e3
-        const Conlim = 1
+        const TimeDelta = 15 * 60 * 1e3
+        const Conlim = 4
+        const minGap = 60 * 1e3
 
         console.info(`【Red Packet】检测到红包(${gold},${num0}) room:${ROOM_ID} ${new Date()}`)
         console.info(`【Red Packet】房间人数${people} room:${ROOM_ID} ${new Date()}`)
 
         if (people == 0)
             people = 100;
+        if (forbid) {
+            showMessage(`检测到风控`, "warning", `红包${gold}`, countdown)
+            console.info(`【Red Packet】检测到风控 ${new Date()}`)
+            return;
+        }
+
         if (!FOLLOWED) {
+            showMessage(`未关注主播`, "info", `红包${gold}`, countdown)
             console.info(`【Red Packet】未关注主播 room:${ROOM_ID} ${new Date()}`);
             return;
         }
@@ -307,9 +317,16 @@ async function fetcher(url) {
             console.info(`【Red Packet】大额红包(${gold}/${num0})，强制抽取 ${new Date()}`)
         }
         else {
+            if (Date.now() < GM_getValue(`LastTS`) + minGap) {
+                let dt = GM_getValue(`LastTS`) + minGap - Date.now();
+                showMessage(`抽奖间隔过短，等待${dt / 1000}s`, "info", `红包${gold}`, dt)
+                console.info(`【Red Packet】抽奖间隔过短，等待${dt / 1000}s ${new Date()}`)
+                await sleep(dt)
+            }
             if (Date.now() < GM_getValue(`TimeOut`)) {
-                showMessage(`下次抽奖时间：${new Date(GM_getValue(`TimeOut`)).toTimeString()}`, "info", `红包${gold}`, countdown)
-                console.info(`【Red Packet】下次抽奖时间${new Date(GM_getValue(`TimeOut`)).toTimeString()} ${new Date()}`)
+                let t = new Date(GM_getValue(`TimeOut`)).toTimeString();
+                showMessage(`下次抽奖时间：${t}`, "info", `红包${gold}`, countdown)
+                console.info(`【Red Packet】下次抽奖时间${t} ${new Date()}`)
                 return;
             }
             if (people > 40 * num0) {
@@ -328,7 +345,7 @@ async function fetcher(url) {
             }
         }
         sendEmoji(ROOM_ID)
-        await sleep(5000 * (1 + Math.random()))
+        await sleep(5 * 1e3 * (1 + Math.random()))
         console.info(`【Red Packet】抽取红包${gold} room:${ROOM_ID} ${new Date()}`)
         drawed = 1
 
@@ -347,6 +364,7 @@ async function fetcher(url) {
 
 
         let cnt = GM_getValue(`ConCount`) + 1
+        GM_setValue(`LastTS`, Date.now())
         if (cnt == 1) {
             GM_setValue(`ConTS`, Date.now())
         }
@@ -438,7 +456,7 @@ async function fetcher(url) {
                             case -352:          // 当前操作异常，请升级至最新版本后重试
                                 json.message = "当前操作异常，使用手机端通过验证码后再试"
                                 console.info(`【Red Packet】${json.message}`);
-                                addDrawBtn(message);
+                                forbid = 1;
                             default:
                         }
                         resolve(false); // false时不进行重试，也不会添加抢红包按钮
@@ -449,10 +467,10 @@ async function fetcher(url) {
                         坐等 ${message.data.sender_name} 的红包开奖
                         <br>
                         红包ID：${message.data.lot_id}
-                                <br>
-                                ConCount：${GM_getValue(`ConCount`)}
-                                <br>
-                                ConTS：${new Date(GM_getValue(`ConTS`)).toTimeString()}
+                        <br>
+                        ConCount：${GM_getValue(`ConCount`)}
+                        <br>
+                        ConTS：${new Date(GM_getValue(`ConTS`)).toTimeString()}
                         <br>
                         <span>
                             总价值：
