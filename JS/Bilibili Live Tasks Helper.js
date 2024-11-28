@@ -2446,7 +2446,8 @@
                 let idList2 = biliStore.filteredFansMedals.filter(
                     (medal) => medal.medal.level < 20 && medal.medal.today_feed < 1500 && !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)
                         && (this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id) || medal.medal.level < 15)
-                ).map((medal) => [medal.room_info.room_id, medal.medal.target_id])
+                ).sort((a, b) => a.medal.level - b.medal.level)
+                idList2 = idList2.map((medal) => [medal.room_info.room_id, medal.medal.target_id])
                 this.logger.log(`观看直播列表${idList2}(${idList2.length})`)
                 return idList2;
             } else {
