@@ -1,7 +1,8 @@
 int trie[N][26], fail[N], cnt[N];
 int num = 0;
-vector<vector<int>>son;
-int add(string& word)
+vector<vector<int>> son;
+vector<vector<int>> idx;
+int add(string &word)
 {
 	int root = 0;
 	FA(c, word)
@@ -15,10 +16,10 @@ int add(string& word)
 }
 void build()
 {
-	queue<int>q;
+	queue<int> q;
 	F(0, i, 26)
-		if (trie[0][i])
-			q.emplace(trie[0][i]);
+	if (trie[0][i])
+		q.emplace(trie[0][i]);
 	while (!q.empty())
 	{
 		int root = FR(q);
@@ -34,13 +35,15 @@ void build()
 		}
 	}
 }
-void search(string& word)
+void search(string &word)
 {
 	int root = 0;
-	FA(c, word)
+	int n = word.size();
+	F(0, i, n)
 	{
-		root = trie[root][c - 'a'];
+		root = trie[root][word[i] - 'a'];
 		cnt[root]++;
+		idx[root].eb(i);
 	}
 }
 void dfs(int root)
@@ -51,25 +54,37 @@ void dfs(int root)
 		{
 			dfs(i);
 			cnt[root] += cnt[i];
+			FA(j, idx[i])
+			idx[root].eb(j);
 		}
 	}
 }
-vector<int>mp;
+vector<int> mp;
 void solve()
 {
 	cin >> n;
+	vector<string> words;
 	F(0, i, n)
 	{
 		cin >> s;
+		words.eb(s);
 		mp.eb(add(s));
 	}
 	build();
 	son.resize(num + 1);
+	idx.resize(num + 1);
 	F(0, i, num + 1)
-		son[fail[i]].eb(i);
+	son[fail[i]].eb(i);
 	cin >> s;
 	search(s);
 	dfs(0);
-	FA(i, mp)
-		cout << cnt[i] << "\n";
+	F(0, i, n)
+	{
+		cout << words[i] << ": ";
+		FA(j, idx[mp[i]])
+		{
+			cout << j - words[i].size() + 1 << " ";
+		}
+		cout << "\n";
+	}
 }
