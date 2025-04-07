@@ -2114,12 +2114,8 @@
         getRoomidTargetidList() {
             const filtered = useBiliStore().filteredFansMedals.filter(
                 (medal) => (this.medalTasksConfig.isWhiteList ? this.medalTasksConfig.roomidList.includes(medal.room_info.room_id) : !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)) && medal.medal.is_lighted === 0
-            ).map((medal) => [medal.room_info.room_id, medal.medal.target_id]);
+            ).map((medal) => [medal.room_info.room_id, medal.medal.target_id, medal.room_info.living_status]);
             this.logger.log(`点亮列表:${filtered.map((medal) => [medal[0]])}(${filtered.length})`)
-            if (this.medalTasksConfig.isWhiteList) {
-                const orderMap = arrayToMap(this.medalTasksConfig.roomidList);
-                return filtered.sort((a, b) => orderMap.get(a[0]) - orderMap.get(b[0]));
-            }
             return filtered;
         }
         /**
@@ -2203,15 +2199,17 @@
             this.status = "running";
             const roomidTargetidList = this.getRoomidTargetidList();
             if (roomidTargetidList.length > 0) {
-                for (let i = 0; i < roomidTargetidList.length; i++) {
-                    const [roomid, target_id] = roomidTargetidList[i];
-                    if (this.config.mode === "like") {
-                        await this.like(roomid, target_id, _.random(31, 33));
-                    } else {
-                        // await this.sendDanmu(this.config.danmuList[i % this.config.danmuList.length], roomid);
-                        await this.sendEmoji(this.config.emojiList[_.random(0, this.config.emojiList.length - 1)], roomid);
+                for (let j = 0; j < 10; j++) {
+                    for (let i = 0; i < roomidTargetidList.length; i++) {
+                        const [roomid, target_id, live_status] = roomidTargetidList[i];
+                        if (this.config.mode === "like" || live_status) {
+                            await this.like(roomid, target_id, _.random(35, 40));
+                        } else {
+                            // await this.sendDanmu(this.config.danmuList[i % this.config.danmuList.length], roomid);
+                            await this.sendEmoji(this.config.emojiList[_.random(0, this.config.emojiList.length - 1)], roomid);
+                        }
+                        await sleep(_.random(7e3, 10e3));
                     }
-                    await sleep(_.random(7e3, 10e3));
                 }
             }
             this.config._lastCompleteTime = tsm();
