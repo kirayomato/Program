@@ -2,7 +2,7 @@ int pre[N];
 void prefix_function(string& s)
 {
     int n = s.size();
-    F(0, i, n)
+    F(1, i, n)
     {
         int j = pre[i - 1];
         while (s[i]!=s[j]&&j>0)

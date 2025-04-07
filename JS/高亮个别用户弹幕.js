@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         高亮个别用户的弹幕
 // @namespace    http://tampermonkey.net/
-// @version      0.7.24
+// @version      0.7.25
 // @description  高亮个别用户的弹幕, 有时候找一些特殊人物(其他直播主出现在直播房间)用
 // @author       Eric Lam
 // @include      https://sc.chinaz.com/tag_yinxiao/tongzhi.html
@@ -17,13 +17,13 @@
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_deleteValue
-// @grant        getWbiKeys
-// @grant        GM_registerMenuCommand
 // @grant        unsafeWindow
 // @run-at       document-start
 // @connect      api.bilibili.com
 // @website      https://eric2788.github.io/scriptsettings/highlight-user
 // @homepage     https://eric2788.neeemooo.com/scriptsettings/highlight-user
+// @downloadURL https://update.greasyfork.org/scripts/418195/%E9%AB%98%E4%BA%AE%E4%B8%AA%E5%88%AB%E7%94%A8%E6%88%B7%E7%9A%84%E5%BC%B9%E5%B9%95.user.js
+// @updateURL https://update.greasyfork.org/scripts/418195/%E9%AB%98%E4%BA%AE%E4%B8%AA%E5%88%AB%E7%94%A8%E6%88%B7%E7%9A%84%E5%BC%B9%E5%B9%95.meta.js
 // ==/UserScript==
 
 (async function () {
@@ -66,45 +66,8 @@
     console.debug(highlightUsers)
     console.debug(settings)
 
-    const goToSupport = () => {
-        window.open('https://eric2788.github.io/scriptsettings/highlight-user', '_blank');
-    };
-    GM_registerMenuCommand('设置', goToSupport);
-    const mixinKeyEncTab = [
-        46, 47, 18, 2, 53, 8, 23, 32, 15, 50, 10, 31, 58, 3, 45, 35, 27, 43, 5, 49,
-        33, 9, 42, 19, 29, 28, 14, 39, 12, 38, 41, 13, 37, 48, 7, 16, 24, 55, 40,
-        61, 26, 17, 0, 1, 60, 51, 30, 4, 22, 25, 54, 21, 56, 59, 6, 63, 57, 62, 11,
-        36, 20, 34, 44, 52
-    ]
 
-    // 对 imgKey 和 subKey 进行字符顺序打乱编码
-    const getMixinKey = (orig) => mixinKeyEncTab.map(n => orig[n]).join('').slice(0, 32)
-
-    // 为请求参数进行 wbi 签名
-    function encWbi(params, img_key, sub_key) {
-        const mixin_key = getMixinKey(img_key + sub_key),
-            curr_time = Math.round(Date.now() / 1000),
-            chr_filter = /[!'()*]/g
-
-        Object.assign(params, { wts: curr_time }) // 添加 wts 字段
-        // 按照 key 重排参数
-        const query = Object
-            .keys(params)
-            .sort()
-            .map(key => {
-                // 过滤 value 中的 "!'()*" 字符
-                const value = params[key].toString().replace(chr_filter, '')
-                return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-            })
-            .join('&')
-
-        const wbi_sign = md5(query + mixin_key) // 计算 w_rid
-
-        return query + '&w_rid=' + wbi_sign
-    }
-
-    // 获取最新的 img_key 和 sub_key
-    async function getWbiKeys() {
+    async function generateWbi() {
         const url = 'https://api.bilibili.com/x/web-interface/nav';
         // get wbi keys
         const data = await GM.xmlHttpRequest({
@@ -122,38 +85,66 @@
 
         const { img_url, sub_url } = res.data.wbi_img;
 
-        return {
-            img_key: img_url.slice(
-                img_url.lastIndexOf('/') + 1,
-                img_url.lastIndexOf('.')
-            ),
-            sub_key: sub_url.slice(
-                sub_url.lastIndexOf('/') + 1,
-                sub_url.lastIndexOf('.')
-            )
-        }
+        const img_key = img_url.substring(img_url.lastIndexOf('/') + 1, img_url.length).split('.')[0];
+        const sub_key = sub_url.substring(sub_url.lastIndexOf('/') + 1, sub_url.length).split('.')[0]
+
+        const mixinKeyEncTab = [
+            46, 47, 18, 2, 53, 8, 23, 32, 15, 50, 10, 31, 58, 3, 45, 35, 27, 43, 5, 49,
+            33, 9, 42, 19, 29, 28, 14, 39, 12, 38, 41, 13, 37, 48, 7, 16, 24, 55, 40,
+            61, 26, 17, 0, 1, 60, 51, 30, 4, 22, 25, 54, 21, 56, 59, 6, 63, 57, 62, 11,
+            36, 20, 34, 44, 52
+        ]
+
+        const orig = img_key + sub_key;
+
+        let temp = ''
+        mixinKeyEncTab.forEach((n) => {
+            temp += orig[n]
+        })
+
+        return temp.slice(0, 32)
     }
 
-    async function geturl(uid) {
-        const web_keys = await getWbiKeys()
-        const params = { mid: uid },
-            img_key = web_keys.img_key,
-            sub_key = web_keys.sub_key
-        return encWbi(params, img_key, sub_key)
-    }
+    // ==== check update
+    const { key, update } = GM_getValue('wbi_salt', { key: '', update: new Date('1970/01/01') });
+    const now = new Date();
 
+    // over a day
+    if (!key || Math.abs(now - update) > (86400 * 1000)) {
+        const wbiKey = await generateWbi();
+        console.info('wbi key salt updated: ' + wbiKey);
+        GM_setValue('wbi_salt', { key: wbiKey, update: now });
+    }
+    // ====
+
+
+    // gener w_rid
+    /* reference
+    def w_rid():  # 每次请求生成w_rid参数
+      wts = str(int(time.time()))  # 时间戳
+      c = "72136226c6a73669787ee4fd02a74c27"  # 尾部固定值，根据imgKey,subKey计算得出
+      b = "mid=" + uid + "&platform=web&token=&web_location=1550101"
+      a = b + "&wts=" + wts + c  # mid + platform + token + web_location + 时间戳wts + 一个固定值
+      return hashlib.md5(a.encode(encoding='utf-8')).hexdigest()
+    */
+    function w_rid(uid, wts) {
+        const { key: c } = GM_getValue('wbi_salt')
+        const b = "mid=" + uid + "&platform=web&token=&web_location=1550101"
+        const a = b + "&wts=" + wts + c  // mid + platform + token + web_location + 时间戳wts + 一个固定值
+        const m = md5.create()
+        m.update(a)
+        return m.hex()
+    }
 
     async function requestUserInfo(mid) {
         let error = null;
-        let parm = await geturl(mid);
         const baseUrls = [
-            () => {
-                const now = Math.round(Date.now() / 1000);
-                console.log(parm)
-                return `https://api.bilibili.com/x/space/wbi/acc/info?${parm}`
-            },
             () => `https://api.bilibili.com/x/space/acc/info?mid=${mid}&jsonp=jsonp`, // 已經失效
             () => `https://api.bilibili.com/x/space/wbi/acc/info?mid=${mid}&jsonp=jsonp`, // 已經失效
+            () => {
+                const now = Math.round(Date.now() / 1000);
+                return `https://api.bilibili.com/x/space/wbi/acc/info?platform=web&token=&web_location=1550101&wts=${now}&mid=${mid}&w_rid=${w_rid(mid, now)}&dm_cover_img_str=ahwidhawihdai`
+            }
         ]
         for (const base of baseUrls) {
             try {
@@ -331,7 +322,7 @@
             await sleep(1000)
         }
         const $ = mdui.$
-        async function appendUser(userId) {
+        async function appendUser(userId, prompt = false) {
             if ($(`#${userId}`).length > 0) {
                 mdui.alert('该用户已在列表内')
                 return false
@@ -363,19 +354,46 @@
                 return true;
             } catch (err) {
                 console.warn(err)
-                if (err.code == -412) {
-                    const { name, face } = GM_getValue(userId, { name: `无法索取用户资讯`, face: '' })
-                    $('#hightlight-users').append(`
-                    <label class="mdui-list-item mdui-ripple">
-                        <div class="mdui-checkbox">
+                if (!!err.code) {
+                    const { name, face } = GM_getValue(userId, { name: `无法索取用户资讯`, face: 'https://i0.hdslb.com/bfs/face/member/noface.jpg' })
+                    const add = () => {
+                        $('#hightlight-users').append(`
+                        <label class="mdui-list-item mdui-ripple">
+                          <div class="mdui-checkbox">
                             <input type="checkbox" id="${userId}"/>
                             <i class="mdui-checkbox-icon"></i>
-                        </div>
-                        <div class="mdui-list-item-avatar"><img src="${face}"/></div>
-                        <div class="mdui-list-item-content">${name} (${userId})</div>
-                   </label>
-                  `)
-                    return true;
+                          </div>
+                          <div class="mdui-list-item-avatar"><img src="${face}"/></div>
+                          <div class="mdui-list-item-content">${name} (UID: ${userId})</div>
+                        </label>
+                      `)
+                    }
+                    if (prompt) {
+                        const res = await new Promise((res,) => {
+                            mdui.dialog({
+                                title: `无法索取 ${userId} 的用户资讯`,
+                                content: `错误信息: ${err.message}(${err.code}), 是否要强制添加？`,
+                                buttons: [
+                                    {
+                                        text: '强制添加',
+                                        bold: true,
+                                        onClick: () => {
+                                            add()
+                                            res(true)
+                                        }
+                                    },
+                                    {
+                                        text: '取消'
+                                    }
+                                ],
+                                onClosed: () => res(false)
+                            })
+                        })
+                        return res;
+                    } else {
+                        add()
+                        return true;
+                    }
                 } else {
                     mdui.alert(`无法索取 ${userId} 的用户资讯: ${err.message}`)
                     return false;
@@ -406,7 +424,7 @@
         $('#user-add').on('keypress', async (e) => {
             if (e.which != 13) return
             if (!$('#user-add')[0].checkValidity()) return
-            if (await appendUser(e.target.value)) {
+            if (await appendUser(e.target.value, true)) {
                 GM_setValue('settings', getSettings())
                 mdui.snackbar('新增并保存成功')
                 e.target.value = ''
@@ -556,7 +574,8 @@ async function webRequest(url) {
         headers: {
             'Content-type': 'application/json',
             'Referer': 'https://www.bilibili.com',
-            'Origin': 'https://www.bilibili.com'
+            'Origin': 'https://www.bilibili.com',
+            'User-Agent': 'Mozilla/5.0',
         },
         url
     })

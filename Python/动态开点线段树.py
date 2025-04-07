@@ -19,6 +19,8 @@ class SegmentTree:
             self.edit = 0
 
     def search(self, l, r, i, j):
+        # l,r: range of list
+        # i,j: range of operate data
         if i <= l and j >= r:
             return self.val
         self.pd(l, r)
@@ -40,6 +42,8 @@ class SegmentTree:
             self.val = max(self.val, self.rson.val)
 
     def update(self, l, r, k, i, j):
+        # l,r: range of list
+        # i,j: range of operate data
         if i <= l and j >= r:
             self.upt(k, l, r)
             return
