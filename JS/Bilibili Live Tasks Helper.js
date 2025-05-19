@@ -2178,14 +2178,17 @@
                 this.logger.log(`BAPI.live.sendEmoji(${danmu}, ${roomid})`, response);
                 if (response.code === 0 && response.message != 'k') {
                     this.logger.log(`点亮熄灭勋章-发送表情 在直播间 ${roomid} 发送表情 ${danmu} 成功`);
+                    return 0;
                 } else {
                     this.logger.error(
                         `点亮熄灭勋章-发送表情 在直播间 ${roomid} 发送表情 ${danmu} 失败`,
                         response.message
                     );
+                    return response.code;
                 }
             } catch (error) {
                 this.logger.error(`点亮熄灭勋章-发送表情 在直播间 ${roomid} 发送表情 ${danmu} 出错`, error);
+                return 1;
             }
         }
         async run() {
@@ -2197,16 +2200,20 @@
                 return;
             }
             this.status = "running";
-            const roomidTargetidList = this.getRoomidTargetidList();
+            var roomidTargetidList = this.getRoomidTargetidList();
             if (roomidTargetidList.length > 0) {
                 for (let j = 0; j < 10; j++) {
-                    for (let i = 0; i < roomidTargetidList.length; i++) {
+                    for (let i = roomidTargetidList.length - 1; i >= 0; i--) {
                         const [roomid, target_id, live_status] = roomidTargetidList[i];
                         if (this.config.mode === "like" || live_status) {
                             await this.like(roomid, target_id, _.random(35, 40));
+                            roomidTargetidList.splice(i, 1);
                         } else {
                             // await this.sendDanmu(this.config.danmuList[i % this.config.danmuList.length], roomid);
-                            await this.sendEmoji(this.config.emojiList[_.random(0, this.config.emojiList.length - 1)], roomid);
+                            let code = await this.sendEmoji(this.config.emojiList[_.random(0, this.config.emojiList.length - 1)], roomid);
+                            if (code != 0) {
+                                roomidTargetidList.splice(i, 1);
+                            }
                         }
                         await sleep(_.random(7e3, 10e3));
                     }
