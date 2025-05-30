@@ -2113,9 +2113,15 @@
          */
         getRoomidTargetidList() {
             const filtered = useBiliStore().filteredFansMedals.filter(
-                (medal) => (this.medalTasksConfig.isWhiteList ? this.medalTasksConfig.roomidList.includes(medal.room_info.room_id) : !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)) && medal.medal.is_lighted === 0
+                (medal) => (
+                    this.medalTasksConfig.isWhiteList
+                        ? this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)
+                        : !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id))
+                    && medal.medal.is_lighted === 0
             ).map((medal) => [medal.room_info.room_id, medal.medal.target_id, medal.room_info.living_status]);
-            this.logger.log(`点亮列表:${filtered.map((medal) => [medal[0]])}(${filtered.length})`)
+            this.logger.log(`点亮列表：${filtered.map((medal) => [medal[0]])}(${filtered.length})`)
+            return filtered;
+        }
             return filtered;
         }
         /**
@@ -2449,11 +2455,14 @@
             const biliStore = useBiliStore();
             if (biliStore.filteredFansMedals) {
                 let idList2 = biliStore.filteredFansMedals.filter(
-                    (medal) => medal.medal.level < 20 && medal.medal.today_feed < 1500 && !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)
+                    (medal) =>
+                        medal.medal.level < 20
+                        && medal.medal.today_feed < 1500
+                        && !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)
                         && (this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id) || medal.medal.level < 15)
                 ).sort((a, b) => a.medal.level - b.medal.level)
                 idList2 = idList2.map((medal) => [medal.room_info.room_id, medal.medal.target_id])
-                this.logger.log(`观看直播列表${idList2}(${idList2.length})`)
+                this.logger.log(`观看直播列表：${idList2}(${idList2.length})`)
                 return idList2;
             } else {
                 return null;
