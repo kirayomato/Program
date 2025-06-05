@@ -2165,26 +2165,37 @@
                         this.logger.warn(
                             `点亮熄灭勋章-发送弹幕 在直播间 ${roomid} 发送弹幕 ${danmu} 异常，弹幕可能包含屏蔽词`
                         );
+                        return 1;
                     } else {
                         this.logger.log(`点亮熄灭勋章-发送弹幕 在直播间 ${roomid} 发送弹幕 ${danmu} 成功`);
+                        return 0;
                     }
                 } else {
                     this.logger.error(
                         `点亮熄灭勋章-发送弹幕 在直播间 ${roomid} 发送弹幕 ${danmu} 失败`,
                         response.message
                     );
+                    return response.code;
                 }
             } catch (error) {
                 this.logger.error(`点亮熄灭勋章-发送弹幕 在直播间 ${roomid} 发送弹幕 ${danmu} 出错`, error);
+                return 1;
             }
         }
         async sendEmoji(danmu, roomid) {
             try {
                 const response = await BAPI.live.sendEmoji(danmu, roomid);
                 this.logger.log(`BAPI.live.sendEmoji(${danmu}, ${roomid})`, response);
-                if (response.code === 0 && response.message != 'k') {
-                    this.logger.log(`点亮熄灭勋章-发送表情 在直播间 ${roomid} 发送表情 ${danmu} 成功`);
-                    return 0;
+                if (response.code === 0) {
+                    if (response.msg === "k") {
+                        this.logger.warn(
+                            `点亮熄灭勋章-发送表情 在直播间 ${roomid} 发送表情 ${danmu} 异常，表情可能包含屏蔽词`
+                        );
+                        return 1;
+                    } else {
+                        this.logger.log(`点亮熄灭勋章-发送表情 在直播间 ${roomid} 发送表情 ${danmu} 成功`);
+                        return 0;
+                    }
                 } else {
                     this.logger.error(
                         `点亮熄灭勋章-发送表情 在直播间 ${roomid} 发送表情 ${danmu} 失败`,
