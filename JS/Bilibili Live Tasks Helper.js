@@ -2218,9 +2218,10 @@
             }
             this.status = "running";
             var roomidTargetidList = this.getRoomidTargetidList();
+            var n = roomidTargetidList.length;
             if (roomidTargetidList.length > 0) {
                 for (let j = 0; j < 10; j++) {
-                    for (let i = roomidTargetidList.length - 1; i >= 0; i--) {
+                    for (let i = n - 1; i >= 0; i--) {
                         const [roomid, target_id, live_status] = roomidTargetidList[i];
                         if (this.config.mode === "like" || live_status) {
                             await this.like(roomid, target_id, _.random(35, 40));
@@ -2232,7 +2233,7 @@
                                 roomidTargetidList.splice(i, 1);
                             }
                         }
-                        await sleep(_.random(7e3, 10e3));
+                        await sleep(Math.max(600 * 1e3 / n, _.random(7e3, 10e3)));
                     }
                 }
             }
