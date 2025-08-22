@@ -1,6 +1,13 @@
 {
     "cache": {
-        "lastAliveHeartBeatTime": 0
+        "lastAliveHeartBeatTime": 1755856106647
+    },
+    "ui": {
+        "isCollapse": false,
+        "isShowPanel": false,
+        "activeMenuIndex": "ScriptSettings",
+        "panelWidthPercent": 45,
+        "medalInfoPanelSortMode": false
     },
     "modules": {
         "DailyTasks": {
@@ -24,17 +31,74 @@
                 }
             },
             "LiveTasks": {
-                "sign": {
-                    "enabled": false,
-                    "_lastCompleteTime": 0
-                },
                 "medalTasks": {
+                    "light": {
+                        "enabled": true,
+                        "danmuList": [
+                            "(⌒▽⌒)",
+                            "（￣▽￣）",
+                            "(=・ω・=)",
+                            "(｀・ω・´)",
+                            "(〜￣△￣)〜",
+                            "(･∀･)",
+                            "(°∀°)ﾉ",
+                            "╮(￣▽￣)╭",
+                            "_(:3」∠)_",
+                            "(^・ω・^ )",
+                            "(●￣(ｴ)￣●)",
+                            "ε=ε=(ノ≧∇≦)ノ",
+                            "⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄",
+                            "←◡←",
+                            "(●'◡'●)ﾉ♥"
+                        ],
+                        "emojiList": [
+                            "official_331",
+                            "official_332",
+                            "official_348",
+                            "official_343",
+                            "official_335",
+                            "official_345",
+                            "official_339",
+                            "official_337",
+                            "official_342",
+                            "official_346",
+                            "official_147",
+                            "official_109",
+                            "official_113",
+                            "official_150",
+                            "official_103",
+                            "official_128",
+                            "official_133",
+                            "official_149",
+                            "official_124",
+                            "official_146",
+                            "official_148",
+                            "official_102",
+                            "official_137",
+                            "official_118",
+                            "official_108",
+                            "official_104",
+                            "official_105",
+                            "official_106",
+                            "official_110",
+                            "official_111",
+                            "official_115",
+                            "official_116",
+                            "official_117",
+                            "official_119",
+                            "official_122",
+                            "official_125",
+                            "official_126",
+                            "official_134"
+                        ],
+                        "_lastCompleteTime": 0
+                    },
                     "watch": {
                         "enabled": true,
-                        "time": 30,
+                        "time": 25,
+                        "_watchingProgress": {},
                         "_lastWatchTime": 0,
-                        "_lastCompleteTime": 0,
-                        "_watchingProgress": {}
+                        "_lastCompleteTime": 0
                     },
                     "isWhiteList": false,
                     "roomidList": [
@@ -146,7 +210,6 @@
                         22095341,
                         21013446,
                         14275133,
-                        88615,
                         42062,
                         21195828,
                         27798865,
@@ -187,7 +250,6 @@
                         30655190,
                         4340859,
                         851181,
-                        88615,
                         22901614,
                         27628030
                     ],
@@ -201,70 +263,9 @@
                         1011107,
                         1766907940,
                         1820703922,
-                        1967216004
-                    ],
-                    "light": {
-                        "enabled": true,
-                        "mode": "danmu",
-                        "danmuList": [
-                            "(⌒▽⌒)",
-                            "（￣▽￣）",
-                            "(=・ω・=)",
-                            "(｀・ω・´)",
-                            "(〜￣△￣)〜",
-                            "(･∀･)",
-                            "(°∀°)ﾉ",
-                            "╮(￣▽￣)╭",
-                            "_(:3」∠)_",
-                            "(^・ω・^ )",
-                            "(●￣(ｴ)￣●)",
-                            "ε=ε=(ノ≧∇≦)ノ",
-                            "⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄",
-                            "←◡←",
-                            "(●'◡'●)ﾉ♥"
-                        ],
-                        "emojiList": [
-                            "official_331",
-                            "official_332",
-                            "official_348",
-                            "official_343",
-                            "official_335",
-                            "official_345",
-                            "official_339",
-                            "official_337",
-                            "official_342",
-                            "official_346",
-                            "official_147",
-                            "official_109",
-                            "official_113",
-                            "official_150",
-                            "official_103",
-                            "official_128",
-                            "official_133",
-                            "official_149",
-                            "official_124",
-                            "official_146",
-                            "official_148",
-                            "official_102",
-                            "official_137",
-                            "official_118",
-                            "official_108",
-                            "official_104",
-                            "official_105",
-                            "official_106",
-                            "official_110",
-                            "official_111",
-                            "official_115",
-                            "official_116",
-                            "official_117",
-                            "official_119",
-                            "official_122",
-                            "official_125",
-                            "official_126",
-                            "official_134"
-                        ],
-                        "_lastCompleteTime": 0
-                    }
+                        1967216004,
+                        1791260756
+                    ]
                 }
             },
             "OtherTasks": {
@@ -282,7 +283,7 @@
                     "_lastCompleteTime": 0
                 },
                 "getYearVipPrivilege": {
-                    "enabled": false,
+                    "enabled": true,
                     "_nextReceiveTime": 0
                 }
             }
@@ -293,7 +294,7 @@
                 "qualityDesc": "原画"
             },
             "banp2p": {
-                "enabled": false
+                "enabled": true
             },
             "noReport": {
                 "enabled": true
@@ -330,6 +331,9 @@
             "removeRank": {
                 "enabled": false
             },
+            "removeHeaderStuff": {
+                "enabled": false
+            },
             "removeFlipView": {
                 "enabled": false
             },
@@ -338,17 +342,7 @@
             },
             "removeLiveMosaic": {
                 "enabled": false
-            },
-            "removeHeaderStuff": {
-                "enabled": false
             }
         }
-    },
-    "ui": {
-        "isCollapse": false,
-        "isShowPanel": true,
-        "activeMenuIndex": "LiveTasks",
-        "panelWidthPercent": 40,
-        "medalInfoPanelSortMode": false
     }
 }
