@@ -2050,18 +2050,23 @@
                 on: [],
                 off: []
             };
-            fansMedals.forEach((medal) => {
-                if (!this.PUBLIC_MEDAL_FILTERS.whiteBlackList(medal) || this.MEDAL_FILTERS.isLighted(medal)) {
-                    return;
-                }
+            const idlist = fansMedals.filter(
+                (medal) =>
+                    !medal.medal.is_lighted
+                    && !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)
+                    && (this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id)
+                        || medal.medal.level < 15
+                        || medal.medal.level > 18)
+            );
+            idlist.forEach((medal) => {
                 const livingStatus = this.MEDAL_FILTERS.livingStatus(medal);
                 result[livingStatus].push(medal);
             });
+
             if (this.medalTasksConfig.isWhiteList) {
                 this.sortMedals(result.on);
                 this.sortMedals(result.off);
             }
-            let idlist = result.on.concat(result.off);
             this.logger.log(`点亮勋章列表(${idlist.length}): ${idlist.map(medal => medal.anchor_info.nick_name)}`)
             return result;
         }
