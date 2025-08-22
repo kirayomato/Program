@@ -2122,8 +2122,6 @@
             this.logger.log(`点亮列表：${filtered.map((medal) => [medal[0]])}(${filtered.length})`)
             return filtered;
         }
-            return filtered;
-        }
         /**
          * 点赞
          * @param roomid 直播间号
@@ -2165,7 +2163,7 @@
                         this.logger.warn(
                             `点亮熄灭勋章-发送弹幕 在直播间 ${roomid} 发送弹幕 ${danmu} 异常，弹幕可能包含屏蔽词`
                         );
-                        return 1;
+                        return -1;
                     } else {
                         this.logger.log(`点亮熄灭勋章-发送弹幕 在直播间 ${roomid} 发送弹幕 ${danmu} 成功`);
                         return 0;
@@ -2191,7 +2189,7 @@
                         this.logger.warn(
                             `点亮熄灭勋章-发送表情 在直播间 ${roomid} 发送表情 ${danmu} 异常，表情可能包含屏蔽词`
                         );
-                        return 1;
+                        return -1;
                     } else {
                         this.logger.log(`点亮熄灭勋章-发送表情 在直播间 ${roomid} 发送表情 ${danmu} 成功`);
                         return 0;
@@ -2222,16 +2220,29 @@
             if (roomidTargetidList.length > 0) {
                 for (let j = 0; j < 10; j++) {
                     for (let i = n - 1; i >= 0; i--) {
-                        const [roomid, target_id, live_status] = roomidTargetidList[i];
-                        if (this.config.mode === "like" || live_status) {
-                            await this.like(roomid, target_id, _.random(35, 40));
-                            roomidTargetidList.splice(i, 1);
-                        } else {
-                            // await this.sendDanmu(this.config.danmuList[i % this.config.danmuList.length], roomid);
-                            let code = await this.sendEmoji(this.config.emojiList[_.random(0, this.config.emojiList.length - 1)], roomid);
-                            if (code != 0) {
+                        try {
+                            const [roomid, target_id, live_status] = roomidTargetidList[i];
+                            if (this.config.mode === "like" || live_status) {
+                                await this.like(roomid, target_id, _.random(35, 40));
                                 roomidTargetidList.splice(i, 1);
+                            } else {
+                                let code = await this.sendDanmu(this.config.danmuList[_.random(0, this.config.danmuList.length - 1)], roomid);
+                                if (code != 0) {
+                                    if (code == -1) {
+                                        await sleep(_.random(7e3, 10e3));
+                                        await this.sendEmoji(this.config.emojiList[_.random(0, this.config.emojiList.length - 1)], roomid);
+                                    }
+
+                                    else
+                                        roomidTargetidList.splice(i, 1);
+                                }
                             }
+                            await sleep(Math.max(150 * 1e3 / n, _.random(7e3, 10e3)));
+                        }
+                        catch (err) {
+                            console.log("错误名称:", error.name); // ReferenceError
+                            console.log("错误信息:", error.message);
+                            continue;
                         }
                         await sleep(Math.max(600 * 1e3 / n, _.random(7e3, 10e3)));
                     }
@@ -2471,7 +2482,7 @@
                         medal.medal.level < 20
                         && medal.medal.today_feed < 1500
                         && !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)
-                        && (this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id) || medal.medal.level < 15)
+                        && (this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id) || medal.medal.level < 15 || medal.medal.level > 18)
                 ).sort((a, b) => a.medal.level - b.medal.level)
                 idList2 = idList2.map((medal) => [medal.room_info.room_id, medal.medal.target_id])
                 this.logger.log(`观看直播列表：${idList2}(${idList2.length})`)
