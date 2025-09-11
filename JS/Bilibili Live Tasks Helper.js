@@ -2055,8 +2055,8 @@
                     !medal.medal.is_lighted
                     && !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)
                     && (this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id)
-                        || medal.medal.level < 15
-                        || medal.medal.level > 18)
+                        || medal.medal.level >= 25
+                    )
             );
             idlist.forEach((medal) => {
                 const livingStatus = this.MEDAL_FILTERS.livingStatus(medal);
@@ -2425,10 +2425,12 @@
         getMedals() {
             const fansMedals = [...useBiliStore().filteredFansMedals];
             const result = fansMedals.filter(
-                (medal) => medal.medal.level < 20
-                    && medal.medal.today_feed < 1500
+                (medal) =>
+                    medal.medal.today_feed < 30
                     && !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)
-                    && (this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id) || medal.medal.level < 15 || medal.medal.level > 18)
+                    && (this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id)
+                        || medal.medal.level < 20
+                    )
             );
             if (this.medalTasksConfig.isWhiteList) {
                 this.sortMedals(result);
