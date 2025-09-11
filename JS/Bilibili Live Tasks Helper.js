@@ -2419,6 +2419,17 @@
         set status(s) {
             this.moduleStore.moduleStatus.DailyTasks.LiveTasks.medalTasks.watch = s;
         }
+
+        sort_live_medals(a, b) {
+            let roomid = this.medalTasksConfig.roomidList2
+            if (roomid.includes(a.room_info.room_id) && roomid.includes(b.room_info.room_id))
+                return roomid.indexOf(a.room_info.room_id) - roomid.indexOf(b.room_info.room_id);
+            else if (roomid.includes(a.room_info.room_id))
+                return -1;
+            else if (roomid.includes(b.room_info.room_id))
+                return 1;
+            return b.medal.level - a.medal.level;
+        };
         /**
          * 获取粉丝勋章
          * @returns 根据直播状态划分、经过排序和过滤的粉丝勋章
@@ -2433,7 +2444,7 @@
                         || medal.medal.level < 20
                     )
             );
-            result.sort((a, b) => b.medal.level - a.medal.level);
+            result.sort(this.sort_live_medals);
             this.logger.log(`观看直播列表(${result.length}): ${result.map(medal => medal.anchor_info.nick_name)}`)
             return result;
         }
