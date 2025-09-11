@@ -1485,7 +1485,7 @@
                         );
                         return fansMetalList;
                     }
-                    await sleep(_.random(300, 500));
+                    await sleep(_.random(1000, 1500));
                 }
                 return fansMetalList;
             } catch (error) {
@@ -2179,6 +2179,7 @@
                         medal,
                         this.config.danmuList[danmuIndex++ % this.config.danmuList.length]
                     )) {
+                        await sleep(Math.max(150 * 1e3 / medals.length, _.random(7e3, 10e3)));
                         await this.sendEmoji(
                             medal,
                             this.config.emojiList[danmuIndex++ % this.config.emojiList.length]
@@ -2432,9 +2433,7 @@
                         || medal.medal.level < 20
                     )
             );
-            if (this.medalTasksConfig.isWhiteList) {
-                this.sortMedals(result);
-            }
+            result.sort((a, b) => b.medal.level - a.medal.level);
             this.logger.log(`观看直播列表(${result.length}): ${result.map(medal => medal.anchor_info.nick_name)}`)
             return result;
         }
