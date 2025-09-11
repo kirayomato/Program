@@ -1504,11 +1504,11 @@
             });
             const medalTasks = this.moduleStore.moduleConfig.DailyTasks.LiveTasks.medalTasks;
             const taskValues = [medalTasks.light, medalTasks.watch];
-            if (taskValues.some((t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4))) {
-                biliStore.fansMedalsStatus = "loading";
-                biliStore.fansMedals = await this.getFansMetals();
-                biliStore.fansMedalsStatus = "loaded";
-            }
+            // if (taskValues.some((t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4))) {
+            biliStore.fansMedalsStatus = "loading";
+            biliStore.fansMedals = await this.getFansMetals();
+            biliStore.fansMedalsStatus = "loaded";
+            // }
             setTimeout(
                 () => this.run().catch((reason) => this.logger.error(reason)),
                 delayToNextMoment(0, 4).ms
@@ -2464,65 +2464,64 @@
         }
         async run() {
             this.logger.log("观看直播模块开始运行");
-            if (!isTimestampToday(this.config._lastCompleteTime)) {
-                if (!await this.waitForFansMedals()) {
-                    this.logger.error("粉丝勋章数据不存在，不执行观看直播任务");
-                    this.status = "error";
-                    return;
-                }
-                this.status = "running";
-                if (!isTimestampToday(this.config._lastWatchTime, 0, 0)) {
-                    this.config._watchingProgress = {};
-                } else {
-                    _.forOwn(this.config._watchingProgress, (value, key, object) => {
-                        object[key] -= value % 300;
-                    });
-                }
-                this.config._lastWatchTime = tsm();
-                const fansMedals = this.getMedals();
-                if (fansMedals.length > 0) {
-                    let i;
-                    for (i = 0; i < fansMedals.length; i++) {
-                        const medal = fansMedals[i];
-                        const roomid = medal.room_info.room_id;
-                        const uid = medal.medal.target_id;
-                        const [area_id, parent_area_id] = await this.getAreaInfo(roomid);
-                        if (area_id > 0 && parent_area_id > 0) {
-                            if (!this.config._watchingProgress[roomid] || this.config._watchingProgress[roomid] < this.config.time * 60) {
-                                if (isNowIn(23, 55, 0, 5)) {
-                                    this.logger.log("即将或刚刚发生跨天，提早结束本轮观看直播任务");
-                                    break;
-                                }
-                                this.logger.log(
-                                    `粉丝勋章【${medal.medal.medal_name}】 开始直播间 ${roomid}（主播【${medal.anchor_info.nick_name}】，UID：${uid}）的观看直播任务`
-                                );
-                                await new RoomHeart(
-                                    roomid,
-                                    area_id,
-                                    parent_area_id,
-                                    uid,
-                                    this.config._watchingProgress[roomid] ?? 0
-                                ).start();
+            // if (!isTimestampToday(this.config._lastCompleteTime)) {
+            if (!await this.waitForFansMedals()) {
+                this.logger.error("粉丝勋章数据不存在，不执行观看直播任务");
+                this.status = "error";
+                return;
+            }
+            this.status = "running";
+            if (!isTimestampToday(this.config._lastWatchTime, 0, 0)) {
+                this.config._watchingProgress = {};
+            }
+            this.config._lastWatchTime = tsm();
+            const fansMedals = this.getMedals();
+            if (fansMedals.length > 0) {
+                let i;
+                for (i = 0; i < fansMedals.length; i++) {
+                    const medal = fansMedals[i];
+                    const roomid = medal.room_info.room_id;
+                    const uid = medal.medal.target_id;
+                    const [area_id, parent_area_id] = await this.getAreaInfo(roomid);
+                    this.config._watchingProgress[roomid] = medal.medal.today_feed / 6 * 300
+                    if (area_id > 0 && parent_area_id > 0) {
+                        if (!this.config._watchingProgress[roomid] || this.config._watchingProgress[roomid] < this.config.time * 60) {
+                            if (isNowIn(23, 55, 0, 5)) {
+                                this.logger.log("即将或刚刚发生跨天，提早结束本轮观看直播任务");
+                                break;
                             }
+                            this.logger.log(
+                                `粉丝勋章【${medal.medal.medal_name}】 开始直播间 ${roomid}（主播【${medal.anchor_info.nick_name}】，UID：${uid}）的观看直播任务`
+                            );
+                            await new RoomHeart(
+                                roomid,
+                                area_id,
+                                parent_area_id,
+                                uid,
+                                this.config._watchingProgress[roomid] ?? 0
+                            ).start();
                         }
                     }
-                    if (i === fansMedals.length) {
-                        this.config._lastCompleteTime = tsm();
-                        this.logger.log("观看直播任务已完成");
-                        this.status = "done";
-                    }
-                } else {
-                    this.status = "done";
-                    this.config._lastCompleteTime = tsm();
                 }
-            } else {
-                if (isNowIn(0, 0, 0, 5)) {
-                    this.logger.log("昨天的观看直播任务已经完成过了，等到今天的00:05再执行");
-                } else {
-                    this.logger.log("今天已经完成过观看直播任务了");
+                if (i === fansMedals.length) {
+                    this.config._lastCompleteTime = tsm();
+                    this.logger.log("观看直播任务已完成");
                     this.status = "done";
                 }
             }
+            else {
+                this.status = "done";
+                this.config._lastCompleteTime = tsm();
+            }
+            // } 
+            // else {
+            //     if (isNowIn(0, 0, 0, 5)) {
+            //         this.logger.log("昨天的观看直播任务已经完成过了，等到今天的00:05再执行");
+            //     } else {
+            //         this.logger.log("今天已经完成过观看直播任务了");
+            //         this.status = "done";
+            //     }
+            // }
             const diff = delayToNextMoment();
             setTimeout(() => this.run(), diff.ms);
             this.logger.log("距离观看直播模块下次运行时间:", diff.str);
