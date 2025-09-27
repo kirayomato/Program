@@ -1,15 +1,15 @@
 // https://www.luogu.com.cn/problem/P3369
 mt19937 e(time(0));
-unordered_map<int, int> cnt;
 uniform_int_distribution<int> d(0, inf);
 struct TreeNode
 {
 	int val;
 	int size;
 	int pri;
+	int cnt;
 	TreeNode *left;
 	TreeNode *right;
-	TreeNode(int x) : val(x), size(1), pri(d(e)), left(nullptr), right(nullptr) {}
+	TreeNode(int x) : val(x), size(1), pri(d(e)), cnt(1), left(nullptr), right(nullptr) {}
 };
 typedef pair<TreeNode *, TreeNode *> ptt;
 inline int getsize(TreeNode *root)
@@ -19,7 +19,7 @@ inline int getsize(TreeNode *root)
 inline void pu(TreeNode *root)
 {
 	if (root)
-		root->size = getsize(root->left) + getsize(root->right) + cnt[root->val];
+		root->size = getsize(root->left) + getsize(root->right) + root->cnt;
 }
 ptt split(TreeNode *root, int key)
 {
@@ -62,17 +62,26 @@ TreeNode *merge(TreeNode *u, TreeNode *v)
 void insert(TreeNode *&root, int val)
 {
 	ptt p = split(root, val);
-	if (cnt[val] == 1)
-		p.first = merge(p.first, new TreeNode(val));
-	root = merge(p.first, p.second);
-	pu(root);
+	ptt q = split(p.first, val - 1);
+
+	if (q.second != nullptr)
+	{
+		q.second->cnt++;
+		pu(q.second);
+	}
+	else
+	{
+		q.second = new TreeNode(val);
+	}
+	root = merge(merge(q.first, q.second), p.second);
 }
 void del(TreeNode *&root, int val)
 {
 	if (root->val == val)
 	{
 		root->size--;
-		if (cnt[val])
+		root->cnt--;
+		if (root->cnt)
 			return;
 		ptt o = split(root, val - 1);
 		ptt p = split(o.second, val);
@@ -93,7 +102,7 @@ int findrk(TreeNode *root, int val)
 		return findrk(root->left, val);
 
 	if (val > root->val)
-		return cnt[root->val] + getsize(root->left) + findrk(root->right, val);
+		return root->cnt + getsize(root->left) + findrk(root->right, val);
 
 	return getsize(root->left) + 1;
 }
@@ -104,8 +113,8 @@ int findx(TreeNode *root, int val)
 	if (val <= l)
 		return findx(root->left, val);
 
-	if (val > l + cnt[root->val])
-		return findx(root->right, val - l - cnt[root->val]);
+	if (val > l + root->cnt)
+		return findx(root->right, val - l - root->cnt);
 
 	return root->val;
 }
