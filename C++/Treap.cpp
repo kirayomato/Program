@@ -1,26 +1,27 @@
-int cnt[2 * N];
-mt19937 e;
+// https://www.luogu.com.cn/problem/P3369
+mt19937 e(time(0));
+unordered_map<int, int> cnt;
 uniform_int_distribution<int> d(0, inf);
 struct TreeNode
 {
 	int val;
 	int size;
 	int pri;
-	TreeNode* left;
-	TreeNode* right;
+	TreeNode *left;
+	TreeNode *right;
 	TreeNode(int x) : val(x), size(1), pri(d(e)), left(nullptr), right(nullptr) {}
 };
-typedef pair<TreeNode*, TreeNode*> ptt;
-inline int getsize(TreeNode* root)
+typedef pair<TreeNode *, TreeNode *> ptt;
+inline int getsize(TreeNode *root)
 {
 	return root ? root->size : 0;
 }
-inline void pu(TreeNode* root)
+inline void pu(TreeNode *root)
 {
 	if (root)
-		root->size = getsize(root->left) + getsize(root->right) + cnt[root->val + N];
+		root->size = getsize(root->left) + getsize(root->right) + cnt[root->val];
 }
-ptt split(TreeNode* root, int key)
+ptt split(TreeNode *root, int key)
 {
 	if (root == nullptr)
 		return make_pair(nullptr, nullptr);
@@ -39,7 +40,7 @@ ptt split(TreeNode* root, int key)
 		return make_pair(root, o.second);
 	}
 }
-TreeNode* merge(TreeNode* u, TreeNode* v)
+TreeNode *merge(TreeNode *u, TreeNode *v)
 {
 	if (u == nullptr)
 		return v;
@@ -58,55 +59,57 @@ TreeNode* merge(TreeNode* u, TreeNode* v)
 		return v;
 	}
 }
-void insert(TreeNode** root, int val)
+void insert(TreeNode *&root, int val)
 {
-	ptt p = split(*root, val);
-	if (cnt[val + N] == 1)
+	ptt p = split(root, val);
+	if (cnt[val] == 1)
 		p.first = merge(p.first, new TreeNode(val));
-	*root = merge(p.first, p.second);
-	pu(*root);
+	root = merge(p.first, p.second);
+	pu(root);
 }
-void del(TreeNode** root, int val) 
+void del(TreeNode *&root, int val)
 {
-	if ((*root)->val == val) 
-    {
-		(*root)->size--;
-		if (cnt[val + N])
+	if (root->val == val)
+	{
+		root->size--;
+		if (cnt[val])
 			return;
-		ptt o = split(*root, val - 1);
+		ptt o = split(root, val - 1);
 		ptt p = split(o.second, val);
-		*root = merge(o.first, p.second);
+		root = merge(o.first, p.second);
 	}
-	else if (val > (*root)->val)
-		del(&(*root)->right, val);
+	else if (val > root->val)
+		del(root->right, val);
 	else
-		del(&(*root)->left, val);
+		del(root->left, val);
 
-	pu(*root);
+	pu(root);
 }
-int findrk(TreeNode* root, int val) 
+int findrk(TreeNode *root, int val)
 {
+	if (!root)
+		return 1;
 	if (val < root->val)
 		return findrk(root->left, val);
 
 	if (val > root->val)
-		return cnt[root->val + N] + getsize(root->left) + findrk(root->right, val);
+		return cnt[root->val] + getsize(root->left) + findrk(root->right, val);
 
 	return getsize(root->left) + 1;
 }
-int findx(TreeNode* root, int val) 
+int findx(TreeNode *root, int val)
 {
 	int l = getsize(root->left);
 
 	if (val <= l)
 		return findx(root->left, val);
 
-	if (val > l + cnt[root->val + N])
-		return findx(root->right, val - l - cnt[root->val + N]);
+	if (val > l + cnt[root->val])
+		return findx(root->right, val - l - cnt[root->val]);
 
 	return root->val;
 }
-int find_prev(TreeNode* root, int val) 
+int find_prev(TreeNode *root, int val)
 {
 	if (!root)
 		return -inf;
@@ -116,7 +119,7 @@ int find_prev(TreeNode* root, int val)
 	else
 		return find_prev(root->left, val);
 }
-int find_next(TreeNode* root, int val) 
+int find_next(TreeNode *root, int val)
 {
 	if (!root)
 		return inf;
@@ -127,7 +130,7 @@ int find_next(TreeNode* root, int val)
 		return min(find_next(root->left, val), root->val);
 }
 int x, y;
-TreeNode* root = nullptr;
+TreeNode *root = nullptr;
 void solve()
 {
 	cin >> n;
@@ -136,13 +139,13 @@ void solve()
 		cin >> x >> y;
 		if (x == 1)
 		{
-			cnt[y + N]++;
-			insert(&root, y);
+			cnt[y]++;
+			insert(root, y);
 		}
 		else if (x == 2)
 		{
-			cnt[y + N]--;
-			del(&root, y);
+			cnt[y]--;
+			del(root, y);
 		}
 		else if (x == 3)
 			cout << findrk(root, y) << "\n";
