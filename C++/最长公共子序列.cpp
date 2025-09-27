@@ -26,3 +26,27 @@ int main()
 	cout << dp[n][n];
 	return 0;
 }
+
+// P1439 两个排列的最长公共子序列
+// https://www.luogu.com.cn/problem/P1439
+int num1[N], num2[N], dp[N];
+int pos[N];
+int solve()
+{
+	cin >> n;
+	for (int i = 0; i < n; ++i)
+	{
+		cin >> num1[i];
+		pos[num1[i]] = i;
+	}
+	for (int i = 0; i < n; ++i)
+	{
+		cin >> num2[i];
+		num2[i] = pos[num2[i]];
+		dp[i] = inf;
+	}
+	for (int i = 0; i < n; ++i)
+		*lower_bound(dp, dp + n, num2[i]) = num2[i];
+	cout << lower_bound(dp, dp + n, inf) - dp;
+	return 0;
+}
