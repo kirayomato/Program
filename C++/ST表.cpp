@@ -14,6 +14,7 @@ void init()
             a[i][j] = func(i - 1, j, j + k);
     }
 }
+# [l,r] -> [1,n]
 ll query(int l, int r)
 {
     int t = log2(r - l + 1);
