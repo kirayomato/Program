@@ -59,6 +59,7 @@ void solve()
     maxn = sqrt(n);
     F(0, i, m)
     {
+        // 查询区间 [l,r) -> [0,n)
         cin >> v[i].l >> v[i].r;
         v[i].l--;
         v[i].id = i;
