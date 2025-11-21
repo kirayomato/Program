@@ -1,4 +1,4 @@
-constexpr int N = 3e5 + 50;
+static constexpr int N = 3e5 + 50;
 int ans[N], d[N];
 int sum;
 int n, m, maxn;
@@ -43,7 +43,7 @@ void solve()
     sort(VEC(vt));
     vt.erase(unique(VEC(vt)), vt.end());
     F(0, i, n)
-    d[i] = lower_bound(VEC(vt), d[i]) - vt.begin() + 1;
+        d[i] = lower_bound(VEC(vt), d[i]) - vt.begin() + 1;
     // Another Version
     // int k = 1;
     // F(0, i, n)
@@ -83,5 +83,5 @@ void solve()
         ans[q.id] = sum;
     }
     F(0, i, m)
-    cout << ans[i] << "\n";
+        cout << ans[i] << "\n";
 }
