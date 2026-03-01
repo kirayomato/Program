@@ -1191,6 +1191,9 @@
         log(...data) {
             console.log(...this.prefix, ...data);
         }
+        debug(...data) {
+            console.debug(...this.prefix, ...data);
+        }
         error(...data) {
             console.error(...this.prefix, ...data);
         }
@@ -2079,12 +2082,82 @@
         secretKey;
         secretRule;
         timestamp;
+        progress = -1;
         start() {
             if (!this.buvid) {
                 this.logger.error(`缺少buvid，无法为直播间 ${this.roomID} 执行观看直播任务，请尝试刷新页面`);
                 return Promise.resolve();
             }
             return this.E();
+        }
+        async getWatchLiveSubTitle(targetId) {
+            try {
+                const biliStore = useBiliStore();
+                const bili_jct = biliStore.cookies.bili_jct;
+                const baseUrl = "https://api.live.bilibili.com/xlive/app-ucenter/v1/fansMedal/GetActivatedMedalInfo";
+                const params = new URLSearchParams({
+                    csrf: bili_jct,
+                    target_id: targetId,
+                    web_location: "0.0"
+                });
+                const requestUrl = `${baseUrl}?${params.toString()} `;
+
+                // 发起请求
+                const response = await fetch(requestUrl, {
+                    headers: {
+                        "accept": "*/*",
+                        "accept-language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+                        "cache-control": "no-cache",
+                        "pragma": "no-cache",
+                        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"Google Chrome\";v=\"140\"",
+                        "sec-ch-ua-mobile": "?0",
+                        "sec-ch-ua-platform": "\"Windows\"",
+                        "sec-fetch-dest": "empty",
+                        "sec-fetch-mode": "cors",
+                        "sec-fetch-site": "same-site"
+                    },
+                    referrer: "https://live.bilibili.com/",
+                    method: "GET",
+                    mode: "cors",
+                    credentials: "include"
+                });
+
+                // 检查HTTP响应状态
+                if (!response.ok) {
+                    throw new Error(`请求失败，状态码: ${response.status} `);
+                }
+
+                // 解析响应数据
+                const data = await response.json();
+
+                // 验证数据结构
+                if (!data?.data?.task_info || !Array.isArray(data.data.task_info)) {
+                    console.log(data);
+                    throw new Error("响应数据格式异常，缺少task_info数组");
+                }
+
+                const targetTask = data.data.task_info.find(task => task.title === "观看直播5分钟");
+                if (!targetTask) {
+                    console.log("未找到观看任务");
+                    return 0;
+                }
+
+                // 解析sub_title中的x值（匹配类似"每日上限 5/5"格式）
+                const subTitle = targetTask.sub_title;
+                const matchResult = subTitle.match(/(\d+)\/5/); // 正则匹配数字/5的结构
+
+                this.logger.debug(`${this.roomID} ${subTitle} `);
+                if (matchResult && matchResult[1]) {
+                    return parseInt(matchResult[1], 10); // 返回解析后的数字
+                } else {
+                    console.log("sub_title格式不符合预期，无法解析x值");
+                    return 0;
+                }
+
+            } catch (error) {
+                console.error("处理出错:", error.message);
+                return 0;
+            }
         }
         async E() {
             try {
@@ -2139,13 +2212,22 @@
                     this.heartBeatInterval,
                     spyderData.ts
                 );
-                this.logger.log(
+                this.logger.debug(
                     `BAPI.liveTrace.X(${s}, ${this.id}, ${this.device}, ${this.ruid}, ${this.timestamp}, ${this.secretKey}, ${this.heartBeatInterval}, ${spyderData.ts}) response`,
                     response
                 );
                 if (response.code === 0) {
                     this.seq += 1;
                     this.updateProgress();
+                    let prog = await this.getWatchLiveSubTitle(this.ruid)
+                    if (prog != this.progress || this.progress == -1) {
+                        this.progress = prog;
+                        this.logger.log(`${this.roomID} 观看直播进度: ${prog}/5`)
+                    }
+                    if (prog == 5) {
+                        this.logger.log(`${this.roomID} 观看直播进度已满，观看结束`)
+                        return;
+                    }
                     if (this.watchedSeconds >= this.config.time * 60) {
                         return;
                     }
@@ -2231,6 +2313,8 @@
                 return -1;
             else if (roomid.includes(b.room_info.room_id))
                 return 1;
+            if (a.medal.level === b.medal.level)
+                return b.medal.intimacy - a.medal.intimacy;
             return b.medal.level - a.medal.level;
         };
         /**
@@ -2249,7 +2333,7 @@
                     )
             );
             result.sort(this.sort_live_medals);
-            this.logger.log(`观看直播列表(${result.length}): ${result.map(medal => medal.anchor_info.nick_name)}`)
+            this.logger.log(`观看直播列表(${result.length}): ${result.map(medal => medal.anchor_info.nick_name)} `)
             return result;
         }
         async getAreaInfo(url, roomid) {
@@ -2371,7 +2455,7 @@
                 this.logger.log(`BAPI.vc.signIn(${group_id}, ${owner_uid}) response`, response);
                 if (response.code === 0) {
                     this.logger.log(
-                        `应援团签到 应援团ID = ${group_id} 拥有者UID = ${owner_uid} 成功, 粉丝勋章亲密度+${response.data.add_num}`
+                        `应援团签到 应援团ID = ${group_id} 拥有者UID = ${owner_uid} 成功, 粉丝勋章亲密度 + ${response.data.add_num} `
                     );
                 } else {
                     this.logger.error(
@@ -2425,7 +2509,7 @@
                 const response = await BAPI.live.silver2coin();
                 this.logger.log(`BAPI.live.silver2coin response`, response);
                 if (response.code === 0) {
-                    this.logger.log(`银瓜子换硬币已完成，获得硬币:`, response.data.coin);
+                    this.logger.log(`银瓜子换硬币已完成，获得硬币: `, response.data.coin);
                     this.config._lastCompleteTime = tsm();
                     this.status = "done";
                 } else if (response.code === 403) {
@@ -2467,7 +2551,7 @@
         async exchange() {
             try {
                 const response = await BAPI.live.coin2silver(this.config.num);
-                this.logger.log(`BAPI.live.coin2silver{${this.config.num}} response`, response);
+                this.logger.log(`BAPI.live.coin2silver{${this.config.num} } response`, response);
                 if (response.code === 0) {
                     this.logger.log("硬币换银瓜子已完成，获得银瓜子:", response.data.silver);
                     this.config._lastCompleteTime = tsm();
@@ -2662,7 +2746,7 @@
             const switchQualityTimer = setInterval(() => {
                 playerInfo = livePlayer.getPlayerInfo();
                 if (playerInfo.quality === targetQuality.qn) {
-                    this.logger.log(`已将画质切换为${this.config.qualityDesc}`, targetQuality);
+                    this.logger.log(`已将画质切换为${this.config.qualityDesc} `, targetQuality);
                     clearInterval(switchQualityTimer);
                     clearTimeout(timeoutTimer);
                 } else {
@@ -3626,7 +3710,7 @@
             });
             const timeoutId = setTimeout(() => {
                 observer.disconnect();
-                reject2(new Error(`无法在${timeout}毫秒内找到${parentElement.localName}的子节点${selector}`));
+                reject2(new Error(`无法在${timeout}毫秒内找到${parentElement.localName}的子节点${selector} `));
             }, timeout);
         });
     }
@@ -3714,7 +3798,7 @@
                             } else if (error instanceof ModuleError) {
                                 new Logger(error.moduleName).error(error.message);
                             } else {
-                                new Logger("ModuleStore").error(`意外错误: ${error.message}`);
+                                new Logger("ModuleStore").error(`意外错误: ${error.message} `);
                                 return;
                             }
                         }
