@@ -1,13 +1,7 @@
 {
     "cache": {
-        "lastAliveHeartBeatTime": 1755856106647
-    },
-    "ui": {
-        "isCollapse": false,
-        "isShowPanel": false,
-        "activeMenuIndex": "ScriptSettings",
-        "panelWidthPercent": 45,
-        "medalInfoPanelSortMode": false
+        "lastAliveHeartBeatTime": 0,
+        "mainScriptLocation": "/22474988"
     },
     "modules": {
         "DailyTasks": {
@@ -252,7 +246,9 @@
                         851181,
                         22901614,
                         27628030,
-                        23805078
+                        23805078,
+                        23050776,
+                        32345363
                     ],
                     "roomidList2": [
                         27628019,
@@ -260,24 +256,13 @@
                         21672024,
                         1791260756,
                         370468,
-                        31368705,
-                        23945583,
-                        22966160,
-                        31368686,
-                        21403601,
                         696067,
+                        31368705,
+                        21403601,
                         23260993,
                         1967216004,
-                        1820703922,
-                        3473884,
-                        23075997,
-                        850221,
-                        21672023,
-                        25788785,
-                        22344968,
-                        21708004,
-                        42270,
-                        4634167
+                        1713546334,
+                        1986461465
                     ]
                 }
             },
@@ -357,5 +342,12 @@
                 "enabled": false
             }
         }
+    },
+    "ui": {
+        "isCollapse": false,
+        "isShowPanel": false,
+        "activeMenuIndex": "LiveTasks",
+        "panelWidthPercent": 45,
+        "medalInfoPanelSortMode": false
     }
 }
