@@ -2136,27 +2136,32 @@
                     throw new Error("响应数据格式异常，缺少task_info数组");
                 }
 
-                const targetTask = data.data.task_info.find(task => task.title === "观看直播5分钟");
+                const targetTask = data.data.task_info.find(task => task.title === "观看直播满15分钟");
                 if (!targetTask) {
                     console.log("未找到观看任务");
-                    return 0;
+                    return [0, 0];
                 }
 
                 // 解析sub_title中的x值（匹配类似"每日上限 5/5"格式）
                 const subTitle = targetTask.sub_title;
-                const matchResult = subTitle.match(/(\d+)\/5/); // 正则匹配数字/5的结构
+                const regex = /每日上限\s*(\d+)\/(\d+)/;
+                const match = subTitle.match(regex);
 
-                this.logger.debug(`${this.roomID} ${subTitle} `);
-                if (matchResult && matchResult[1]) {
-                    return parseInt(matchResult[1], 10); // 返回解析后的数字
+                if (match) {
+                    const firstNumber = parseInt(match[1], 10);
+                    const secondNumber = parseInt(match[2], 10);
+                    return [firstNumber, secondNumber];
                 } else {
                     console.log("sub_title格式不符合预期，无法解析x值");
-                    return 0;
+                    return [0, 0];
                 }
 
             } catch (error) {
                 console.error("处理出错:", error.message);
-                return 0;
+                if (typeof data !== 'undefined') {
+                    console.error("data:", data);
+                }
+                return [0, 0];
             }
         }
         async E() {
@@ -2219,16 +2224,18 @@
                 if (response.code === 0) {
                     this.seq += 1;
                     this.updateProgress();
-                    let prog = await this.getWatchLiveSubTitle(this.ruid)
-                    if (prog != this.progress || this.progress == -1) {
-                        this.progress = prog;
-                        this.logger.log(`${this.roomID} 观看直播进度: ${prog}/5`)
+                    let [prog, total] = await this.getWatchLiveSubTitle(this.ruid)
+                    if (total != 0) {
+                        if (prog != this.progress || this.progress == -1) {
+                            this.progress = prog;
+                            this.logger.log(`${this.roomID} 观看直播进度: ${prog}/${total}`)
+                        }
+                        if (prog == total) {
+                            this.logger.log(`${this.roomID} 观看直播进度已满，观看结束`)
+                            return;
+                        }
                     }
-                    if (prog == 5) {
-                        this.logger.log(`${this.roomID} 观看直播进度已满，观看结束`)
-                        return;
-                    }
-                    if (this.watchedSeconds >= this.config.time * 60) {
+                    else if (this.watchedSeconds >= this.config.time * 60) {
                         return;
                     }
                     ;
