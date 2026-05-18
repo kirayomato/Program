@@ -3,7 +3,7 @@
 // @name:en         Bilibili Live Tasks Helper
 // @name:zh         Bilibili Live Tasks Helper
 // @namespace       https://github.com/andywang425
-// @version         7.2.4
+// @version         7.2.8
 // @author          andywang425
 // @description     Enhancing the experience of watching Bilibili live streaming.
 // @description:en  Enhancing the experience of watching Bilibili live streaming.
@@ -13,22 +13,22 @@
 // @icon            data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDEuMDY1IiBoZWlnaHQ9IjEyNy43NDciIHZpZXdCb3g9IjAgMCAzNy4zMjQgMzMuOCI+PHBhdGggZmlsbD0iIzIwYjBlMyIgZD0iTTg2Ljk2MiAxMTIuMzMyYTIuNjYxIDIuNjYxIDAgMCAxIDIuMjYyIDAgNS41MzYgNS41MzYgMCAwIDEgMS4zODQgMS4wMTFsNS4zMjMgNC42NThoMy44MDVsNS4zMjMtNC42NThhNS41ODkgNS41ODkgMCAwIDEgMS4zODQtMS4wMTEgMi42NjEgMi42NjEgMCAwIDEgMy41NCAyLjIwOSAyLjY2MSAyLjY2MSAwIDAgMS0uNTg2IDEuNzgzIDE0Ljg3NyAxNC44NzcgMCAwIDEtMS4xNzEgMS4wNjUgNy42OTEgNy42OTEgMCAwIDEtLjc0NS42MTJoMy4zMjZhNS42NDIgNS42NDIgMCAwIDEgMy45MTIgMS43NTYgNS42NjkgNS42NjkgMCAwIDEgMS43ODQgMy45MTJ2MTUuMzAzYTEwLjc3OCAxMC43NzggMCAwIDEtLjEzNCAyLjMxNSA1LjkwOCA1LjkwOCAwIDAgMS0yLjY2IDMuNzI2IDUuNzIyIDUuNzIyIDAgMCAxLTMuMDYxLjg1Mkg4Ni4yMTdhMTEuMjg0IDExLjI4NCAwIDAgMS0yLjM5Ni0uMTMzIDUuODgyIDUuODgyIDAgMCAxLTMuNjcyLTIuNjYyIDUuNjk1IDUuNjk1IDAgMCAxLS45MDUtMy4wNnYtMTUuMTQzYTExLjkyMyAxMS45MjMgMCAwIDEgMC0yLjIwOSA1Ljg1NSA1Ljg1NSAwIDAgMSA1LjMyMy00LjczN2gzLjQ4NmMtLjU1OS0uNC0xLjAzOC0uODc4LTEuNTQ0LTEuMzA0YTIuNjYxIDIuNjYxIDAgMCAxLS44NTEtMi4xODMgMi42NjEgMi42NjEgMCAwIDEgMS4zMDQtMi4xMDJtLS42MTIgMTAuMzI2YTIuNjYxIDIuNjYxIDAgMCAwLTIuMTAzIDEuOTE2IDMuNTkzIDMuNTkzIDAgMCAwIDAgMS4wMTF2MTIuNTg4YTIuNjYxIDIuNjYxIDAgMCAwIDEuODM3IDIuNjYyIDMuNTEzIDMuNTEzIDAgMCAwIDEuMTQ0LjE4NmgyMS42MzdhMi42NjEgMi42NjEgMCAwIDAgMi41MjgtMS41NyAzLjcyNiAzLjcyNiAwIDAgMCAuMjY2LTEuNzU3di0xMS43MWE0LjQ3MSA0LjQ3MSAwIDAgMCAwLTEuMjc3IDIuNjYxIDIuNjYxIDAgMCAwLTEuNzMtMS44MSA0LjI4NSA0LjI4NSAwIDAgMC0xLjY1LS4yMzlIODcuNjAxYTguODg5IDguODg5IDAgMCAwLTEuMjUxIDB6bTAgMCIgc3R5bGU9InN0cm9rZS13aWR0aDouMDMzMDcyOSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTc5LjE5MyAtMTEyLjA4KSIvPjxwYXRoIGQ9Ik04OC45NyAxMjguNjM2Yy4zNjMuMzc3Ljc0NS43NDcgMS4wODggMS4xNDIuNTk3LjY4NyAxLjExOCAxLjE5NyAxLjY2NiAxLjgwOS0uMTI5LTEuMTE3IDEuMzA0LTEuMTk4LjA3NC0xLjc1Ny0uNDA4LjQxNy0uOTQxLjg4NC0xLjM2IDEuMjIzLS4zOTIuMzE2LS44NjMuNjctMS4yMzUuOTUyLTEuOTA3IDEuNDQzLjIyNiA0LjA1MyAyLjEzIDIuNjA3IDAgMCAyLTEuNTM1IDIuODA3LTIuMzAxLjQ0LS40MTcuNjgtLjk1Ni43Mi0xLjU5Mi4wNC0uNjU0LS41MzUtMS4yNC0uNzk0LTEuNDk4LS45Mi0uOTE0LTEuNzQzLTEuOTY4LTIuNTUtMi44MTItMS41NzUtMS44LTQuMTIuNDI4LTIuNTQ2IDIuMjI3ek0xMDYuOTc5IDEyOC42MzZjLS4zNjMuMzc3LS43NDUuNzQ3LTEuMDg4IDEuMTQyLS41OTcuNjg3LTEuMTE4IDEuMTk3LTEuNjY2IDEuODA5LjEyOS0xLjExNy0xLjMwNC0xLjE5OC0uMDc0LTEuNzU3LjQwOC40MTcuOTQxLjg4NCAxLjM2IDEuMjIzLjM5Mi4zMTYuODYzLjY3IDEuMjM1Ljk1MiAxLjkwNyAxLjQ0My0uMjI2IDQuMDUzLTIuMTMgMi42MDcgMCAwLTItMS41MzUtMi44MDctMi4zMDEtLjQ0LS40MTctLjY4LS45NTYtLjcyLTEuNTkyLS4wNC0uNjU0LjUzNS0xLjI0Ljc5NC0xLjQ5OC45Mi0uOTE0IDEuNzQzLTEuOTY4IDIuNTUtMi44MTIgMS41NzUtMS44IDQuMTIuNDI4IDIuNTQ2IDIuMjI3eiIgc3R5bGU9ImZpbGw6IzIwYjBlMztmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6LjUyNDE1OTtzdHJva2UtZGFzaGFycmF5Om5vbmUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC03OS4xOTMgLTExMi4wOCkiLz48L3N2Zz4NCg==
 // @homepageURL     https://github.com/andywang425/BLTH
 // @supportURL      https://github.com/andywang425/BLTH/issues
-// @downloadURL     https://raw.githubusercontent.com/andywang425/BLTH/master/dist/bilibili-live-tasks-helper.min.user.js
-// @updateURL       https://raw.githubusercontent.com/andywang425/BLTH/master/dist/bilibili-live-tasks-helper.meta.js
+// @downloadURL     https://github.com/andywang425/BLTH/releases/latest/download/bilibili-live-tasks-helper.min.user.js
+// @updateURL       https://github.com/andywang425/BLTH/releases/latest/download/bilibili-live-tasks-helper.meta.js
 // @match          *://live.bilibili.com/22474988
 // @match          *://live.bilibili.com/blanc/22474988
 // @exclude        *://live.bilibili.com/?*
-// @require         https://unpkg.com/vue@3.5.17/dist/vue.global.prod.js
+// @require         https://unpkg.com/vue@3.5.32/dist/vue.global.prod.js
 // @require         data:application/javascript,%3Bwindow.Vue%3DVue%3Bwindow.VueDemi%3DVue%3B
-// @require         https://unpkg.com/element-plus@2.11.2/dist/index.full.min.js
-// @require         https://unpkg.com/@element-plus/icons-vue@2.3.1/dist/index.iife.min.js
-// @require         https://unpkg.com/pinia@3.0.3/dist/pinia.iife.prod.js
-// @require         https://unpkg.com/vue-draggable-plus@0.6.0/dist/vue-draggable-plus.iife.js
-// @require         https://unpkg.com/lodash@4.17.21/lodash.min.js
-// @require         https://unpkg.com/hotkeys-js@3.13.15/dist/hotkeys.min.js
+// @require         https://unpkg.com/element-plus@2.13.7/dist/index.full.min.js
+// @require         https://unpkg.com/@element-plus/icons-vue@2.3.2/dist/index.iife.min.js
+// @require         https://unpkg.com/pinia@3.0.4/dist/pinia.iife.prod.js
+// @require         https://unpkg.com/vue-draggable-plus@0.6.1/dist/vue-draggable-plus.iife.js
+// @require         https://unpkg.com/lodash@4.18.1/lodash.min.js
+// @require         https://unpkg.com/hotkeys-js@4.0.3/dist/hotkeys-js.min.js
 // @require         https://unpkg.com/luxon@3.7.2/build/global/luxon.min.js
 // @require         https://unpkg.com/crypto-js@4.2.0/crypto-js.js
-// @resource        element-plus/dist/index.css  https://unpkg.com/element-plus@2.11.2/dist/index.css
+// @resource        element-plus/dist/index.css  https://unpkg.com/element-plus@2.13.7/dist/index.css
 // @connect         api.bilibili.com
 // @connect         api.live.bilibili.com
 // @connect         api.vc.bilibili.com
@@ -44,7 +44,7 @@
 // @run-at          document-start
 // ==/UserScript==
 
-(async function (vue, pinia$1, _, ElementPlusIconsVue, CryptoJS, luxon, ElementPlus, vueDraggablePlus, hotkeys) {
+(async function (vue, hotkeys, _, pinia$1, CryptoJS, luxon, ElementPlusIconsVue, ElementPlus, vueDraggablePlus) {
     'use strict';
 
     function _interopNamespaceDefault(e) {
@@ -66,9 +66,9 @@
 
     const ElementPlusIconsVue__namespace = _interopNamespaceDefault(ElementPlusIconsVue);
 
-    const d = new Set; const importCSS = async e => { d.has(e) || (d.add(e), (t => { typeof GM_addStyle == "function" ? GM_addStyle(t) : document.head.appendChild(document.createElement("style")).append(t); })(e)); };
+    const d = new Set; const importCSS = async e => { d.has(e) || (d.add(e), (t => { typeof GM_addStyle == "function" ? GM_addStyle(t) : (document.head || document.documentElement).appendChild(document.createElement("style")).append(t); })(e)); };
 
-    importCSS(" .title[data-v-903ddd8d]{padding-left:20px;align-items:baseline;display:flex}.header-big-text[data-v-903ddd8d]{font-size:var(--big-text-size);align-self:unset}.header-small-text[data-v-903ddd8d]{font-size:var(--small-text-size);align-self:unset;margin-left:10px;--small-text-size: 18px}.collapse-btn[data-v-903ddd8d]{display:flex;justify-content:center;align-items:center;height:100%;float:left;cursor:pointer}#aside-el-menu[data-v-86e51db8]:not(.el-menu--collapse){width:150px}.avatar-wrap[data-v-aec3aff8]{width:80px;height:80px}.avatar[data-v-aec3aff8]{display:flex;justify-content:center;align-items:center;border-radius:50%}.label-text[data-v-1cb0d081]{color:var(--el-text-color-primary);line-height:32px}.base[data-v-f514d2f1]{z-index:1003;position:absolute;background-color:var(--el-bg-color)}.header[data-v-f514d2f1]{position:relative;box-sizing:border-box;width:100%;font-size:var(--big-text-size);align-items:center;display:flex;border-bottom:1px solid #e3e5e7;height:60px;--big-text-size: 25px}.aside[data-v-f514d2f1]{width:auto}.main[data-v-f514d2f1]{padding:0}.panel-main[data-v-f514d2f1]{padding:calc(var(--el-main-padding) * .625) var(--el-main-padding)}.fade-enter-active[data-v-f514d2f1]{animation:fade-in linear .2s}.info-icon[data-v-02b5bf3e]{font-size:var(--el-font-size-base);cursor:pointer}.status-icon[data-v-0e4540e9]{font-size:var(--el-font-size-base)} ");
+    importCSS(" #aside-el-menu[data-v-db397d59]:not(.el-menu--collapse){width:150px}.title[data-v-848fd8cc]{display:flex;align-items:baseline;padding-left:20px}.header-big-text[data-v-848fd8cc]{align-self:unset;font-size:var(--big-text-size)}.header-small-text[data-v-848fd8cc]{align-self:unset;margin-left:10px;font-size:var(--small-text-size);--small-text-size: 18px}.collapse-btn[data-v-848fd8cc]{float:left;display:flex;align-items:center;justify-content:center;height:100%;cursor:pointer}.avatar-wrap[data-v-2606d55c]{width:80px;height:80px}.avatar[data-v-2606d55c]{display:flex;align-items:center;justify-content:center;border-radius:50%}.label-text[data-v-0ed6e292]{line-height:32px;color:var(--el-text-color-primary)}.base[data-v-28de2807]{position:absolute;z-index:1003;background-color:var(--el-bg-color)}.header[data-v-28de2807]{position:relative;box-sizing:border-box;display:flex;align-items:center;width:100%;height:60px;font-size:var(--big-text-size);border-bottom:1px solid #e3e5e7;--big-text-size: 25px}.aside[data-v-28de2807]{width:auto}.main[data-v-28de2807]{padding:0}.panel-main[data-v-28de2807]{padding:calc(var(--el-main-padding) * .625) var(--el-main-padding)}.fade-enter-active[data-v-28de2807]{animation:fade-in linear .2s}.info-icon[data-v-02b5bf3e]{font-size:var(--el-font-size-base);cursor:pointer}.status-icon[data-v-16fb8116]{font-size:var(--el-font-size-base)}.done[data-v-16fb8116]{color:#1ab059}.done.is-hovered[data-v-16fb8116]{color:#409eff;cursor:pointer}.error[data-v-16fb8116]{color:#ff6464}.icon-fade-enter-active[data-v-16fb8116],.icon-fade-leave-active[data-v-16fb8116]{transition:all .15s ease}.icon-fade-enter-from[data-v-16fb8116],.icon-fade-leave-to[data-v-16fb8116]{opacity:0;transform:scale(.8) rotate(90deg)} ");
 
     var _GM_addStyle = (() => typeof GM_addStyle != "undefined" ? GM_addStyle : void 0)();
     var _GM_getResourceText = (() => typeof GM_getResourceText != "undefined" ? GM_getResourceText : void 0)();
@@ -76,440 +76,6 @@
     var _GM_setValue = (() => typeof GM_setValue != "undefined" ? GM_setValue : void 0)();
     var _GM_xmlhttpRequest = (() => typeof GM_xmlhttpRequest != "undefined" ? GM_xmlhttpRequest : void 0)();
     var _unsafeWindow = (() => typeof unsafeWindow != "undefined" ? unsafeWindow : void 0)();
-    const defaultValues = {
-        ui: {
-            isCollapse: false,
-            isShowPanel: true,
-            activeMenuIndex: "MainSiteTasks",
-            panelWidthPercent: 45,
-            medalInfoPanelSortMode: false
-        },
-        modules: {
-            DailyTasks: {
-                MainSiteTasks: {
-                    login: {
-                        enabled: false,
-                        _lastCompleteTime: 0
-                    },
-                    watch: {
-                        enabled: false,
-                        _lastCompleteTime: 0
-                    },
-                    coin: {
-                        enabled: false,
-                        num: 1,
-                        _lastCompleteTime: 0
-                    },
-                    share: {
-                        enabled: false,
-                        _lastCompleteTime: 0
-                    }
-                },
-                LiveTasks: {
-                    medalTasks: {
-                        light: {
-                            enabled: false,
-                            danmuList: [
-                                "(⌒▽⌒)",
-                                "（￣▽￣）",
-                                "(=・ω・=)",
-                                "(｀・ω・´)",
-                                "(〜￣△￣)〜",
-                                "(･∀･)",
-                                "(°∀°)ﾉ",
-                                "╮(￣▽￣)╭",
-                                "_(:3」∠)_",
-                                "(^・ω・^ )",
-                                "(●￣(ｴ)￣●)",
-                                "ε=ε=(ノ≧∇≦)ノ",
-                                "⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄",
-                                "←◡←",
-                                `(●'◡'●)ﾉ♥`
-                            ],
-                            emojiList: [
-                                "official_331",
-                                "official_332",
-                                "official_348",
-                                "official_343",
-                                "official_335",
-                                "official_345",
-                                "official_339",
-                                "official_337",
-                                "official_342",
-                                "official_346",
-                                "official_147",
-                                "official_109",
-                                "official_113",
-                                "official_150",
-                                "official_103",
-                                "official_128",
-                                "official_133",
-                                "official_149",
-                                "official_124",
-                                "official_146",
-                                "official_148",
-                                "official_102",
-                                "official_137",
-                                "official_118",
-                                "official_108",
-                                "official_104",
-                                "official_105",
-                                "official_106",
-                                "official_110",
-                                "official_111",
-                                "official_115",
-                                "official_116",
-                                "official_117",
-                                "official_119",
-                                "official_122",
-                                "official_125",
-                                "official_126",
-                                "official_134"
-                            ],
-                            _lastCompleteTime: 0
-                        },
-                        watch: {
-                            enabled: false,
-                            time: 25,
-                            _watchingProgress: {},
-                            _lastWatchTime: 0,
-                            _lastCompleteTime: 0
-                        },
-                        isWhiteList: false,
-                        roomidList: [],
-                        roomidList2: []
-                    }
-                },
-                OtherTasks: {
-                    groupSign: {
-                        enabled: false,
-                        _lastCompleteTime: 0
-                    },
-                    silverToCoin: {
-                        enabled: false,
-                        _lastCompleteTime: 0
-                    },
-                    coinToSilver: {
-                        enabled: false,
-                        num: 1,
-                        _lastCompleteTime: 0
-                    },
-                    getYearVipPrivilege: {
-                        enabled: false,
-                        _nextReceiveTime: 0
-                    }
-                }
-            },
-            EnhanceExperience: {
-                switchLiveStreamQuality: {
-                    enabled: false,
-                    qualityDesc: "原画"
-                },
-                banp2p: {
-                    enabled: false
-                },
-                noReport: {
-                    enabled: false
-                },
-                noSleep: {
-                    enabled: false
-                },
-                invisibility: {
-                    enabled: false
-                }
-            },
-            RemoveElement: {
-                removePKBox: {
-                    enabled: false
-                },
-                removeLiveWaterMark: {
-                    enabled: false
-                },
-                removeShopPopover: {
-                    enabled: false
-                },
-                removeGameParty: {
-                    enabled: false
-                },
-                removeGiftPopover: {
-                    enabled: false
-                },
-                removeMicPopover: {
-                    enabled: false
-                },
-                removeComboCard: {
-                    enabled: false
-                },
-                removeRank: {
-                    enabled: false
-                },
-                removeHeaderStuff: {
-                    enabled: false
-                },
-                removeFlipView: {
-                    enabled: false
-                },
-                removeRecommendRoom: {
-                    enabled: false
-                },
-                removeLiveMosaic: {
-                    enabled: false
-                }
-            }
-        },
-        cache: {
-            lastAliveHeartBeatTime: 0,
-            mainScriptLocation: ""
-        }
-    };
-    class Storage {
-        static mergeConfigs(currentConfig, defaultConfig) {
-            const config = _.pick(currentConfig, _.keys(defaultConfig));
-            _.defaults(config, defaultConfig);
-            _.forOwn(config, (value, key, object) => {
-                if (_.isPlainObject(value) && _.isPlainObject(defaultConfig[key]) && !_.isEmpty(defaultConfig[key])) {
-                    object[key] = this.mergeConfigs(value, defaultConfig[key]);
-                }
-            });
-            return config;
-        }
-        static setUiConfig(uiConfig) {
-            _GM_setValue("ui", uiConfig);
-        }
-        static getUiConfig() {
-            return this.mergeConfigs(_GM_getValue("ui", {}), defaultValues.ui);
-        }
-        static setModuleConfig(moduleConfig) {
-            _GM_setValue("modules", moduleConfig);
-        }
-        static getModuleConfig() {
-            return this.mergeConfigs(_GM_getValue("modules", {}), defaultValues.modules);
-        }
-        static setCache(cache) {
-            _GM_setValue("cache", cache);
-        }
-        static getCache() {
-            return this.mergeConfigs(_GM_getValue("cache", {}), defaultValues.cache);
-        }
-    }
-    const index2name = {
-        MainSiteTasks: "主站任务",
-        LiveTasks: "直播任务",
-        OtherTasks: "其它任务",
-        EnhanceExperience: "体验优化",
-        RemoveElement: "移除元素",
-        ScriptSettings: "设置"
-    };
-    const useUIStore = pinia$1.defineStore("ui", () => {
-        const uiConfig = vue.reactive(Storage.getUiConfig());
-        const activeMenuName = vue.computed(() => index2name[uiConfig.activeMenuIndex]);
-        const livePlayerRect = vue.reactive({
-            top: 0,
-            left: 0,
-            height: 0,
-            width: 0
-        });
-        const windowScrollPosition = vue.reactive({ x: 0, y: 0 });
-        const panelStyle = vue.computed(() => ({
-            top: `${livePlayerRect.top + windowScrollPosition.y}px`,
-            left: `${livePlayerRect.left + windowScrollPosition.x}px`,
-            height: `${livePlayerRect.height}px`,
-            width: `${livePlayerRect.width * uiConfig.panelWidthPercent / 100}px`
-        }));
-        const isShowPanelButtonText = vue.computed(
-            () => uiConfig.isShowPanel ? "隐藏控制面板" : "显示控制面板"
-        );
-        const scrollBarHeight = vue.computed(() => `${livePlayerRect.height - 60}px`);
-        function changeCollapse() {
-            uiConfig.isCollapse = !uiConfig.isCollapse;
-        }
-        function changeShowPanel() {
-            uiConfig.isShowPanel = !uiConfig.isShowPanel;
-        }
-        function setActiveMenuIndex(index) {
-            uiConfig.activeMenuIndex = index;
-        }
-        vue.watch(
-            uiConfig,
-            _.debounce((newUiConfig) => Storage.setUiConfig(newUiConfig), 350)
-        );
-        return {
-            isShowPanelButtonText,
-            activeMenuName,
-            livePlayerRect,
-            windowScrollPosition,
-            panelStyle,
-            scrollBarHeight,
-            uiConfig,
-            changeCollapse,
-            changeShowPanel,
-            setActiveMenuIndex
-        };
-    });
-    const _hoisted_1$2 = { class: "title" };
-    const _sfc_main$c = vue.defineComponent({
-        __name: "PanelHeader",
-        setup(__props) {
-            const uiStore = useUIStore();
-            return (_ctx, _cache) => {
-                const _component_el_icon = vue.resolveComponent("el-icon");
-                const _component_el_text = vue.resolveComponent("el-text");
-                return vue.openBlock(), vue.createElementBlock(vue.Fragment, null, [
-                    vue.createElementVNode("div", {
-                        class: "collapse-btn",
-                        onClick: _cache[0] || (_cache[0] =
-                            (...args) => vue.unref(uiStore).changeCollapse && vue.unref(uiStore).changeCollapse(...args))
-                    }, [
-                        vue.unref(uiStore).uiConfig.isCollapse ? (vue.openBlock(), vue.createBlock(_component_el_icon, { key: 0 }, {
-                            default: vue.withCtx(() => [
-                                vue.createVNode(vue.unref(ElementPlusIconsVue.Expand))
-                            ]),
-                            _: 1
-                        })) : (vue.openBlock(), vue.createBlock(_component_el_icon, { key: 1 }, {
-                            default: vue.withCtx(() => [
-                                vue.createVNode(vue.unref(ElementPlusIconsVue.Fold))
-                            ]),
-                            _: 1
-                        }))
-                    ]),
-                    vue.createElementVNode("div", _hoisted_1$2, [
-                        vue.createVNode(_component_el_text, {
-                            tag: "b",
-                            class: "header-big-text"
-                        }, {
-                            default: vue.withCtx(() => [..._cache[1] || (_cache[1] = [
-                                vue.createTextVNode("控制面板", -1)
-                            ])]),
-                            _: 1
-                        }),
-                        vue.createVNode(_component_el_text, { class: "header-small-text" }, {
-                            default: vue.withCtx(() => [
-                                vue.createTextVNode(vue.toDisplayString(vue.unref(uiStore).activeMenuName), 1)
-                            ]),
-                            _: 1
-                        })
-                    ])
-                ], 64);
-            };
-        }
-    });
-    const _export_sfc = (sfc, props) => {
-        const target = sfc.__vccOpts || sfc;
-        for (const [key, val] of props) {
-            target[key] = val;
-        }
-        return target;
-    };
-    const PanelHeader = _export_sfc(_sfc_main$c, [["__scopeId", "data-v-903ddd8d"]]);
-    const _sfc_main$b = vue.defineComponent({
-        __name: "PanelAside",
-        setup(__props) {
-            const uiStore = useUIStore();
-            const items = [
-                {
-                    icon: "Tasks",
-                    title: "每日任务",
-                    index: "DailyTasks",
-                    subs: [
-                        {
-                            title: "主站任务",
-                            index: "MainSiteTasks"
-                        },
-                        {
-                            title: "直播任务",
-                            index: "LiveTasks"
-                        },
-                        {
-                            title: "其它任务",
-                            index: "OtherTasks"
-                        }
-                    ]
-                },
-                {
-                    icon: "Monitor",
-                    title: "体验优化",
-                    index: "EnhanceExperience"
-                },
-                {
-                    icon: "Scissor",
-                    title: "移除元素",
-                    index: "RemoveElement"
-                },
-                {
-                    icon: "Setting",
-                    title: "设置",
-                    index: "ScriptSettings"
-                }
-            ];
-            return (_ctx, _cache) => {
-                const _component_el_icon = vue.resolveComponent("el-icon");
-                const _component_el_menu_item = vue.resolveComponent("el-menu-item");
-                const _component_el_sub_menu = vue.resolveComponent("el-sub-menu");
-                const _component_el_menu = vue.resolveComponent("el-menu");
-                return vue.openBlock(), vue.createBlock(_component_el_menu, {
-                    "default-active": vue.unref(uiStore).uiConfig.activeMenuIndex,
-                    style: vue.normalizeStyle({ "min-height": vue.unref(uiStore).scrollBarHeight }),
-                    collapse: vue.unref(uiStore).uiConfig.isCollapse,
-                    "unique-opened": "",
-                    onSelect: _cache[0] || (_cache[0] = (index) => vue.unref(uiStore).setActiveMenuIndex(index)),
-                    id: "aside-el-menu"
-                }, {
-                    default: vue.withCtx(() => [
-                        (vue.openBlock(), vue.createElementBlock(vue.Fragment, null, vue.renderList(items, (item) => {
-                            return vue.openBlock(), vue.createElementBlock(vue.Fragment, null, [
-                                item.subs ? (vue.openBlock(), vue.createBlock(_component_el_sub_menu, {
-                                    index: item.index,
-                                    key: item.index
-                                }, {
-                                    title: vue.withCtx(() => [
-                                        vue.createVNode(_component_el_icon, null, {
-                                            default: vue.withCtx(() => [
-                                                (vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent(item.icon)))
-                                            ]),
-                                            _: 2
-                                        }, 1024),
-                                        vue.createElementVNode("span", null, vue.toDisplayString(item.title), 1)
-                                    ]),
-                                    default: vue.withCtx(() => [
-                                        (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(item.subs, (subItem) => {
-                                            return vue.openBlock(), vue.createBlock(_component_el_menu_item, {
-                                                index: subItem.index,
-                                                key: subItem.index
-                                            }, {
-                                                default: vue.withCtx(() => [
-                                                    vue.createTextVNode(vue.toDisplayString(subItem.title), 1)
-                                                ]),
-                                                _: 2
-                                            }, 1032, ["index"]);
-                                        }), 128))
-                                    ]),
-                                    _: 2
-                                }, 1032, ["index"])) : (vue.openBlock(), vue.createBlock(_component_el_menu_item, {
-                                    index: item.index,
-                                    key: item.index
-                                }, {
-                                    title: vue.withCtx(() => [
-                                        vue.createTextVNode(vue.toDisplayString(item.title), 1)
-                                    ]),
-                                    default: vue.withCtx(() => [
-                                        vue.createVNode(_component_el_icon, null, {
-                                            default: vue.withCtx(() => [
-                                                (vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent(item.icon)))
-                                            ]),
-                                            _: 2
-                                        }, 1024)
-                                    ]),
-                                    _: 2
-                                }, 1032, ["index"]))
-                            ], 64);
-                        }), 64))
-                    ]),
-                    _: 1
-                }, 8, ["default-active", "style", "collapse"]);
-            };
-        }
-    });
-    const PanelAside = _export_sfc(_sfc_main$b, [["__scopeId", "data-v-86e51db8"]]);
     luxon.Settings.defaultZone = "Asia/Shanghai";
     function isTimestampToday(timestamp, hour = 0, minute = 5) {
         const time = luxon.DateTime.fromMillis(timestamp);
@@ -559,6 +125,10 @@
             const randomInt = 16 * Math.random() | 0;
             return ("x" === char ? randomInt : 3 & randomInt | 8).toString(16);
         });
+    }
+    function random32Hash() {
+        const bytes = crypto.getRandomValues(new Uint8Array(16));
+        return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
     }
     function sleep(milliseconds) {
         return new Promise((resolve2) => setTimeout(resolve2, milliseconds));
@@ -616,7 +186,18 @@
         } else if (input instanceof Request) {
             return input.url;
         } else {
-            return "Incorrect input";
+            throw new TypeError("Unsupported fetch input type");
+        }
+    }
+    function createFetchInputWithNewUrl(url, input) {
+        if (typeof input === "string") {
+            return url;
+        } else if (input instanceof URL) {
+            return new URL(url, input.toString());
+        } else if (input instanceof Request) {
+            return new Request(url, input);
+        } else {
+            throw new TypeError("Unsupported fetch input type");
         }
     }
     function waitForMoment(moment) {
@@ -777,6 +358,210 @@
             wbiSalt
         };
     });
+    const defaultValues = {
+        ui: {
+            isCollapse: false,
+            isShowPanel: true,
+            activeMenuIndex: "MainSiteTasks",
+            panelWidthPercent: 45,
+            medalInfoPanelSortMode: false
+        },
+        modules: {
+            DailyTasks: {
+                MainSiteTasks: {
+                    login: {
+                        enabled: false,
+                        _lastCompleteTime: 0
+                    },
+                    watch: {
+                        enabled: false,
+                        _lastCompleteTime: 0
+                    },
+                    coin: {
+                        enabled: false,
+                        num: 1,
+                        _lastCompleteTime: 0
+                    },
+                    share: {
+                        enabled: false,
+                        _lastCompleteTime: 0
+                    }
+                },
+                LiveTasks: {
+                    medalTasks: {
+                        light: {
+                            enabled: false,
+                            danmuList: [
+                                "(⌒▽⌒)",
+                                "（￣▽￣）",
+                                "(=・ω・=)",
+                                "(｀・ω・´)",
+                                "(〜￣△￣)〜",
+                                "(･∀･)",
+                                "(°∀°)ﾉ",
+                                "╮(￣▽￣)╭",
+                                "_(:3」∠)_",
+                                "(^・ω・^ )",
+                                "(●￣(ｴ)￣●)",
+                                "ε=ε=(ノ≧∇≦)ノ",
+                                "⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄",
+                                "←◡←",
+                                `(●'◡'●)ﾉ♥`
+                            ],
+                            _lastCompleteTime: 0
+                        },
+                        watch: {
+                            enabled: false,
+                            time: 25,
+                            _watchingProgress: {},
+                            _lastWatchTime: 0,
+                            _lastCompleteTime: 0
+                        },
+                        isWhiteList: false,
+                        roomidList: [],
+                        roomidList2: []
+                    }
+                },
+                OtherTasks: {
+                    silverToCoin: {
+                        enabled: false,
+                        _lastCompleteTime: 0
+                    },
+                    coinToSilver: {
+                        enabled: false,
+                        num: 1,
+                        _lastCompleteTime: 0
+                    },
+                    getYearVipPrivilege: {
+                        enabled: false,
+                        _nextReceiveTime: 0
+                    }
+                }
+            },
+            EnhanceExperience: {
+                switchLiveStreamQuality: {
+                    enabled: false,
+                    qualityDesc: "原画"
+                },
+                banp2p: {
+                    enabled: false
+                },
+                noReport: {
+                    enabled: false
+                },
+                noSleep: {
+                    enabled: false
+                },
+                invisibility: {
+                    enabled: false
+                }
+            },
+            RemoveElement: {
+                removePKBox: {
+                    enabled: false
+                },
+                removeLiveWaterMark: {
+                    enabled: false
+                },
+                removeShopPopover: {
+                    enabled: false
+                },
+                removeGameParty: {
+                    enabled: false
+                },
+                removeGiftPopover: {
+                    enabled: false
+                },
+                removeMicPopover: {
+                    enabled: false
+                },
+                removeComboCard: {
+                    enabled: false
+                },
+                removeRank: {
+                    enabled: false
+                },
+                removeHeaderStuff: {
+                    enabled: false
+                },
+                removeFlipView: {
+                    enabled: false
+                },
+                removeRecommendRoom: {
+                    enabled: false
+                },
+                removeLiveMosaic: {
+                    enabled: false
+                }
+            }
+        },
+        cache: {
+            lastAliveHeartBeatTime: 0,
+            mainScriptLocation: ""
+        }
+    };
+    class Storage {
+        static mergeConfigs(currentConfig, defaultConfig) {
+            const config = _.pick(currentConfig, _.keys(defaultConfig));
+            _.defaults(config, defaultConfig);
+            _.forOwn(config, (value, key, object) => {
+                if (_.isPlainObject(value) && _.isPlainObject(defaultConfig[key]) && !_.isEmpty(defaultConfig[key])) {
+                    object[key] = this.mergeConfigs(value, defaultConfig[key]);
+                }
+            });
+            return config;
+        }
+        static setUiConfig(uiConfig) {
+            _GM_setValue("ui", uiConfig);
+        }
+        static getUiConfig() {
+            return this.mergeConfigs(_GM_getValue("ui", {}), defaultValues.ui);
+        }
+        static setModuleConfig(moduleConfig) {
+            _GM_setValue("modules", moduleConfig);
+        }
+        static getModuleConfig() {
+            return this.mergeConfigs(_GM_getValue("modules", {}), defaultValues.modules);
+        }
+        static setCache(cache) {
+            _GM_setValue("cache", cache);
+        }
+        static getCache() {
+            return this.mergeConfigs(_GM_getValue("cache", {}), defaultValues.cache);
+        }
+    }
+    const useCacheStore = pinia$1.defineStore("cache", () => {
+        const cache = vue.ref(Storage.getCache());
+        const currentScriptType = vue.ref("Main");
+        function startMainBLTHAliveHeartBeat() {
+            cache.value.lastAliveHeartBeatTime = Date.now();
+            const timer = setInterval(() => cache.value.lastAliveHeartBeatTime = Date.now(), 5e3);
+            window.addEventListener("unload", () => {
+                clearInterval(timer);
+                cache.value.lastAliveHeartBeatTime = 0;
+                cache.value.mainScriptLocation = "";
+            });
+        }
+        function checkCurrentScriptType() {
+            if (cache.value.lastAliveHeartBeatTime !== 0 && Date.now() - cache.value.lastAliveHeartBeatTime < 8e3) {
+                if (cache.value.mainScriptLocation === _unsafeWindow.top.location.pathname) {
+                    currentScriptType.value = "SubMain";
+                } else {
+                    currentScriptType.value = "Other";
+                }
+            } else {
+                currentScriptType.value = "Main";
+                cache.value.mainScriptLocation = _unsafeWindow.top.location.pathname;
+            }
+        }
+        vue.watch(cache, (newCache) => Storage.setCache(newCache), { deep: true });
+        return {
+            cache,
+            currentScriptType,
+            startMainBLTHAliveHeartBeat,
+            checkCurrentScriptType
+        };
+    });
     let Request$1 = class Request2 {
         url_prefix;
         origin;
@@ -848,8 +633,7 @@
     const request = {
         live: new Request$1("https://api.live.bilibili.com", "https://live.bilibili.com"),
         liveTrace: new Request$1("https://live-trace.bilibili.com", "https://live.bilibili.com"),
-        main: new Request$1("https://api.bilibili.com", "https://www.bilibili.com"),
-        vc: new Request$1("https://api.vc.bilibili.com", "https://message.bilibili.com/")
+        main: new Request$1("https://api.bilibili.com", "https://www.bilibili.com")
     };
     const BAPI = {
         live: {
@@ -859,7 +643,7 @@
                     page_size
                 });
             },
-            sendMsg: (msg, roomid, room_type = 0, mode = 1, jumpfrom = 0, fontsize = 25, color = 16777215, bubble = 0, reply_mid = 0, reply_attr = 0, replay_dmid = "", reply_type = 0, reply_uname = "", statistics = '{"appId":100,"platform":5}', web_location = "444.8") => {
+            sendMsg: (msg, roomid, room_type = 0, mode = 1, jumpfrom = 0, fontsize = 25, color = 16777215, bubble = 0, reply_mid = 0, reply_attr = 0, replay_dmid = "", reply_type = 0, reply_uname = "", statistics = '{"appId":100,"platform":5}', data_extend = '{"trackid":"-99998"}', web_location = "444.8") => {
                 const biliStore = useBiliStore();
                 const bili_jct = biliStore.cookies.bili_jct;
                 return request.live.post(
@@ -877,30 +661,7 @@
                         statistics,
                         reply_type,
                         reply_uname,
-                        fontsize,
-                        rnd: ts(),
-                        roomid,
-                        csrf: bili_jct,
-                        csrf_token: bili_jct
-                    }),
-                    {
-                        params: wbiSign({ web_location })
-                    }
-                );
-            },
-            sendEmoji: (msg, roomid, mode = 1, fontsize = 25, color = 16777215, bubble = 0, dm_type = 1, statistics = '{"appId":100,"platform":5}', web_location = "444.8") => {
-                const biliStore = useBiliStore();
-                const bili_jct = biliStore.cookies.bili_jct;
-                return request.live.post(
-                    "/msg/send",
-                    packFormData({
-                        bubble,
-                        msg,
-                        color,
-                        mode,
-                        dm_type,
-                        // emoticonOptions,
-                        statistics,
+                        data_extend,
                         fontsize,
                         rnd: ts(),
                         roomid,
@@ -939,8 +700,8 @@
             silver2coin: (visit_id = "") => {
                 const bili_jct = useBiliStore().cookies.bili_jct;
                 return request.live.post("/xlive/revenue/v1/wallet/silver2coin", {
-                    csrf: bili_jct,
                     csrf_token: bili_jct,
+                    csrf: bili_jct,
                     visit_id
                 });
             },
@@ -949,8 +710,8 @@
                 return request.live.post("/xlive/revenue/v1/wallet/coin2silver", {
                     num,
                     platform,
-                    csrf: bili_jct,
                     csrf_token: bili_jct,
+                    csrf: bili_jct,
                     visit_id
                 });
             }
@@ -999,7 +760,7 @@
             reward: (web_location = "333.33") => {
                 return request.main.get("/x/member/web/exp/reward", { web_location });
             },
-            dynamicAll: (type = "video", page = 1, timezone_offset = -480, platform = "web", features = "itemOpusStyle,listOnlyfans,opusBigCover,onlyfansVote,decorationCard,onlyfansAssetsV2,forwardListHidden,ugcDelete,onlyfansQaCard,commentsNewVersion,avatarAutoTheme", web_location = "333.1365", x_bili_device_req_json = '{"platform":"web","device":"pc"}', x_bili_web_req_json = '{"spm_id":"333.1365"}') => {
+            dynamicAll: (type = "video", page = 1, timezone_offset = -480, platform = "web", features = "itemOpusStyle,listOnlyfans,opusBigCover,onlyfansVote,decorationCard,onlyfansAssetsV2,forwardListHidden,ugcDelete,onlyfansQaCard,commentsNewVersion,avatarAutoTheme,sunflowerStyle,cardsEnhance,eva3CardOpus,eva3CardVideo,eva3CardComment,eva3CardVote,eva3CardUser", web_location = "333.1365", x_bili_device_req_json = '{"platform":"web","device":"pc","spmid":"333.1365"}') => {
                 return request.main.get(
                     "/x/polymer/web-dynamic/v1/feed/all",
                     {
@@ -1009,8 +770,7 @@
                         page,
                         features,
                         web_location,
-                        x_bili_device_req_json,
-                        x_bili_web_req_json
+                        x_bili_device_req_json
                     },
                     {
                         headers: {
@@ -1020,10 +780,11 @@
                     }
                 );
             },
-            videoHeartbeat: (aid, cid = 1e9, type = 3, sub_type = 0, dt = 2, play_type = 1, realtime = 61, played_time = 62, real_played_time = 62, refer_url = "https://t.bilibili.com/?tab=video", quality = 64, video_duration = 180, last_play_progress_time = 62, max_play_progress_time = 62, outer = 0, statistics = '{"appId":100,"platform":5,"abtest":"","version":""}', mobi_app = "web", device = "web", platform = "web", spmid = "333.788.0.0", from_spmid = "333.1365.list.card_archive.click", session = uuid().replaceAll("-", ""), extra = '{"player_version":"4.9.40"}', web_location = 1315873) => {
+            videoHeartbeat: (aid, cid = 3e10, type = 3, sub_type = 0, dt = 2, play_type = 1, realtime = 61, played_time = 62, real_played_time = 62, refer_url = "https://t.bilibili.com/?tab=video", quality = 64, is_auto_qn = 0, video_duration = 180, last_play_progress_time = 62, max_play_progress_time = 62, outer = 0, statistics = '{"appId":100,"platform":5,"abtest":"","version":""}', mobi_app = "web", device = "web", platform = "web", cur_language_vt = "{}", perfer_type = "{}", play_mode = 1, spmid = "333.788.0.0", from_spmid = "333.1365.list.card_archive.click", session = random32Hash(), track_id = "", extra = `{"player_version":"4.9.76","video_dye_id":"${random32Hash()}","video_file_name":"${_.random(3e10, 4e10)}-1-${_.random(3e4, 4e4)}.m4s","play_method":1,"play_volume":1,"auto_play":0}`, web_location = 1315873) => {
                 const biliStore = useBiliStore();
                 const start_ts = ts();
-                const mid = useBiliStore().userInfo.mid;
+                const mid = biliStore.userInfo.mid;
+                const bili_jct = biliStore.cookies.bili_jct;
                 return request.main.post(
                     "/x/click-interface/web/heartbeat",
                     {
@@ -1040,6 +801,7 @@
                         real_played_time,
                         refer_url,
                         quality,
+                        is_auto_qn,
                         video_duration,
                         last_play_progress_time,
                         max_play_progress_time,
@@ -1048,11 +810,15 @@
                         mobi_app,
                         device,
                         platform,
+                        cur_language_vt,
+                        perfer_type,
+                        play_mode,
                         spmid,
                         from_spmid,
                         session,
+                        track_id,
                         extra,
-                        csrf: biliStore.cookies.bili_jct
+                        csrf: bili_jct
                     },
                     {
                         params: wbiSign({
@@ -1070,19 +836,18 @@
                     }
                 );
             },
-            share: (aid, source = "pc_client_normal", eab_x = 2, ramval = 0, ga = 1, referer = "") => {
+            share: (aid, source = "pc_client_normal", eab_x = 2, ramval = 0, ga = 1) => {
                 const bili_jct = useBiliStore().cookies.bili_jct;
                 return request.main.post("/x/web-interface/share/add", {
+                    aid,
                     eab_x,
                     ramval,
-                    referer,
                     source,
-                    aid,
                     ga,
                     csrf: bili_jct
                 });
             },
-            coinAdd: (aid, num, select_like = 0, cross_domain = true, from_spmid = "333.1365.list.card_archive.click", spmid = "333.788.0.0", statistics = '{"appId":100,"platform":5}', eab_x = 2, ramval = 6, source = "web_normal", ga = 1) => {
+            coinAdd: (aid, num, select_like = 0, cross_domain = true, from_spmid = "333.1365.list.card_archive.click", spmid = "333.788.0.0", statistics = '{"appId":100,"platform":5}', eab_x = 1, ramval = 6, source = "web_normal", ga = 1) => {
                 const bili_jct = useBiliStore().cookies.bili_jct;
                 return request.main.post("/x/web-interface/coin/add ", {
                     aid,
@@ -1114,7 +879,7 @@
                         },
                         {
                             headers: {
-                                Referer: "https://account.bilibili.com/account/big/myPackage",
+                                Referer: "https://account.bilibili.com/",
                                 Origin: "https://account.bilibili.com"
                             }
                         }
@@ -1131,7 +896,7 @@
                         },
                         {
                             headers: {
-                                Referer: "https://account.bilibili.com/account/big/myPackage",
+                                Referer: "https://account.bilibili.com/",
                                 Origin: "https://account.bilibili.com"
                             }
                         }
@@ -1151,27 +916,12 @@
                         },
                         {
                             headers: {
-                                Referer: "https://account.bilibili.com/big",
+                                Referer: "https://account.bilibili.com/",
                                 Origin: "https://account.bilibili.com"
                             }
                         }
                     );
                 }
-            }
-        },
-        vc: {
-            myGroups: (build = 0, mobi_app = "web", web_location = "333.40164") => {
-                return request.vc.get("/link_group/v1/member/my_groups", {
-                    build,
-                    mobi_app,
-                    web_location
-                });
-            },
-            signIn: (group_id, owner_id) => {
-                return request.vc.get("/link_setting/v1/link_setting/sign_in", {
-                    group_id,
-                    owner_id
-                });
             }
         }
     };
@@ -1191,9 +941,6 @@
         log(...data) {
             console.log(...this.prefix, ...data);
         }
-        debug(...data) {
-            console.debug(...this.prefix, ...data);
-        }
         error(...data) {
             console.error(...this.prefix, ...data);
         }
@@ -1212,7 +959,6 @@
         static onFrame = "target";
         static runAfterDefault = true;
         logger;
-        moduleStore = useModuleStore();
         config;
         isEnabled() {
             return this.config?.enabled ?? true;
@@ -1220,12 +966,13 @@
         set status(_s) {
             throw new Error("Method not implemented.");
         }
+        nextRunTimer;
+        run(..._args) {
+            throw new Error("Method not implemented.");
+        }
         constructor(moduleName) {
             this.moduleName = moduleName;
             this.logger = new Logger(this.moduleName);
-        }
-        run() {
-            throw new Error("Method not implemented.");
         }
     }
     class ModuleError extends Error {
@@ -1261,7 +1008,7 @@
         async run() {
             const biliStore = useBiliStore();
             biliStore.userInfo = await this.getUserInfo();
-            setTimeout(
+            this.nextRunTimer = setTimeout(
                 () => this.run().catch((reason) => this.logger.error(reason)),
                 delayToNextMoment(0, 4).ms
             );
@@ -1281,15 +1028,16 @@
                 throw new ModuleError(this.moduleName, `获取主站每日任务完成情况出错: ${error.message}`);
             }
         }
-        async run() {
+        async run(force = false) {
             const biliStore = useBiliStore();
-            const mainSiteTasks = this.moduleStore.moduleConfig.DailyTasks.MainSiteTasks;
-            if (Object.values(mainSiteTasks).some(
-                (t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4)
-            )) {
+            const mainSiteTasks = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks;
+            if (force ||
+                Object.values(mainSiteTasks).some(
+                    (t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4)
+                )) {
                 biliStore.dailyRewardInfo = await this.getDailyRewardInfo();
             }
-            setTimeout(
+            this.nextRunTimer = setTimeout(
                 () => this.run().catch((reason) => this.logger.error(reason)),
                 delayToNextMoment(0, 4).ms
             );
@@ -1309,29 +1057,30 @@
                 throw new ModuleError(this.moduleName, `获取主站每日任务完成情况出错: ${error.message}`);
             }
         }
-        async run() {
+        async run(force = false) {
             const biliStore = useBiliStore();
-            const mainSiteTasks = this.moduleStore.moduleConfig.DailyTasks.MainSiteTasks;
+            const mainSiteTasks = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks;
             const taskValues = [mainSiteTasks.watch, mainSiteTasks.share, mainSiteTasks.coin];
-            if (taskValues.some((t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4))) {
+            if (force ||
+                taskValues.some((t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4))) {
                 biliStore.dynamicVideos = await this.getDynamicVideos();
             }
-            setTimeout(
+            this.nextRunTimer = setTimeout(
                 () => this.run().catch((reason) => this.logger.error(reason)),
                 delayToNextMoment(0, 4).ms
             );
         }
     }
-    class FansMetals extends BaseModule {
-        async getFansMetals(pages = Infinity) {
-            const fansMetalList = [];
+    class FansMedals extends BaseModule {
+        async getFansMedals(pages = Infinity) {
+            const fansMedalList = [];
             let total_page = 1;
             try {
                 const firstPageResponse = await BAPI.live.fansMedalPanel(1);
                 this.logger.log("BAPI.live.fansMedalPanel(1) response", firstPageResponse);
                 if (firstPageResponse.code === 0) {
                     total_page = firstPageResponse.data.page_info.total_page;
-                    fansMetalList.push(...firstPageResponse.data.special_list, ...firstPageResponse.data.list);
+                    fansMedalList.push(...firstPageResponse.data.special_list, ...firstPageResponse.data.list);
                 } else {
                     throw new Error(`获取粉丝勋章列表第1页失败: ${firstPageResponse.message}`);
                 }
@@ -1339,39 +1088,34 @@
                     const response = await BAPI.live.fansMedalPanel(page);
                     this.logger.log(`BAPI.live.fansMedalPanel(${page}) response`, response);
                     if (firstPageResponse.code === 0) {
-                        fansMetalList.push(...response.data.list);
+                        fansMedalList.push(...response.data.list);
                     } else {
                         this.logger.error(
                             `获取粉丝勋章列表第${page}页失败，提前结束获取`,
                             firstPageResponse.message
                         );
-                        return fansMetalList;
+                        return fansMedalList;
                     }
-                    await sleep(_.random(1000, 1500));
+                    await sleep(_.random(300, 500));
                 }
-                return fansMetalList;
+                return fansMedalList;
             } catch (error) {
                 useBiliStore().fansMedalsStatus = "error";
                 throw new ModuleError(this.moduleName, `获取粉丝勋章列表出错: ${error.message}`);
             }
         }
-        async run() {
+        async run(force = false) {
             const biliStore = useBiliStore();
-            const emitter = useModuleStore().emitter;
-            emitter.off("Default_FansMedals");
-            emitter.on("Default_FansMedals", async () => {
-                biliStore.fansMedalsStatus = "loading";
-                biliStore.fansMedals = await this.getFansMetals(Infinity);
-                biliStore.fansMedalsStatus = "loaded";
-            });
-            const medalTasks = this.moduleStore.moduleConfig.DailyTasks.LiveTasks.medalTasks;
+            const medalTasks = useModuleStore().moduleConfig.DailyTasks.LiveTasks.medalTasks;
             const taskValues = [medalTasks.light, medalTasks.watch];
-            // if (taskValues.some((t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4))) {
-            biliStore.fansMedalsStatus = "loading";
-            biliStore.fansMedals = await this.getFansMetals();
-            biliStore.fansMedalsStatus = "loaded";
-            // }
-            setTimeout(
+            if ((force ||
+                taskValues.some((t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4))) &&
+                biliStore.fansMedalsStatus !== "loading") {
+                biliStore.fansMedalsStatus = "loading";
+                biliStore.fansMedals = await this.getFansMedals();
+                biliStore.fansMedalsStatus = "loaded";
+            }
+            this.nextRunTimer = setTimeout(
                 () => this.run().catch((reason) => this.logger.error(reason)),
                 delayToNextMoment(0, 4).ms
             );
@@ -1384,7 +1128,7 @@
             const result = {};
             for (const cookie of cookies) {
                 const [name, value] = cookie.split("=", 2);
-                result[decodeURIComponent(name)] = decodeURIComponent(value);
+                result[decodeURIComponent(name)] = decodeURIComponent(value ?? "");
             }
             return result;
         }
@@ -1476,13 +1220,13 @@
         Default_Cookies: Cookies,
         Default_DailyRewardInfo: DailyRewardInfo,
         Default_DynamicVideos: DynamicVideos,
-        Default_FansMetals: FansMetals,
+        Default_FansMedals: FansMedals,
         Default_UserInfo: UserInfo
     }, Symbol.toStringTag, { value: "Module" }));
     class LoginTask extends BaseModule {
-        config = this.moduleStore.moduleConfig.DailyTasks.MainSiteTasks.login;
+        config = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks.login;
         set status(s) {
-            this.moduleStore.moduleStatus.DailyTasks.MainSiteTasks.login = s;
+            useModuleStore().moduleStatus.DailyTasks.MainSiteTasks.login = s;
         }
         async login() {
             this.logger.log("每日登录任务已完成");
@@ -1515,21 +1259,21 @@
                 }
             }
             const diff = delayToNextMoment();
-            setTimeout(() => this.run(), diff.ms);
+            this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
             this.logger.log("距离每日登录模块下次运行时间:", diff.str);
         }
     }
     let WatchTask$1 = class WatchTask extends BaseModule {
-        config = this.moduleStore.moduleConfig.DailyTasks.MainSiteTasks.watch;
+        config = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks.watch;
         set status(s) {
-            this.moduleStore.moduleStatus.DailyTasks.MainSiteTasks.watch = s;
+            useModuleStore().moduleStatus.DailyTasks.MainSiteTasks.watch = s;
         }
         getAid() {
             return Number(useBiliStore().dynamicVideos[0].modules.module_dynamic.major.archive.aid);
         }
         async watch(aid) {
             try {
-                const response = await BAPI.main.videoHeartbeat(aid, _.random(1e9, 2e9));
+                const response = await BAPI.main.videoHeartbeat(aid, _.random(3e10, 4e10));
                 this.logger.log(`BAPI.main.videoHeartbeat(${aid}) response`, response);
                 if (response.code === 0) {
                     this.logger.log("每日观看视频任务已完成");
@@ -1583,14 +1327,14 @@
                 }
             }
             const diff = delayToNextMoment();
-            setTimeout(() => this.run(), diff.ms);
+            this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
             this.logger.log("距离每日观看视频模块下次运行时间:", diff.str);
         }
     };
     class ShareTask extends BaseModule {
-        config = this.moduleStore.moduleConfig.DailyTasks.MainSiteTasks.share;
+        config = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks.share;
         set status(s) {
-            this.moduleStore.moduleStatus.DailyTasks.MainSiteTasks.share = s;
+            useModuleStore().moduleStatus.DailyTasks.MainSiteTasks.share = s;
         }
         getAid() {
             const biliStore = useBiliStore();
@@ -1652,14 +1396,14 @@
                 }
             }
             const diff = delayToNextMoment();
-            setTimeout(() => this.run(), diff.ms);
+            this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
             this.logger.log("距离每日分享视频模块下次运行时间:", diff.str);
         }
     }
     class CoinTask extends BaseModule {
-        config = this.moduleStore.moduleConfig.DailyTasks.MainSiteTasks.coin;
+        config = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks.coin;
         set status(s) {
-            this.moduleStore.moduleStatus.DailyTasks.MainSiteTasks.coin = s;
+            useModuleStore().moduleStatus.DailyTasks.MainSiteTasks.coin = s;
         }
 
 
@@ -1784,12 +1528,12 @@
                 }
             }
             const diff = delayToNextMoment();
-            setTimeout(() => this.run(), diff.ms);
+            this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
             this.logger.log("距离每日投币模块下次运行时间:", diff.str);
         }
     }
     class MedalModule extends BaseModule {
-        medalTasksConfig = this.moduleStore.moduleConfig.DailyTasks.LiveTasks.medalTasks;
+        medalTasksConfig = useModuleStore().moduleConfig.DailyTasks.LiveTasks.medalTasks;
         PUBLIC_MEDAL_FILTERS = {
             whiteBlackList: (m) => this.medalTasksConfig.isWhiteList ? this.medalTasksConfig.roomidList.includes(m.room_info.room_id) : !this.medalTasksConfig.roomidList.includes(m.room_info.room_id),
             levelLt120: (medal) => medal.medal.level < 120
@@ -1822,7 +1566,7 @@
     class LightTask extends MedalModule {
         config = this.medalTasksConfig.light;
         set status(s) {
-            this.moduleStore.moduleStatus.DailyTasks.LiveTasks.medalTasks.light = s;
+            useModuleStore().moduleStatus.DailyTasks.LiveTasks.medalTasks.light = s;
         }
         MEDAL_FILTERS = {
             isLighted: (medal) => medal.medal.is_lighted === 1,
@@ -1836,11 +1580,10 @@
             };
             const idlist = fansMedals.filter(
                 (medal) =>
-                    !medal.medal.is_lighted
-                    && !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)
-                    && (this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id)
-                        || medal.medal.level >= 25
-                    )
+                    (!medal.medal.is_lighted
+                        && !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id))
+                    || this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id)
+
             );
             idlist.forEach((medal) => {
                 const livingStatus = this.MEDAL_FILTERS.livingStatus(medal);
@@ -1896,11 +1639,6 @@
             }
             return false;
         }
-        /**
-         * 发表情
-         * @param medal 粉丝勋章
-         * @param emoji 表情内容
-         */
         async sendEmoji(medal, emoji) {
             const room_id = medal.room_info.room_id;
             const target_id = medal.medal.target_id;
@@ -1925,18 +1663,16 @@
             }
             return false;
         }
-        /**
-         * 给正在直播的直播间点赞
-         * @param medals
-         * @private
-         */
         async likeTask(medals) {
-            for (let i = 0; i < medals.length; i++) {
-                const medal = medals[i];
-                await this.like(medal, _.random(30, 35));
-                if (i < medals.length - 1) {
-                    await sleep(_.random(3e4, 35e3));
+            for (let j = 0; j < 10; j++) {
+                for (let i = 0; i < medals.length; i++) {
+                    const medal = medals[i];
+                    await this.like(medal, _.random(30, 35));
+                    if (i < medals.length - 1) {
+                        await sleep(_.random(3e4, 35e3));
+                    }
                 }
+                await sleep(_.random(5e4, 10e4));
             }
         }
         async sendDanmuTask(medals) {
@@ -1974,79 +1710,10 @@
             this.logger.log("点亮熄灭勋章任务已完成");
 
             const diff = delayToNextMoment();
-            setTimeout(() => this.run(), diff.ms);
+            this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
             this.logger.log("距离点亮熄灭勋章模块下次运行时间:", diff.str);
         }
     }
-    const DEFAULT_CONFIG = {
-        getPlayer: {
-            interval: 200,
-            timeout: 12e3
-        },
-        waitForLiveStatus: {
-            interval: 1e4
-        }
-    };
-    const usePlayerStore = pinia$1.defineStore("player", () => {
-        const player = vue.ref();
-        const getPlayer = async (config = DEFAULT_CONFIG.getPlayer) => {
-            _.defaults(config, DEFAULT_CONFIG.getPlayer);
-            if (player.value) {
-                return player.value;
-            }
-            const isPlayerAvailable = () => {
-                return _unsafeWindow.livePlayer && Object.hasOwn(_unsafeWindow.livePlayer, "getPlayerInfo");
-            };
-            await waitForMoment("window-load");
-            if (isPlayerAvailable()) {
-                player.value = _unsafeWindow.livePlayer;
-                return player.value;
-            }
-            return new Promise(async (resolve2, reject2) => {
-                const findPlayerTimer = setInterval(() => {
-                    if (isPlayerAvailable()) {
-                        clearInterval(findPlayerTimer);
-                        clearTimeout(timeoutTimer);
-                        player.value = _unsafeWindow.livePlayer;
-                        resolve2(player.value);
-                    }
-                }, config.interval);
-                const timeoutTimer = setTimeout(() => {
-                    clearInterval(findPlayerTimer);
-                    reject2("等待播放器超时");
-                }, config.timeout);
-            });
-        };
-        const waitForLiveStatus = async (status, config = DEFAULT_CONFIG.waitForLiveStatus) => {
-            _.defaults(config, DEFAULT_CONFIG.waitForLiveStatus);
-            const player2 = await getPlayer();
-            const liveStatus = player2.getPlayerInfo().liveStatus;
-            if (liveStatus === status) {
-                config.onImmediateSuccess?.();
-                return true;
-            }
-            config.onNeedWait?.();
-            return new Promise((resolve2) => {
-                const liveStatusTimer = setInterval(() => {
-                    const liveStatus2 = player2.getPlayerInfo().liveStatus;
-                    if (liveStatus2 === status) {
-                        clearTimeout(timeoutTimer);
-                        clearInterval(liveStatusTimer);
-                        resolve2(true);
-                    }
-                }, config.interval);
-                const timeoutTimer = config.timeout && setTimeout(() => {
-                    clearInterval(liveStatusTimer);
-                    resolve2(false);
-                }, config.timeout);
-            });
-        };
-        return {
-            player,
-            getPlayer,
-            waitForLiveStatus
-        };
-    });
     class RoomHeart {
         constructor(roomID, areaID, parentID, ruid, watchedSeconds) {
             this.roomID = roomID;
@@ -2082,13 +1749,39 @@
         secretKey;
         secretRule;
         timestamp;
-        progress = -1;
         start() {
             if (!this.buvid) {
                 this.logger.error(`缺少buvid，无法为直播间 ${this.roomID} 执行观看直播任务，请尝试刷新页面`);
                 return Promise.resolve();
             }
             return this.E();
+        }
+        async E() {
+            try {
+                const response = await BAPI.liveTrace.E(this.id, this.device, this.ruid);
+                this.logger.log(
+                    `BAPI.liveTrace.E(${this.id}, ${this.device}, ${this.ruid}) response`,
+                    response
+                );
+                if (response.code === 0) {
+                    this.seq += 1;
+                    ({
+                        heartbeat_interval: this.heartBeatInterval,
+                        secret_key: this.secretKey,
+                        secret_rule: this.secretRule,
+                        timestamp: this.timestamp
+                    } = response.data);
+                    await sleep(this.heartBeatInterval * 1e3);
+                    return this.X();
+                } else {
+                    this.logger.error(
+                        `BAPI.liveTrace.E(${this.id}, ${this.device}, ${this.ruid}) 失败`,
+                        response.message
+                    );
+                }
+            } catch (error) {
+                this.logger.error(`BAPI.liveTrace.E(${this.id}, ${this.device}, ${this.ruid}) 出错`, error);
+            }
         }
         async getWatchLiveSubTitle(targetId) {
             try {
@@ -2138,7 +1831,7 @@
 
                 const targetTask = data.data.task_info.find(task => task.title === "观看直播满15分钟");
                 if (!targetTask) {
-                    console.log("未找到观看任务");
+                    console.log("未找到观看任务", data.data.task_info);
                     return [0, 0];
                 }
 
@@ -2162,33 +1855,6 @@
                     console.error("data:", data);
                 }
                 return [0, 0];
-            }
-        }
-        async E() {
-            try {
-                const response = await BAPI.liveTrace.E(this.id, this.device, this.ruid);
-                this.logger.log(
-                    `BAPI.liveTrace.E(${this.id}, ${this.device}, ${this.ruid}) response`,
-                    response
-                );
-                if (response.code === 0) {
-                    this.seq += 1;
-                    ({
-                        heartbeat_interval: this.heartBeatInterval,
-                        secret_key: this.secretKey,
-                        secret_rule: this.secretRule,
-                        timestamp: this.timestamp
-                    } = response.data);
-                    await sleep(this.heartBeatInterval * 1e3);
-                    return this.X();
-                } else {
-                    this.logger.error(
-                        `BAPI.liveTrace.E(${this.id}, ${this.device}, ${this.ruid}) 失败`,
-                        response.message
-                    );
-                }
-            } catch (error) {
-                this.logger.error(`BAPI.liveTrace.E(${this.id}, ${this.device}, ${this.ruid}) 出错`, error);
             }
         }
         async X() {
@@ -2217,7 +1883,7 @@
                     this.heartBeatInterval,
                     spyderData.ts
                 );
-                this.logger.debug(
+                this.logger.log(
                     `BAPI.liveTrace.X(${s}, ${this.id}, ${this.device}, ${this.ruid}, ${this.timestamp}, ${this.secretKey}, ${this.heartBeatInterval}, ${spyderData.ts}) response`,
                     response
                 );
@@ -2309,25 +1975,8 @@
         static runAt = "window-load";
         config = this.medalTasksConfig.watch;
         set status(s) {
-            this.moduleStore.moduleStatus.DailyTasks.LiveTasks.medalTasks.watch = s;
+            useModuleStore().moduleStatus.DailyTasks.LiveTasks.medalTasks.watch = s;
         }
-
-        sort_live_medals = (a, b) => {
-            let roomid = this.medalTasksConfig.roomidList2
-            if (roomid.includes(a.room_info.room_id) && roomid.includes(b.room_info.room_id))
-                return roomid.indexOf(a.room_info.room_id) - roomid.indexOf(b.room_info.room_id);
-            else if (roomid.includes(a.room_info.room_id))
-                return -1;
-            else if (roomid.includes(b.room_info.room_id))
-                return 1;
-            if (a.medal.level === b.medal.level)
-                return b.medal.intimacy - a.medal.intimacy;
-            return b.medal.level - a.medal.level;
-        };
-        /**
-         * 获取粉丝勋章
-         * @returns 根据直播状态划分、经过排序和过滤的粉丝勋章
-         */
         playerStore = usePlayerStore();
         getMedals() {
             const fansMedals = useBiliStore().filteredFansMedals;
@@ -2373,7 +2022,7 @@
         }
         async run() {
             this.logger.log("观看直播模块开始运行");
-            // if (!isTimestampToday(this.config._lastCompleteTime)) {
+
             if (!await this.waitForFansMedals()) {
                 this.logger.error("粉丝勋章数据不存在，不执行观看直播任务");
                 this.status = "error";
@@ -2382,23 +2031,26 @@
             this.status = "running";
             if (!isTimestampToday(this.config._lastWatchTime, 0, 0)) {
                 this.config._watchingProgress = {};
+            } else {
+                _.forOwn(this.config._watchingProgress, (value, key, object) => {
+                    object[key] -= value % 300;
+                });
             }
             this.config._lastWatchTime = tsm();
             const fansMedals = this.getMedals();
             if (fansMedals.length > 0) {
                 let i;
                 for (i = 0; i < fansMedals.length; i++) {
+                    if (isNowIn(23, 55, 0, 5)) {
+                        this.logger.log("即将或刚刚发生跨天，提早结束本轮观看直播任务");
+                        break;
+                    }
                     const medal = fansMedals[i];
                     const roomid = medal.room_info.room_id;
                     const uid = medal.medal.target_id;
                     const [area_id, parent_area_id] = await this.getAreaInfo(medal.room_info.url, roomid);
-                    this.config._watchingProgress[roomid] = medal.medal.today_feed / 6 * 300
                     if (area_id > 0 && parent_area_id > 0) {
                         if (!this.config._watchingProgress[roomid] || this.config._watchingProgress[roomid] < this.config.time * 60) {
-                            if (isNowIn(23, 55, 0, 5)) {
-                                this.logger.log("即将或刚刚发生跨天，提早结束本轮观看直播任务");
-                                break;
-                            }
                             this.logger.log(
                                 `粉丝勋章【${medal.medal.medal_name}】 开始直播间 ${roomid}（主播【${medal.anchor_info.nick_name}】，UID：${uid}）的观看直播任务`
                             );
@@ -2416,107 +2068,30 @@
                     this.config._lastCompleteTime = tsm();
                     this.logger.log("观看直播任务已完成");
                     this.status = "done";
+                } else {
+                    this.status = "";
                 }
-            }
-            else {
+            } else {
                 this.status = "done";
                 this.config._lastCompleteTime = tsm();
             }
-            // } 
-            // else {
-            //     if (isNowIn(0, 0, 0, 5)) {
-            //         this.logger.log("昨天的观看直播任务已经完成过了，等到今天的00:05再执行");
-            //     } else {
-            //         this.logger.log("今天已经完成过观看直播任务了");
-            //         this.status = "done";
-            //     }
-            // }
+
             const diff = delayToNextMoment();
-            setTimeout(() => this.run(), diff.ms);
+            this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
             this.logger.log("距离观看直播模块下次运行时间:", diff.str);
         }
     }
-    class GroupSignTask extends BaseModule {
-        config = this.moduleStore.moduleConfig.DailyTasks.OtherTasks.groupSign;
-        set status(s) {
-            this.moduleStore.moduleStatus.DailyTasks.OtherTasks.groupSign = s;
-        }
-        async getGroupidOwneruidList() {
-            try {
-                const response = await BAPI.vc.myGroups();
-                this.logger.log(`BAPI.vc.myGroups response`, response);
-                if (response.code === 0) {
-                    return response.data.list.map((item) => [item.group_id, item.owner_uid]);
-                } else {
-                    this.logger.error(`获取应援团信息失败`, response.message);
-                    this.status = "error";
-                }
-            } catch (error) {
-                this.logger.error(`获取应援团信息出错`, error);
-                this.status = "error";
-            }
-        }
-        async sign(group_id, owner_uid) {
-            try {
-                const response = await BAPI.vc.signIn(group_id, owner_uid);
-                this.logger.log(`BAPI.vc.signIn(${group_id}, ${owner_uid}) response`, response);
-                if (response.code === 0) {
-                    this.logger.log(
-                        `应援团签到 应援团ID = ${group_id} 拥有者UID = ${owner_uid} 成功, 粉丝勋章亲密度 + ${response.data.add_num} `
-                    );
-                } else {
-                    this.logger.error(
-                        `应援团签到 应援团ID = ${group_id} 拥有者UID = ${owner_uid} 失败`,
-                        response.message
-                    );
-                }
-            } catch (error) {
-                this.logger.error(`应援团签到 应援团ID = ${group_id} 拥有者UID = ${owner_uid} 出错`, error);
-            }
-        }
-        async run() {
-            this.logger.log("应援团签到模块开始运行");
-            if (!isTimestampToday(this.config._lastCompleteTime, 8, 5)) {
-                this.status = "running";
-                const biliStore = useBiliStore();
-                const uid = biliStore.BilibiliLive.UID;
-                const idList = await this.getGroupidOwneruidList();
-                if (idList) {
-                    for (const [group_id, owner_uid] of idList) {
-                        if (owner_uid === uid) {
-                            continue;
-                        }
-                        await this.sign(group_id, owner_uid);
-                        await sleep(2e3);
-                    }
-                    this.config._lastCompleteTime = tsm();
-                    this.logger.log("应援团签到任务已完成");
-                    this.status = "done";
-                }
-            } else {
-                if (!isNowIn(0, 0, 8, 5)) {
-                    this.logger.log("今天已经完成过应援团签到任务了");
-                    this.status = "done";
-                } else {
-                    this.logger.log("昨天的应援团签到任务已经完成过了，等到今天早上八点零五分再次执行");
-                }
-            }
-            const diff = delayToNextMoment(8, 5);
-            setTimeout(() => this.run(), diff.ms);
-            this.logger.log("距离应援团签到模块下次运行时间:", diff.str);
-        }
-    }
     class SilverToCoinTask extends BaseModule {
-        config = this.moduleStore.moduleConfig.DailyTasks.OtherTasks.silverToCoin;
+        config = useModuleStore().moduleConfig.DailyTasks.OtherTasks.silverToCoin;
         set status(s) {
-            this.moduleStore.moduleStatus.DailyTasks.OtherTasks.silverToCoin = s;
+            useModuleStore().moduleStatus.DailyTasks.OtherTasks.silverToCoin = s;
         }
         async exchange() {
             try {
                 const response = await BAPI.live.silver2coin();
                 this.logger.log(`BAPI.live.silver2coin response`, response);
                 if (response.code === 0) {
-                    this.logger.log(`银瓜子换硬币已完成，获得硬币: `, response.data.coin);
+                    this.logger.log(`银瓜子换硬币已完成，获得硬币:`, response.data.coin);
                     this.config._lastCompleteTime = tsm();
                     this.status = "done";
                 } else if (response.code === 403) {
@@ -2546,19 +2121,19 @@
                 }
             }
             const diff = delayToNextMoment();
-            setTimeout(() => this.run(), diff.ms);
+            this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
             this.logger.log("银瓜子换硬币模块下次运行时间:", diff.str);
         }
     }
     class CoinToSilverTask extends BaseModule {
-        config = this.moduleStore.moduleConfig.DailyTasks.OtherTasks.coinToSilver;
+        config = useModuleStore().moduleConfig.DailyTasks.OtherTasks.coinToSilver;
         set status(s) {
-            this.moduleStore.moduleStatus.DailyTasks.OtherTasks.coinToSilver = s;
+            useModuleStore().moduleStatus.DailyTasks.OtherTasks.coinToSilver = s;
         }
         async exchange() {
             try {
                 const response = await BAPI.live.coin2silver(this.config.num);
-                this.logger.log(`BAPI.live.coin2silver{${this.config.num} } response`, response);
+                this.logger.log(`BAPI.live.coin2silver{${this.config.num}} response`, response);
                 if (response.code === 0) {
                     this.logger.log("硬币换银瓜子已完成，获得银瓜子:", response.data.silver);
                     this.config._lastCompleteTime = tsm();
@@ -2586,14 +2161,14 @@
                 }
             }
             const diff = delayToNextMoment();
-            setTimeout(() => this.run(), diff.ms);
+            this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
             this.logger.log("硬币换银瓜子模块下次运行时间:", diff.str);
         }
     }
     class GetYearVipPrivilegeTask extends BaseModule {
-        config = this.moduleStore.moduleConfig.DailyTasks.OtherTasks.getYearVipPrivilege;
+        config = useModuleStore().moduleConfig.DailyTasks.OtherTasks.getYearVipPrivilege;
         set status(s) {
-            this.moduleStore.moduleStatus.DailyTasks.OtherTasks.getYearVipPrivilege = s;
+            useModuleStore().moduleStatus.DailyTasks.OtherTasks.getYearVipPrivilege = s;
         }
         type2Name = {
             1: "年度专享B币赠送",
@@ -2607,7 +2182,7 @@
             16: "大会员专享会员购10魔晶",
             17: "大会员专享游戏优惠券"
         };
-        blackList = [8, 14, 18, 19, 20, 21, 24, 25, 26, 27];
+        blackList = [8, 14, 18, 19, 20, 21, 24, 25, 26, 27, 200];
         async myPrivilege() {
             try {
                 const response = await BAPI.main.vip.myPrivilege();
@@ -2693,7 +2268,7 @@
                                 );
                             } else {
                                 if (i.type === 9) {
-                                    const watchTaskConfig = this.moduleStore.moduleConfig.DailyTasks.MainSiteTasks.watch;
+                                    const watchTaskConfig = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks.watch;
                                     if (watchTaskConfig.enabled) {
                                         this.logger.log("等待观看视频任务完成后再领取专属等级加速包（10主站经验）...");
                                         vue.watch(
@@ -2722,7 +2297,7 @@
                         "领取年度大会员权益模块下次运行时间:",
                         luxon.DateTime.fromSeconds(this.config._nextReceiveTime).toJSDate()
                     );
-                    setTimeout(() => this.run(), diff * 1e3);
+                    this.nextRunTimer = setTimeout(() => this.run(), diff * 1e3);
                 } else {
                     this.logger.log("距离下次领取年度大会员权益的时间超过一天，不计划下次运行");
                 }
@@ -2734,7 +2309,7 @@
         static runAt = "window-load";
         static runAfterDefault = false;
         static onFrame = "top";
-        config = this.moduleStore.moduleConfig.EnhanceExperience.switchLiveStreamQuality;
+        config = useModuleStore().moduleConfig.EnhanceExperience.switchLiveStreamQuality;
         playerStore = usePlayerStore();
         async switchQuality(livePlayer) {
             let playerInfo = livePlayer.getPlayerInfo();
@@ -2743,21 +2318,27 @@
                     this.logger.log("当前直播间未开播，开播后再切换画质");
                 }
             });
+            const isHDR = this.config.qualityDesc.includes("HDR");
+            const searchStr = this.config.qualityDesc.replace(/（.*）/, "");
             const targetQuality = playerInfo.qualityCandidates.find(
-                ({ desc }) => desc.includes(this.config.qualityDesc)
-            );
+                ({ desc, hdrType }) => desc.includes(searchStr) && hdrType > 0 === isHDR
+            ) ??
+                (isHDR ? playerInfo.qualityCandidates.find(({ desc }) => desc.includes(searchStr)) : null);
             if (!targetQuality) {
                 this.logger.log("当前直播不支持目标画质，保持默认画质");
                 return;
             }
+            if (isHDR && targetQuality.hdrType === 0) {
+                this.logger.log(`当前直播不支持 ${this.config.qualityDesc}，回退到 ${targetQuality.desc}`);
+            }
             const switchQualityTimer = setInterval(() => {
                 playerInfo = livePlayer.getPlayerInfo();
-                if (playerInfo.quality === targetQuality.qn) {
-                    this.logger.log(`已将画质切换为${this.config.qualityDesc} `, targetQuality);
+                if (playerInfo.quality === targetQuality.qn && playerInfo.hdrType === targetQuality.hdrType) {
+                    this.logger.log(`已将画质切换为 ${targetQuality.desc}`, targetQuality);
                     clearInterval(switchQualityTimer);
                     clearTimeout(timeoutTimer);
                 } else {
-                    livePlayer.switchQuality(targetQuality.qn);
+                    livePlayer.switchQuality(targetQuality.qn, targetQuality.hdrType);
                 }
             }, 500);
             const timeoutTimer = setTimeout(() => {
@@ -2780,48 +2361,276 @@
         static runAt = "document-start";
         static onFrame = "all";
         static runAfterDefault = false;
-        config = this.moduleStore.moduleConfig.EnhanceExperience.banp2p;
+        config = useModuleStore().moduleConfig.EnhanceExperience.banp2p;
+        static createDOMException(message, name) {
+            return new _unsafeWindow.DOMException(message, name);
+        }
+        static dispatchEvent(target, type, eventInit = {}) {
+            const event = new _unsafeWindow.Event(type);
+            Object.assign(event, eventInit);
+            target.dispatchEvent?.(event);
+        }
         banP2P() {
+            class FakeEventTarget {
+                listeners = new Map();
+                addEventListener(type, listener) {
+                    if (!listener) {
+                        return;
+                    }
+                    if (!this.listeners.has(type)) {
+                        this.listeners.set(type, new Set());
+                    }
+                    this.listeners.get(type).add(listener);
+                }
+                removeEventListener(type, listener) {
+                    if (!listener) {
+                        return;
+                    }
+                    this.listeners.get(type)?.delete(listener);
+                }
+                dispatchEvent(event) {
+                    const { type } = event;
+                    const handler = this[`on${type}`];
+                    if (typeof handler === "function") {
+                        handler.call(this, event);
+                    }
+                    const listeners = this.listeners.get(type);
+                    if (!listeners) {
+                        return true;
+                    }
+                    for (const listener of listeners) {
+                        if (typeof listener === "function") {
+                            listener.call(this, event);
+                        } else {
+                            listener.handleEvent(event);
+                        }
+                    }
+                    return !event.defaultPrevented;
+                }
+            }
+            class FakeRTCDataChannel extends FakeEventTarget {
+                binaryType = "arraybuffer";
+                bufferedAmount = 0;
+                bufferedAmountLowThreshold = 0;
+                id = null;
+                label;
+                maxPacketLifeTime = null;
+                maxRetransmits = null;
+                negotiated = false;
+                ordered;
+                protocol = "";
+                readyState = "connecting";
+                onbufferedamountlow = null;
+                onclose = null;
+                onclosing = null;
+                onerror = null;
+                onmessage = null;
+                onopen = null;
+                constructor(label, ordered = true) {
+                    super();
+                    this.label = label;
+                    this.ordered = ordered;
+                }
+                send(_data) {
+                    if (this.readyState !== "open") {
+                        throw BanP2P.createDOMException(
+                            "Failed to execute 'send' on 'RTCDataChannel': RTCDataChannel.readyState is not 'open'.",
+                            "InvalidStateError"
+                        );
+                    }
+                }
+                close() {
+                    if (this.readyState === "closed") {
+                        return;
+                    }
+                    this.readyState = "closing";
+                    setTimeout(() => {
+                        this.readyState = "closed";
+                        BanP2P.dispatchEvent(this, "close");
+                    }, 0);
+                }
+            }
+            class FakeRTCPeerConnection extends FakeEventTarget {
+                canTrickleIceCandidates = false;
+                connectionState = "new";
+                currentLocalDescription = null;
+                currentRemoteDescription = null;
+                iceConnectionState = "new";
+                iceGatheringState = "new";
+                localDescription = null;
+                pendingLocalDescription = null;
+                pendingRemoteDescription = null;
+                remoteDescription = null;
+                sctp = null;
+                signalingState = "stable";
+                onconnectionstatechange = null;
+                ondatachannel = null;
+                onicecandidate = null;
+                onicecandidateerror = null;
+                oniceconnectionstatechange = null;
+                onicegatheringstatechange = null;
+                onnegotiationneeded = null;
+                onsignalingstatechange = null;
+                ontrack = null;
+                configuration;
+                closed = false;
+                dataChannels = [];
+                static name = "RTCPeerConnection";
+                constructor(configuration = {}) {
+                    super();
+                    this.configuration = configuration;
+                }
+                updateSignalingState(state) {
+                    this.signalingState = state;
+                    BanP2P.dispatchEvent(this, "signalingstatechange");
+                }
+                updateIceGatheringState(state) {
+                    this.iceGatheringState = state;
+                    BanP2P.dispatchEvent(this, "icegatheringstatechange");
+                }
+                updateIceConnectionState(state) {
+                    this.iceConnectionState = state;
+                    BanP2P.dispatchEvent(this, "iceconnectionstatechange");
+                }
+                updateConnectionState(state) {
+                    this.connectionState = state;
+                    BanP2P.dispatchEvent(this, "connectionstatechange");
+                }
+                isClosed() {
+                    return this.closed;
+                }
+                scheduleConnectionFailure() {
+                    this.updateIceGatheringState("gathering");
+                    this.updateIceConnectionState("checking");
+                    this.updateConnectionState("connecting");
+                    _unsafeWindow.setTimeout(() => {
+                        if (this.closed) {
+                            return;
+                        }
+                        this.updateIceGatheringState("complete");
+                        BanP2P.dispatchEvent(this, "icecandidate", { candidate: null });
+                    }, 0);
+                    _unsafeWindow.setTimeout(() => {
+                        if (this.closed) {
+                            return;
+                        }
+                        this.updateIceConnectionState("failed");
+                        this.updateConnectionState("failed");
+                        for (const channel of this.dataChannels) {
+                            channel.close();
+                        }
+                    }, 78);
+                }
+                createOffer() {
+                    return Promise.resolve({
+                        type: "offer",
+                        sdp: "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\n"
+                    });
+                }
+                createAnswer() {
+                    return Promise.resolve({
+                        type: "answer",
+                        sdp: "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\n"
+                    });
+                }
+                setLocalDescription(description) {
+                    if (this.isClosed()) {
+                        return Promise.resolve();
+                    }
+                    const nextDescription = description ? {
+                        type: description.type ?? "offer",
+                        sdp: description.sdp
+                    } : {
+                        type: "offer",
+                        sdp: "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\n"
+                    };
+                    this.pendingLocalDescription = nextDescription;
+                    this.localDescription = nextDescription;
+                    this.currentLocalDescription = nextDescription;
+                    this.updateSignalingState(nextDescription.type === "offer" ? "have-local-offer" : "stable");
+                    this.scheduleConnectionFailure();
+                    return Promise.resolve();
+                }
+                setRemoteDescription(description) {
+                    if (this.isClosed()) {
+                        return Promise.resolve();
+                    }
+                    this.pendingRemoteDescription = description;
+                    this.remoteDescription = description;
+                    this.currentRemoteDescription = description;
+                    this.canTrickleIceCandidates = false;
+                    this.updateSignalingState(description.type === "offer" ? "have-remote-offer" : "stable");
+                    this.scheduleConnectionFailure();
+                    return Promise.resolve();
+                }
+                addIceCandidate(_candidate) {
+                    return Promise.resolve();
+                }
+                createDataChannel(label, options = { ordered: true }) {
+                    const channel = new FakeRTCDataChannel(label, options.ordered);
+                    if (this.isClosed()) {
+                        channel.close();
+                        return channel;
+                    }
+                    this.dataChannels.push(channel);
+                    return channel;
+                }
+                getConfiguration() {
+                    return this.configuration;
+                }
+                getSenders() {
+                    return [];
+                }
+                getReceivers() {
+                    return [];
+                }
+                getTransceivers() {
+                    return [];
+                }
+                getStats() {
+                    return Promise.resolve(new Map());
+                }
+                addTrack() {
+                    return {};
+                }
+                removeTrack(_sender) {
+                }
+                restartIce() {
+                    if (this.isClosed()) {
+                        return;
+                    }
+                    this.scheduleConnectionFailure();
+                }
+                close() {
+                    if (this.closed) {
+                        return;
+                    }
+                    this.closed = true;
+                    this.updateSignalingState("closed");
+                    this.updateIceGatheringState("complete");
+                    this.updateIceConnectionState("closed");
+                    this.updateConnectionState("closed");
+                    for (const channel of this.dataChannels) {
+                        channel.close();
+                    }
+                }
+            }
+            Object.defineProperty(FakeRTCPeerConnection.prototype, Symbol.toStringTag, {
+                value: "RTCPeerConnection",
+                configurable: true
+            });
             const RTClist = [
                 "RTCPeerConnection",
                 "mozRTCPeerConnection",
                 "webkitRTCPeerConnection"
             ];
             for (const i of RTClist) {
-                if (Object.hasOwn(_unsafeWindow, i)) {
-                    Object.defineProperty(_unsafeWindow, i, {
-                        value: class {
-                            constructor() {
-                            }
-                            addEventListener() {
-                            }
-                            removeEventListener() {
-                            }
-                            createDataChannel() {
-                                return {
-                                    close: function () {
-                                    }
-                                };
-                            }
-                            createOffer() {
-                                return Promise.resolve();
-                            }
-                            setLocalDescription() {
-                                return Promise.resolve();
-                            }
-                            close() {
-                            }
-                            setRemoteDescription() {
-                                return Promise.resolve();
-                            }
-                            createAnswer() {
-                            }
-                        },
-                        enumerable: false,
-                        writable: false,
-                        configurable: false
-                    });
-                }
+                Object.defineProperty(_unsafeWindow, i, {
+                    value: FakeRTCPeerConnection,
+                    enumerable: false,
+                    writable: true,
+                    configurable: true
+                });
             }
         }
         run() {
@@ -3258,7 +3067,7 @@
         static runAt = "document-start";
         static onFrame = "all";
         static runAfterDefault = false;
-        config = this.moduleStore.moduleConfig.EnhanceExperience.noReport;
+        config = useModuleStore().moduleConfig.EnhanceExperience.noReport;
         static isTargetURL(url) {
             return url.includes("//data.bilibili.com") || url.includes("//data.bilivideo.com");
         }
@@ -3301,7 +3110,19 @@
                                         fpPromise: Promise.resolve(),
                                         initBuvidPromise: Promise.resolve(),
                                         miss: false,
-                                        options: {},
+                                        options: {
+                                            feature: new Proxy(
+                                                {},
+                                                {
+                                                    get() {
+                                                        return false;
+                                                    },
+                                                    set() {
+                                                        return true;
+                                                    }
+                                                }
+                                            )
+                                        },
                                         scheduler: {},
                                         sequencer: {},
                                         techEventReporter: {},
@@ -3309,6 +3130,9 @@
                                     };
                                     return __biliMirrorPbInstance__[property] ?? (() => {
                                     });
+                                },
+                                set() {
+                                    return true;
                                 }
                             }
                         );
@@ -3332,6 +3156,9 @@
                                 get() {
                                     return () => {
                                     };
+                                },
+                                set() {
+                                    return true;
                                 }
                             }
                         );
@@ -3366,6 +3193,9 @@
                                             return () => {
                                             };
                                     }
+                                },
+                                set() {
+                                    return true;
                                 }
                             }
                         );
@@ -3397,6 +3227,28 @@
                 BiliCm: {
                     get() {
                         return {};
+                    },
+                    set() {
+                    }
+                },
+                ReporterPb: {
+                    get() {
+                        return class ReporterPb {
+                            constructor() {
+                                return new Proxy(
+                                    {},
+                                    {
+                                        get() {
+                                            return () => {
+                                            };
+                                        },
+                                        set() {
+                                            return true;
+                                        }
+                                    }
+                                );
+                            }
+                        };
                     },
                     set() {
                     }
@@ -3451,7 +3303,7 @@
         static runAt = "window-load";
         static onFrame = "top";
         static runAfterDefault = false;
-        config = this.moduleStore.moduleConfig.EnhanceExperience.noSleep;
+        config = useModuleStore().moduleConfig.EnhanceExperience.noSleep;
         run() {
             this.logger.log("屏蔽挂机检测模块开始运行");
             setInterval(() => {
@@ -3472,25 +3324,25 @@
         static runAt = "document-start";
         static runAfterDefault = false;
         static onFrame = "all";
-        config = this.moduleStore.moduleConfig.EnhanceExperience.invisibility;
+        config = useModuleStore().moduleConfig.EnhanceExperience.invisibility;
         run() {
             this.logger.log("隐身入场模块开始运行");
-            proxy(
-                {
-                    onRequest: (config, handler) => {
-                        if (config.url.includes("//api.live.bilibili.com/xlive/web-room/v1/index/getInfoByUser")) {
-                            config.url = config.url.replace("not_mock_enter_effect=0", "not_mock_enter_effect=1");
-                        }
-                        handler.next(config);
+            const fetchHookConfig = {
+                onRequest: (config, handler) => {
+                    const url = getUrlFromFetchInput(config.input);
+                    if (url.includes("//api.live.bilibili.com/xlive/web-room/v1/index/getInfoByUser")) {
+                        const nextUrl = url.replace("not_mock_enter_effect=0", "not_mock_enter_effect=1");
+                        config.input = createFetchInputWithNewUrl(nextUrl, config.input);
                     }
-                },
-                _unsafeWindow
-            );
+                    handler.next(config);
+                }
+            };
+            fproxy(fetchHookConfig, _unsafeWindow);
         }
     }
     class RemovePKBox extends BaseModule {
         static runOnMultiplePages = true;
-        config = this.moduleStore.moduleConfig.RemoveElement.removePKBox;
+        config = useModuleStore().moduleConfig.RemoveElement.removePKBox;
         removePKNode() {
             _GM_addStyle("#awesome-pk-vm { display: none !important }");
         }
@@ -3515,15 +3367,15 @@
     }
     class RemoveLiveWaterMark extends BaseModule {
         static runOnMultiplePages = true;
-        config = this.moduleStore.moduleConfig.RemoveElement.removeLiveWaterMark;
+        config = useModuleStore().moduleConfig.RemoveElement.removeLiveWaterMark;
         async run() {
             this.logger.log("移除直播间水印模块开始运行");
-            _GM_addStyle(".web-player-icon-roomStatus { display: none !important }");
+            _GM_addStyle(".web-player-icon-roomStatus, .radio-room-brand-icon { display: none !important }");
         }
     }
     class RemoveShopPopover extends BaseModule {
         static runOnMultiplePages = true;
-        config = this.moduleStore.moduleConfig.RemoveElement.removeShopPopover;
+        config = useModuleStore().moduleConfig.RemoveElement.removeShopPopover;
         async run() {
             this.logger.log("移除直播间小橙车弹窗模块开始运行");
             _GM_addStyle(".shop-popover { display: none !important }");
@@ -3531,23 +3383,23 @@
     }
     class RemoveGameParty extends BaseModule {
         static runMultiple = true;
-        config = this.moduleStore.moduleConfig.RemoveElement.removeGameParty;
+        config = useModuleStore().moduleConfig.RemoveElement.removeGameParty;
         async run() {
             this.logger.log("移除直播间幻星派对标志模块开始运行");
             _GM_addStyle("#game-id { display: none !important }");
         }
     }
-    class removeGiftPopover extends BaseModule {
+    class RemoveGiftPopover extends BaseModule {
         static runOnMultiplePages = true;
-        config = this.moduleStore.moduleConfig.RemoveElement.removeGiftPopover;
+        config = useModuleStore().moduleConfig.RemoveElement.removeGiftPopover;
         async run() {
             this.logger.log("移除礼物赠送提示弹窗模块开始运行");
             _GM_addStyle(".function-card { display: none !important }");
         }
     }
-    class removeMicPopover extends BaseModule {
+    class RemoveMicPopover extends BaseModule {
         static runOnMultiplePages = true;
-        config = this.moduleStore.moduleConfig.RemoveElement.removeMicPopover;
+        config = useModuleStore().moduleConfig.RemoveElement.removeMicPopover;
         async run() {
             this.logger.log("移除连麦状态提示模块开始运行");
             _GM_addStyle(".lin-mic-cntr { display: none !important }");
@@ -3555,7 +3407,7 @@
     }
     class RemoveComboCard extends BaseModule {
         static runOnMultiplePages = true;
-        config = this.moduleStore.moduleConfig.RemoveElement.removeComboCard;
+        config = useModuleStore().moduleConfig.RemoveElement.removeComboCard;
         async run() {
             this.logger.log("移除直播间相同弹幕连续提示模块开始运行");
             _GM_addStyle("#combo-card { display: none !important }");
@@ -3563,7 +3415,7 @@
     }
     class RemoveRank extends BaseModule {
         static runOnMultiplePages = true;
-        config = this.moduleStore.moduleConfig.RemoveElement.removeRank;
+        config = useModuleStore().moduleConfig.RemoveElement.removeRank;
         async run() {
             this.logger.log("移除排行榜模块开始运行");
             _GM_addStyle(".popular-and-hot-rank { display: none !important }");
@@ -3571,7 +3423,7 @@
     }
     class RemoveHeaderStuff extends BaseModule {
         static runOnMultiplePages = true;
-        config = this.moduleStore.moduleConfig.RemoveElement.removeHeaderStuff;
+        config = useModuleStore().moduleConfig.RemoveElement.removeHeaderStuff;
         async run() {
             this.logger.log("移除直播画面上方杂项模块开始运行");
             _GM_addStyle(".header-info-ctnr .rows-ctnr .lower-row .right-ctnr { display: none !important }");
@@ -3579,7 +3431,7 @@
     }
     class RemoveFlipView extends BaseModule {
         static runOnMultiplePages = true;
-        config = this.moduleStore.moduleConfig.RemoveElement.removeFlipView;
+        config = useModuleStore().moduleConfig.RemoveElement.removeFlipView;
         async run() {
             this.logger.log("移除礼物栏下方广告模块开始运行");
             _GM_addStyle(".flip-view { display: none !important }");
@@ -3587,7 +3439,7 @@
     }
     class RemoveRecommendRoom extends BaseModule {
         static runOnMultiplePages = true;
-        config = this.moduleStore.moduleConfig.RemoveElement.removeRecommendRoom;
+        config = useModuleStore().moduleConfig.RemoveElement.removeRecommendRoom;
         async run() {
             this.logger.log("移除礼物栏下方推荐直播间模块开始运行");
             _GM_addStyle(".room-info-ctnr { display: none !important }");
@@ -3595,7 +3447,7 @@
     }
     class RemoveLiveMosaic extends BaseModule {
         static runOnMultiplePages = true;
-        config = this.moduleStore.moduleConfig.RemoveElement.removeLiveMosaic;
+        config = useModuleStore().moduleConfig.RemoveElement.removeLiveMosaic;
         async run() {
             this.logger.log("移除直播间马赛克模块开始运行");
             _GM_addStyle("#web-player-module-area-mask-panel { opacity: 0 !important }");
@@ -3611,7 +3463,6 @@
         DailyTask_MainSiteTask_WatchTask: WatchTask$1,
         DailyTask_OtherTask_CoinToSilverTask: CoinToSilverTask,
         DailyTask_OtherTask_GetYearVipPrivilegeTask: GetYearVipPrivilegeTask,
-        DailyTask_OtherTask_GroupSignTask: GroupSignTask,
         DailyTask_OtherTask_SilverToCoinTask: SilverToCoinTask,
         EnhanceExperience_BanP2P: BanP2P,
         EnhanceExperience_Invisibility: Invisibility,
@@ -3621,78 +3472,16 @@
         RemoveElement_RemoveComboCard: RemoveComboCard,
         RemoveElement_RemoveFlipView: RemoveFlipView,
         RemoveElement_RemoveGameParty: RemoveGameParty,
-        RemoveElement_RemoveGiftPopover: removeGiftPopover,
+        RemoveElement_RemoveGiftPopover: RemoveGiftPopover,
         RemoveElement_RemoveHeaderStuff: RemoveHeaderStuff,
         RemoveElement_RemoveLiveMosaic: RemoveLiveMosaic,
         RemoveElement_RemoveLiveWaterMark: RemoveLiveWaterMark,
-        RemoveElement_RemoveMicPopover: removeMicPopover,
+        RemoveElement_RemoveMicPopover: RemoveMicPopover,
         RemoveElement_RemovePKBox: RemovePKBox,
         RemoveElement_RemoveRank: RemoveRank,
         RemoveElement_RemoveRecommendRoom: RemoveRecommendRoom,
         RemoveElement_RemoveShopPopover: RemoveShopPopover
     }, Symbol.toStringTag, { value: "Module" }));
-    function mitt(n) {
-        return {
-            all: n = n || new Map(), on: function (t, e) {
-                var i = n.get(t);
-                i ? i.push(e) : n.set(t, [e]);
-            }, off: function (t, e) {
-                var i = n.get(t);
-                i && (e ? i.splice(i.indexOf(e) >>> 0, 1) : n.set(t, []));
-            }, emit: function (t, e) {
-                var i = n.get(t);
-                i && i.slice().map(function (n2) {
-                    n2(e);
-                }), (i = n.get("*")) && i.slice().map(function (n2) {
-                    n2(t, e);
-                });
-            }
-        };
-    }
-    function mittOnce(all) {
-        const emitter = mitt(all);
-        return {
-            ...emitter,
-            once(type, handler) {
-                emitter.on(type, function fn(evt) {
-                    emitter.off(type, fn);
-                    handler(evt);
-                });
-            }
-        };
-    }
-    const useCacheStore = pinia$1.defineStore("cache", () => {
-        const cache = vue.reactive(Storage.getCache());
-        const currentScriptType = vue.ref("Main");
-        function startMainBLTHAliveHeartBeat() {
-            cache.lastAliveHeartBeatTime = Date.now();
-            const timer = setInterval(() => cache.lastAliveHeartBeatTime = Date.now(), 5e3);
-            window.addEventListener("unload", () => {
-                clearInterval(timer);
-                cache.lastAliveHeartBeatTime = 0;
-                cache.mainScriptLocation = "";
-            });
-        }
-        function checkCurrentScriptType() {
-            if (cache.lastAliveHeartBeatTime !== 0 && Date.now() - cache.lastAliveHeartBeatTime < 8e3) {
-                if (cache.mainScriptLocation === _unsafeWindow.top.location.pathname) {
-                    currentScriptType.value = "SubMain";
-                } else {
-                    currentScriptType.value = "Other";
-                }
-            } else {
-                currentScriptType.value = "Main";
-                cache.mainScriptLocation = _unsafeWindow.top.location.pathname;
-            }
-        }
-        vue.watch(cache, (newCache) => Storage.setCache(newCache));
-        return {
-            cache,
-            currentScriptType,
-            startMainBLTHAliveHeartBeat,
-            checkCurrentScriptType
-        };
-    });
     const dq = document.querySelector.bind(document);
     document.querySelectorAll.bind(document);
     const dce = document.createElement.bind(document);
@@ -3717,7 +3506,7 @@
             });
             const timeoutId = setTimeout(() => {
                 observer.disconnect();
-                reject2(new Error(`无法在${timeout}毫秒内找到${parentElement.localName}的子节点${selector} `));
+                reject2(new Error(`无法在${timeout}毫秒内找到${parentElement.localName}的子节点${selector}`));
             }, timeout);
         });
     }
@@ -3733,14 +3522,12 @@
                 share: ""
             },
             LiveTasks: {
-                sign: "",
                 medalTasks: {
                     light: "",
                     watch: ""
                 }
             },
             OtherTasks: {
-                groupSign: "",
                 silverToCoin: "",
                 coinToSilver: "",
                 getYearVipPrivilege: ""
@@ -3748,26 +3535,101 @@
         }
     };
     const allAndTopFrameModuleNames = [];
-    function loadDefaultModules() {
-        const cacheStore2 = useCacheStore();
-        const promiseArray = [];
-        for (const [name, module] of Object.entries(defaultModules)) {
-            if (module.runOnMultiplePages || cacheStore2.currentScriptType !== "Other") {
-                promiseArray.push(runModule(module, name));
+    const useModuleStore = pinia$1.defineStore("module", () => {
+        const moduleConfig = vue.ref(Storage.getModuleConfig());
+        const moduleStatus = vue.ref(defaultModuleStatus);
+        const moduleInstances = vue.ref({});
+        const moduleReset = vue.ref({
+            DailyTasks: {
+                MainSiteTasks: {
+                    login: async () => {
+                        moduleStatus.value.DailyTasks.MainSiteTasks.login = "";
+                        moduleConfig.value.DailyTasks.MainSiteTasks.login._lastCompleteTime = 0;
+                        await rerunModule("Default_DailyRewardInfo", true);
+                        await rerunModule("DailyTask_MainSiteTask_LoginTask");
+                    },
+                    watch: async () => {
+                        moduleStatus.value.DailyTasks.MainSiteTasks.watch = "";
+                        moduleConfig.value.DailyTasks.MainSiteTasks.watch._lastCompleteTime = 0;
+                        await Promise.all([
+                            rerunModule("Default_DailyRewardInfo", true),
+                            rerunModule("Default_DynamicVideos", true)
+                        ]);
+                        await rerunModule("DailyTask_MainSiteTask_WatchTask");
+                    },
+                    coin: async () => {
+                        moduleStatus.value.DailyTasks.MainSiteTasks.coin = "";
+                        moduleConfig.value.DailyTasks.MainSiteTasks.coin._lastCompleteTime = 0;
+                        await Promise.all([
+                            rerunModule("Default_DailyRewardInfo", true),
+                            rerunModule("Default_DynamicVideos", true)
+                        ]);
+                        rerunModule("DailyTask_MainSiteTask_CoinTask");
+                    },
+                    share: async () => {
+                        moduleStatus.value.DailyTasks.MainSiteTasks.share = "";
+                        moduleConfig.value.DailyTasks.MainSiteTasks.share._lastCompleteTime = 0;
+                        await Promise.all([
+                            rerunModule("Default_DailyRewardInfo", true),
+                            rerunModule("Default_DynamicVideos", true)
+                        ]);
+                        rerunModule("DailyTask_MainSiteTask_ShareTask");
+                    }
+                },
+                LiveTasks: {
+                    medalTasks: {
+                        light: () => {
+                            moduleStatus.value.DailyTasks.LiveTasks.medalTasks.light = "";
+                            moduleConfig.value.DailyTasks.LiveTasks.medalTasks.light._lastCompleteTime = 0;
+                            rerunModule("Default_FansMedals", true);
+                            rerunModule("DailyTask_LiveTask_LightTask");
+                        },
+                        watch: () => {
+                            moduleStatus.value.DailyTasks.LiveTasks.medalTasks.watch = "";
+                            moduleConfig.value.DailyTasks.LiveTasks.medalTasks.watch._lastCompleteTime = 0;
+                            moduleConfig.value.DailyTasks.LiveTasks.medalTasks.watch._lastWatchTime = 0;
+                            moduleConfig.value.DailyTasks.LiveTasks.medalTasks.watch._watchingProgress = {};
+                            rerunModule("Default_FansMedals", true);
+                            rerunModule("DailyTask_LiveTask_WatchTask");
+                        }
+                    }
+                },
+                OtherTasks: {
+                    silverToCoin: () => {
+                        moduleStatus.value.DailyTasks.OtherTasks.silverToCoin = "";
+                        moduleConfig.value.DailyTasks.OtherTasks.silverToCoin._lastCompleteTime = 0;
+                        rerunModule("DailyTask_OtherTask_SilverToCoinTask");
+                    },
+                    coinToSilver: () => {
+                        moduleStatus.value.DailyTasks.OtherTasks.coinToSilver = "";
+                        moduleConfig.value.DailyTasks.OtherTasks.coinToSilver._lastCompleteTime = 0;
+                        rerunModule("DailyTask_OtherTask_CoinToSilverTask");
+                    },
+                    getYearVipPrivilege: () => {
+                        moduleStatus.value.DailyTasks.OtherTasks.getYearVipPrivilege = "";
+                        moduleConfig.value.DailyTasks.OtherTasks.getYearVipPrivilege._nextReceiveTime = 0;
+                        rerunModule("DailyTask_OtherTask_GetYearVipPrivilegeTask");
+                    }
+                }
+            }
+        });
+        function _runModule(module, name) {
+            const moduleInstance = new module(name);
+            moduleInstances.value[name] = moduleInstance;
+            if (moduleInstance.isEnabled()) {
+                return moduleInstance.run();
             }
         }
-        return Promise.allSettled(promiseArray);
-    }
-    function runModule(module, name) {
-        const moduleInstance = new module(name);
-        if (moduleInstance.isEnabled()) {
-            return moduleInstance.run();
+        function _loadDefaultModules() {
+            const cacheStore2 = useCacheStore();
+            const promiseArray = [];
+            for (const [name, module] of Object.entries(defaultModules)) {
+                if (module.runOnMultiplePages || cacheStore2.currentScriptType !== "Other") {
+                    promiseArray.push(_runModule(module, name));
+                }
+            }
+            return Promise.allSettled(promiseArray);
         }
-    }
-    const useModuleStore = pinia$1.defineStore("module", () => {
-        const moduleConfig = vue.reactive(Storage.getModuleConfig());
-        const emitter = mittOnce();
-        const moduleStatus = vue.reactive(defaultModuleStatus);
         function loadModules(isOnTargetFrame) {
             const cacheStore2 = useCacheStore();
             if (isOnTargetFrame === "unknown") {
@@ -3775,7 +3637,7 @@
                     if (module.onFrame === "all" || module.onFrame === "top" && isSelfTopFrame()) {
                         if (module.runOnMultiplePages || cacheStore2.currentScriptType !== "Other") {
                             if (!module.runAfterDefault) {
-                                waitForMoment(module.runAt).then(() => runModule(module, name));
+                                waitForMoment(module.runAt).then(() => _runModule(module, name));
                                 allAndTopFrameModuleNames.push(name);
                             }
                         }
@@ -3783,14 +3645,14 @@
                 }
             } else {
                 const moduleAfterDefault = {};
-                const defaultModulesLoadingResult = loadDefaultModules();
+                const defaultModulesLoadingResult = _loadDefaultModules();
                 for (const [name, module] of Object.entries(otherModules)) {
                     if (module.onFrame === "target" || module.onFrame === "top" && isSelfTopFrame() && !allAndTopFrameModuleNames.includes(name) || module.onFrame === "all" && !allAndTopFrameModuleNames.includes(name)) {
                         if (module.runOnMultiplePages || cacheStore2.currentScriptType !== "Other") {
                             if (module.runAfterDefault) {
                                 moduleAfterDefault[name] = module;
                             } else {
-                                waitForMoment(module.runAt).then(() => runModule(module, name));
+                                waitForMoment(module.runAt).then(() => _runModule(module, name));
                             }
                         }
                     }
@@ -3805,15 +3667,24 @@
                             } else if (error instanceof ModuleError) {
                                 new Logger(error.moduleName).error(error.message);
                             } else {
-                                new Logger("ModuleStore").error(`意外错误: ${error.message} `);
+                                new Logger("ModuleStore").error(`意外错误: ${error.message}`);
                                 return;
                             }
                         }
                     }
                     for (const [name, module] of Object.entries(moduleAfterDefault)) {
-                        waitForMoment(module.runAt).then(() => runModule(module, name));
+                        waitForMoment(module.runAt).then(() => _runModule(module, name));
                     }
                 });
+            }
+        }
+        function rerunModule(moduleName, ...args) {
+            const moduleInstance = moduleInstances.value[moduleName];
+            if (moduleInstance) {
+                clearTimeout(moduleInstance.nextRunTimer);
+                return moduleInstance.run(...args);
+            } else {
+                throw new ModuleError("ModuleStore", `模块 ${moduleName} 不存在`);
             }
         }
         vue.watch(
@@ -3821,7 +3692,8 @@
             _.debounce((newModuleConfig) => Storage.setModuleConfig(newModuleConfig), 250, {
                 leading: true,
                 trailing: true
-            })
+            }),
+            { deep: true }
         );
         (function clearStatus() {
             setTimeout(() => {
@@ -3833,11 +3705,301 @@
         })();
         return {
             moduleConfig,
-            emitter,
+            moduleInstances,
+            moduleReset,
             moduleStatus,
-            loadModules
+            loadModules,
+            rerunModule
         };
     });
+    const DEFAULT_CONFIG = {
+        getPlayer: {
+            interval: 200,
+            timeout: 12e3
+        },
+        waitForLiveStatus: {
+            interval: 1e4
+        }
+    };
+    const usePlayerStore = pinia$1.defineStore("player", () => {
+        const player = vue.ref();
+        const getPlayer = async (config = DEFAULT_CONFIG.getPlayer) => {
+            _.defaults(config, DEFAULT_CONFIG.getPlayer);
+            if (player.value) {
+                return player.value;
+            }
+            const isPlayerAvailable = () => {
+                return _unsafeWindow.livePlayer && Object.hasOwn(_unsafeWindow.livePlayer, "getPlayerInfo");
+            };
+            await waitForMoment("window-load");
+            if (isPlayerAvailable()) {
+                player.value = _unsafeWindow.livePlayer;
+                return player.value;
+            }
+            return new Promise(async (resolve2, reject2) => {
+                const findPlayerTimer = setInterval(() => {
+                    if (isPlayerAvailable()) {
+                        clearInterval(findPlayerTimer);
+                        clearTimeout(timeoutTimer);
+                        player.value = _unsafeWindow.livePlayer;
+                        resolve2(player.value);
+                    }
+                }, config.interval);
+                const timeoutTimer = setTimeout(() => {
+                    clearInterval(findPlayerTimer);
+                    reject2("等待播放器超时");
+                }, config.timeout);
+            });
+        };
+        const waitForLiveStatus = async (status, config = DEFAULT_CONFIG.waitForLiveStatus) => {
+            _.defaults(config, DEFAULT_CONFIG.waitForLiveStatus);
+            const player2 = await getPlayer();
+            const liveStatus = player2.getPlayerInfo().liveStatus;
+            if (liveStatus === status) {
+                config.onImmediateSuccess?.();
+                return true;
+            }
+            config.onNeedWait?.();
+            return new Promise((resolve2) => {
+                const liveStatusTimer = setInterval(() => {
+                    const liveStatus2 = player2.getPlayerInfo().liveStatus;
+                    if (liveStatus2 === status) {
+                        clearTimeout(timeoutTimer);
+                        clearInterval(liveStatusTimer);
+                        resolve2(true);
+                    }
+                }, config.interval);
+                const timeoutTimer = config.timeout && setTimeout(() => {
+                    clearInterval(liveStatusTimer);
+                    resolve2(false);
+                }, config.timeout);
+            });
+        };
+        return {
+            player,
+            getPlayer,
+            waitForLiveStatus
+        };
+    });
+    const index2name = {
+        MainSiteTasks: "主站任务",
+        LiveTasks: "直播任务",
+        OtherTasks: "其它任务",
+        EnhanceExperience: "体验优化",
+        RemoveElement: "移除元素",
+        ScriptSettings: "设置"
+    };
+    const useUIStore = pinia$1.defineStore("ui", () => {
+        const uiConfig = vue.ref(Storage.getUiConfig());
+        const activeMenuName = vue.computed(() => index2name[uiConfig.value.activeMenuIndex]);
+        const livePlayerRect = vue.ref({
+            top: 0,
+            left: 0,
+            height: 0,
+            width: 0
+        });
+        const windowScrollPosition = vue.ref({ x: 0, y: 0 });
+        const panelStyle = vue.computed(() => ({
+            top: `${livePlayerRect.value.top + windowScrollPosition.value.y}px`,
+            left: `${livePlayerRect.value.left + windowScrollPosition.value.x}px`,
+            height: `${livePlayerRect.value.height}px`,
+            width: `${livePlayerRect.value.width * uiConfig.value.panelWidthPercent / 100}px`
+        }));
+        const isShowPanelButtonText = vue.computed(
+            () => uiConfig.value.isShowPanel ? "隐藏控制面板" : "显示控制面板"
+        );
+        const scrollBarHeight = vue.computed(() => `${livePlayerRect.value.height - 60}px`);
+        function changeCollapse() {
+            uiConfig.value.isCollapse = !uiConfig.value.isCollapse;
+        }
+        function changeShowPanel() {
+            uiConfig.value.isShowPanel = !uiConfig.value.isShowPanel;
+        }
+        function setActiveMenuIndex(index) {
+            uiConfig.value.activeMenuIndex = index;
+        }
+        vue.watch(
+            uiConfig,
+            _.debounce((newUiConfig) => Storage.setUiConfig(newUiConfig), 350),
+            { deep: true }
+        );
+        return {
+            isShowPanelButtonText,
+            activeMenuName,
+            livePlayerRect,
+            windowScrollPosition,
+            panelStyle,
+            scrollBarHeight,
+            uiConfig,
+            changeCollapse,
+            changeShowPanel,
+            setActiveMenuIndex
+        };
+    });
+    const _sfc_main$c = vue.defineComponent({
+        __name: "PanelAside",
+        setup(__props) {
+            const uiStore = useUIStore();
+            const items = [
+                {
+                    icon: "Tasks",
+                    title: "每日任务",
+                    index: "DailyTasks",
+                    subs: [
+                        {
+                            title: "主站任务",
+                            index: "MainSiteTasks"
+                        },
+                        {
+                            title: "直播任务",
+                            index: "LiveTasks"
+                        },
+                        {
+                            title: "其它任务",
+                            index: "OtherTasks"
+                        }
+                    ]
+                },
+                {
+                    icon: "Monitor",
+                    title: "体验优化",
+                    index: "EnhanceExperience"
+                },
+                {
+                    icon: "Scissor",
+                    title: "移除元素",
+                    index: "RemoveElement"
+                },
+                {
+                    icon: "Setting",
+                    title: "设置",
+                    index: "ScriptSettings"
+                }
+            ];
+            return (_ctx, _cache) => {
+                const _component_el_icon = vue.resolveComponent("el-icon");
+                const _component_el_menu_item = vue.resolveComponent("el-menu-item");
+                const _component_el_sub_menu = vue.resolveComponent("el-sub-menu");
+                const _component_el_menu = vue.resolveComponent("el-menu");
+                return vue.openBlock(), vue.createBlock(_component_el_menu, {
+                    id: "aside-el-menu",
+                    "default-active": vue.unref(uiStore).uiConfig.activeMenuIndex,
+                    style: vue.normalizeStyle({ "min-height": vue.unref(uiStore).scrollBarHeight }),
+                    collapse: vue.unref(uiStore).uiConfig.isCollapse,
+                    "unique-opened": "",
+                    onSelect: _cache[0] || (_cache[0] = (index) => vue.unref(uiStore).setActiveMenuIndex(index))
+                }, {
+                    default: vue.withCtx(() => [
+                        (vue.openBlock(), vue.createElementBlock(vue.Fragment, null, vue.renderList(items, (item) => {
+                            return vue.openBlock(), vue.createElementBlock(vue.Fragment, null, [
+                                item.subs ? (vue.openBlock(), vue.createBlock(_component_el_sub_menu, {
+                                    key: item.index,
+                                    index: item.index
+                                }, {
+                                    title: vue.withCtx(() => [
+                                        vue.createVNode(_component_el_icon, null, {
+                                            default: vue.withCtx(() => [
+                                                (vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent(item.icon)))
+                                            ]),
+                                            _: 2
+                                        }, 1024),
+                                        vue.createElementVNode("span", null, vue.toDisplayString(item.title), 1)
+                                    ]),
+                                    default: vue.withCtx(() => [
+                                        (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(item.subs, (subItem) => {
+                                            return vue.openBlock(), vue.createBlock(_component_el_menu_item, {
+                                                key: subItem.index,
+                                                index: subItem.index
+                                            }, {
+                                                default: vue.withCtx(() => [
+                                                    vue.createTextVNode(vue.toDisplayString(subItem.title), 1)
+                                                ]),
+                                                _: 2
+                                            }, 1032, ["index"]);
+                                        }), 128))
+                                    ]),
+                                    _: 2
+                                }, 1032, ["index"])) : (vue.openBlock(), vue.createBlock(_component_el_menu_item, {
+                                    key: item.index,
+                                    index: item.index
+                                }, {
+                                    title: vue.withCtx(() => [
+                                        vue.createTextVNode(vue.toDisplayString(item.title), 1)
+                                    ]),
+                                    default: vue.withCtx(() => [
+                                        vue.createVNode(_component_el_icon, null, {
+                                            default: vue.withCtx(() => [
+                                                (vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent(item.icon)))
+                                            ]),
+                                            _: 2
+                                        }, 1024)
+                                    ]),
+                                    _: 2
+                                }, 1032, ["index"]))
+                            ], 64);
+                        }), 64))
+                    ]),
+                    _: 1
+                }, 8, ["default-active", "style", "collapse"]);
+            };
+        }
+    });
+    const _export_sfc = (sfc, props) => {
+        const target = sfc.__vccOpts || sfc;
+        for (const [key, val] of props) {
+            target[key] = val;
+        }
+        return target;
+    };
+    const PanelAside = _export_sfc(_sfc_main$c, [["__scopeId", "data-v-db397d59"]]);
+    const _hoisted_1$2 = { class: "title" };
+    const _sfc_main$b = vue.defineComponent({
+        __name: "PanelHeader",
+        setup(__props) {
+            const uiStore = useUIStore();
+            return (_ctx, _cache) => {
+                const _component_el_icon = vue.resolveComponent("el-icon");
+                const _component_el_text = vue.resolveComponent("el-text");
+                return vue.openBlock(), vue.createElementBlock(vue.Fragment, null, [
+                    vue.createElementVNode("div", {
+                        class: "collapse-btn",
+                        onClick: _cache[0] || (_cache[0] =
+                            (...args) => vue.unref(uiStore).changeCollapse && vue.unref(uiStore).changeCollapse(...args))
+                    }, [
+                        vue.unref(uiStore).uiConfig.isCollapse ? (vue.openBlock(), vue.createBlock(_component_el_icon, { key: 0 }, {
+                            default: vue.withCtx(() => [
+                                vue.createVNode(vue.unref(ElementPlusIconsVue.Expand))
+                            ]),
+                            _: 1
+                        })) : (vue.openBlock(), vue.createBlock(_component_el_icon, { key: 1 }, {
+                            default: vue.withCtx(() => [
+                                vue.createVNode(vue.unref(ElementPlusIconsVue.Fold))
+                            ]),
+                            _: 1
+                        }))
+                    ]),
+                    vue.createElementVNode("div", _hoisted_1$2, [
+                        vue.createVNode(_component_el_text, {
+                            tag: "b",
+                            class: "header-big-text"
+                        }, {
+                            default: vue.withCtx(() => [..._cache[1] || (_cache[1] = [
+                                vue.createTextVNode("控制面板", -1)
+                            ])]),
+                            _: 1
+                        }),
+                        vue.createVNode(_component_el_text, { class: "header-small-text" }, {
+                            default: vue.withCtx(() => [
+                                vue.createTextVNode(vue.toDisplayString(vue.unref(uiStore).activeMenuName), 1)
+                            ]),
+                            _: 1
+                        })
+                    ])
+                ], 64);
+            };
+        }
+    });
+    const PanelHeader = _export_sfc(_sfc_main$b, [["__scopeId", "data-v-848fd8cc"]]);
     const helpInfo = {
         DailyTasks: {
             MainSiteTasks: {
@@ -3925,12 +4087,13 @@
                                         vue.h("div", [
                                             vue.h(
                                                 "div",
-                                                "点击【编辑弹幕】按钮编辑要发送的弹幕，脚本会从中按顺序循环抽取弹幕发送。"
+                                                "点击【编辑弹幕】按钮编辑要发送的弹幕，脚本会从中按顺序循环抽取弹幕发送。建议修改默认的弹幕。"
                                             ),
                                             vue.h("div", "部分直播间无法完成该任务，可能的原因有:"),
                                             vue.h("ul", [
                                                 vue.h("li", "你被禁言了"),
                                                 vue.h("li", "发言有粉丝勋章等级要求"),
+                                                vue.h("li", "发送的弹幕包含屏蔽词"),
                                                 vue.h("li", [
                                                     vue.h("span", "特殊直播间（比如"),
                                                     vue.h(
@@ -3958,10 +4121,7 @@
                             vue.h("ul", [
                                 vue.h("li", "部分直播间因为没有设置直播分区导致任务无法完成。"),
                                 vue.h("li", "主播当前是否开播不会影响该任务的完成。"),
-                                vue.h(
-                                    "li",
-                                    "根据目前规则，观看15分钟可点亮粉丝勋章，再观看25分钟即可获得全部30亲密度。"
-                                ),
+                                vue.h("li", "根据目前规则，观看15分钟可点亮粉丝勋章，再观看25分钟即可获得全部30亲密度。"),
                                 vue.h("li", "由于计时存在误差，可以在目标基础上适当增加一些观看时长。")
                             ]),
                             vue.h("div", [
@@ -3976,10 +4136,6 @@
                 }
             },
             OtherTasks: {
-                groupSign: {
-                    title: "应援团签到",
-                    message: "完成应援团签到任务。"
-                },
                 silverToCoin: {
                     title: "银瓜子换硬币",
                     message: vue.h("p", [
@@ -4019,8 +4175,8 @@
             switchLiveStreamQuality: {
                 title: "自动切换画质",
                 message: vue.h("p", [
-                    vue.h("div", "打开直播间后自动把播放器切换到指定画质。"),
-                    vue.h("div", "如果指定画质不存在，则还是使用B站的默认画质。")
+                    vue.h("div", "打开直播间后自动把播放器切换到目标画质。"),
+                    vue.h("div", "如果目标画质不存在，先查找无HDR版本的画质，仍没有则使用B站的默认画质。")
                 ])
             },
             banp2p: {
@@ -4130,6 +4286,7 @@
             const moduleStore2 = useModuleStore();
             const config = moduleStore2.moduleConfig.DailyTasks.MainSiteTasks;
             const status = moduleStore2.moduleStatus.DailyTasks.MainSiteTasks;
+            const reset = moduleStore2.moduleReset.DailyTasks.MainSiteTasks;
             return (_ctx, _cache) => {
                 const _component_el_switch = vue.resolveComponent("el-switch");
                 const _component_Info = vue.resolveComponent("Info");
@@ -4158,8 +4315,9 @@
                                         item: vue.unref(helpInfo).DailyTasks.MainSiteTasks.login
                                     }, null, 8, ["item"]),
                                     vue.createVNode(_component_TaskStatus, {
-                                        status: vue.unref(status).login
-                                    }, null, 8, ["status"])
+                                        status: vue.unref(status).login,
+                                        onClick: vue.unref(reset).login
+                                    }, null, 8, ["status", "onClick"])
                                 ]),
                                 _: 1
                             })
@@ -4182,8 +4340,9 @@
                                         item: vue.unref(helpInfo).DailyTasks.MainSiteTasks.watch
                                     }, null, 8, ["item"]),
                                     vue.createVNode(_component_TaskStatus, {
-                                        status: vue.unref(status).watch
-                                    }, null, 8, ["status"])
+                                        status: vue.unref(status).watch,
+                                        onClick: vue.unref(reset).watch
+                                    }, null, 8, ["status", "onClick"])
                                 ]),
                                 _: 1
                             })
@@ -4229,8 +4388,9 @@
                                         item: vue.unref(helpInfo).DailyTasks.MainSiteTasks.coin
                                     }, null, 8, ["item"]),
                                     vue.createVNode(_component_TaskStatus, {
-                                        status: vue.unref(status).coin
-                                    }, null, 8, ["status"])
+                                        status: vue.unref(status).coin,
+                                        onClick: vue.unref(reset).coin
+                                    }, null, 8, ["status", "onClick"])
                                 ]),
                                 _: 1
                             })
@@ -4253,8 +4413,9 @@
                                         item: vue.unref(helpInfo).DailyTasks.MainSiteTasks.share
                                     }, null, 8, ["item"]),
                                     vue.createVNode(_component_TaskStatus, {
-                                        status: vue.unref(status).share
-                                    }, null, 8, ["status"])
+                                        status: vue.unref(status).share,
+                                        onClick: vue.unref(reset).share
+                                    }, null, 8, ["status", "onClick"])
                                 ]),
                                 _: 1
                             })
@@ -4317,6 +4478,7 @@
             const danmuTableMaxHeight = screen.height * 0.5;
             const config = moduleStore2.moduleConfig.DailyTasks.LiveTasks;
             const status = moduleStore2.moduleStatus.DailyTasks.LiveTasks;
+            const reset = moduleStore2.moduleReset.DailyTasks.LiveTasks;
             const medalDanmuPanelVisible = vue.ref(false);
             const danmuTableData = vue.computed(
                 () => config.medalTasks.light.danmuList.map((danmu) => {
@@ -4401,9 +4563,7 @@
                             { once: true }
                         );
                         if (!biliStore.fansMedalsStatus) {
-                            moduleStore2.emitter.emit("Default_FansMedals", {
-                                module: "LiveTasks"
-                            });
+                            moduleStore2.rerunModule("Default_FansMedals", true);
                         }
                     } else {
                         initSelection(medalInfoTableData.value);
@@ -4477,8 +4637,9 @@
                                         item: vue.unref(helpInfo).DailyTasks.LiveTasks.medalTasks.light
                                     }, null, 8, ["item"]),
                                     vue.createVNode(_component_TaskStatus, {
-                                        status: vue.unref(status).medalTasks.light
-                                    }, null, 8, ["status"])
+                                        status: vue.unref(status).medalTasks.light,
+                                        onClick: vue.unref(reset).medalTasks.light
+                                    }, null, 8, ["status", "onClick"])
                                 ]),
                                 _: 1
                             })
@@ -4524,8 +4685,9 @@
                                         item: vue.unref(helpInfo).DailyTasks.LiveTasks.medalTasks.watch
                                     }, null, 8, ["item"]),
                                     vue.createVNode(_component_TaskStatus, {
-                                        status: vue.unref(status).medalTasks.watch
-                                    }, null, 8, ["status"])
+                                        status: vue.unref(status).medalTasks.watch,
+                                        onClick: vue.unref(reset).medalTasks.watch
+                                    }, null, 8, ["status", "onClick"])
                                 ]),
                                 _: 1
                             })
@@ -4672,13 +4834,13 @@
                     }, {
                         footer: vue.withCtx(() => [
                             vue.createVNode(_component_el_switch, {
-                                disabled: !vue.unref(config).medalTasks.isWhiteList,
                                 modelValue: vue.unref(uiStore).uiConfig.medalInfoPanelSortMode,
                                 "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => vue.unref(uiStore).uiConfig.medalInfoPanelSortMode = $event),
+                                disabled: !vue.unref(config).medalTasks.isWhiteList,
                                 "inactive-text": "常规模式",
                                 "active-text": "排序模式",
                                 onChange: _cache[10] || (_cache[10] = (val) => !val && vue.nextTick(() => initSelection(medalInfoTableData.value)))
-                            }, null, 8, ["disabled", "modelValue"])
+                            }, null, 8, ["modelValue", "disabled"])
                         ]),
                         default: vue.withCtx(() => [
                             vue.createVNode(vue.unref(vueDraggablePlus.VueDraggable), {
@@ -4698,10 +4860,10 @@
                                         data: medalInfoTableData.value,
                                         "max-height": medalTableMaxHeight,
                                         "empty-text": "没有粉丝勋章",
+                                        "row-key": (row) => row.roomid.toString(),
                                         onSelect: handleSelect,
                                         onSelectAll: handleSelect,
-                                        onRowClick: handleRowClick,
-                                        "row-key": (row) => row.roomid.toString()
+                                        onRowClick: handleRowClick
                                     }, {
                                         default: vue.withCtx(() => [
                                             !vue.unref(uiStore).uiConfig.medalInfoPanelSortMode ? (vue.openBlock(), vue.createBlock(_component_el_table_column, {
@@ -4790,13 +4952,14 @@
             };
         }
     });
-    const LiveTasks = _export_sfc(_sfc_main$9, [["__scopeId", "data-v-aec3aff8"]]);
+    const LiveTasks = _export_sfc(_sfc_main$9, [["__scopeId", "data-v-2606d55c"]]);
     const _sfc_main$8 = vue.defineComponent({
         __name: "OtherTasks",
         setup(__props) {
             const moduleStore2 = useModuleStore();
             const config = moduleStore2.moduleConfig.DailyTasks.OtherTasks;
             const status = moduleStore2.moduleStatus.DailyTasks.OtherTasks;
+            const reset = moduleStore2.moduleReset.DailyTasks.OtherTasks;
             return (_ctx, _cache) => {
                 const _component_el_switch = vue.resolveComponent("el-switch");
                 const _component_Info = vue.resolveComponent("Info");
@@ -4813,37 +4976,17 @@
                             vue.createVNode(_component_el_space, { wrap: "" }, {
                                 default: vue.withCtx(() => [
                                     vue.createVNode(_component_el_switch, {
-                                        modelValue: vue.unref(config).groupSign.enabled,
-                                        "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => vue.unref(config).groupSign.enabled = $event),
-                                        "active-text": "应援团签到"
-                                    }, null, 8, ["modelValue"]),
-                                    vue.createVNode(_component_Info, {
-                                        item: vue.unref(helpInfo).DailyTasks.OtherTasks.groupSign
-                                    }, null, 8, ["item"]),
-                                    vue.createVNode(_component_TaskStatus, {
-                                        status: vue.unref(status).groupSign
-                                    }, null, 8, ["status"])
-                                ]),
-                                _: 1
-                            })
-                        ]),
-                        _: 1
-                    }),
-                    vue.createVNode(_component_el_row, null, {
-                        default: vue.withCtx(() => [
-                            vue.createVNode(_component_el_space, { wrap: "" }, {
-                                default: vue.withCtx(() => [
-                                    vue.createVNode(_component_el_switch, {
                                         modelValue: vue.unref(config).silverToCoin.enabled,
-                                        "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => vue.unref(config).silverToCoin.enabled = $event),
+                                        "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => vue.unref(config).silverToCoin.enabled = $event),
                                         "active-text": "银瓜子换硬币"
                                     }, null, 8, ["modelValue"]),
                                     vue.createVNode(_component_Info, {
                                         item: vue.unref(helpInfo).DailyTasks.OtherTasks.silverToCoin
                                     }, null, 8, ["item"]),
                                     vue.createVNode(_component_TaskStatus, {
-                                        status: vue.unref(status).silverToCoin
-                                    }, null, 8, ["status"])
+                                        status: vue.unref(status).silverToCoin,
+                                        onClick: vue.unref(reset).silverToCoin
+                                    }, null, 8, ["status", "onClick"])
                                 ]),
                                 _: 1
                             })
@@ -4859,18 +5002,18 @@
                                 default: vue.withCtx(() => [
                                     vue.createVNode(_component_el_switch, {
                                         modelValue: vue.unref(config).coinToSilver.enabled,
-                                        "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => vue.unref(config).coinToSilver.enabled = $event),
+                                        "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => vue.unref(config).coinToSilver.enabled = $event),
                                         "active-text": "硬币换银瓜子"
                                     }, null, 8, ["modelValue"]),
                                     vue.createVNode(_component_el_text, null, {
-                                        default: vue.withCtx(() => [..._cache[5] || (_cache[5] = [
+                                        default: vue.withCtx(() => [..._cache[4] || (_cache[4] = [
                                             vue.createTextVNode("花费硬币", -1)
                                         ])]),
                                         _: 1
                                     }),
                                     vue.createVNode(_component_el_select, {
                                         modelValue: vue.unref(config).coinToSilver.num,
-                                        "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => vue.unref(config).coinToSilver.num = $event),
+                                        "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => vue.unref(config).coinToSilver.num = $event),
                                         placeholder: "Select",
                                         style: { "width": "64px" }
                                     }, {
@@ -4886,7 +5029,7 @@
                                         _: 1
                                     }, 8, ["modelValue"]),
                                     vue.createVNode(_component_el_text, null, {
-                                        default: vue.withCtx(() => [..._cache[6] || (_cache[6] = [
+                                        default: vue.withCtx(() => [..._cache[5] || (_cache[5] = [
                                             vue.createTextVNode("个", -1)
                                         ])]),
                                         _: 1
@@ -4895,8 +5038,9 @@
                                         item: vue.unref(helpInfo).DailyTasks.OtherTasks.coinToSilver
                                     }, null, 8, ["item"]),
                                     vue.createVNode(_component_TaskStatus, {
-                                        status: vue.unref(status).coinToSilver
-                                    }, null, 8, ["status"])
+                                        status: vue.unref(status).coinToSilver,
+                                        onClick: vue.unref(reset).coinToSilver
+                                    }, null, 8, ["status", "onClick"])
                                 ]),
                                 _: 1
                             })
@@ -4912,15 +5056,16 @@
                                 default: vue.withCtx(() => [
                                     vue.createVNode(_component_el_switch, {
                                         modelValue: vue.unref(config).getYearVipPrivilege.enabled,
-                                        "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => vue.unref(config).getYearVipPrivilege.enabled = $event),
+                                        "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => vue.unref(config).getYearVipPrivilege.enabled = $event),
                                         "active-text": "领取年度大会员权益"
                                     }, null, 8, ["modelValue"]),
                                     vue.createVNode(_component_Info, {
                                         item: vue.unref(helpInfo).DailyTasks.OtherTasks.getYearVipPrivilege
                                     }, null, 8, ["item"]),
                                     vue.createVNode(_component_TaskStatus, {
-                                        status: vue.unref(status).getYearVipPrivilege
-                                    }, null, 8, ["status"])
+                                        status: vue.unref(status).getYearVipPrivilege,
+                                        onClick: vue.unref(reset).getYearVipPrivilege
+                                    }, null, 8, ["status", "onClick"])
                                 ]),
                                 _: 1
                             })
@@ -4937,9 +5082,9 @@
         setup(__props) {
             const moduleStore2 = useModuleStore();
             const config = moduleStore2.moduleConfig.EnhanceExperience;
-            const qualityDescList = ["原画", "蓝光", "超清", "高清"];
+            const qualityDescList = ["原画（HDR）", "原画", "蓝光", "超清", "高清"];
             if (!qualityDescList.includes(config.switchLiveStreamQuality.qualityDesc)) {
-                config.switchLiveStreamQuality.qualityDesc = qualityDescList[0];
+                config.switchLiveStreamQuality.qualityDesc = "原画";
             }
             return (_ctx, _cache) => {
                 const _component_el_switch = vue.resolveComponent("el-switch");
@@ -4966,7 +5111,7 @@
                                         modelValue: vue.unref(config).switchLiveStreamQuality.qualityDesc,
                                         "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => vue.unref(config).switchLiveStreamQuality.qualityDesc = $event),
                                         placeholder: "Select",
-                                        style: { "width": "100px" }
+                                        style: { "width": "140px" }
                                     }, {
                                         default: vue.withCtx(() => [
                                             (vue.openBlock(), vue.createElementBlock(vue.Fragment, null, vue.renderList(qualityDescList, (i) => {
@@ -5367,10 +5512,10 @@
                                         _: 1
                                     }),
                                     vue.createVNode(_component_el_slider, {
-                                        style: { "width": "150px" },
-                                        class: "slider",
                                         modelValue: vue.unref(uiConfig).panelWidthPercent,
                                         "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => vue.unref(uiConfig).panelWidthPercent = $event),
+                                        style: { "width": "150px" },
+                                        class: "slider",
                                         min: 30,
                                         max: 60
                                     }, null, 8, ["modelValue"])
@@ -5384,7 +5529,7 @@
             };
         }
     });
-    const ScriptSettings = _export_sfc(_sfc_main$5, [["__scopeId", "data-v-1cb0d081"]]);
+    const ScriptSettings = _export_sfc(_sfc_main$5, [["__scopeId", "data-v-0ed6e292"]]);
     const __default__ = vue.defineComponent({
         components: {
             MainSiteTasks: _sfc_main$a,
@@ -5427,15 +5572,21 @@
                 button.innerText = uiStore.isShowPanelButtonText;
             }
             const throttleButtonOnClick = _.throttle(buttonOnClick, 300);
-            const livePlayer = dq("#live-player-ctnr");
+            const livePlayer = dq(".player-section");
             if (livePlayer) {
                 updatePosition();
-                waitForElement(dq("#player-ctnr"), ".left-ctnr.left-header-area", 1e4).then((playerHeaderLeft) => {
+                waitForElement(dq("#player-ctnr"), ".header-info-ctnr .normal-row-ctnr", 1e4).then((normalRowCtnr) => {
                     button = dce("button");
-                    button.setAttribute("class", "blth_btn");
+                    button.setAttribute("class", "blth-btn");
                     button.onclick = throttleButtonOnClick;
                     button.innerText = uiStore.isShowPanelButtonText;
-                    playerHeaderLeft.append(button);
+                    const firstChild = normalRowCtnr.firstChild;
+                    if (firstChild) {
+                        firstChild.after(button);
+                    } else {
+                        logger2.warn(".normal-row-ctnr 没有子节点", normalRowCtnr);
+                        normalRowCtnr.appendChild(button);
+                    }
                     if (!isSelfTopFrame()) {
                         hotkeys(
                             "alt+b",
@@ -5522,10 +5673,10 @@
             };
         }
     });
-    const App = _export_sfc(_sfc_main$3, [["__scopeId", "data-v-f514d2f1"]]);
+    const App = _export_sfc(_sfc_main$3, [["__scopeId", "data-v-28de2807"]]);
     const cssLoader = (e) => _GM_addStyle(_GM_getResourceText(e));
     cssLoader("element-plus/dist/index.css");
-    const elementDarkCssVarsCss = "/*! Modified from element-plus/theme-chalk/dark/css-vars.css */html[lab-style*=dark]{color-scheme:dark;--el-color-primary: #409eff;--el-color-primary-light-3: rgb(51, 117, 185);--el-color-primary-light-5: rgb(42, 89, 138);--el-color-primary-light-7: rgb(33, 61, 91);--el-color-primary-light-8: rgb(29, 48, 67);--el-color-primary-light-9: rgb(24, 34, 43);--el-color-primary-dark-2: rgb(102, 177, 255);--el-color-success: #67c23a;--el-color-success-light-3: rgb(78, 142, 47);--el-color-success-light-5: rgb(62, 107, 39);--el-color-success-light-7: rgb(45, 72, 31);--el-color-success-light-8: rgb(37, 55, 28);--el-color-success-light-9: rgb(28, 37, 24);--el-color-success-dark-2: rgb(133, 206, 97);--el-color-warning: #e6a23c;--el-color-warning-light-3: rgb(167, 119, 48);--el-color-warning-light-5: rgb(125, 91, 40);--el-color-warning-light-7: rgb(83, 63, 32);--el-color-warning-light-8: rgb(62, 48, 28);--el-color-warning-light-9: rgb(41, 34, 24);--el-color-warning-dark-2: rgb(235, 181, 99);--el-color-danger: #f56c6c;--el-color-danger-light-3: rgb(178, 82, 82);--el-color-danger-light-5: rgb(133, 64, 64);--el-color-danger-light-7: rgb(88, 46, 46);--el-color-danger-light-8: rgb(65, 38, 38);--el-color-danger-light-9: rgb(42, 29, 29);--el-color-danger-dark-2: rgb(247, 137, 137);--el-color-error: #f56c6c;--el-color-error-light-3: rgb(178, 82, 82);--el-color-error-light-5: rgb(133, 64, 64);--el-color-error-light-7: rgb(88, 46, 46);--el-color-error-light-8: rgb(65, 38, 38);--el-color-error-light-9: rgb(42, 29, 29);--el-color-error-dark-2: rgb(247, 137, 137);--el-color-info: #909399;--el-color-info-light-3: rgb(107, 109, 113);--el-color-info-light-5: rgb(82, 84, 87);--el-color-info-light-7: rgb(57, 58, 60);--el-color-info-light-8: rgb(45, 45, 47);--el-color-info-light-9: rgb(32, 33, 33);--el-color-info-dark-2: rgb(166, 169, 173);--el-box-shadow: 0px 12px 32px 4px rgba(0, 0, 0, .36), 0px 8px 20px rgba(0, 0, 0, .72);--el-box-shadow-light: 0px 0px 12px rgba(0, 0, 0, .72);--el-box-shadow-lighter: 0px 0px 6px rgba(0, 0, 0, .72);--el-box-shadow-dark: 0px 16px 48px 16px rgba(0, 0, 0, .72), 0px 12px 32px #000000, 0px 8px 16px -8px #000000;--el-bg-color-page: #0a0a0a;--el-bg-color: #141414;--el-bg-color-overlay: #1d1e1f;--el-text-color-primary: #e5eaf3;--el-text-color-regular: #cfd3dc;--el-text-color-secondary: #a3a6ad;--el-text-color-placeholder: #8d9095;--el-text-color-disabled: #6c6e72;--el-border-color-darker: #636466;--el-border-color-dark: #58585b;--el-border-color: #4c4d4f;--el-border-color-light: #414243;--el-border-color-lighter: #363637;--el-border-color-extra-light: #2b2b2c;--el-fill-color-darker: #424243;--el-fill-color-dark: #39393a;--el-fill-color: #303030;--el-fill-color-light: #262727;--el-fill-color-lighter: #1d1d1d;--el-fill-color-extra-light: #191919;--el-fill-color-blank: transparent;--el-mask-color: rgba(0, 0, 0, .8);--el-mask-color-extra-light: rgba(0, 0, 0, .3)}html[lab-style*=dark] .el-button{--el-button-disabled-text-color: rgba(255, 255, 255, .5)}html[lab-style*=dark] .el-card{--el-card-bg-color: var(--el-bg-color-overlay)}html[lab-style*=dark] .el-empty{--el-empty-fill-color-0: var(--el-color-black);--el-empty-fill-color-1: #4b4b52;--el-empty-fill-color-2: #36383d;--el-empty-fill-color-3: #1e1e20;--el-empty-fill-color-4: #262629;--el-empty-fill-color-5: #202124;--el-empty-fill-color-6: #212224;--el-empty-fill-color-7: #1b1c1f;--el-empty-fill-color-8: #1c1d1f;--el-empty-fill-color-9: #18181a}";
+    const elementDarkCssVarsCss = "html[lab-style*=dark]{color-scheme:dark;--el-color-primary: #409eff;--el-color-primary-light-3: rgb(51 117 185);--el-color-primary-light-5: rgb(42 89 138);--el-color-primary-light-7: rgb(33 61 91);--el-color-primary-light-8: rgb(29 48 67);--el-color-primary-light-9: rgb(24 34 43);--el-color-primary-dark-2: rgb(102 177 255);--el-color-success: #67c23a;--el-color-success-light-3: rgb(78 142 47);--el-color-success-light-5: rgb(62 107 39);--el-color-success-light-7: rgb(45 72 31);--el-color-success-light-8: rgb(37 55 28);--el-color-success-light-9: rgb(28 37 24);--el-color-success-dark-2: rgb(133 206 97);--el-color-warning: #e6a23c;--el-color-warning-light-3: rgb(167 119 48);--el-color-warning-light-5: rgb(125 91 40);--el-color-warning-light-7: rgb(83 63 32);--el-color-warning-light-8: rgb(62 48 28);--el-color-warning-light-9: rgb(41 34 24);--el-color-warning-dark-2: rgb(235 181 99);--el-color-danger: #f56c6c;--el-color-danger-light-3: rgb(178 82 82);--el-color-danger-light-5: rgb(133 64 64);--el-color-danger-light-7: rgb(88 46 46);--el-color-danger-light-8: rgb(65 38 38);--el-color-danger-light-9: rgb(42 29 29);--el-color-danger-dark-2: rgb(247 137 137);--el-color-error: #f56c6c;--el-color-error-light-3: rgb(178 82 82);--el-color-error-light-5: rgb(133 64 64);--el-color-error-light-7: rgb(88 46 46);--el-color-error-light-8: rgb(65 38 38);--el-color-error-light-9: rgb(42 29 29);--el-color-error-dark-2: rgb(247 137 137);--el-color-info: #909399;--el-color-info-light-3: rgb(107 109 113);--el-color-info-light-5: rgb(82 84 87);--el-color-info-light-7: rgb(57 58 60);--el-color-info-light-8: rgb(45 45 47);--el-color-info-light-9: rgb(32 33 33);--el-color-info-dark-2: rgb(166 169 173);--el-box-shadow: 0px 12px 32px 4px rgb(0 0 0 / 36%), 0px 8px 20px rgb(0 0 0 / 72%);--el-box-shadow-light: 0px 0px 12px rgb(0 0 0 / 72%);--el-box-shadow-lighter: 0px 0px 6px rgb(0 0 0 / 72%);--el-box-shadow-dark: 0px 16px 48px 16px rgb(0 0 0 / 72%), 0px 12px 32px #000, 0px 8px 16px -8px #000;--el-bg-color-page: #0a0a0a;--el-bg-color: #141414;--el-bg-color-overlay: #1d1e1f;--el-text-color-primary: #e5eaf3;--el-text-color-regular: #cfd3dc;--el-text-color-secondary: #a3a6ad;--el-text-color-placeholder: #8d9095;--el-text-color-disabled: #6c6e72;--el-border-color-darker: #636466;--el-border-color-dark: #58585b;--el-border-color: #4c4d4f;--el-border-color-light: #414243;--el-border-color-lighter: #363637;--el-border-color-extra-light: #2b2b2c;--el-fill-color-darker: #424243;--el-fill-color-dark: #39393a;--el-fill-color: #303030;--el-fill-color-light: #262727;--el-fill-color-lighter: #1d1d1d;--el-fill-color-extra-light: #191919;--el-fill-color-blank: transparent;--el-mask-color: rgb(0 0 0 / 80%);--el-mask-color-extra-light: rgb(0 0 0 / 30%)}html[lab-style*=dark] .el-button{--el-button-disabled-text-color: rgb(255 255 255 / 50%)}html[lab-style*=dark] .el-card{--el-card-bg-color: var(--el-bg-color-overlay)}html[lab-style*=dark] .el-empty{--el-empty-fill-color-0: var(--el-color-black);--el-empty-fill-color-1: #4b4b52;--el-empty-fill-color-2: #36383d;--el-empty-fill-color-3: #1e1e20;--el-empty-fill-color-4: #262629;--el-empty-fill-color-5: #202124;--el-empty-fill-color-6: #212224;--el-empty-fill-color-7: #1b1c1f;--el-empty-fill-color-8: #1c1d1f;--el-empty-fill-color-9: #18181a}";
     importCSS(elementDarkCssVarsCss);
     const _sfc_main$2 = {};
     const _hoisted_1 = {
@@ -5595,47 +5746,65 @@
         props: {
             status: {}
         },
-        setup(__props) {
+        emits: ["click"],
+        setup(__props, { emit: __emit }) {
+            const props = __props;
+            const emit = __emit;
+            const throttleClick = _.throttle(() => emit("click"), 1e3);
+            const isHovered = vue.ref(false);
+            const isRunning = vue.computed(() => props.status === "running");
+            const isDone = vue.computed(() => props.status === "done");
+            const isError = vue.computed(() => props.status === "error");
+            const iconComponent = vue.computed(() => {
+                if (isRunning.value) return ElementPlusIconsVue.Loading;
+                if (isDone.value) return isHovered.value ? ElementPlusIconsVue.Refresh : ElementPlusIconsVue.Select;
+                if (isError.value) return ElementPlusIconsVue.CloseBold;
+                return null;
+            });
+            vue.watch(
+                () => props.status,
+                () => isHovered.value = false
+            );
             return (_ctx, _cache) => {
                 const _component_el_icon = vue.resolveComponent("el-icon");
-                return _ctx.status === "running" ? (vue.openBlock(), vue.createBlock(_component_el_icon, {
-                    key: 0,
-                    class: "status-icon is-loading"
+                return vue.withDirectives((vue.openBlock(), vue.createBlock(_component_el_icon, {
+                    class: vue.normalizeClass(["status-icon", {
+                        "is-loading": isRunning.value,
+                        done: isDone.value,
+                        error: isError.value,
+                        "is-hovered": isDone.value && isHovered.value
+                    }]),
+                    onMouseenter: _cache[0] || (_cache[0] = ($event) => isDone.value && (isHovered.value = true)),
+                    onMouseleave: _cache[1] || (_cache[1] = ($event) => isDone.value && (isHovered.value = false)),
+                    onClick: _cache[2] || (_cache[2] = ($event) => isDone.value && vue.unref(throttleClick)())
                 }, {
                     default: vue.withCtx(() => [
-                        vue.createVNode(vue.unref(ElementPlusIconsVue.Loading))
+                        isDone.value ? (vue.openBlock(), vue.createBlock(vue.Transition, {
+                            key: 0,
+                            name: "icon-fade",
+                            mode: "out-in"
+                        }, {
+                            default: vue.withCtx(() => [
+                                (vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent(iconComponent.value)))
+                            ]),
+                            _: 1
+                        })) : (vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent(iconComponent.value), { key: 1 }))
                     ]),
                     _: 1
-                })) : _ctx.status === "done" ? (vue.openBlock(), vue.createBlock(_component_el_icon, {
-                    key: 1,
-                    class: "status-icon",
-                    style: { "color": "#1ab059" }
-                }, {
-                    default: vue.withCtx(() => [
-                        vue.createVNode(vue.unref(ElementPlusIconsVue.Select))
-                    ]),
-                    _: 1
-                })) : _ctx.status === "error" ? (vue.openBlock(), vue.createBlock(_component_el_icon, {
-                    key: 2,
-                    class: "status-icon",
-                    style: { "color": "#ff6464" }
-                }, {
-                    default: vue.withCtx(() => [
-                        vue.createVNode(vue.unref(ElementPlusIconsVue.CloseBold))
-                    ]),
-                    _: 1
-                })) : vue.createCommentVNode("", true);
+                }, 8, ["class"])), [
+                    [vue.vShow, __props.status]
+                ]);
             };
         }
     });
-    const TaskStatusIcon = _export_sfc(_sfc_main, [["__scopeId", "data-v-0e4540e9"]]);
+    const TaskStatusIcon = _export_sfc(_sfc_main, [["__scopeId", "data-v-16fb8116"]]);
     const MyIconsVue = Object.freeze(Object.defineProperty({
         __proto__: null,
         Info: InfoIcon,
         TaskStatus: TaskStatusIcon,
         Tasks: TasksIcon
     }, Symbol.toStringTag, { value: "Module" }));
-    const baseCss = ".blth_btn{background-color:#23ade5;font-size:small;margin-inline-start:5px;color:#fff;border-radius:4px;border:none;padding:5px;cursor:pointer;box-shadow:0 0 2px #00000075;line-height:10px;margin-left:15px;z-index:1}.blth_btn:hover{background-color:#1097cc}.blth_btn:hover:active{background-color:#0e86b6;position:relative;top:1px}.el-message-box ul,ol{padding-left:1em!important}.el-message-box ul{list-style:initial!important}.el-message-box ol{list-style:decimal!important}@media screen and (min-width: 1930px){html[lab-style*=adaptive] .base{zoom:.9375}}@media screen and (min-width: 2058px){html[lab-style*=adaptive] .base{zoom:.75}}@media screen and (min-width: 2570px){html[lab-style*=adaptive] .base{zoom:calc(2 / 3)}}@media screen and (min-width: 3210px){html[lab-style*=adaptive] .base{zoom:.5}}@media screen and (min-width: 3850px){html[lab-style*=adaptive] .base{zoom:.46875}}";
+    const baseCss = ".blth-btn{padding:5px;margin-left:15px;font-size:small;line-height:10px;color:#fff;cursor:pointer;background-color:#23ade5;border:none;border-radius:4px;box-shadow:0 0 2px #00000075}.blth-btn:hover{background-color:#1097cc}.blth-btn:hover:active{position:relative;top:1px;background-color:#0e86b6}.el-message-box ul,ol{padding-left:1em!important}.el-message-box ul{list-style:initial!important}.el-message-box ol{list-style:decimal!important}@media screen and (min-width:1930px){html[lab-style*=adaptive] .base{zoom:.9375}}@media screen and (min-width:2058px){html[lab-style*=adaptive] .base{zoom:.75}}@media screen and (min-width:2570px){html[lab-style*=adaptive] .base{zoom:calc(2 / 3)}}@media screen and (min-width:3210px){html[lab-style*=adaptive] .base{zoom:.5}}@media screen and (min-width:3850px){html[lab-style*=adaptive] .base{zoom:.46875}}";
     importCSS(baseCss);
     const logger = new Logger("Main");
     logger.log("document.readyState", document.readyState);
@@ -5667,4 +5836,4 @@
         app.mount(div);
     }
 
-})(Vue, Pinia, _, ElementPlusIconsVue, CryptoJS, luxon, ElementPlus, VueDraggablePlus, hotkeys);
+})(Vue, hotkeys, _, Pinia, CryptoJS, luxon, ElementPlusIconsVue, ElementPlus, VueDraggablePlus);
