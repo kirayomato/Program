@@ -269,7 +269,7 @@
         const dynamicVideos = vue.ref();
         const fansMedals = vue.ref();
         const filteredFansMedals = vue.computed(
-            () => fansMedals.value?.filter((m) => m.room_info.room_id !== 0) ?? []
+            () => fansMedals.value?.filter((m) => m.room_info.room_id !== 0 && m.anchor_info.nick_name != "账号已注销") ?? []
         );
         const fansMedalsStatus = vue.ref();
         const wbiSalt = vue.computed(() => {
