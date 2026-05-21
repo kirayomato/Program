@@ -261,6 +261,63 @@
     function arrayToMap(arr) {
         return new Map(arr.map((value, index) => [value, index]));
     }
+    async function getTaskInfo(targetId) {
+        try {
+            const biliStore = useBiliStore();
+            const bili_jct = biliStore.cookies.bili_jct;
+            const baseUrl = "https://api.live.bilibili.com/xlive/app-ucenter/v1/fansMedal/GetActivatedMedalInfo";
+            const params = new URLSearchParams({
+                csrf: bili_jct,
+                target_id: targetId,
+                web_location: "0.0"
+            });
+            const requestUrl = `${baseUrl}?${params.toString()} `;
+
+            // 发起请求
+            const response = await fetch(requestUrl, {
+                headers: {
+                    "accept": "*/*",
+                    "accept-language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+                    "cache-control": "no-cache",
+                    "pragma": "no-cache",
+                    "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"Google Chrome\";v=\"140\"",
+                    "sec-ch-ua-mobile": "?0",
+                    "sec-ch-ua-platform": "\"Windows\"",
+                    "sec-fetch-dest": "empty",
+                    "sec-fetch-mode": "cors",
+                    "sec-fetch-site": "same-site"
+                },
+                referrer: "https://live.bilibili.com/",
+                method: "GET",
+                mode: "cors",
+                credentials: "include"
+            });
+
+            // 检查HTTP响应状态
+            if (!response.ok) {
+                throw new Error(`请求失败，状态码: ${response.status} `);
+            }
+
+            // 解析响应数据
+            const data = await response.json();
+
+            // 验证数据结构
+            if (!data?.data?.task_info || !Array.isArray(data.data.task_info)) {
+                console.log(data);
+                throw new Error("响应数据格式异常，缺少task_info数组");
+            }
+
+            return data.data.task_info
+        }
+        catch (error) {
+            console.error("处理出错:", error.message);
+            if (typeof data !== 'undefined') {
+                console.error("data:", data);
+            }
+            return null;
+        }
+
+    }
     const useBiliStore = pinia$1.defineStore("bili", () => {
         const BilibiliLive2 = vue.ref();
         const cookies = vue.ref();
@@ -407,6 +464,46 @@
                                 "⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄",
                                 "←◡←",
                                 `(●'◡'●)ﾉ♥`
+                            ],
+                            emojiList: [
+                                "official_331",
+                                "official_332",
+                                "official_348",
+                                "official_343",
+                                "official_335",
+                                "official_345",
+                                "official_339",
+                                "official_337",
+                                "official_342",
+                                "official_346",
+                                "official_147",
+                                "official_109",
+                                "official_113",
+                                "official_150",
+                                "official_103",
+                                "official_128",
+                                "official_133",
+                                "official_149",
+                                "official_124",
+                                "official_146",
+                                "official_148",
+                                "official_102",
+                                "official_137",
+                                "official_118",
+                                "official_108",
+                                "official_104",
+                                "official_105",
+                                "official_106",
+                                "official_110",
+                                "official_111",
+                                "official_115",
+                                "official_116",
+                                "official_117",
+                                "official_119",
+                                "official_122",
+                                "official_125",
+                                "official_126",
+                                "official_134"
                             ],
                             _lastCompleteTime: 0
                         },
@@ -662,6 +759,30 @@
                         reply_type,
                         reply_uname,
                         data_extend,
+                        fontsize,
+                        rnd: ts(),
+                        roomid,
+                        csrf: bili_jct,
+                        csrf_token: bili_jct
+                    }),
+                    {
+                        params: wbiSign({ web_location })
+                    }
+                );
+            },
+            sendEmoji: (msg, roomid, mode = 1, fontsize = 25, color = 16777215, bubble = 0, dm_type = 1, statistics = '{"appId":100,"platform":5}', web_location = "444.8") => {
+                const biliStore = useBiliStore();
+                const bili_jct = biliStore.cookies.bili_jct;
+                return request.live.post(
+                    "/msg/send",
+                    packFormData({
+                        bubble,
+                        msg,
+                        color,
+                        mode,
+                        dm_type,
+                        // emoticonOptions,
+                        statistics,
                         fontsize,
                         rnd: ts(),
                         roomid,
@@ -1580,9 +1701,9 @@
             };
             const idlist = fansMedals.filter(
                 (medal) =>
-                    (!medal.medal.is_lighted
-                        && !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id))
-                    || this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id)
+                    !medal.medal.is_lighted
+                    && (!this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)
+                        || this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id))
 
             );
             idlist.forEach((medal) => {
@@ -1620,6 +1741,7 @@
             const target_id = medal.medal.target_id;
             const nick_name = medal.anchor_info.nick_name;
             const medal_name = medal.medal.medal_name;
+            console.log(await getTaskInfo(target_id))
             const logMessage = `粉丝勋章【${medal_name}】 在主播【${nick_name}】（UID：${target_id}）的直播间（${room_id}）发送弹幕 ${danmu}`;
             try {
                 const response = await BAPI.live.sendMsg(danmu, room_id);
@@ -1749,6 +1871,7 @@
         secretKey;
         secretRule;
         timestamp;
+        progress = -1;
         start() {
             if (!this.buvid) {
                 this.logger.error(`缺少buvid，无法为直播间 ${this.roomID} 执行观看直播任务，请尝试刷新页面`);
@@ -1785,75 +1908,32 @@
         }
         async getWatchLiveSubTitle(targetId) {
             try {
-                const biliStore = useBiliStore();
-                const bili_jct = biliStore.cookies.bili_jct;
-                const baseUrl = "https://api.live.bilibili.com/xlive/app-ucenter/v1/fansMedal/GetActivatedMedalInfo";
-                const params = new URLSearchParams({
-                    csrf: bili_jct,
-                    target_id: targetId,
-                    web_location: "0.0"
-                });
-                const requestUrl = `${baseUrl}?${params.toString()} `;
-
-                // 发起请求
-                const response = await fetch(requestUrl, {
-                    headers: {
-                        "accept": "*/*",
-                        "accept-language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
-                        "cache-control": "no-cache",
-                        "pragma": "no-cache",
-                        "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"Google Chrome\";v=\"140\"",
-                        "sec-ch-ua-mobile": "?0",
-                        "sec-ch-ua-platform": "\"Windows\"",
-                        "sec-fetch-dest": "empty",
-                        "sec-fetch-mode": "cors",
-                        "sec-fetch-site": "same-site"
-                    },
-                    referrer: "https://live.bilibili.com/",
-                    method: "GET",
-                    mode: "cors",
-                    credentials: "include"
-                });
-
-                // 检查HTTP响应状态
-                if (!response.ok) {
-                    throw new Error(`请求失败，状态码: ${response.status} `);
-                }
-
-                // 解析响应数据
-                const data = await response.json();
-
-                // 验证数据结构
-                if (!data?.data?.task_info || !Array.isArray(data.data.task_info)) {
-                    console.log(data);
-                    throw new Error("响应数据格式异常，缺少task_info数组");
-                }
-
-                const targetTask = data.data.task_info.find(task => task.title === "观看直播满15分钟");
+                const targetTask = await getTaskInfo(targetId)
                 if (!targetTask) {
-                    console.log("未找到观看任务", data.data.task_info);
+                    console.log("未找到观看任务");
                     return [0, 0];
                 }
+                for (task in targetTask) {
+                    if (task.title == "观看直播满15分钟") {
+                        // 解析sub_title中的x值（匹配类似"每日上限 5/5"格式）
+                        const subTitle = task.sub_title;
+                        const regex = /每日上限\s*(\d+)\/(\d+)/;
 
-                // 解析sub_title中的x值（匹配类似"每日上限 5/5"格式）
-                const subTitle = targetTask.sub_title;
-                const regex = /每日上限\s*(\d+)\/(\d+)/;
-                const match = subTitle.match(regex);
+                        const match = subTitle?.match(regex);
 
-                if (match) {
-                    const firstNumber = parseInt(match[1], 10);
-                    const secondNumber = parseInt(match[2], 10);
-                    return [firstNumber, secondNumber];
-                } else {
-                    console.log("sub_title格式不符合预期，无法解析x值");
-                    return [0, 0];
+                        if (match) {
+                            const firstNumber = parseInt(match[1], 10);
+                            const secondNumber = parseInt(match[2], 10);
+                            return [firstNumber, secondNumber];
+                        } else {
+                            console.log("sub_title格式不符合预期，无法解析x值", targetTask);
+                            return [0, 0];
+                        }
+                    }
                 }
 
             } catch (error) {
                 console.error("处理出错:", error.message);
-                if (typeof data !== 'undefined') {
-                    console.error("data:", data);
-                }
                 return [0, 0];
             }
         }
@@ -1978,11 +2058,23 @@
             useModuleStore().moduleStatus.DailyTasks.LiveTasks.medalTasks.watch = s;
         }
         playerStore = usePlayerStore();
+        sort_live_medals = (a, b) => {
+            let roomid = this.medalTasksConfig.roomidList2
+            if (roomid.includes(a.room_info.room_id) && roomid.includes(b.room_info.room_id))
+                return roomid.indexOf(a.room_info.room_id) - roomid.indexOf(b.room_info.room_id);
+            else if (roomid.includes(a.room_info.room_id))
+                return -1;
+            else if (roomid.includes(b.room_info.room_id))
+                return 1;
+            if (a.medal.level === b.medal.level)
+                return b.medal.intimacy - a.medal.intimacy;
+            return b.medal.level - a.medal.level;
+        };
         getMedals() {
             const fansMedals = useBiliStore().filteredFansMedals;
             const result = fansMedals.filter(
                 (medal) =>
-                    medal.medal.today_feed < 30
+                    medal.medal.today_feed < 30 && medal.medal.is_lighted
                     && !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)
                     && (this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id)
                         || medal.medal.level < 20
