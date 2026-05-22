@@ -318,6 +318,38 @@
         }
 
     }
+    async function getMissionProgress(targetId, title) {
+        try {
+            const targetTask = await getTaskInfo(targetId)
+            if (!targetTask) {
+                console.log("未找到观看任务");
+                return [0, 0];
+            }
+            for (const task of targetTask) {
+                if (task.title == title) {
+                    // 解析sub_title中的x值（匹配类似"每日上限 5/5"格式）
+                    const subTitle = task.sub_title;
+                    const regex = /每日上限\s*(\d+)\/(\d+)/;
+                    const match = subTitle?.match(regex);
+
+                    if (match) {
+                        const firstNumber = parseInt(match[1], 10);
+                        const secondNumber = parseInt(match[2], 10);
+                        return [firstNumber, secondNumber];
+                    } else {
+                        console.log("sub_title格式不符合预期，无法解析x值", targetTask);
+                        return [0, 0];
+                    }
+                }
+            }
+            console.warn(`未找到任务 ${title}`, targetTask)
+            return [0, 0];
+
+        } catch (error) {
+            console.error("处理出错:", error.message);
+            return [0, 0];
+        }
+    }
     const useBiliStore = pinia$1.defineStore("bili", () => {
         const BilibiliLive2 = vue.ref();
         const cookies = vue.ref();
@@ -1812,6 +1844,11 @@
                 for (let j = 0; j < 12; j++) {
                     for (let i = 0; i < batch.length; i++) {
                         const medal = batch[i];
+                        if (medal.medal.is_lighted) {
+                            let [prog, total] = await getMissionProgress(this.ruid, "发弹幕")
+                            if (total > 0 && prog == total)
+                                continue
+                        }
                         if (!await this.sendDanmu(
                             medal,
                             this.config.danmuList[danmuIndex++ % this.config.danmuList.length]
@@ -1917,37 +1954,6 @@
                 this.logger.error(`BAPI.liveTrace.E(${this.id}, ${this.device}, ${this.ruid}) 出错`, error);
             }
         }
-        async getWatchLiveSubTitle(targetId) {
-            try {
-                const targetTask = await getTaskInfo(targetId)
-                if (!targetTask) {
-                    console.log("未找到观看任务");
-                    return [0, 0];
-                }
-                for (task in targetTask) {
-                    if (task.title == "观看直播满15分钟") {
-                        // 解析sub_title中的x值（匹配类似"每日上限 5/5"格式）
-                        const subTitle = task.sub_title;
-                        const regex = /每日上限\s*(\d+)\/(\d+)/;
-
-                        const match = subTitle?.match(regex);
-
-                        if (match) {
-                            const firstNumber = parseInt(match[1], 10);
-                            const secondNumber = parseInt(match[2], 10);
-                            return [firstNumber, secondNumber];
-                        } else {
-                            console.log("sub_title格式不符合预期，无法解析x值", targetTask);
-                            return [0, 0];
-                        }
-                    }
-                }
-
-            } catch (error) {
-                console.error("处理出错:", error.message);
-                return [0, 0];
-            }
-        }
         async X() {
             if (isNowIn(23, 59, 0, 5)) {
                 this.logger.log(`即将或刚刚发生跨天，停止直播间 ${this.roomID} 的X心跳`);
@@ -1981,7 +1987,7 @@
                 if (response.code === 0) {
                     this.seq += 1;
                     this.updateProgress();
-                    let [prog, total] = await this.getWatchLiveSubTitle(this.ruid)
+                    let [prog, total] = await getMissionProgress(this.ruid, "观看直播满15分钟")
                     if (total != 0) {
                         if (prog != this.progress || this.progress == -1) {
                             this.progress = prog;
