@@ -1798,21 +1798,32 @@
             }
         }
         async sendDanmuTask(medals) {
+            const BATCH_SIZE = 40;      // 每一批处理多少个
+
             let danmuIndex = 0;
-            for (let j = 0; j < 12; j++) {
-                for (let i = 0; i < medals.length; i++) {
-                    const medal = medals[i];
-                    if (!await this.sendDanmu(
-                        medal,
-                        this.config.danmuList[danmuIndex++ % this.config.danmuList.length]
-                    )) {
-                        await sleep(Math.max(150 * 1e3 / medals.length, _.random(7e3, 10e3)));
-                        await this.sendEmoji(
+            let batchList = [];
+            for (let i = 0; i < medals.length; i += BATCH_SIZE) {
+                batchList.push(medals.slice(i, i + BATCH_SIZE));
+            }
+
+            // 2. 按顺序：一批执行完12轮 → 再执行下一批
+            for (const batch of batchList) {
+                // 对当前这一批，执行完整 12 轮！
+                for (let j = 0; j < 12; j++) {
+                    for (let i = 0; i < batch.length; i++) {
+                        const medal = batch[i];
+                        if (!await this.sendDanmu(
                             medal,
-                            this.config.emojiList[danmuIndex++ % this.config.emojiList.length]
-                        )
+                            this.config.danmuList[danmuIndex++ % this.config.danmuList.length]
+                        )) {
+                            await sleep(Math.max(150 * 1e3 / medals.length, _.random(7e3, 10e3)));
+                            await this.sendEmoji(
+                                medal,
+                                this.config.emojiList[danmuIndex++ % this.config.emojiList.length]
+                            );
+                        }
+                        await sleep(Math.max(150 * 1e3 / medals.length, _.random(7e3, 10e3)));
                     }
-                    await sleep(Math.max(150 * 1e3 / medals.length, _.random(7e3, 10e3)));
                 }
             }
         }
