@@ -1779,16 +1779,16 @@
                 this.logger.log(`BAPI.live.sendMsg(${danmu}, ${room_id})`, response);
                 if (response.code === 0) {
                     if (response.msg === "k") {
-                        this.logger.warn(`点亮熄灭勋章-发送弹幕 ${logMessage} 异常，弹幕可能包含屏蔽词`);
+                        this.logger.warn(`点亮熄灭勋章 - 发送弹幕 ${logMessage} 异常，弹幕可能包含屏蔽词`);
                     } else {
-                        this.logger.log(`点亮熄灭勋章-发送弹幕 ${logMessage} 成功`);
+                        this.logger.log(`点亮熄灭勋章 - 发送弹幕 ${logMessage} 成功`);
                         return true;
                     }
                 } else {
-                    this.logger.error(`点亮熄灭勋章-发送弹幕 ${logMessage} 失败`, response.message);
+                    this.logger.error(`点亮熄灭勋章 - 发送弹幕 ${logMessage} 失败`, response.message);
                 }
             } catch (error) {
-                this.logger.error(`点亮熄灭勋章-发送弹幕 ${logMessage} 出错`, error);
+                this.logger.error(`点亮熄灭勋章 - 发送弹幕 ${logMessage} 出错`, error);
             }
             return false;
         }
@@ -1803,16 +1803,16 @@
                 this.logger.log(`BAPI.live.sendMsg(${emoji}, ${room_id})`, response);
                 if (response.code === 0) {
                     if (response.msg === "k") {
-                        this.logger.warn(`点亮熄灭勋章-发送表情 ${logMessage} 异常，表情可能包含屏蔽词`);
+                        this.logger.warn(`点亮熄灭勋章 - 发送表情 ${logMessage} 异常，表情可能包含屏蔽词`);
                     } else {
-                        this.logger.log(`点亮熄灭勋章-发送表情 ${logMessage} 成功`);
+                        this.logger.log(`点亮熄灭勋章 - 发送表情 ${logMessage} 成功`);
                         return true;
                     }
                 } else {
-                    this.logger.error(`点亮熄灭勋章-发送表情 ${logMessage} 失败`, response.message);
+                    this.logger.error(`点亮熄灭勋章 - 发送表情 ${logMessage} 失败`, response.message);
                 }
             } catch (error) {
-                this.logger.error(`点亮熄灭勋章-发送表情 ${logMessage} 出错`, error);
+                this.logger.error(`点亮熄灭勋章 - 发送表情 ${logMessage} 出错`, error);
             }
             return false;
         }
@@ -1990,7 +1990,7 @@
                     if (total != 0) {
                         if (prog != this.progress || this.progress == -1) {
                             this.progress = prog;
-                            this.logger.log(`${this.roomID} 观看直播进度: ${prog}/${total}`)
+                            this.logger.log(`${this.roomID} 观看直播进度: ${prog} / ${total}`)
                         }
                         if (prog == total) {
                             this.logger.log(`${this.roomID} 观看直播进度已满，观看结束`)
@@ -2199,7 +2199,7 @@
                 const response = await BAPI.live.silver2coin();
                 this.logger.log(`BAPI.live.silver2coin response`, response);
                 if (response.code === 0) {
-                    this.logger.log(`银瓜子换硬币已完成，获得硬币:`, response.data.coin);
+                    this.logger.log(`银瓜子换硬币已完成，获得硬币: `, response.data.coin);
                     this.config._lastCompleteTime = tsm();
                     this.status = "done";
                 } else if (response.code === 403) {
@@ -2241,7 +2241,7 @@
         async exchange() {
             try {
                 const response = await BAPI.live.coin2silver(this.config.num);
-                this.logger.log(`BAPI.live.coin2silver{${this.config.num}} response`, response);
+                this.logger.log(`BAPI.live.coin2silver{ ${this.config.num}} response`, response);
                 if (response.code === 0) {
                     this.logger.log("硬币换银瓜子已完成，获得银瓜子:", response.data.silver);
                     this.config._lastCompleteTime = tsm();
