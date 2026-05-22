@@ -1733,21 +1733,21 @@
             };
             const idlist = fansMedals.filter(
                 (medal) =>
-                    !medal.medal.is_lighted
-                    && (!this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)
-                        || this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id))
+                    (!medal.medal.is_lighted
+                        && !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)
+                    ) || this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id)
 
             );
             idlist.forEach((medal) => {
                 const livingStatus = this.MEDAL_FILTERS.livingStatus(medal);
-                result[livingStatus].push(medal);
+                if (!medal.medal.is_lighted || livingStatus == "on")
+                    result[livingStatus].push(medal);
             });
 
             if (this.medalTasksConfig.isWhiteList) {
                 this.sortMedals(result.on);
                 this.sortMedals(result.off);
             }
-            this.logger.log(`点亮勋章列表(${idlist.length}): ${idlist.map(medal => medal.anchor_info.nick_name)}`)
             return result;
         }
         async like(medal, click_time) {
@@ -1773,7 +1773,6 @@
             const target_id = medal.medal.target_id;
             const nick_name = medal.anchor_info.nick_name;
             const medal_name = medal.medal.medal_name;
-            console.log(await getTaskInfo(target_id))
             const logMessage = `粉丝勋章【${medal_name}】 在主播【${nick_name}】（UID：${target_id}）的直播间（${room_id}）发送弹幕 ${danmu}`;
             try {
                 const response = await BAPI.live.sendMsg(danmu, room_id);
@@ -1818,18 +1817,18 @@
             return false;
         }
         async likeTask(medals) {
-            for (let j = 0; j < 10; j++) {
-                for (let i = 0; i < medals.length; i++) {
-                    const medal = medals[i];
+            this.logger.log(`点赞列表(${medals.length}): ${medals.map(medal => medal.anchor_info.nick_name)}`)
+            for (let i = 0; i < medals.length; i++) {
+                const medal = medals[i];
+                for (let j = 0; j < 10; j++) {
                     await this.like(medal, _.random(30, 35));
-                    if (i < medals.length - 1) {
-                        await sleep(_.random(3e4, 35e3));
-                    }
+                    await sleep(_.random(3e4, 35e3))
                 }
                 await sleep(_.random(5e4, 10e4));
             }
         }
         async sendDanmuTask(medals) {
+            this.logger.log(`发弹幕列表(${medals.length}): ${medals.map(medal => medal.anchor_info.nick_name)}`)
             const BATCH_SIZE = 40;      // 每一批处理多少个
 
             let danmuIndex = 0;
