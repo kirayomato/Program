@@ -15,9 +15,8 @@
 // @supportURL      https://github.com/andywang425/BLTH/issues
 // @downloadURL     https://github.com/andywang425/BLTH/releases/latest/download/bilibili-live-tasks-helper.min.user.js
 // @updateURL       https://github.com/andywang425/BLTH/releases/latest/download/bilibili-live-tasks-helper.meta.js
-// @match          *://live.bilibili.com/22474988
-// @match          *://live.bilibili.com/blanc/22474988
-// @exclude        *://live.bilibili.com/?*
+// @match           *://live.bilibili.com/22474988
+// @match           *://live.bilibili.com/blanc/22474988
 // @require         https://unpkg.com/vue@3.5.32/dist/vue.global.prod.js
 // @require         data:application/javascript,%3Bwindow.Vue%3DVue%3Bwindow.VueDemi%3DVue%3B
 // @require         https://unpkg.com/element-plus@2.13.7/dist/index.full.min.js
@@ -260,95 +259,6 @@
     }
     function arrayToMap(arr) {
         return new Map(arr.map((value, index) => [value, index]));
-    }
-    async function getTaskInfo(targetId) {
-        try {
-            const biliStore = useBiliStore();
-            const bili_jct = biliStore.cookies.bili_jct;
-            const baseUrl = "https://api.live.bilibili.com/xlive/app-ucenter/v1/fansMedal/GetActivatedMedalInfo";
-            const params = new URLSearchParams({
-                csrf: bili_jct,
-                target_id: targetId,
-                web_location: "0.0"
-            });
-            const requestUrl = `${baseUrl}?${params.toString()} `;
-
-            // 发起请求
-            const response = await fetch(requestUrl, {
-                headers: {
-                    "accept": "*/*",
-                    "accept-language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
-                    "cache-control": "no-cache",
-                    "pragma": "no-cache",
-                    "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"Google Chrome\";v=\"140\"",
-                    "sec-ch-ua-mobile": "?0",
-                    "sec-ch-ua-platform": "\"Windows\"",
-                    "sec-fetch-dest": "empty",
-                    "sec-fetch-mode": "cors",
-                    "sec-fetch-site": "same-site"
-                },
-                referrer: "https://live.bilibili.com/",
-                method: "GET",
-                mode: "cors",
-                credentials: "include"
-            });
-
-            // 检查HTTP响应状态
-            if (!response.ok) {
-                throw new Error(`请求失败，状态码: ${response.status} `);
-            }
-
-            // 解析响应数据
-            const data = await response.json();
-
-            // 验证数据结构
-            if (!data?.data?.task_info || !Array.isArray(data.data.task_info)) {
-                console.log(data);
-                throw new Error("响应数据格式异常，缺少task_info数组");
-            }
-
-            return data.data.task_info
-        }
-        catch (error) {
-            console.error("处理出错:", error.message);
-            if (typeof data !== 'undefined') {
-                console.error("data:", data);
-            }
-            return null;
-        }
-
-    }
-    async function getMissionProgress(targetId, title) {
-        try {
-            const targetTask = await getTaskInfo(targetId)
-            if (!targetTask) {
-                console.log("未找到观看任务");
-                return [0, 0];
-            }
-            for (const task of targetTask) {
-                if (task.title == title) {
-                    // 解析sub_title中的x值（匹配类似"每日上限 5/5"格式）
-                    const subTitle = task.sub_title;
-                    const regex = /每日上限\s*(\d+)\/(\d+)/;
-                    const match = subTitle?.match(regex);
-
-                    if (match) {
-                        const firstNumber = parseInt(match[1], 10);
-                        const secondNumber = parseInt(match[2], 10);
-                        return [firstNumber, secondNumber];
-                    } else {
-                        console.log("sub_title格式不符合预期，无法解析x值", targetTask);
-                        return [0, 0];
-                    }
-                }
-            }
-            console.warn(`未找到任务 ${title}`, targetTask)
-            return [0, 0];
-
-        } catch (error) {
-            console.error("处理出错:", error.message);
-            return [0, 0];
-        }
     }
     const useBiliStore = pinia$1.defineStore("bili", () => {
         const BilibiliLive2 = vue.ref();
@@ -802,7 +712,7 @@
                     }
                 );
             },
-            sendEmoji: (msg, roomid, mode = 1, fontsize = 25, color = 16777215, bubble = 0, dm_type = 1, statistics = '{"appId":100,"platform":5}', web_location = "444.8") => {
+            sendEmoji: (msg, roomid, mode = 1, fontsize = 25, color = 16777215, bubble = 0, dm_type = 1, statistics = '{"appId":100,"platform":5}', web_location = "444.8", data_extend = '{"trackid":"-99998"}') => {
                 const biliStore = useBiliStore();
                 const bili_jct = biliStore.cookies.bili_jct;
                 return request.live.post(
@@ -813,7 +723,7 @@
                         color,
                         mode,
                         dm_type,
-                        // emoticonOptions,
+                        data_extend,
                         statistics,
                         fontsize,
                         rnd: ts(),
@@ -1715,6 +1625,76 @@
                 }
             });
         }
+        static async getTaskInfo(targetId) {
+            try {
+                const biliStore = useBiliStore();
+                const bili_jct = biliStore.cookies.bili_jct;
+                const baseUrl = "https://api.live.bilibili.com/xlive/app-ucenter/v1/fansMedal/GetActivatedMedalInfo";
+                const params = new URLSearchParams({
+                    csrf: bili_jct,
+                    target_id: targetId.toString(),
+                    web_location: "0.0"
+                });
+                const requestUrl = `${baseUrl}?${params.toString()} `;
+                const response = await fetch(requestUrl, {
+                    headers: {
+                        "accept": "*/*",
+                        "accept-language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+                        "cache-control": "no-cache",
+                        "pragma": "no-cache",
+                        "sec-ch-ua": '"Chromium";v="140", "Not=A?Brand";v="24", "Google Chrome";v="140"',
+                        "sec-ch-ua-mobile": "?0",
+                        "sec-ch-ua-platform": '"Windows"',
+                        "sec-fetch-dest": "empty",
+                        "sec-fetch-mode": "cors",
+                        "sec-fetch-site": "same-site"
+                    },
+                    referrer: "https://live.bilibili.com/",
+                    method: "GET",
+                    mode: "cors",
+                    credentials: "include"
+                });
+                if (!response.ok) {
+                    throw new Error(`请求失败，状态码: ${response.status} `);
+                }
+                const data = await response.json();
+                if (!data?.data?.task_info || !Array.isArray(data.data.task_info)) {
+                    console.log(data);
+                    throw new Error("响应数据格式异常，缺少task_info数组");
+                }
+                return data.data.task_info;
+            } catch (error) {
+                console.error("处理出错:", error);
+                return null;
+            }
+        }
+        static async getMissionProgress(targetId, title) {
+            try {
+                const targetTask = await MedalModule.getTaskInfo(targetId);
+                if (!targetTask) {
+                    console.log("未找到观看任务");
+                    return [0, 0];
+                }
+                for (const task of targetTask) {
+                    if (task.title == title) {
+                        const subTitle = task.sub_title;
+                        const regex = /每日上限\s*(\d+)\/(\d+)/;
+                        const match = subTitle?.match(regex);
+                        if (match) {
+                            const firstNumber = parseInt(match[1], 10);
+                            const secondNumber = parseInt(match[2], 10);
+                            return [firstNumber, secondNumber];
+                        } else {
+                            console.log("sub_title格式不符合预期，无法解析x值", targetTask);
+                            return [0, 0];
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error("处理出错:", error);
+            }
+            return [0, 0];
+        }
     }
     class LightTask extends MedalModule {
         config = this.medalTasksConfig.light;
@@ -1732,22 +1712,14 @@
                 off: []
             };
             const idlist = fansMedals.filter(
-                (medal) =>
-                    (!medal.medal.is_lighted
-                        && !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)
-                    ) || this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id)
-
+                (medal) => this.PUBLIC_MEDAL_FILTERS.whiteBlackList(medal)
             );
             idlist.forEach((medal) => {
                 const livingStatus = this.MEDAL_FILTERS.livingStatus(medal);
-                if (!medal.medal.is_lighted || livingStatus == "on")
-                    result[livingStatus].push(medal);
+                result[livingStatus].push(medal);
             });
-
-            if (this.medalTasksConfig.isWhiteList) {
-                this.sortMedals(result.on);
-                this.sortMedals(result.off);
-            }
+            this.sortMedals(result.on);
+            this.sortMedals(result.off);
             return result;
         }
         async like(medal, click_time) {
@@ -1779,16 +1751,16 @@
                 this.logger.log(`BAPI.live.sendMsg(${danmu}, ${room_id})`, response);
                 if (response.code === 0) {
                     if (response.msg === "k") {
-                        this.logger.warn(`点亮熄灭勋章 - 发送弹幕 ${logMessage} 异常，弹幕可能包含屏蔽词`);
+                        this.logger.warn(`点亮熄灭勋章-发送弹幕 ${logMessage} 异常，弹幕可能包含屏蔽词`);
                     } else {
-                        this.logger.log(`点亮熄灭勋章 - 发送弹幕 ${logMessage} 成功`);
+                        this.logger.log(`点亮熄灭勋章-发送弹幕 ${logMessage} 成功`);
                         return true;
                     }
                 } else {
-                    this.logger.error(`点亮熄灭勋章 - 发送弹幕 ${logMessage} 失败`, response.message);
+                    this.logger.error(`点亮熄灭勋章-发送弹幕 ${logMessage} 失败`, response.message);
                 }
             } catch (error) {
-                this.logger.error(`点亮熄灭勋章 - 发送弹幕 ${logMessage} 出错`, error);
+                this.logger.error(`点亮熄灭勋章-发送弹幕 ${logMessage} 出错`, error);
             }
             return false;
         }
@@ -1803,69 +1775,83 @@
                 this.logger.log(`BAPI.live.sendMsg(${emoji}, ${room_id})`, response);
                 if (response.code === 0) {
                     if (response.msg === "k") {
-                        this.logger.warn(`点亮熄灭勋章 - 发送表情 ${logMessage} 异常，表情可能包含屏蔽词`);
+                        this.logger.warn(`点亮熄灭勋章-发送表情 ${logMessage} 异常，表情可能包含屏蔽词`);
                     } else {
-                        this.logger.log(`点亮熄灭勋章 - 发送表情 ${logMessage} 成功`);
+                        this.logger.log(`点亮熄灭勋章-发送表情 ${logMessage} 成功`);
                         return true;
                     }
                 } else {
-                    this.logger.error(`点亮熄灭勋章 - 发送表情 ${logMessage} 失败`, response.message);
+                    this.logger.error(`点亮熄灭勋章-发送表情 ${logMessage} 失败`, response.message);
                 }
             } catch (error) {
-                this.logger.error(`点亮熄灭勋章 - 发送表情 ${logMessage} 出错`, error);
+                this.logger.error(`点亮熄灭勋章-发送表情 ${logMessage} 出错`, error);
             }
             return false;
         }
         async likeTask(medals) {
-            this.logger.log(`点赞列表(${medals.length}): ${medals.map(medal => medal.anchor_info.nick_name)}`)
-            for (let i = 0; i < medals.length; i++) {
-                const medal = medals[i];
-                for (let j = 0; j < 10; j++) {
+            let n = medals.length;
+            const batch = medals;
+            this.logger.log(`点赞勋章列表(${n}): ${medals.map((medal) => medal.anchor_info.nick_name)}`);
+            for (let j = 0; j < 12; j++) {
+                for (let i = n - 1; i >= 0; i--) {
+                    const medal = medals[i];
+                    if (medal.medal.is_lighted) {
+                        const [prog, total] = await LightTask.getMissionProgress(medal.medal.target_id, "点赞30次");
+                        this.logger.log(`${medal.anchor_info.nick_name} 点赞进度: ${prog} / ${total}`);
+                        if (total > 0 && prog == total) {
+                            [batch[i], batch[n - 1]] = [batch[n - 1], batch[i]];
+                            n--;
+                            continue;
+                        }
+                    }
                     await this.like(medal, _.random(30, 35));
-                    await sleep(_.random(3e4, 35e3))
+                    if (i < medals.length - 1) {
+                        await sleep(_.random(3e4, 35e3));
+                    }
                 }
-                await sleep(_.random(5e4, 10e4));
+                await sleep(_.random(5e4, 1e5));
             }
         }
         async sendDanmuTask(medals) {
-            this.logger.log(`发弹幕列表(${medals.length}): ${medals.map(medal => medal.anchor_info.nick_name)}`)
-            const BATCH_SIZE = 40;      // 每一批处理多少个
-
+            this.logger.log(`发送弹幕列表(${medals.length}): ${medals.map((medal) => medal.anchor_info.nick_name)}`);
+            const BATCH_SIZE = 30;
             let danmuIndex = 0;
-            let batchList = [];
+            const batchList = [];
             for (let i = 0; i < medals.length; i += BATCH_SIZE) {
                 batchList.push(medals.slice(i, i + BATCH_SIZE));
             }
-
-            // 2. 按顺序：一批执行完12轮 → 再执行下一批
             for (const batch of batchList) {
-                // 对当前这一批，执行完整 12 轮！
+                let n = batch.length;
                 for (let j = 0; j < 12; j++) {
-                    for (let i = 0; i < batch.length; i++) {
+                    for (let i = n - 1; i >= 0; i--) {
                         const medal = batch[i];
                         if (medal.medal.is_lighted) {
-                            let [prog, total] = await getMissionProgress(this.ruid, "发弹幕")
-                            if (total > 0 && prog == total)
-                                continue
+                            const [prog, total] = await LightTask.getMissionProgress(medal.medal.target_id, "发弹幕");
+                            this.logger.log(`${medal.anchor_info.nick_name} 发弹幕进度: ${prog} / ${total}`);
+                            if (total > 0 && prog == total) {
+                                [batch[i], batch[n - 1]] = [batch[n - 1], batch[i]];
+                                n--;
+                                continue;
+                            }
                         }
-                        if (!await this.sendDanmu(
+                        const success = await this.sendDanmu(
                             medal,
                             this.config.danmuList[danmuIndex++ % this.config.danmuList.length]
-                        )) {
-                            await sleep(Math.max(150 * 1e3 / medals.length, _.random(7e3, 10e3)));
+                        );
+                        if (!success) {
+                            await sleep(Math.max(150 * 1e3 / batch.length, _.random(1e4, 15e3)));
                             await this.sendEmoji(
                                 medal,
                                 this.config.emojiList[danmuIndex++ % this.config.emojiList.length]
                             );
                         }
-                        await sleep(Math.max(150 * 1e3 / medals.length, _.random(7e3, 10e3)));
+                        await sleep(Math.max(150 * 1e3 / batch.length, _.random(1e4, 15e3)));
                     }
                 }
             }
         }
         async run() {
             this.logger.log("点亮熄灭勋章模块开始运行");
-
             if (!await this.waitForFansMedals()) {
                 this.logger.error("粉丝勋章数据不存在，不执行点亮熄灭勋章任务");
                 this.status = "error";
@@ -1877,7 +1863,6 @@
             this.config._lastCompleteTime = tsm();
             this.status = "done";
             this.logger.log("点亮熄灭勋章任务已完成");
-
             const diff = delayToNextMoment();
             this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
             this.logger.log("距离点亮熄灭勋章模块下次运行时间:", diff.str);
@@ -1903,6 +1888,7 @@
         roomID;
         ruid;
         seq = 0;
+        progress = -1;
         get id() {
             return [this.parentID, this.areaID, this.seq, this.roomID];
         }
@@ -1918,7 +1904,6 @@
         secretKey;
         secretRule;
         timestamp;
-        progress = -1;
         start() {
             if (!this.buvid) {
                 this.logger.error(`缺少buvid，无法为直播间 ${this.roomID} 执行观看直播任务，请尝试刷新页面`);
@@ -1986,18 +1971,17 @@
                 if (response.code === 0) {
                     this.seq += 1;
                     this.updateProgress();
-                    let [prog, total] = await getMissionProgress(this.ruid, "观看直播满15分钟")
+                    const [prog, total] = await MedalModule.getMissionProgress(this.ruid, "观看直播满15分钟");
                     if (total != 0) {
                         if (prog != this.progress || this.progress == -1) {
                             this.progress = prog;
-                            this.logger.log(`${this.roomID} 观看直播进度: ${prog} / ${total}`)
+                            this.logger.log(`${this.roomID} 观看直播进度: ${prog}/${total}`);
                         }
                         if (prog == total) {
-                            this.logger.log(`${this.roomID} 观看直播进度已满，观看结束`)
+                            this.logger.log(`${this.roomID} 观看直播进度已满，观看结束`);
                             return;
                         }
-                    }
-                    else if (this.watchedSeconds >= this.config.time * 60) {
+                    } else if (this.watchedSeconds >= this.config.time * 60) {
                         return;
                     }
                     ;
@@ -2075,7 +2059,7 @@
         }
         playerStore = usePlayerStore();
         sort_live_medals = (a, b) => {
-            let roomid = this.medalTasksConfig.roomidList2
+            const roomid = this.medalTasksConfig.roomidList2;
             if (roomid.includes(a.room_info.room_id) && roomid.includes(b.room_info.room_id))
                 return roomid.indexOf(a.room_info.room_id) - roomid.indexOf(b.room_info.room_id);
             else if (roomid.includes(a.room_info.room_id))
@@ -2089,15 +2073,10 @@
         getMedals() {
             const fansMedals = useBiliStore().filteredFansMedals;
             const result = fansMedals.filter(
-                (medal) =>
-                    medal.medal.today_feed < 30 && medal.medal.is_lighted
-                    && !this.medalTasksConfig.roomidList.includes(medal.room_info.room_id)
-                    && (this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id)
-                        || medal.medal.level < 20
-                    )
+                (medal) => medal.medal.is_lighted && (this.PUBLIC_MEDAL_FILTERS.whiteBlackList(medal) && (this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id) || medal.medal.level < 20))
             );
             result.sort(this.sort_live_medals);
-            this.logger.log(`观看直播列表(${result.length}): ${result.map(medal => medal.anchor_info.nick_name)} `)
+            this.logger.log(`观看直播列表(${result.length}): ${result.map((medal) => medal.anchor_info.nick_name)} `);
             return result;
         }
         async getAreaInfo(url, roomid) {
@@ -2130,7 +2109,6 @@
         }
         async run() {
             this.logger.log("观看直播模块开始运行");
-
             if (!await this.waitForFansMedals()) {
                 this.logger.error("粉丝勋章数据不存在，不执行观看直播任务");
                 this.status = "error";
@@ -2183,7 +2161,6 @@
                 this.status = "done";
                 this.config._lastCompleteTime = tsm();
             }
-
             const diff = delayToNextMoment();
             this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
             this.logger.log("距离观看直播模块下次运行时间:", diff.str);
@@ -2199,7 +2176,7 @@
                 const response = await BAPI.live.silver2coin();
                 this.logger.log(`BAPI.live.silver2coin response`, response);
                 if (response.code === 0) {
-                    this.logger.log(`银瓜子换硬币已完成，获得硬币: `, response.data.coin);
+                    this.logger.log(`银瓜子换硬币已完成，获得硬币:`, response.data.coin);
                     this.config._lastCompleteTime = tsm();
                     this.status = "done";
                 } else if (response.code === 403) {
@@ -2241,7 +2218,7 @@
         async exchange() {
             try {
                 const response = await BAPI.live.coin2silver(this.config.num);
-                this.logger.log(`BAPI.live.coin2silver{ ${this.config.num}} response`, response);
+                this.logger.log(`BAPI.live.coin2silver{${this.config.num}} response`, response);
                 if (response.code === 0) {
                     this.logger.log("硬币换银瓜子已完成，获得银瓜子:", response.data.silver);
                     this.config._lastCompleteTime = tsm();
