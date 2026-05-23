@@ -27,7 +27,7 @@
             "LiveTasks": {
                 "medalTasks": {
                     "light": {
-                        "enabled": false,
+                        "enabled": true,
                         "danmuList": [
                             "(⌒▽⌒)",
                             "（￣▽￣）",
@@ -268,10 +268,6 @@
                 }
             },
             "OtherTasks": {
-                "groupSign": {
-                    "enabled": false,
-                    "_lastCompleteTime": 0
-                },
                 "silverToCoin": {
                     "enabled": true,
                     "_lastCompleteTime": 0
