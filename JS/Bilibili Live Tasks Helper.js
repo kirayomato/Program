@@ -712,7 +712,7 @@
                     }
                 );
             },
-            sendEmoji: (msg, roomid, mode = 1, fontsize = 25, color = 16777215, bubble = 0, dm_type = 1, statistics = '{"appId":100,"platform":5}', web_location = "444.8", data_extend = '{"trackid":"-99998"}') => {
+            sendEmoji: (msg, roomid, mode = 1, fontsize = 25, color = 16777215, bubble = 0, dm_type = 1, web_location = "444.8", emoticonOptions = "[object Object]", data_extend = '{"trackid":"-99998"}') => {
                 const biliStore = useBiliStore();
                 const bili_jct = biliStore.cookies.bili_jct;
                 return request.live.post(
@@ -723,8 +723,8 @@
                         color,
                         mode,
                         dm_type,
+                        emoticonOptions,
                         data_extend,
-                        statistics,
                         fontsize,
                         rnd: ts(),
                         roomid,
@@ -776,6 +776,14 @@
                     csrf_token: bili_jct,
                     csrf: bili_jct,
                     visit_id
+                });
+            },
+            getActivatedMedalInfo: (target_id, web_location = "0.0") => {
+                const bili_jct = useBiliStore().cookies.bili_jct;
+                return request.live.get("/xlive/app-ucenter/v1/fansMedal/GetActivatedMedalInfo", {
+                    target_id,
+                    csrf: bili_jct,
+                    web_location
                 });
             }
         },
@@ -1000,6 +1008,9 @@
                 "font-weight: bold;",
                 ""
             ];
+        }
+        debug(...data) {
+            console.debug(...this.prefix, ...data);
         }
         log(...data) {
             console.log(...this.prefix, ...data);
@@ -1625,46 +1636,27 @@
                 }
             });
         }
+        sort_live_medals = (a, b) => {
+            const roomid2 = this.medalTasksConfig.roomidList2;
+            if (roomid2.includes(a.room_info.room_id) && roomid2.includes(b.room_info.room_id))
+                return roomid2.indexOf(a.room_info.room_id) - roomid2.indexOf(b.room_info.room_id);
+            else if (roomid2.includes(a.room_info.room_id))
+                return -1;
+            else if (roomid2.includes(b.room_info.room_id))
+                return 1;
+            if (a.medal.level === b.medal.level)
+                return b.medal.intimacy - a.medal.intimacy;
+            return b.medal.level - a.medal.level;
+        };
         static async getTaskInfo(targetId) {
             try {
-                const biliStore = useBiliStore();
-                const bili_jct = biliStore.cookies.bili_jct;
-                const baseUrl = "https://api.live.bilibili.com/xlive/app-ucenter/v1/fansMedal/GetActivatedMedalInfo";
-                const params = new URLSearchParams({
-                    csrf: bili_jct,
-                    target_id: targetId.toString(),
-                    web_location: "0.0"
-                });
-                const requestUrl = `${baseUrl}?${params.toString()} `;
-                const response = await fetch(requestUrl, {
-                    headers: {
-                        "accept": "*/*",
-                        "accept-language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
-                        "cache-control": "no-cache",
-                        "pragma": "no-cache",
-                        "sec-ch-ua": '"Chromium";v="140", "Not=A?Brand";v="24", "Google Chrome";v="140"',
-                        "sec-ch-ua-mobile": "?0",
-                        "sec-ch-ua-platform": '"Windows"',
-                        "sec-fetch-dest": "empty",
-                        "sec-fetch-mode": "cors",
-                        "sec-fetch-site": "same-site"
-                    },
-                    referrer: "https://live.bilibili.com/",
-                    method: "GET",
-                    mode: "cors",
-                    credentials: "include"
-                });
-                if (!response.ok) {
-                    throw new Error(`请求失败，状态码: ${response.status} `);
+                const response = await BAPI.live.getActivatedMedalInfo(targetId);
+                if (response.code === 0 && response.data?.task_info) {
+                    return response.data.task_info;
                 }
-                const data = await response.json();
-                if (!data?.data?.task_info || !Array.isArray(data.data.task_info)) {
-                    console.log(data);
-                    throw new Error("响应数据格式异常，缺少task_info数组");
-                }
-                return data.data.task_info;
+                return null;
             } catch (error) {
-                console.error("处理出错:", error);
+                console.error("获取任务信息出错:", error);
                 return null;
             }
         }
@@ -1672,26 +1664,21 @@
             try {
                 const targetTask = await MedalModule.getTaskInfo(targetId);
                 if (!targetTask) {
-                    console.log("未找到观看任务");
                     return [0, 0];
                 }
                 for (const task of targetTask) {
-                    if (task.title == title) {
+                    if (task.title === title) {
                         const subTitle = task.sub_title;
                         const regex = /每日上限\s*(\d+)\/(\d+)/;
                         const match = subTitle?.match(regex);
                         if (match) {
-                            const firstNumber = parseInt(match[1], 10);
-                            const secondNumber = parseInt(match[2], 10);
-                            return [firstNumber, secondNumber];
-                        } else {
-                            console.log("sub_title格式不符合预期，无法解析x值", targetTask);
-                            return [0, 0];
+                            return [parseInt(match[1], 10), parseInt(match[2], 10)];
                         }
+                        return [0, 0];
                     }
                 }
             } catch (error) {
-                console.error("处理出错:", error);
+                console.error("获取任务进度出错:", error);
             }
             return [0, 0];
         }
@@ -1718,8 +1705,8 @@
                 const livingStatus = this.MEDAL_FILTERS.livingStatus(medal);
                 result[livingStatus].push(medal);
             });
-            this.sortMedals(result.on);
-            this.sortMedals(result.off);
+            result.on.sort(this.sort_live_medals);
+            result.off.sort(this.sort_live_medals);
             return result;
         }
         async like(medal, click_time) {
@@ -1730,7 +1717,7 @@
             const logMessage = `粉丝勋章【${medal_name}】 给主播【${nick_name}】（UID：${target_id}）的直播间（${room_id}）点赞 ${click_time} 次`;
             try {
                 const response = await BAPI.live.likeReport(room_id, target_id, click_time);
-                this.logger.log(`BAPI.live.likeReport(${room_id}, ${target_id}, ${click_time})`, response);
+                this.logger.debug(`BAPI.live.likeReport(${room_id}, ${target_id}, ${click_time})`, response);
                 if (response.code === 0) {
                     this.logger.log(`点亮熄灭勋章-点赞 ${logMessage} 成功`);
                 } else {
@@ -1748,7 +1735,7 @@
             const logMessage = `粉丝勋章【${medal_name}】 在主播【${nick_name}】（UID：${target_id}）的直播间（${room_id}）发送弹幕 ${danmu}`;
             try {
                 const response = await BAPI.live.sendMsg(danmu, room_id);
-                this.logger.log(`BAPI.live.sendMsg(${danmu}, ${room_id})`, response);
+                this.logger.debug(`BAPI.live.sendMsg(${danmu}, ${room_id})`, response);
                 if (response.code === 0) {
                     if (response.msg === "k") {
                         this.logger.warn(`点亮熄灭勋章-发送弹幕 ${logMessage} 异常，弹幕可能包含屏蔽词`);
@@ -1772,7 +1759,7 @@
             const logMessage = `粉丝勋章【${medal_name}】 在主播【${nick_name}】（UID：${target_id}）的直播间（${room_id}）发送表情 ${emoji}`;
             try {
                 const response = await BAPI.live.sendEmoji(emoji, room_id);
-                this.logger.log(`BAPI.live.sendMsg(${emoji}, ${room_id})`, response);
+                this.logger.debug(`BAPI.live.sendEmoji(${emoji}, ${room_id})`, response);
                 if (response.code === 0) {
                     if (response.msg === "k") {
                         this.logger.warn(`点亮熄灭勋章-发送表情 ${logMessage} 异常，表情可能包含屏蔽词`);
@@ -1791,12 +1778,13 @@
         async likeTask(medals) {
             let n = medals.length;
             const batch = medals;
+            batch.reverse();
             this.logger.log(`点赞勋章列表(${n}): ${medals.map((medal) => medal.anchor_info.nick_name)}`);
             for (let j = 0; j < 12; j++) {
                 for (let i = n - 1; i >= 0; i--) {
-                    const medal = medals[i];
+                    const medal = batch[i];
                     if (medal.medal.is_lighted) {
-                        const [prog, total] = await LightTask.getMissionProgress(medal.medal.target_id, "点赞30次");
+                        const [prog, total] = await MedalModule.getMissionProgress(medal.medal.target_id, "点赞30次");
                         this.logger.log(`${medal.anchor_info.nick_name} 点赞进度: ${prog} / ${total}`);
                         if (total > 0 && prog == total) {
                             [batch[i], batch[n - 1]] = [batch[n - 1], batch[i]];
@@ -1822,11 +1810,12 @@
             }
             for (const batch of batchList) {
                 let n = batch.length;
+                batch.reverse();
                 for (let j = 0; j < 12; j++) {
                     for (let i = n - 1; i >= 0; i--) {
                         const medal = batch[i];
                         if (medal.medal.is_lighted) {
-                            const [prog, total] = await LightTask.getMissionProgress(medal.medal.target_id, "发弹幕");
+                            const [prog, total] = await MedalModule.getMissionProgress(medal.medal.target_id, "发弹幕");
                             this.logger.log(`${medal.anchor_info.nick_name} 发弹幕进度: ${prog} / ${total}`);
                             if (total > 0 && prog == total) {
                                 [batch[i], batch[n - 1]] = [batch[n - 1], batch[i]];
@@ -1909,12 +1898,13 @@
                 this.logger.error(`缺少buvid，无法为直播间 ${this.roomID} 执行观看直播任务，请尝试刷新页面`);
                 return Promise.resolve();
             }
+            this.watchedSeconds = 0;
             return this.E();
         }
         async E() {
             try {
                 const response = await BAPI.liveTrace.E(this.id, this.device, this.ruid);
-                this.logger.log(
+                this.logger.debug(
                     `BAPI.liveTrace.E(${this.id}, ${this.device}, ${this.ruid}) response`,
                     response
                 );
@@ -1964,7 +1954,7 @@
                     this.heartBeatInterval,
                     spyderData.ts
                 );
-                this.logger.log(
+                this.logger.debug(
                     `BAPI.liveTrace.X(${s}, ${this.id}, ${this.device}, ${this.ruid}, ${this.timestamp}, ${this.secretKey}, ${this.heartBeatInterval}, ${spyderData.ts}) response`,
                     response
                 );
@@ -1981,7 +1971,8 @@
                             this.logger.log(`${this.roomID} 观看直播进度已满，观看结束`);
                             return;
                         }
-                    } else if (this.watchedSeconds >= this.config.time * 60) {
+                    }
+                    if (this.watchedSeconds >= this.config.time * 60) {
                         return;
                     }
                     ;
@@ -2058,18 +2049,6 @@
             useModuleStore().moduleStatus.DailyTasks.LiveTasks.medalTasks.watch = s;
         }
         playerStore = usePlayerStore();
-        sort_live_medals = (a, b) => {
-            const roomid = this.medalTasksConfig.roomidList2;
-            if (roomid.includes(a.room_info.room_id) && roomid.includes(b.room_info.room_id))
-                return roomid.indexOf(a.room_info.room_id) - roomid.indexOf(b.room_info.room_id);
-            else if (roomid.includes(a.room_info.room_id))
-                return -1;
-            else if (roomid.includes(b.room_info.room_id))
-                return 1;
-            if (a.medal.level === b.medal.level)
-                return b.medal.intimacy - a.medal.intimacy;
-            return b.medal.level - a.medal.level;
-        };
         getMedals() {
             const fansMedals = useBiliStore().filteredFansMedals;
             const result = fansMedals.filter(
