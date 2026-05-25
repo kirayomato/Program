@@ -1699,7 +1699,7 @@
                 off: []
             };
             const idlist = fansMedals.filter(
-                (medal) => this.PUBLIC_MEDAL_FILTERS.whiteBlackList(medal)
+                (medal) => this.PUBLIC_MEDAL_FILTERS.whiteBlackList(medal) && (this.MEDAL_FILTERS.livingStatus(medal) == "on" || this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id))
             );
             idlist.forEach((medal) => {
                 const livingStatus = this.MEDAL_FILTERS.livingStatus(medal);
@@ -1778,8 +1778,8 @@
         async likeTask(medals) {
             let n = medals.length;
             const batch = medals;
+            this.logger.log(`点赞勋章列表(${n}): ${batch.map((medal) => medal.anchor_info.nick_name)}`);
             batch.reverse();
-            this.logger.log(`点赞勋章列表(${n}): ${medals.map((medal) => medal.anchor_info.nick_name)}`);
             for (let j = 0; j < 12; j++) {
                 for (let i = n - 1; i >= 0; i--) {
                     const medal = batch[i];
@@ -1801,7 +1801,6 @@
             }
         }
         async sendDanmuTask(medals) {
-            this.logger.log(`发送弹幕列表(${medals.length}): ${medals.map((medal) => medal.anchor_info.nick_name)}`);
             const BATCH_SIZE = 30;
             let danmuIndex = 0;
             const batchList = [];
@@ -1810,6 +1809,7 @@
             }
             for (const batch of batchList) {
                 let n = batch.length;
+                this.logger.log(`发送弹幕列表(${batch.length}): ${batch.map((medal) => medal.anchor_info.nick_name)}`);
                 batch.reverse();
                 for (let j = 0; j < 12; j++) {
                     for (let i = n - 1; i >= 0; i--) {
