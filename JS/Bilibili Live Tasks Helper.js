@@ -65,7 +65,7 @@
 
   const ElementPlusIconsVue__namespace = _interopNamespaceDefault(ElementPlusIconsVue);
 
-  const d=new Set;const importCSS = async e=>{d.has(e)||(d.add(e),(t=>{typeof GM_addStyle=="function"?GM_addStyle(t):(document.head||document.documentElement).appendChild(document.createElement("style")).append(t);})(e));};
+  const d = new Set; const importCSS = async e => { d.has(e) || (d.add(e), (t => { typeof GM_addStyle == "function" ? GM_addStyle(t) : (document.head || document.documentElement).appendChild(document.createElement("style")).append(t); })(e)); };
 
   importCSS(" #aside-el-menu[data-v-db397d59]:not(.el-menu--collapse){width:150px}.title[data-v-848fd8cc]{display:flex;align-items:baseline;padding-left:20px}.header-big-text[data-v-848fd8cc]{align-self:unset;font-size:var(--big-text-size)}.header-small-text[data-v-848fd8cc]{align-self:unset;margin-left:10px;font-size:var(--small-text-size);--small-text-size: 18px}.collapse-btn[data-v-848fd8cc]{float:left;display:flex;align-items:center;justify-content:center;height:100%;cursor:pointer}.avatar-wrap[data-v-2606d55c]{width:80px;height:80px}.avatar[data-v-2606d55c]{display:flex;align-items:center;justify-content:center;border-radius:50%}.label-text[data-v-0ed6e292]{line-height:32px;color:var(--el-text-color-primary)}.base[data-v-28de2807]{position:absolute;z-index:1003;background-color:var(--el-bg-color)}.header[data-v-28de2807]{position:relative;box-sizing:border-box;display:flex;align-items:center;width:100%;height:60px;font-size:var(--big-text-size);border-bottom:1px solid #e3e5e7;--big-text-size: 25px}.aside[data-v-28de2807]{width:auto}.main[data-v-28de2807]{padding:0}.panel-main[data-v-28de2807]{padding:calc(var(--el-main-padding) * .625) var(--el-main-padding)}.fade-enter-active[data-v-28de2807]{animation:fade-in linear .2s}.info-icon[data-v-02b5bf3e]{font-size:var(--el-font-size-base);cursor:pointer}.status-icon[data-v-16fb8116]{font-size:var(--el-font-size-base)}.done[data-v-16fb8116]{color:#1ab059}.done.is-hovered[data-v-16fb8116]{color:#409eff;cursor:pointer}.error[data-v-16fb8116]{color:#ff6464}.icon-fade-enter-active[data-v-16fb8116],.icon-fade-leave-active[data-v-16fb8116]{transition:all .15s ease}.icon-fade-enter-from[data-v-16fb8116],.icon-fade-leave-to[data-v-16fb8116]{opacity:0;transform:scale(.8) rotate(90deg)} ");
 
@@ -100,8 +100,8 @@
     }
     const diff = nextTime.diff(now);
     return {
-ms: diff.toMillis(),
-str: diff.toFormat("h小时m分钟s秒").replace(/^0小时/, "").replace(/^0分钟/, "")
+      ms: diff.toMillis(),
+      str: diff.toFormat("h小时m分钟s秒").replace(/^0小时/, "").replace(/^0分钟/, "")
     };
   }
   function isNowIn(startHour, startMinute, endHour, endMinute) {
@@ -120,7 +120,7 @@ str: diff.toFormat("h小时m分钟s秒").replace(/^0小时/, "").replace(/^0分�
     return luxon.DateTime.now().toMillis();
   }
   function uuid() {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(char) {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (char) {
       const randomInt = 16 * Math.random() | 0;
       return ("x" === char ? randomInt : 3 & randomInt | 8).toString(16);
     });
@@ -168,7 +168,7 @@ str: diff.toFormat("h小时m分钟s秒").replace(/^0小时/, "").replace(/^0分�
     return formData;
   }
   function deepestIterate(obj, fn, path) {
-    _.forOwn(obj, function(value, key) {
+    _.forOwn(obj, function (value, key) {
       const newPath = path ? path + "." + key : key;
       if (_.isPlainObject(value) && !_.isEmpty(value)) {
         deepestIterate(value, fn, newPath);
@@ -534,7 +534,7 @@ str: diff.toFormat("h小时m分钟s秒").replace(/^0小时/, "").replace(/^0分�
     }
   };
   class Storage {
-static mergeConfigs(currentConfig, defaultConfig) {
+    static mergeConfigs(currentConfig, defaultConfig) {
       const config = _.pick(currentConfig, _.keys(defaultConfig));
       _.defaults(config, defaultConfig);
       _.forOwn(config, (value, key, object) => {
@@ -596,13 +596,13 @@ static mergeConfigs(currentConfig, defaultConfig) {
     };
   });
   let Request$1 = class Request2 {
-url_prefix;
-origin;
+    url_prefix;
+    origin;
     constructor(url_prefix, orgin) {
       this.url_prefix = url_prefix ?? "";
       this.origin = orgin ?? "https://bilibili.com";
     }
-get(url, params, otherDetails) {
+    get(url, params, otherDetails) {
       url = addURLParams(this.url_prefix + url, params);
       return new Promise((resolve2, reject2) => {
         const defaultDetails = {
@@ -615,10 +615,10 @@ get(url, params, otherDetails) {
             Origin: this.origin,
             "Sec-Fetch-Site": "same-site"
           },
-          onload: function(response) {
+          onload: function (response) {
             resolve2(response.response);
           },
-          onerror: function(err) {
+          onerror: function (err) {
             reject2(new Error(JSON.stringify(err)));
           }
         };
@@ -626,7 +626,7 @@ get(url, params, otherDetails) {
         _GM_xmlhttpRequest(details);
       });
     }
-post(url, data, otherDetails) {
+    post(url, data, otherDetails) {
       const headers = {
         Accept: "application/json, text/plain, */*",
         Referer: this.origin,
@@ -638,7 +638,7 @@ post(url, data, otherDetails) {
         data = "";
       } else if (data instanceof FormData) {
         delete headers["Content-Type"];
-      } else if (typeof data === "string") ;
+      } else if (typeof data === "string");
       else {
         data = new URLSearchParams(data).toString();
       }
@@ -651,10 +651,10 @@ post(url, data, otherDetails) {
           data,
           responseType: "json",
           headers,
-          onload: function(response) {
+          onload: function (response) {
             resolve2(response.response);
           },
-          onerror: function(err) {
+          onerror: function (err) {
             reject2(new Error(JSON.stringify(err)));
           }
         };
@@ -745,7 +745,7 @@ post(url, data, otherDetails) {
           })
         });
       },
-getInfoByRoom: (room_id, web_location = "444.8") => {
+      getInfoByRoom: (room_id, web_location = "444.8") => {
         return request.live.get(
           "/xlive/web-room/v1/index/getInfoByRoom",
           wbiSign({
@@ -772,7 +772,7 @@ getInfoByRoom: (room_id, web_location = "444.8") => {
           visit_id
         });
       },
-getActivatedMedalInfo: (target_id, web_location = "0.0") => {
+      getActivatedMedalInfo: (target_id, web_location = "0.0") => {
         const bili_jct = useBiliStore().cookies.bili_jct;
         return request.live.get("/xlive/app-ucenter/v1/fansMedal/GetActivatedMedalInfo", {
           target_id,
@@ -789,7 +789,7 @@ getActivatedMedalInfo: (target_id, web_location = "0.0") => {
             id: JSON.stringify(id),
             device: JSON.stringify(device),
             ruid,
-ts: tsm(),
+            ts: tsm(),
             is_patch,
             heart_beat: JSON.stringify(heart_beat),
             ua: navigator.userAgent,
@@ -806,7 +806,7 @@ ts: tsm(),
             id: JSON.stringify(id),
             device: JSON.stringify(device),
             ruid,
-ets,
+            ets,
             benchmark,
             time,
             ts: ts2,
@@ -996,7 +996,7 @@ ets,
     title;
     get prefix() {
       return [
-        `%c${this.NAME}%c[${( new Date()).toLocaleString()}]%c[${this.prefix_title_str}]%c:`,
+        `%c${this.NAME}%c[${(new Date()).toLocaleString()}]%c[${this.prefix_title_str}]%c:`,
         "font-weight: bold; color: white; background-color: #23ade5; padding: 1px 4px; border-radius: 4px;",
         "font-weight: bold; color: #0920e6;",
         "font-weight: bold;",
@@ -1021,21 +1021,21 @@ ets,
     }
   }
   class BaseModule {
-moduleName;
-static runOnMultiplePages = false;
-static runAt = "document-body";
-static onFrame = "target";
-static runAfterDefault = true;
-logger;
-config;
-isEnabled() {
+    moduleName;
+    static runOnMultiplePages = false;
+    static runAt = "document-body";
+    static onFrame = "target";
+    static runAfterDefault = true;
+    logger;
+    config;
+    isEnabled() {
       return this.config?.enabled ?? true;
     }
-set status(_s) {
+    set status(_s) {
       throw new Error("Method not implemented.");
     }
-nextRunTimer;
-run(..._args) {
+    nextRunTimer;
+    run(..._args) {
       throw new Error("Method not implemented.");
     }
     constructor(moduleName) {
@@ -1060,7 +1060,7 @@ run(..._args) {
     }
   }
   class UserInfo extends BaseModule {
-async getUserInfo() {
+    async getUserInfo() {
       try {
         const response = await BAPI.main.nav();
         this.logger.log("BAPI.main.nav response", response);
@@ -1083,7 +1083,7 @@ async getUserInfo() {
     }
   }
   class DailyRewardInfo extends BaseModule {
-async getDailyRewardInfo() {
+    async getDailyRewardInfo() {
       try {
         const response = await BAPI.main.reward();
         this.logger.log("BAPI.main.reward response", response);
@@ -1100,9 +1100,9 @@ async getDailyRewardInfo() {
       const biliStore = useBiliStore();
       const mainSiteTasks = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks;
       if (force ||
-Object.values(mainSiteTasks).some(
-        (t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4)
-      )) {
+        Object.values(mainSiteTasks).some(
+          (t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4)
+        )) {
         biliStore.dailyRewardInfo = await this.getDailyRewardInfo();
       }
       this.nextRunTimer = setTimeout(
@@ -1112,7 +1112,7 @@ Object.values(mainSiteTasks).some(
     }
   }
   class DynamicVideos extends BaseModule {
-async getDynamicVideos() {
+    async getDynamicVideos() {
       try {
         const response = await BAPI.main.dynamicAll("video");
         this.logger.log("BAPI.main.dynamicAll response", response);
@@ -1130,7 +1130,7 @@ async getDynamicVideos() {
       const mainSiteTasks = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks;
       const taskValues = [mainSiteTasks.watch, mainSiteTasks.share, mainSiteTasks.coin];
       if (force ||
-taskValues.some((t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4))) {
+        taskValues.some((t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4))) {
         biliStore.dynamicVideos = await this.getDynamicVideos();
       }
       this.nextRunTimer = setTimeout(
@@ -1140,7 +1140,7 @@ taskValues.some((t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4)
     }
   }
   class FansMedals extends BaseModule {
-async getFansMedals(pages = Infinity) {
+    async getFansMedals(pages = Infinity) {
       const fansMedalList = [];
       let total_page = 1;
       try {
@@ -1177,8 +1177,8 @@ async getFansMedals(pages = Infinity) {
       const medalTasks = useModuleStore().moduleConfig.DailyTasks.LiveTasks.medalTasks;
       const taskValues = [medalTasks.light, medalTasks.watch];
       if ((force ||
-taskValues.some((t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4))) &&
-biliStore.fansMedalsStatus !== "loading") {
+        taskValues.some((t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4))) &&
+        biliStore.fansMedalsStatus !== "loading") {
         biliStore.fansMedalsStatus = "loading";
         biliStore.fansMedals = await this.getFansMedals();
         biliStore.fansMedalsStatus = "loaded";
@@ -1190,7 +1190,7 @@ biliStore.fansMedalsStatus !== "loading") {
     }
   }
   class Cookie {
-static async getAll() {
+    static async getAll() {
       const cookies = await cookieStore.getAll();
       const result = {};
       for (const cookie of cookies) {
@@ -1200,7 +1200,7 @@ static async getAll() {
       }
       return result;
     }
-static async get(names, defaultValue) {
+    static async get(names, defaultValue) {
       if (Array.isArray(names)) {
         const result = {};
         const cookies = await Promise.all(names.map((name) => cookieStore.get(name)));
@@ -1213,7 +1213,7 @@ static async get(names, defaultValue) {
         return cookie?.value ?? defaultValue;
       }
     }
-static getAsync(names, timeout) {
+    static getAsync(names, timeout) {
       return new Promise((resolve2, reject2) => {
         const cookies = {};
         const nameSet = new Set(names);
@@ -1259,7 +1259,7 @@ static getAsync(names, timeout) {
     }
   }
   class Cookies extends BaseModule {
-getCookies() {
+    getCookies() {
       return Cookie.getAsync(["bili_jct", "LIVE_BUVID", "buvid3"], 12e3);
     }
     async run() {
@@ -1272,7 +1272,7 @@ getCookies() {
   }
   class BilibiliLive extends BaseModule {
     static runOnMultiplePages = true;
-getBilibiliLive() {
+    getBilibiliLive() {
       this.logger.log("unsafeWindow.BilibiliLive", _unsafeWindow.BilibiliLive);
       return new Promise((resolve2, reject2) => {
         if (_unsafeWindow.BilibiliLive.UID !== 0) {
@@ -1300,7 +1300,7 @@ getBilibiliLive() {
       }
     }
   }
-  const defaultModules = Object.freeze( Object.defineProperty({
+  const defaultModules = Object.freeze(Object.defineProperty({
     __proto__: null,
     Default_BilibiliLive: BilibiliLive,
     Default_Cookies: Cookies,
@@ -1354,7 +1354,7 @@ getBilibiliLive() {
     set status(s) {
       useModuleStore().moduleStatus.DailyTasks.MainSiteTasks.watch = s;
     }
-getAid() {
+    getAid() {
       return Number(useBiliStore().dynamicVideos[0].modules.module_dynamic.major.archive.aid);
     }
     async watch(aid) {
@@ -1495,8 +1495,8 @@ getAid() {
 
 
 
-MAX_COIN = 1;
-getDynamicVideoIds() {
+    MAX_COIN = 1;
+    getDynamicVideoIds() {
       const biliStore = useBiliStore();
       return biliStore.dynamicVideos.map((item) => {
         const archive = item.modules.module_dynamic.major.archive;
@@ -1506,7 +1506,7 @@ getDynamicVideoIds() {
         };
       });
     }
-async getVideoCoinInfo(aid, bvid) {
+    async getVideoCoinInfo(aid, bvid) {
       try {
         const response = await BAPI.main.videoRelation(aid, bvid);
         this.logger.log(`BAPI.main.videoRelation(${aid}, ${bvid}) response`, response);
@@ -1521,7 +1521,7 @@ async getVideoCoinInfo(aid, bvid) {
         return 0;
       }
     }
-async coinDynamicVideos(left_coin_num) {
+    async coinDynamicVideos(left_coin_num) {
       const ids = this.getDynamicVideoIds();
       for (const { aid, bvid } of ids) {
         const coined_num = await this.getVideoCoinInfo(aid, bvid);
@@ -1549,7 +1549,7 @@ async coinDynamicVideos(left_coin_num) {
         this.status = "error";
       }
     }
-async coin(aid, num) {
+    async coin(aid, num) {
       try {
         const response = await BAPI.main.coinAdd(aid, num);
         this.logger.log(`BAPI.main.coinAdd(${aid}) response`, response);
@@ -1568,7 +1568,7 @@ async coin(aid, num) {
         return 3;
       }
     }
-runCheck() {
+    runCheck() {
       const biliStore = useBiliStore();
       if (!biliStore.dailyRewardInfo) {
         this.logger.error("主站每日任务完成情况不存在，不执行每日投币任务");
@@ -1621,8 +1621,8 @@ runCheck() {
   class MedalModule extends BaseModule {
     medalTasksConfig = useModuleStore().moduleConfig.DailyTasks.LiveTasks.medalTasks;
     PUBLIC_MEDAL_FILTERS = {
-whiteBlackList: (m) => this.medalTasksConfig.isWhiteList ? this.medalTasksConfig.roomidList.includes(m.room_info.room_id) : !this.medalTasksConfig.roomidList.includes(m.room_info.room_id),
-levelLt120: (medal) => medal.medal.level < 120
+      whiteBlackList: (m) => this.medalTasksConfig.isWhiteList ? this.medalTasksConfig.roomidList.includes(m.room_info.room_id) : !this.medalTasksConfig.roomidList.includes(m.room_info.room_id),
+      levelLt120: (medal) => medal.medal.level < 120
     };
     sortMedals(medals) {
       const orderMap = arrayToMap(this.medalTasksConfig.roomidList);
@@ -1630,7 +1630,7 @@ levelLt120: (medal) => medal.medal.level < 120
         (a, b) => orderMap.get(a.room_info.room_id) - orderMap.get(b.room_info.room_id)
       );
     }
-waitForFansMedals() {
+    waitForFansMedals() {
       return new Promise((resolve2) => {
         const { fansMedalsStatus } = pinia$1.storeToRefs(useBiliStore());
         if (fansMedalsStatus.value === "loaded") {
@@ -1660,10 +1660,11 @@ waitForFansMedals() {
         return b.medal.intimacy - a.medal.intimacy;
       return b.medal.level - a.medal.level;
     };
-static async getTaskInfo(targetId) {
+    static async getTaskInfo(targetId) {
       try {
         const response = await BAPI.live.getActivatedMedalInfo(targetId);
         if (response.code === 0 && response.data?.task_info) {
+          console.debug("BAPI.live.getActivatedMedalInfo response", response);
           return response.data.task_info;
         }
         return null;
@@ -1672,7 +1673,7 @@ static async getTaskInfo(targetId) {
         return null;
       }
     }
-static async getMissionProgress(targetId, title) {
+    static async getMissionProgress(targetId, title) {
       try {
         const targetTask = await MedalModule.getTaskInfo(targetId);
         if (!targetTask) {
@@ -1701,10 +1702,10 @@ static async getMissionProgress(targetId, title) {
       useModuleStore().moduleStatus.DailyTasks.LiveTasks.medalTasks.light = s;
     }
     MEDAL_FILTERS = {
-isLighted: (medal) => medal.medal.is_lighted === 1,
-livingStatus: (medal) => medal.room_info.living_status === 1 ? "on" : "off"
+      isLighted: (medal) => medal.medal.is_lighted === 1,
+      livingStatus: (medal) => medal.room_info.living_status === 1 ? "on" : "off"
     };
-getMedals() {
+    getMedals() {
       const fansMedals = useBiliStore().filteredFansMedals;
       const result = {
         on: [],
@@ -1721,7 +1722,7 @@ getMedals() {
       result.off.sort(this.sort_live_medals);
       return result;
     }
-async like(medal, click_time) {
+    async like(medal, click_time) {
       const room_id = medal.room_info.room_id;
       const target_id = medal.medal.target_id;
       const nick_name = medal.anchor_info.nick_name;
@@ -1739,7 +1740,7 @@ async like(medal, click_time) {
         this.logger.error(`点亮熄灭勋章-点赞 ${logMessage} 出错`, error);
       }
     }
-async sendDanmu(medal, danmu) {
+    async sendDanmu(medal, danmu) {
       const room_id = medal.room_info.room_id;
       const target_id = medal.medal.target_id;
       const nick_name = medal.anchor_info.nick_name;
@@ -1787,7 +1788,7 @@ async sendDanmu(medal, danmu) {
       }
       return false;
     }
-async likeTask(medals) {
+    async likeTask(medals) {
       let n = medals.length;
       const batch = medals;
       this.logger.log(`点赞勋章列表(${n}): ${batch.map((medal) => medal.anchor_info.nick_name)}`);
@@ -1813,7 +1814,7 @@ async likeTask(medals) {
       }
       this.logger.log("点赞任务已完成");
     }
-async sendDanmuTask(medals) {
+    async sendDanmuTask(medals) {
       const BATCH_SIZE = 30;
       let danmuIndex = 0;
       const batchList = [];
@@ -1885,29 +1886,29 @@ async sendDanmuTask(medals) {
     set status(s) {
       useModuleStore().moduleStatus.DailyTasks.LiveTasks.medalTasks.watch = s;
     }
-watchedSeconds;
+    watchedSeconds;
     areaID;
     parentID;
     roomID;
-ruid;
+    ruid;
     seq = 0;
     progress = -1;
-get id() {
+    get id() {
       return [this.parentID, this.areaID, this.seq, this.roomID];
     }
-updateProgress() {
+    updateProgress() {
       this.watchedSeconds += this.heartBeatInterval;
       useModuleStore().moduleConfig.DailyTasks.LiveTasks.medalTasks.watch._watchingProgress[this.roomID] = this.watchedSeconds;
     }
-buvid = useBiliStore().cookies.LIVE_BUVID;
+    buvid = useBiliStore().cookies.LIVE_BUVID;
     uuid = uuid();
-device = [this.buvid, this.uuid];
-ua = navigator.userAgent;
+    device = [this.buvid, this.uuid];
+    ua = navigator.userAgent;
     heartBeatInterval;
     secretKey;
     secretRule;
-timestamp;
-start() {
+    timestamp;
+    start() {
       if (!this.buvid) {
         this.logger.error(`缺少buvid，无法为直播间 ${this.roomID} 执行观看直播任务，请尝试刷新页面`);
         return Promise.resolve();
@@ -1915,7 +1916,7 @@ start() {
       this.watchedSeconds = 0;
       return this.E();
     }
-async E() {
+    async E() {
       try {
         const response = await BAPI.liveTrace.E(this.id, this.device, this.ruid);
         this.logger.debug(
@@ -1942,7 +1943,7 @@ async E() {
         this.logger.error(`BAPI.liveTrace.E(${this.id}, ${this.device}, ${this.ruid}) 出错`, error);
       }
     }
-async X() {
+    async X() {
       if (isNowIn(23, 59, 0, 5)) {
         this.logger.log(`即将或刚刚发生跨天，停止直播间 ${this.roomID} 的X心跳`);
         return;
@@ -2011,7 +2012,7 @@ async X() {
         );
       }
     }
-spyder(str, rule) {
+    spyder(str, rule) {
       const data = JSON.parse(str);
       const [parent_id, area_id, seq_id, room_id] = JSON.parse(data.id);
       const [buvid, uuid2] = JSON.parse(data.device);
@@ -2063,7 +2064,7 @@ spyder(str, rule) {
       useModuleStore().moduleStatus.DailyTasks.LiveTasks.medalTasks.watch = s;
     }
     playerStore = usePlayerStore();
-getMedals() {
+    getMedals() {
       const fansMedals = useBiliStore().filteredFansMedals;
       const result = fansMedals.filter(
         (medal) => medal.medal.is_lighted && (this.PUBLIC_MEDAL_FILTERS.whiteBlackList(medal) && (this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id) || medal.medal.level < 20))
@@ -2072,7 +2073,7 @@ getMedals() {
       this.logger.log(`观看直播列表(${result.length}): ${result.map((medal) => medal.anchor_info.nick_name)} `);
       return result;
     }
-async getAreaInfo(url, roomid) {
+    async getAreaInfo(url, roomid) {
       try {
         const urlObj = new URL(url);
         const area_id = Number(urlObj.searchParams.get("area_id"));
@@ -2256,12 +2257,12 @@ async getAreaInfo(url, roomid) {
       5: "年度专享漫画礼包 - 漫画商城优惠券",
       6: "大会员专享会员体验卡",
       7: "大会员专享课堂优惠券",
-15: "年度专享会员购星光宝盒88折券",
+      15: "年度专享会员购星光宝盒88折券",
       16: "大会员专享会员购10魔晶",
       17: "大会员专享游戏优惠券"
     };
-blackList = [8, 14, 18, 19, 20, 21, 24, 25, 26, 27, 200];
-async myPrivilege() {
+    blackList = [8, 14, 18, 19, 20, 21, 24, 25, 26, 27, 200];
+    async myPrivilege() {
       try {
         const response = await BAPI.main.vip.myPrivilege();
         this.logger.log(`BAPI.main.vip.myPrivilege response`, response);
@@ -2276,7 +2277,7 @@ async myPrivilege() {
         this.status = "error";
       }
     }
-async receivePrivilege(type) {
+    async receivePrivilege(type) {
       try {
         const response = await BAPI.main.vip.receivePrivilege(type);
         this.logger.log(`BAPI.main.vip.receivePrivilege(${type}) response`, response);
@@ -2297,7 +2298,7 @@ async receivePrivilege(type) {
         );
       }
     }
-async addExperience() {
+    async addExperience() {
       try {
         const response = await BAPI.main.vip.addExperience();
         this.logger.log(`BAPI.main.vip.addExperience response`, response);
@@ -2313,7 +2314,7 @@ async addExperience() {
         this.logger.error(`领取年度大会员权益（type = 9，专属等级加速包（10主站经验））出错`, error);
       }
     }
-isYearVip() {
+    isYearVip() {
       const biliStore = useBiliStore();
       const userInfo = biliStore.userInfo;
       if (userInfo.vip.status === 1 && userInfo.vip.type === 2) {
@@ -2401,7 +2402,7 @@ isYearVip() {
       const targetQuality = playerInfo.qualityCandidates.find(
         ({ desc, hdrType }) => desc.includes(searchStr) && hdrType > 0 === isHDR
       ) ??
-(isHDR ? playerInfo.qualityCandidates.find(({ desc }) => desc.includes(searchStr)) : null);
+        (isHDR ? playerInfo.qualityCandidates.find(({ desc }) => desc.includes(searchStr)) : null);
       if (!targetQuality) {
         this.logger.log("当前直播不支持目标画质，保持默认画质");
         return;
@@ -2440,18 +2441,18 @@ isYearVip() {
     static onFrame = "all";
     static runAfterDefault = false;
     config = useModuleStore().moduleConfig.EnhanceExperience.banp2p;
-static createDOMException(message, name) {
+    static createDOMException(message, name) {
       return new _unsafeWindow.DOMException(message, name);
     }
-static dispatchEvent(target, type, eventInit = {}) {
+    static dispatchEvent(target, type, eventInit = {}) {
       const event = new _unsafeWindow.Event(type);
       Object.assign(event, eventInit);
       target.dispatchEvent?.(event);
     }
-banP2P() {
+    banP2P() {
       class FakeEventTarget {
         listeners = new Map();
-addEventListener(type, listener) {
+        addEventListener(type, listener) {
           if (!listener) {
             return;
           }
@@ -2460,13 +2461,13 @@ addEventListener(type, listener) {
           }
           this.listeners.get(type).add(listener);
         }
-removeEventListener(type, listener) {
+        removeEventListener(type, listener) {
           if (!listener) {
             return;
           }
           this.listeners.get(type)?.delete(listener);
         }
-dispatchEvent(event) {
+        dispatchEvent(event) {
           const { type } = event;
           const handler = this[`on${type}`];
           if (typeof handler === "function") {
@@ -2558,26 +2559,26 @@ dispatchEvent(event) {
           super();
           this.configuration = configuration;
         }
-updateSignalingState(state) {
+        updateSignalingState(state) {
           this.signalingState = state;
           BanP2P.dispatchEvent(this, "signalingstatechange");
         }
-updateIceGatheringState(state) {
+        updateIceGatheringState(state) {
           this.iceGatheringState = state;
           BanP2P.dispatchEvent(this, "icegatheringstatechange");
         }
-updateIceConnectionState(state) {
+        updateIceConnectionState(state) {
           this.iceConnectionState = state;
           BanP2P.dispatchEvent(this, "iceconnectionstatechange");
         }
-updateConnectionState(state) {
+        updateConnectionState(state) {
           this.connectionState = state;
           BanP2P.dispatchEvent(this, "connectionstatechange");
         }
         isClosed() {
           return this.closed;
         }
-scheduleConnectionFailure() {
+        scheduleConnectionFailure() {
           this.updateIceGatheringState("gathering");
           this.updateIceConnectionState("checking");
           this.updateConnectionState("connecting");
@@ -2599,19 +2600,19 @@ scheduleConnectionFailure() {
             }
           }, 78);
         }
-createOffer() {
+        createOffer() {
           return Promise.resolve({
             type: "offer",
             sdp: "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\n"
           });
         }
-createAnswer() {
+        createAnswer() {
           return Promise.resolve({
             type: "answer",
             sdp: "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\n"
           });
         }
-setLocalDescription(description) {
+        setLocalDescription(description) {
           if (this.isClosed()) {
             return Promise.resolve();
           }
@@ -2629,7 +2630,7 @@ setLocalDescription(description) {
           this.scheduleConnectionFailure();
           return Promise.resolve();
         }
-setRemoteDescription(description) {
+        setRemoteDescription(description) {
           if (this.isClosed()) {
             return Promise.resolve();
           }
@@ -2644,7 +2645,7 @@ setRemoteDescription(description) {
         addIceCandidate(_candidate) {
           return Promise.resolve();
         }
-createDataChannel(label, options = { ordered: true }) {
+        createDataChannel(label, options = { ordered: true }) {
           const channel = new FakeRTCDataChannel(label, options.ordered);
           if (this.isClosed()) {
             channel.close();
@@ -2653,7 +2654,7 @@ createDataChannel(label, options = { ordered: true }) {
           this.dataChannels.push(channel);
           return channel;
         }
-getConfiguration() {
+        getConfiguration() {
           return this.configuration;
         }
         getSenders() {
@@ -2665,21 +2666,21 @@ getConfiguration() {
         getTransceivers() {
           return [];
         }
-getStats() {
-          return Promise.resolve( new Map());
+        getStats() {
+          return Promise.resolve(new Map());
         }
-addTrack() {
+        addTrack() {
           return {};
         }
-removeTrack(_sender) {
+        removeTrack(_sender) {
         }
-restartIce() {
+        restartIce() {
           if (this.isClosed()) {
             return;
           }
           this.scheduleConnectionFailure();
         }
-close() {
+        close() {
           if (this.closed) {
             return;
           }
@@ -2732,7 +2733,7 @@ close() {
     win = win || window;
     var originXhr = win.XMLHttpRequest;
     var hooking = true;
-    var HookXMLHttpRequest = function() {
+    var HookXMLHttpRequest = function () {
       var xhr = new originXhr();
       for (var i = 0; i < events.length; ++i) {
         var key = "on" + events[i];
@@ -2755,7 +2756,7 @@ close() {
         }
       }
       var that = this;
-      xhr.getProxy = function() {
+      xhr.getProxy = function () {
         return that;
       };
       this[OriginXhr] = xhr;
@@ -2765,7 +2766,7 @@ close() {
     win.XMLHttpRequest = HookXMLHttpRequest;
     Object.assign(win.XMLHttpRequest, { UNSENT: 0, OPENED: 1, HEADERS_RECEIVED: 2, LOADING: 3, DONE: 4 });
     function getterFactory(attr) {
-      return function() {
+      return function () {
         var originValue = this[OriginXhr][attr];
         if (hooking) {
           var v = this.hasOwnProperty(attr + "_") ? this[attr + "_"] : originValue;
@@ -2777,14 +2778,14 @@ close() {
       };
     }
     function setterFactory(attr) {
-      return function(v) {
+      return function (v) {
         var xhr = this[OriginXhr];
         if (hooking) {
           var that = this;
           var hook2 = proxy2[attr];
           if (attr.substring(0, 2) === "on") {
             that[attr + "_"] = v;
-            xhr[attr] = function(e) {
+            xhr[attr] = function (e) {
               e = configEvent(e, that);
               var ret = proxy2[attr] && proxy2[attr].call(that, xhr, e);
               ret || v.call(that, e);
@@ -2804,7 +2805,7 @@ close() {
       };
     }
     function hookFunction(fun) {
-      return function() {
+      return function () {
         var args = [].slice.call(arguments);
         if (proxy2[fun] && hooking) {
           var ret = proxy2[fun].call(this, args, this[OriginXhr]);
@@ -2880,7 +2881,7 @@ close() {
     sub[prototype].next = next;
     return sub;
   }
-  var RequestHandler$1 = makeHandler(function(rq) {
+  var RequestHandler$1 = makeHandler(function (rq) {
     var xhr = this.xhr;
     rq = rq || xhr.config;
     xhr.withCredentials = rq.withCredentials;
@@ -2890,10 +2891,10 @@ close() {
     }
     xhr.send(rq.body);
   });
-  var ResponseHandler$1 = makeHandler(function(response) {
+  var ResponseHandler$1 = makeHandler(function (response) {
     this.resolve(response);
   });
-  var ErrorHandler = makeHandler(function(error) {
+  var ErrorHandler = makeHandler(function (error) {
     this.reject(error);
   });
   function proxyAjax(proxy2, win) {
@@ -2920,7 +2921,7 @@ close() {
         status: xhrProxy.status,
         statusText: xhrProxy.statusText,
         config: xhr.config,
-        headers: xhr.resHeader || xhr.getAllResponseHeaders().split("\r\n").reduce(function(ob, str) {
+        headers: xhr.resHeader || xhr.getAllResponseHeaders().split("\r\n").reduce(function (ob, str) {
           if (str === "") return ob;
           var m = str.split(":");
           ob[m.shift()] = trim(m.join(":"));
@@ -2943,7 +2944,7 @@ close() {
       return true;
     }
     function errorCallback(errorType) {
-      return function(xhr, e) {
+      return function (xhr, e) {
         onerror(xhr, this, e, errorType);
         return true;
       };
@@ -2962,7 +2963,7 @@ close() {
       onerror: errorCallback(eventError),
       ontimeout: errorCallback(eventTimeout),
       onabort: errorCallback(eventAbort),
-      onreadystatechange: function(xhr) {
+      onreadystatechange: function (xhr) {
         return stateChangeCallback(xhr, this);
       },
       open: function open(args, xhr) {
@@ -2976,33 +2977,33 @@ close() {
         config.xhr = xhr;
         var evName = "on" + eventReadyStateChange;
         if (!xhr[evName]) {
-          xhr[evName] = function() {
+          xhr[evName] = function () {
             return stateChangeCallback(xhr, _this);
           };
         }
         if (onRequest) return true;
       },
-      send: function(args, xhr) {
+      send: function (args, xhr) {
         var config = xhr.config;
         config.withCredentials = xhr.withCredentials;
         config.body = args[0];
         if (onRequest) {
-          var req = function() {
+          var req = function () {
             onRequest(config, new RequestHandler$1(xhr));
           };
           config.async === false ? req() : setTimeout(req);
           return true;
         }
       },
-      setRequestHeader: function(args, xhr) {
+      setRequestHeader: function (args, xhr) {
         xhr.config.headers[args[0].toLowerCase()] = args[1];
         if (onRequest) return true;
       },
-      addEventListener: function(args, xhr) {
+      addEventListener: function (args, xhr) {
         var _this = this;
         if (events.indexOf(args[0]) !== -1) {
           var handler = args[1];
-          getEventTarget(xhr).addEventListener(args[0], function(e) {
+          getEventTarget(xhr).addEventListener(args[0], function (e) {
             var event = configEvent(e, _this);
             event.type = args[0];
             event.isTrusted = true;
@@ -3011,7 +3012,7 @@ close() {
           return true;
         }
       },
-      getAllResponseHeaders: function(_2, xhr) {
+      getAllResponseHeaders: function (_2, xhr) {
         var headers = xhr.resHeader;
         if (headers) {
           var header = "";
@@ -3021,7 +3022,7 @@ close() {
           return header;
         }
       },
-      getResponseHeader: function(args, xhr) {
+      getResponseHeader: function (args, xhr) {
         var headers = xhr.resHeader;
         if (headers) {
           return headers[(args[0] || "").toLowerCase()];
@@ -3146,10 +3147,10 @@ close() {
     static onFrame = "all";
     static runAfterDefault = false;
     config = useModuleStore().moduleConfig.EnhanceExperience.noReport;
-static isTargetURL(url) {
+    static isTargetURL(url) {
       return url.includes("//data.bilibili.com") || url.includes("//data.bilivideo.com");
     }
-hookProperties(win) {
+    hookProperties(win) {
       Object.defineProperty(win.navigator, "sendBeacon", {
         value: () => {
         }
@@ -3254,7 +3255,7 @@ hookProperties(win) {
         __statisObserver: {
 
 
-get() {
+          get() {
             return new Proxy(
               {},
               {
@@ -3333,7 +3334,7 @@ get() {
         }
       });
     }
-ajaxHook() {
+    ajaxHook() {
       const ajaxHookProxyConfig = {
         onRequest(config, handler) {
           if (NoReport.isTargetURL(config.url)) {
@@ -3517,7 +3518,7 @@ ajaxHook() {
       _GM_addStyle("#web-player-module-area-mask-panel { opacity: 0 !important }");
     }
   }
-  const otherModules = Object.freeze( Object.defineProperty({
+  const otherModules = Object.freeze(Object.defineProperty({
     __proto__: null,
     DailyTask_LiveTask_LightTask: LightTask,
     DailyTask_LiveTask_WatchTask: WatchTask2,
@@ -3862,7 +3863,7 @@ ajaxHook() {
     });
     const windowScrollPosition = vue.ref({ x: 0, y: 0 });
     const panelStyle = vue.computed(() => ({
-top: `${livePlayerRect.value.top + windowScrollPosition.value.y}px`,
+      top: `${livePlayerRect.value.top + windowScrollPosition.value.y}px`,
       left: `${livePlayerRect.value.left + windowScrollPosition.value.x}px`,
       height: `${livePlayerRect.value.height}px`,
       width: `${livePlayerRect.value.width * uiConfig.value.panelWidthPercent / 100}px`
@@ -3907,11 +3908,11 @@ top: `${livePlayerRect.value.top + windowScrollPosition.value.y}px`,
           icon: "Tasks",
           title: "每日任务",
           index: "DailyTasks",
-subs: [
+          subs: [
             {
               title: "主站任务",
               index: "MainSiteTasks"
-},
+            },
             {
               title: "直播任务",
               index: "LiveTasks"
@@ -4026,7 +4027,7 @@ subs: [
           vue.createElementVNode("div", {
             class: "collapse-btn",
             onClick: _cache[0] || (_cache[0] =
-(...args) => vue.unref(uiStore).changeCollapse && vue.unref(uiStore).changeCollapse(...args))
+              (...args) => vue.unref(uiStore).changeCollapse && vue.unref(uiStore).changeCollapse(...args))
           }, [
             vue.unref(uiStore).uiConfig.isCollapse ? (vue.openBlock(), vue.createBlock(_component_el_icon, { key: 0 }, {
               default: vue.withCtx(() => [
@@ -5813,7 +5814,7 @@ subs: [
     }
   });
   const TaskStatusIcon = _export_sfc(_sfc_main, [["__scopeId", "data-v-16fb8116"]]);
-  const MyIconsVue = Object.freeze( Object.defineProperty({
+  const MyIconsVue = Object.freeze(Object.defineProperty({
     __proto__: null,
     Info: InfoIcon,
     TaskStatus: TaskStatusIcon,
@@ -5832,7 +5833,7 @@ subs: [
     cacheStore.startMainBLTHAliveHeartBeat();
   }
   moduleStore.loadModules("unknown");
-  await( waitForMoment("document-body"));
+  await (waitForMoment("document-body"));
   if (isTargetFrame()) {
     const app = vue.createApp(App);
     app.use(ElementPlus);
@@ -5844,7 +5845,7 @@ subs: [
       app.component(key, component);
     }
     moduleStore.loadModules("yes");
-    await( waitForMoment("document-end"));
+    await (waitForMoment("document-end"));
     const div = dce("div");
     div.id = "BLTH";
     document.body.append(div);
