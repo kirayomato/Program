@@ -493,6 +493,10 @@
         },
         invisibility: {
           enabled: false
+        },
+        autoRestart: {
+          enabled: false,
+          intervalMinutes: 60
         }
       },
       RemoveElement: {
@@ -1300,8 +1304,35 @@
       }
     }
   }
+  class Default_AutoRestart extends BaseModule {
+    static runOnMultiplePages = false;
+    static runAt = "document-body";
+    static onFrame = "target";
+    static runAfterDefault = false;
+    set status(_s) {
+    }
+    async run() {
+      if (!this.isEnabled() || !this.config) {
+        return Promise.resolve();
+      }
+      const { intervalMinutes } = this.config;
+      if (typeof intervalMinutes !== "number" || intervalMinutes <= 0) {
+        return Promise.resolve();
+      }
+      const delay = intervalMinutes * 60 * 1e3;
+      _unsafeWindow.setTimeout(() => {
+        _unsafeWindow.location.reload();
+      }, delay);
+      return Promise.resolve();
+    }
+    constructor() {
+      super("Default_AutoRestart");
+      this.config = useModuleStore().moduleConfig.EnhanceExperience.autoRestart;
+    }
+  }
   const defaultModules = Object.freeze(Object.defineProperty({
     __proto__: null,
+    Default_AutoRestart,
     Default_BilibiliLive: BilibiliLive,
     Default_Cookies: Cookies,
     Default_DailyRewardInfo: DailyRewardInfo,

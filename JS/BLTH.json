@@ -299,6 +299,10 @@
             },
             "invisibility": {
                 "enabled": false
+            },
+            "autoRestart": {
+                "enabled": true,
+                "intervalMinutes": 60
             }
         },
         "RemoveElement": {
