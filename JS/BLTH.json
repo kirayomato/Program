@@ -243,27 +243,32 @@
                         866400,
                         30655190,
                         4340859,
-                        851181,
                         22901614,
                         27628030,
                         23805078,
                         23050776,
-                        32345363
+                        32345363,
+                        27627985,
+                        3415150,
+                        32164437,
+                        30015166
                     ],
                     "roomidList2": [
                         27628019,
                         1011107,
                         21672024,
-                        1791260756,
-                        370468,
                         696067,
                         22642754,
                         31368705,
+                        850221,
                         21403601,
+                        1713546334,
                         23260993,
                         1967216004,
-                        1713546334,
-                        1986461465
+                        1986461465,
+                        1791260756,
+                        370468,
+                        22978186
                     ]
                 }
             },
@@ -302,7 +307,7 @@
             },
             "autoRestart": {
                 "enabled": true,
-                "intervalMinutes": 60
+                "intervalMinutes": 240
             }
         },
         "RemoveElement": {
@@ -327,16 +332,10 @@
             "removeComboCard": {
                 "enabled": false
             },
-            "removeRank": {
-                "enabled": false
-            },
             "removeHeaderStuff": {
                 "enabled": false
             },
             "removeFlipView": {
-                "enabled": false
-            },
-            "removeRecommendRoom": {
                 "enabled": false
             },
             "removeLiveMosaic": {
