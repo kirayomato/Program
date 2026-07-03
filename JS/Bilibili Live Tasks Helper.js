@@ -1694,9 +1694,16 @@
     static async getTaskInfo(targetId) {
       try {
         const response = await BAPI.live.getActivatedMedalInfo(targetId);
-        if (response.code === 0 && response.data?.task_info) {
-          console.debug("BAPI.live.getActivatedMedalInfo response", response);
-          return response.data.task_info;
+        if (response.code === 0) {
+          const data = response.data;
+          if (data.reach_free_intimacy_limit) {
+            console.warn(`${data.name}(uid: ${targetId}) 已储蓄满${data.free_intimacy}亲密度，无法进行任务`);
+            return null;
+          }
+          if (data.task_info) {
+            console.debug("BAPI.live.getActivatedMedalInfo response", response);
+            return data.task_info;
+          }
         }
         return null;
       } catch (error) {
@@ -1830,7 +1837,7 @@
           if (medal.medal.is_lighted) {
             const [prog, total] = await MedalModule.getMissionProgress(medal.medal.target_id, "点赞30次");
             this.logger.log(`${medal.anchor_info.nick_name} 点赞进度: ${prog} / ${total}`);
-            if (total > 0 && prog == total) {
+            if (prog == total) {
               [batch[i], batch[n - 1]] = [batch[n - 1], batch[i]];
               n--;
               continue;
@@ -1862,7 +1869,7 @@
             if (medal.medal.is_lighted) {
               const [prog, total] = await MedalModule.getMissionProgress(medal.medal.target_id, "发弹幕");
               this.logger.log(`${medal.anchor_info.nick_name} 发弹幕进度: ${prog} / ${total}`);
-              if (total > 0 && prog == total) {
+              if (prog == total) {
                 [batch[i], batch[n - 1]] = [batch[n - 1], batch[i]];
                 n--;
                 continue;
@@ -2008,15 +2015,13 @@
           this.seq += 1;
           this.updateProgress();
           const [prog, total] = await MedalModule.getMissionProgress(this.ruid, "观看直播满15分钟");
-          if (total != 0) {
-            if (prog != this.progress || this.progress == -1) {
-              this.progress = prog;
-              this.logger.log(`${this.roomID} 观看直播进度: ${prog}/${total}`);
-            }
-            if (prog == total) {
-              this.logger.log(`${this.roomID} 观看直播进度已满，观看结束`);
-              return;
-            }
+          if (prog != this.progress || this.progress == -1) {
+            this.progress = prog;
+            this.logger.log(`${this.roomID} 观看直播进度: ${prog}/${total}`);
+          }
+          if (prog == total) {
+            this.logger.log(`${this.roomID} 观看直播进度已满，观看结束`);
+            return;
           }
           if (this.watchedSeconds >= this.config.time * 60) {
             return;
