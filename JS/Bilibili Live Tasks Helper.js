@@ -1827,33 +1827,43 @@
       return false;
     }
     async likeTask(medals) {
-      let n = medals.length;
-      const batch = medals;
-      this.logger.log(`点赞勋章列表(${n}): ${batch.map((medal) => medal.anchor_info.nick_name)}`);
-      batch.reverse();
-      for (let j = 0; j < 12; j++) {
-        for (let i = n - 1; i >= 0; i--) {
-          const medal = batch[i];
-          if (medal.medal.is_lighted) {
-            const [prog, total] = await MedalModule.getMissionProgress(medal.medal.target_id, "点赞30次");
-            this.logger.log(`${medal.anchor_info.nick_name} 点赞进度: ${prog} / ${total}`);
-            if (prog == total) {
-              [batch[i], batch[n - 1]] = [batch[n - 1], batch[i]];
-              n--;
-              continue;
+      const BATCH_SIZE = 10;
+      const batchList = [];
+      for (let i = 0; i < medals.length; i += BATCH_SIZE) {
+        batchList.push(medals.slice(i, i + BATCH_SIZE));
+      }
+      for (const batch of batchList) {
+        let n = batch.length;
+        this.logger.log(`点赞列表(${batch.length}): ${batch.map((medal) => medal.anchor_info.nick_name)}`);
+        batch.reverse();
+        for (let j = 0; j < 12; j++) {
+          for (let i = n - 1; i >= 0; i--) {
+            const medal = batch[i];
+            if (medal.medal.is_lighted) {
+              const [prog, total] = await MedalModule.getMissionProgress(medal.medal.target_id, "点赞30次");
+              this.logger.log(`${medal.anchor_info.nick_name} 点赞进度: ${prog} / ${total}`);
+              if (prog == total) {
+                [batch[i], batch[n - 1]] = [batch[n - 1], batch[i]];
+                n--;
+                continue;
+              }
+              await this.like(medal, _.random(30, 40));
+              const [_prog, _total] = await MedalModule.getMissionProgress(medal.medal.target_id, "点赞30次");
+              if (_prog == prog) {
+                this.logger.warn("当日点赞已经达到上限");
+                return;
+              }
+            } else {
+              await this.like(medal, _.random(30, 40));
             }
-          }
-          await this.like(medal, _.random(30, 35));
-          if (i < medals.length - 1) {
-            await sleep(_.random(3e4, 35e3));
+            await sleep(_.random(5e3, 15e3));
           }
         }
-        await sleep(_.random(5e4, 1e5));
       }
       this.logger.log("点赞任务已完成");
     }
     async sendDanmuTask(medals) {
-      const BATCH_SIZE = 30;
+      const BATCH_SIZE = 20;
       let danmuIndex = 0;
       const batchList = [];
       for (let i = 0; i < medals.length; i += BATCH_SIZE) {
@@ -1879,14 +1889,15 @@
               medal,
               this.config.danmuList[danmuIndex++ % this.config.danmuList.length]
             );
+            const sleep_time = 300 / batch.length * 1e3 + _.random(1e4, 3e4);
             if (!success) {
-              await sleep(Math.max(150 * 1e3 / batch.length, _.random(1e4, 15e3)));
+              await sleep(sleep_time);
               await this.sendEmoji(
                 medal,
                 this.config.emojiList[danmuIndex++ % this.config.emojiList.length]
               );
             }
-            await sleep(Math.max(150 * 1e3 / batch.length, _.random(1e4, 15e3)));
+            await sleep(sleep_time);
           }
         }
       }
