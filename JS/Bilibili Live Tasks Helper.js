@@ -1842,20 +1842,16 @@
             if (medal.medal.is_lighted) {
               const [prog, total] = await MedalModule.getMissionProgress(medal.medal.target_id, "点赞30次");
               this.logger.log(`${medal.anchor_info.nick_name} 点赞进度: ${prog} / ${total}`);
-              if (prog == total) {
+              if (prog == total || j - prog > 3) {
+                if (j - prog > 3) {
+                  this.logger.warn(`${medal.anchor_info.nick_name} 点赞任务进度达到上限`);
+                }
                 [batch[i], batch[n - 1]] = [batch[n - 1], batch[i]];
                 n--;
                 continue;
               }
-              await this.like(medal, _.random(30, 40));
-              const [_prog, _total] = await MedalModule.getMissionProgress(medal.medal.target_id, "点赞30次");
-              if (_prog == prog) {
-                this.logger.warn("当日点赞已经达到上限");
-                return;
-              }
-            } else {
-              await this.like(medal, _.random(30, 40));
             }
+            await this.like(medal, _.random(30, 40));
             await sleep(_.random(5e3, 15e3));
           }
         }
