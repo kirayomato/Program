@@ -1650,6 +1650,18 @@
     }
   }
   class MedalModule extends BaseModule {
+    static get ROOM_STATUS_PROBE_DYNAMIC_DELAY() {
+      return _.random(600, 800);
+    }
+    static get TASK_INFO_REQUEST_DYNAMIC_DELAY() {
+      return _.random(300, 500);
+    }
+    static requestQueues = {
+      taskInfo: Promise.resolve(),
+      roomStatus: Promise.resolve()
+    };
+    static LIVE_STATUS_SNAPSHOT_FRESHNESS_THRESHOLD = 6e4;
+    static liveStatusSnapshots = new Map();
     medalTasksConfig = useModuleStore().moduleConfig.DailyTasks.LiveTasks.medalTasks;
     PUBLIC_MEDAL_FILTERS = {
       whiteBlackList: (m) => this.medalTasksConfig.isWhiteList ? this.medalTasksConfig.roomidList.includes(m.room_info.room_id) : !this.medalTasksConfig.roomidList.includes(m.room_info.room_id),
@@ -1691,6 +1703,113 @@
         return b.medal.intimacy - a.medal.intimacy;
       return b.medal.level - a.medal.level;
     };
+    async fetchMedalPageForLiveStatus(page, roomid) {
+      try {
+        const response = await BAPI.live.fansMedalPanel(page);
+        console.log(`BAPI.live.fansMedalPanel(${page}) response`, response);
+        let status = null;
+        if (response.code === 0) {
+          const medals = [...response.data.special_list, ...response.data.list];
+          const observedAt = tsm();
+          for (const medal of medals) {
+            const medalRoomid = medal.room_info.room_id;
+            const medalLiveStatus = medal.room_info.living_status;
+            MedalModule.liveStatusSnapshots.set(medalRoomid, {
+              liveStatus: medalLiveStatus,
+              observedAt
+            });
+            if (medalRoomid === roomid) {
+              status = medalLiveStatus;
+            }
+          }
+          const currentPage = response.data.page_info.current_page;
+          const totalPage = response.data.page_info.total_page;
+          const hasUnlightedMedal = medals.some((m) => !m.medal.is_lighted);
+          return {
+            status,
+            canTryNextPage: currentPage < totalPage && !hasUnlightedMedal
+          };
+        }
+        console.warn(`BAPI.live.fansMedalPanel(${page}) 失败`, response.message);
+      } catch (error) {
+        console.warn(`BAPI.live.fansMedalPanel(${page}) 出错`, error);
+      }
+      return { status: null, canTryNextPage: false };
+    }
+    ROOM_LIVE_STATUS_FETCHERS = [
+      async (roomid) => {
+        const roomids = useBiliStore().filteredFansMedals;
+        let index = -1;
+        for (const r of roomids) {
+          index++;
+          if (r.room_info.room_id === roomid) {
+            break;
+          }
+        }
+        const page = Math.floor(index / 10) + 1;
+        const { status, canTryNextPage } = await this.fetchMedalPageForLiveStatus(page, roomid);
+        if (status !== null) {
+          return status;
+        }
+        if (canTryNextPage) {
+          await sleep(_.random(300, 500));
+          const { status: status2 } = await this.fetchMedalPageForLiveStatus(page + 1, roomid);
+          return status2;
+        }
+        return null;
+      },
+      async (roomid) => {
+        try {
+          const response = await BAPI.live.getInfoByRoom(roomid);
+          console.debug(`BAPI.live.getInfoByRoom(${roomid}) response`, response);
+          if (response.code === 0) {
+            const liveStatus = response.data.room_info.live_status;
+            MedalModule.liveStatusSnapshots.set(roomid, { liveStatus, observedAt: tsm() });
+            return liveStatus;
+          }
+          console.warn(`BAPI.live.getInfoByRoom(${roomid}) 失败`, response.message);
+        } catch (error) {
+          console.warn(`BAPI.live.getInfoByRoom(${roomid}) 出错`, error);
+        }
+        return null;
+      }
+    ];
+    static enqueueRequest(queueKey, getDelay, requester) {
+      const task = MedalModule.requestQueues[queueKey].catch(() => {
+      }).then(() => requester());
+      MedalModule.requestQueues[queueKey] = task.catch(() => {
+      }).then(() => getDelay());
+      return task;
+    }
+    static enqueueRoomStatusProbe(requester) {
+      return MedalModule.enqueueRequest(
+        "roomStatus",
+        () => sleep(MedalModule.ROOM_STATUS_PROBE_DYNAMIC_DELAY),
+        requester
+      );
+    }
+    async fetchRoomLiveStatus(roomid, preferMedalAPI = false) {
+      const fetchers = preferMedalAPI ? [this.ROOM_LIVE_STATUS_FETCHERS[0], ..._.shuffle(this.ROOM_LIVE_STATUS_FETCHERS.slice(1))] : _.shuffle(this.ROOM_LIVE_STATUS_FETCHERS);
+      for (let i = 0; i < fetchers.length; i++) {
+        const liveStatus = await fetchers[i](roomid);
+        if (liveStatus !== null) {
+          return liveStatus;
+        }
+        if (i < fetchers.length - 1) {
+          await sleep(MedalModule.ROOM_STATUS_PROBE_DYNAMIC_DELAY);
+        }
+      }
+      return null;
+    }
+    async resolveLiveStatus(roomid, preferMedalAPI = false) {
+      const snapshot = MedalModule.liveStatusSnapshots.get(roomid);
+      if (snapshot && tsm() - snapshot.observedAt < MedalModule.LIVE_STATUS_SNAPSHOT_FRESHNESS_THRESHOLD) {
+        return snapshot.liveStatus;
+      }
+      return await MedalModule.enqueueRoomStatusProbe(
+        () => this.fetchRoomLiveStatus(roomid, preferMedalAPI)
+      );
+    }
     static async getTaskInfo(targetId) {
       try {
         const response = await BAPI.live.getActivatedMedalInfo(targetId);
@@ -1839,17 +1958,26 @@
         for (let j = 0; j < 12; j++) {
           for (let i = n - 1; i >= 0; i--) {
             const medal = batch[i];
+            let flag = 1;
+            const liveStatus = await this.resolveLiveStatus(medal.room_info.room_id);
+            if (liveStatus == 0) {
+              this.logger.warn(`${medal.anchor_info.nick_name} 已经下播，跳过点赞任务`);
+              flag = 0;
+            }
             if (medal.medal.is_lighted) {
               const [prog, total] = await MedalModule.getMissionProgress(medal.medal.target_id, "点赞30次");
               this.logger.log(`${medal.anchor_info.nick_name} 点赞进度: ${prog} / ${total}`);
-              if (prog == total || j - prog > 3) {
-                if (j - prog > 3) {
+              if (prog == total || j - prog > 2) {
+                if (j - prog > 2) {
                   this.logger.warn(`${medal.anchor_info.nick_name} 点赞任务进度达到上限`);
                 }
-                [batch[i], batch[n - 1]] = [batch[n - 1], batch[i]];
-                n--;
-                continue;
+                flag = 0;
               }
+            }
+            if (flag == 0) {
+              [batch[i], batch[n - 1]] = [batch[n - 1], batch[i]];
+              n--;
+              continue;
             }
             await this.like(medal, _.random(30, 40));
             await sleep(_.random(5e3, 15e3));
@@ -1872,14 +2000,23 @@
         for (let j = 0; j < 12; j++) {
           for (let i = n - 1; i >= 0; i--) {
             const medal = batch[i];
+            let flag = 1;
+            const liveStatus = await this.resolveLiveStatus(medal.room_info.room_id);
+            if (liveStatus == 1) {
+              this.logger.warn(`${medal.anchor_info.nick_name} 检测到直播中，跳过发送弹幕任务`);
+              flag = 0;
+            }
             if (medal.medal.is_lighted) {
               const [prog, total] = await MedalModule.getMissionProgress(medal.medal.target_id, "发弹幕");
               this.logger.log(`${medal.anchor_info.nick_name} 发弹幕进度: ${prog} / ${total}`);
               if (prog == total) {
-                [batch[i], batch[n - 1]] = [batch[n - 1], batch[i]];
-                n--;
-                continue;
+                flag = 0;
               }
+            }
+            if (flag == 0) {
+              [batch[i], batch[n - 1]] = [batch[n - 1], batch[i]];
+              n--;
+              continue;
             }
             const success = await this.sendDanmu(
               medal,
