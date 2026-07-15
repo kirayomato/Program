@@ -1293,7 +1293,7 @@
             return true;
           }
         });
-        setTimeout(() => reject2(new Error("获取 BilibiliLive 超时")), 1e4);
+        setTimeout(() => reject2(new Error("获取 BilibiliLive 超时")), 6e4);
       });
     }
     async run() {
