@@ -447,7 +447,8 @@
                 "official_126",
                 "official_134"
               ],
-              _lastCompleteTime: 0
+              _lastCompleteTime: 0,
+              _todayLightLikes: 0
             },
             watch: {
               enabled: false,
@@ -1947,16 +1948,29 @@
     }
     async likeTask(medals) {
       const BATCH_SIZE = 10;
+      const DAILY_LIKE_LIMIT = 5e3;
+      if (!isTimestampToday(this.config._lastCompleteTime)) {
+        this.config._todayLightLikes = 0;
+      }
+      let totalLikes = this.config._todayLightLikes;
+      this.logger.log(`今日已点赞 ${totalLikes} 次（上限 ${DAILY_LIKE_LIMIT}）`);
+      if (totalLikes >= DAILY_LIKE_LIMIT) {
+        this.logger.log("今日点赞已达上限，跳过点赞任务");
+        return;
+      }
       const batchList = [];
       for (let i = 0; i < medals.length; i += BATCH_SIZE) {
         batchList.push(medals.slice(i, i + BATCH_SIZE));
       }
       for (const batch of batchList) {
+        if (totalLikes >= DAILY_LIKE_LIMIT) break;
         let n = batch.length;
         this.logger.log(`点赞列表(${batch.length}): ${batch.map((medal) => medal.anchor_info.nick_name)}`);
         batch.reverse();
         for (let j = 0; j < 12; j++) {
+          if (totalLikes >= DAILY_LIKE_LIMIT) break;
           for (let i = n - 1; i >= 0; i--) {
+            if (totalLikes >= DAILY_LIKE_LIMIT) break;
             const medal = batch[i];
             let flag = 1;
             const liveStatus = await this.resolveLiveStatus(medal.room_info.room_id);
@@ -1979,12 +1993,15 @@
               n--;
               continue;
             }
-            await this.like(medal, _.random(30, 40));
+            const likeCount = _.random(30, 40);
+            await this.like(medal, likeCount);
+            totalLikes += likeCount;
+            this.config._todayLightLikes = totalLikes;
             await sleep(_.random(5e3, 15e3));
           }
         }
       }
-      this.logger.log("点赞任务已完成");
+      this.logger.log(`点赞任务已完成，本日总点赞次数: ${totalLikes}`);
     }
     async sendDanmuTask(medals) {
       const BATCH_SIZE = 20;
@@ -3824,6 +3841,7 @@
             light: () => {
               moduleStatus.value.DailyTasks.LiveTasks.medalTasks.light = "";
               moduleConfig.value.DailyTasks.LiveTasks.medalTasks.light._lastCompleteTime = 0;
+              moduleConfig.value.DailyTasks.LiveTasks.medalTasks.light._todayLightLikes = 0;
               rerunModule("Default_FansMedals", true);
               rerunModule("DailyTask_LiveTask_LightTask");
             },
@@ -3943,6 +3961,7 @@
         deepestIterate(moduleStatus, (_value, path) => {
           _.set(moduleStatus, path, "");
         });
+        moduleConfig.value.DailyTasks.LiveTasks.medalTasks.light._todayLightLikes = 0;
         clearStatus();
       }, delayToNextMoment(0, 0).ms);
     })();
