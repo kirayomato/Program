@@ -263,6 +263,8 @@ async function fetcher(url) {
         });
     }
     async function drawRedPacket(message, force) {
+        console.info(`【Red Packet】`, message)
+        let dm = message.data.danmu
         // 防止收不到开奖信息页面状态卡住
         let countdown = (message.data.end_time - message.data.current_time) * 1000;
         await GetToday();
@@ -413,6 +415,7 @@ async function fetcher(url) {
                         throw new Error("返参错误");
                     }
                     console.info("【Red Packet】红包请求返回：", JSON.stringify(json));
+                    sendMsg(dm, ROOM_ID)
                     if (json.code !== 0 || json.data.join_status !== 1) {
                         switch (json.code) {
                             case 1009109:       // 每日上限
@@ -769,6 +772,41 @@ async function fetcher(url) {
         _.forEach(json, (value, key) => formData.append(key, value.toString()));
         return formData;
     };
+    async function sendMsg(msg, roomid, room_type = 0, mode = 1, jumpfrom = 0, fontsize = 25, color = 16777215, bubble = 0, reply_mid = 0, reply_attr = 0, replay_dmid = "", statistics = '{"appId":100,"platform":5}') {
+        const url = 'https://api.live.bilibili.com/msg/send'
+        const data = packFormData({
+            bubble,
+            msg,
+            color,
+            mode,
+            room_type,
+            jumpfrom,
+            reply_mid,
+            reply_attr,
+            replay_dmid,
+            statistics,
+            fontsize,
+            rnd: Date.now(),
+            roomid,
+            csrf: Setting.TOKEN,
+            csrf_token: Setting.TOKEN
+        })
+        fetch(url, {
+            credentials: "include",
+            method: 'POST',
+            body: data
+        })
+            .then(res => res.json())
+            .then(json => {
+                if (json['code'] == 0) {
+                    console.info(`【Red Packet】发送弹幕:${msg} room:${roomid} ${new Date().toTimeString()}`);
+                }
+                else {
+                    console.info(`【Red Packet】发送弹幕失败 room:${roomid} ${new Date().toTimeString()}`);
+                    console.info(`【Red Packet】`, JSON.stringify(json))
+                }
+            });
+    }
     async function sendEmoji(roomid, mode = 1, fontsize = 25, color = 16777215, bubble = 0, dm_type = 1) {
         const url = 'https://api.live.bilibili.com/msg/send'
         const emoji = ["official_348", "official_332", "official_335", "official_345", "official_346", "official_147", "official_124", "official_146"]
