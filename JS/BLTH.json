@@ -28,6 +28,8 @@
                 "medalTasks": {
                     "light": {
                         "enabled": true,
+                        "likeEnabled": true,
+                        "danmuEnabled": true,
                         "danmuList": [
                             "(⌒▽⌒)",
                             "（￣▽￣）",
