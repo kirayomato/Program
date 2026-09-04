@@ -1960,6 +1960,7 @@
       const hours = d.getHours();
       if (hours < 2) {
         this.logger.log(`0-2点自动跳过点赞任务`);
+        return;
       }
       if (!isTimestampToday(this.config._lastCompleteTime)) {
         this.config._todayLightLikes = 0;
@@ -2019,8 +2020,9 @@
       const BATCH_SIZE = 20;
       const d = new Date();
       const hours = d.getHours();
-      if (hours >= 19 || hours < 2) {
-        this.logger.log(`19-2点自动跳过弹幕任务`);
+      if (hours >= 19 || hours < 1) {
+        this.logger.log(`19-1点自动跳过弹幕任务`);
+        return;
       }
       let danmuIndex = 0;
       const batchList = [];
