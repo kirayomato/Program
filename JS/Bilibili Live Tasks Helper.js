@@ -1826,6 +1826,8 @@
           if (data.reach_free_intimacy_limit) {
             console.warn(`${data.name}(uid: ${targetId}) 已储蓄满${data.free_intimacy}亲密度，无法进行任务`);
             return null;
+          } else if (data.free_intimacy > 0) {
+            console.warn(`${data.name}(uid: ${targetId}) 已储蓄${data.free_intimacy}亲密度`);
           }
           if (data.task_info) {
             console.debug("BAPI.live.getActivatedMedalInfo response", response);
@@ -2020,8 +2022,8 @@
       const BATCH_SIZE = 20;
       const d = new Date();
       const hours = d.getHours();
-      if (hours >= 19 || hours < 1) {
-        this.logger.log(`19-1点自动跳过弹幕任务`);
+      if (hours >= 19 || hours < 23) {
+        this.logger.log(`19-23点自动跳过弹幕任务`);
         return;
       }
       let danmuIndex = 0;
