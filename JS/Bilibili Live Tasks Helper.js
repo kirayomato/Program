@@ -2022,7 +2022,7 @@
       const BATCH_SIZE = 20;
       const d = new Date();
       const hours = d.getHours();
-      if (hours >= 19 || hours < 23) {
+      if (hours >= 19 && hours < 23) {
         this.logger.log(`19-23点自动跳过弹幕任务`);
         return;
       }
