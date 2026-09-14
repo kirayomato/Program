@@ -2017,6 +2017,12 @@
         }
       }
       this.logger.log(`点赞任务已完成，本日总点赞次数: ${totalLikes}`);
+      if (medals.length > 0) {
+        this.config.likeEnabled = false;
+        this.logger.log("点赞任务已完成一次执行，点赞开关已自动关闭");
+      } else {
+        this.logger.log("没有正在直播的粉丝勋章，点赞开关保持开启");
+      }
     }
     async sendDanmuTask(medals) {
       const BATCH_SIZE = 20;
