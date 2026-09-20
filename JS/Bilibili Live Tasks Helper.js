@@ -67,7 +67,7 @@
 
   const d = new Set; const importCSS = async e => { d.has(e) || (d.add(e), (t => { typeof GM_addStyle == "function" ? GM_addStyle(t) : (document.head || document.documentElement).appendChild(document.createElement("style")).append(t); })(e)); };
 
-  importCSS(" #aside-el-menu[data-v-db397d59]:not(.el-menu--collapse){width:150px}.title[data-v-848fd8cc]{display:flex;align-items:baseline;padding-left:20px}.header-big-text[data-v-848fd8cc]{align-self:unset;font-size:var(--big-text-size)}.header-small-text[data-v-848fd8cc]{align-self:unset;margin-left:10px;font-size:var(--small-text-size);--small-text-size: 18px}.collapse-btn[data-v-848fd8cc]{float:left;display:flex;align-items:center;justify-content:center;height:100%;cursor:pointer}.avatar-wrap[data-v-942c5886]{width:80px;height:80px}.avatar[data-v-942c5886]{display:flex;align-items:center;justify-content:center;border-radius:50%}.label-text[data-v-0ed6e292]{line-height:32px;color:var(--el-text-color-primary)}.base[data-v-28de2807]{position:absolute;z-index:1003;background-color:var(--el-bg-color)}.header[data-v-28de2807]{position:relative;box-sizing:border-box;display:flex;align-items:center;width:100%;height:60px;font-size:var(--big-text-size);border-bottom:1px solid #e3e5e7;--big-text-size: 25px}.aside[data-v-28de2807]{width:auto}.main[data-v-28de2807]{padding:0}.panel-main[data-v-28de2807]{padding:calc(var(--el-main-padding) * .625) var(--el-main-padding)}.fade-enter-active[data-v-28de2807]{animation:fade-in linear .2s}.info-icon[data-v-02b5bf3e]{font-size:var(--el-font-size-base);cursor:pointer}.status-icon[data-v-16fb8116]{font-size:var(--el-font-size-base)}.done[data-v-16fb8116]{color:#1ab059}.done.is-hovered[data-v-16fb8116]{color:#409eff;cursor:pointer}.error[data-v-16fb8116]{color:#ff6464}.icon-fade-enter-active[data-v-16fb8116],.icon-fade-leave-active[data-v-16fb8116]{transition:all .15s ease}.icon-fade-enter-from[data-v-16fb8116],.icon-fade-leave-to[data-v-16fb8116]{opacity:0;transform:scale(.8) rotate(90deg)} ");
+  importCSS(" #aside-el-menu[data-v-db397d59]:not(.el-menu--collapse){width:150px}.title[data-v-848fd8cc]{display:flex;align-items:baseline;padding-left:20px}.header-big-text[data-v-848fd8cc]{align-self:unset;font-size:var(--big-text-size)}.header-small-text[data-v-848fd8cc]{align-self:unset;margin-left:10px;font-size:var(--small-text-size);--small-text-size: 18px}.collapse-btn[data-v-848fd8cc]{float:left;display:flex;align-items:center;justify-content:center;height:100%;cursor:pointer}.avatar-wrap[data-v-05c9bf80]{width:80px;height:80px}.avatar[data-v-05c9bf80]{display:flex;align-items:center;justify-content:center;border-radius:50%}.label-text[data-v-0ed6e292]{line-height:32px;color:var(--el-text-color-primary)}.base[data-v-28de2807]{position:absolute;z-index:1003;background-color:var(--el-bg-color)}.header[data-v-28de2807]{position:relative;box-sizing:border-box;display:flex;align-items:center;width:100%;height:60px;font-size:var(--big-text-size);border-bottom:1px solid #e3e5e7;--big-text-size: 25px}.aside[data-v-28de2807]{width:auto}.main[data-v-28de2807]{padding:0}.panel-main[data-v-28de2807]{padding:calc(var(--el-main-padding) * .625) var(--el-main-padding)}.fade-enter-active[data-v-28de2807]{animation:fade-in linear .2s}.info-icon[data-v-02b5bf3e]{font-size:var(--el-font-size-base);cursor:pointer}.status-icon[data-v-16fb8116]{font-size:var(--el-font-size-base)}.done[data-v-16fb8116]{color:#1ab059}.done.is-hovered[data-v-16fb8116]{color:#409eff;cursor:pointer}.error[data-v-16fb8116]{color:#ff6464}.icon-fade-enter-active[data-v-16fb8116],.icon-fade-leave-active[data-v-16fb8116]{transition:all .15s ease}.icon-fade-enter-from[data-v-16fb8116],.icon-fade-leave-to[data-v-16fb8116]{opacity:0;transform:scale(.8) rotate(90deg)} ");
 
   var _GM_addStyle = (() => typeof GM_addStyle != "undefined" ? GM_addStyle : void 0)();
   var _GM_getResourceText = (() => typeof GM_getResourceText != "undefined" ? GM_getResourceText : void 0)();
@@ -1978,13 +1978,17 @@
         batchList.push(medals.slice(i, i + BATCH_SIZE));
       }
       for (const batch of batchList) {
-        if (totalLikes >= DAILY_LIKE_LIMIT) break;
+        if (totalLikes >= DAILY_LIKE_LIMIT || !this.config.likeEnabled) break;
         let n = batch.length;
         this.logger.log(`点赞列表(${batch.length}): ${batch.map((medal) => medal.anchor_info.nick_name)}`);
         batch.reverse();
         for (let j = 0; j < 12; j++) {
-          if (totalLikes >= DAILY_LIKE_LIMIT) break;
+          if (totalLikes >= DAILY_LIKE_LIMIT || !this.config.likeEnabled) break;
           for (let i = n - 1; i >= 0; i--) {
+            if (!this.config.likeEnabled) {
+              this.logger.log("点赞开关已关闭，停止点赞任务");
+              break;
+            }
             if (totalLikes >= DAILY_LIKE_LIMIT) break;
             const medal = batch[i];
             let flag = 1;
@@ -2017,11 +2021,11 @@
         }
       }
       this.logger.log(`点赞任务已完成，本日总点赞次数: ${totalLikes}`);
-      if (medals.length > 0) {
+      if (medals.length === 0) {
+        this.logger.log("没有正在直播的粉丝勋章，点赞开关保持开启");
+      } else if (this.config.likeEnabled) {
         this.config.likeEnabled = false;
         this.logger.log("点赞任务已完成一次执行，点赞开关已自动关闭");
-      } else {
-        this.logger.log("没有正在直播的粉丝勋章，点赞开关保持开启");
       }
     }
     async sendDanmuTask(medals) {
@@ -2038,11 +2042,17 @@
         batchList.push(medals.slice(i, i + BATCH_SIZE));
       }
       for (const batch of batchList) {
+        if (!this.config.danmuEnabled) break;
         let n = batch.length;
         this.logger.log(`发送弹幕列表(${batch.length}): ${batch.map((medal) => medal.anchor_info.nick_name)}`);
         batch.reverse();
         for (let j = 0; j < 12; j++) {
+          if (!this.config.danmuEnabled) break;
           for (let i = n - 1; i >= 0; i--) {
+            if (!this.config.danmuEnabled) {
+              this.logger.log("弹幕开关已关闭，停止发送弹幕任务");
+              break;
+            }
             const medal = batch[i];
             let flag = 1;
             const liveStatus = await this.resolveLiveStatus(medal.room_info.room_id);
@@ -2181,6 +2191,10 @@
       }
     }
     async X() {
+      if (!this.config.enabled) {
+        this.logger.log(`观看直播开关已关闭，停止直播间 ${this.roomID} 的X心跳`);
+        return;
+      }
       if (isNowIn(23, 59, 0, 5)) {
         this.logger.log(`即将或刚刚发生跨天，停止直播间 ${this.roomID} 的X心跳`);
         return;
@@ -2356,6 +2370,10 @@
       if (fansMedals.length > 0) {
         let i;
         for (i = 0; i < fansMedals.length; i++) {
+          if (!this.config.enabled) {
+            this.logger.log("观看直播开关已关闭，停止观看直播任务");
+            break;
+          }
           if (isNowIn(23, 55, 0, 5)) {
             this.logger.log("即将或刚刚发生跨天，提早结束本轮观看直播任务");
             break;
@@ -4885,6 +4903,25 @@
           config.medalTasks.roomidList = selection.map((row2) => row2.roomid);
         }
       }
+      vue.watch(
+        () => [config.medalTasks.light.likeEnabled, config.medalTasks.light.danmuEnabled],
+        ([likeNew, danmuNew], [likeOld, danmuOld]) => {
+          const turnedOn = likeNew && !likeOld || danmuNew && !danmuOld;
+          if (!turnedOn) return;
+          if (moduleStore2.moduleStatus.DailyTasks.LiveTasks.medalTasks.light === "running") return;
+          if (!moduleStore2.moduleInstances["DailyTask_LiveTask_LightTask"]) return;
+          moduleStore2.rerunModule("DailyTask_LiveTask_LightTask");
+        }
+      );
+      vue.watch(
+        () => config.medalTasks.watch.enabled,
+        (newVal, oldVal) => {
+          if (!newVal || oldVal) return;
+          if (moduleStore2.moduleStatus.DailyTasks.LiveTasks.medalTasks.watch === "running") return;
+          if (!moduleStore2.moduleInstances["DailyTask_LiveTask_WatchTask"]) return;
+          moduleStore2.rerunModule("DailyTask_LiveTask_WatchTask");
+        }
+      );
       return (_ctx, _cache) => {
         const _component_el_switch = vue.resolveComponent("el-switch");
         const _component_el_button = vue.resolveComponent("el-button");
@@ -5256,7 +5293,7 @@
       };
     }
   });
-  const LiveTasks = _export_sfc(_sfc_main$9, [["__scopeId", "data-v-942c5886"]]);
+  const LiveTasks = _export_sfc(_sfc_main$9, [["__scopeId", "data-v-05c9bf80"]]);
   const _sfc_main$8 = vue.defineComponent({
     __name: "OtherTasks",
     setup(__props) {
