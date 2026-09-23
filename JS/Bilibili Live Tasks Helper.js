@@ -1681,16 +1681,29 @@
         const { fansMedalsStatus } = pinia$1.storeToRefs(useBiliStore());
         if (fansMedalsStatus.value === "loaded") {
           resolve2(true);
-        } else {
-          const unwatch = vue.watch(fansMedalsStatus, (newValue) => {
-            if (newValue === "loaded") {
-              unwatch();
-              resolve2(true);
-            } else if (newValue === "error") {
-              unwatch();
-              resolve2(false);
-            }
-          });
+          return;
+        }
+        if (fansMedalsStatus.value === "error") {
+          resolve2(false);
+          return;
+        }
+        const unwatch = vue.watch(fansMedalsStatus, (status) => {
+          if (status === "loaded") {
+            unwatch();
+            resolve2(true);
+          } else if (status === "error") {
+            unwatch();
+            resolve2(false);
+          }
+        });
+        if (fansMedalsStatus.value === void 0) {
+          try {
+            Promise.resolve(useModuleStore().rerunModule("Default_FansMedals", true)).catch(() => {
+            });
+          } catch {
+            unwatch();
+            resolve2(false);
+          }
         }
       });
     }
