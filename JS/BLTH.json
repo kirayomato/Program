@@ -87,7 +87,12 @@
                             "official_126",
                             "official_134"
                         ],
-                        "_lastCompleteTime": 0
+                        "_lastCompleteTime": 0,
+                        "_todayLightLikes": 0,
+                        "reserveLikeRoomids": [
+                            27628019
+                        ],
+                        "_todayReserveLikes": {}
                     },
                     "watch": {
                         "enabled": false,
@@ -359,7 +364,7 @@
     },
     "ui": {
         "isCollapse": false,
-        "isShowPanel": false,
+        "isShowPanel": true,
         "activeMenuIndex": "LiveTasks",
         "panelWidthPercent": 45,
         "medalInfoPanelSortMode": false
