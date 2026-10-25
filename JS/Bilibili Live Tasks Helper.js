@@ -17,17 +17,17 @@
 // @updateURL       https://github.com/andywang425/BLTH/releases/latest/download/bilibili-live-tasks-helper.meta.js
 // @match           *://live.bilibili.com/22474988
 // @match           *://live.bilibili.com/blanc/22474988
-// @require         https://unpkg.com/vue@3.5.32/dist/vue.global.prod.js
+// @require         https://unpkg.com/vue@3.5.44/dist/vue.global.prod.js
 // @require         data:application/javascript,%3Bwindow.Vue%3DVue%3Bwindow.VueDemi%3DVue%3B
-// @require         https://unpkg.com/element-plus@2.13.7/dist/index.full.min.js
+// @require         https://unpkg.com/element-plus@2.14.0/dist/index.full.min.js
 // @require         https://unpkg.com/@element-plus/icons-vue@2.3.2/dist/index.iife.min.js
 // @require         https://unpkg.com/pinia@3.0.4/dist/pinia.iife.prod.js
 // @require         https://unpkg.com/vue-draggable-plus@0.6.1/dist/vue-draggable-plus.iife.js
 // @require         https://unpkg.com/lodash@4.18.1/lodash.min.js
-// @require         https://unpkg.com/hotkeys-js@4.0.3/dist/hotkeys-js.min.js
+// @require         https://unpkg.com/hotkeys-js@4.0.4/dist/hotkeys-js.min.js
 // @require         https://unpkg.com/luxon@3.7.2/build/global/luxon.min.js
 // @require         https://unpkg.com/crypto-js@4.2.0/crypto-js.js
-// @resource        element-plus/dist/index.css  https://unpkg.com/element-plus@2.13.7/dist/index.css
+// @resource        element-plus/dist/index.css  https://unpkg.com/element-plus@2.14.0/dist/index.css
 // @connect         api.bilibili.com
 // @connect         api.live.bilibili.com
 // @connect         api.vc.bilibili.com
@@ -43,32 +43,53 @@
 // @run-at          document-start
 // ==/UserScript==
 
-(async function (vue, hotkeys, _, pinia$1, CryptoJS, luxon, ElementPlusIconsVue, ElementPlus, vueDraggablePlus) {
+(async function (vue, hotkeys_js, lodash, pinia, crypto_js, luxon, _element_plus_icons_vue, element_plus, vue_draggable_plus) {
   'use strict';
-
-  function _interopNamespaceDefault(e) {
-    const n = Object.create(null, { [Symbol.toStringTag]: { value: 'Module' } });
-    if (e) {
-      for (const k in e) {
-        if (k !== 'default') {
-          const d = Object.getOwnPropertyDescriptor(e, k);
-          Object.defineProperty(n, k, d.get ? d : {
-            enumerable: true,
-            get: () => e[k]
-          });
-        }
-      }
+  var __create = Object.create;
+  var __defProp$1 = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") for (var keys = __getOwnPropNames(from), i = 0, n = keys.length, key; i < n; i++) {
+      key = keys[i];
+      if (!__hasOwnProp.call(to, key) && key !== except) __defProp$1(to, key, {
+        get: ((k) => from[k]).bind(null, key),
+        enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable
+      });
     }
-    n.default = e;
-    return Object.freeze(n);
-  }
-
-  const ElementPlusIconsVue__namespace = _interopNamespaceDefault(ElementPlusIconsVue);
-
-  const d = new Set; const importCSS = async e => { d.has(e) || (d.add(e), (t => { typeof GM_addStyle == "function" ? GM_addStyle(t) : (document.head || document.documentElement).appendChild(document.createElement("style")).append(t); })(e)); };
-
-  importCSS(" #aside-el-menu[data-v-db397d59]:not(.el-menu--collapse){width:150px}.title[data-v-848fd8cc]{display:flex;align-items:baseline;padding-left:20px}.header-big-text[data-v-848fd8cc]{align-self:unset;font-size:var(--big-text-size)}.header-small-text[data-v-848fd8cc]{align-self:unset;margin-left:10px;font-size:var(--small-text-size);--small-text-size: 18px}.collapse-btn[data-v-848fd8cc]{float:left;display:flex;align-items:center;justify-content:center;height:100%;cursor:pointer}.avatar-wrap[data-v-ad73e0e2]{width:80px;height:80px}.avatar[data-v-ad73e0e2]{display:flex;align-items:center;justify-content:center;border-radius:50%}.label-text[data-v-0ed6e292]{line-height:32px;color:var(--el-text-color-primary)}.base[data-v-28de2807]{position:absolute;z-index:1003;background-color:var(--el-bg-color)}.header[data-v-28de2807]{position:relative;box-sizing:border-box;display:flex;align-items:center;width:100%;height:60px;font-size:var(--big-text-size);border-bottom:1px solid #e3e5e7;--big-text-size: 25px}.aside[data-v-28de2807]{width:auto}.main[data-v-28de2807]{padding:0}.panel-main[data-v-28de2807]{padding:calc(var(--el-main-padding) * .625) var(--el-main-padding)}.fade-enter-active[data-v-28de2807]{animation:fade-in linear .2s}.info-icon[data-v-02b5bf3e]{font-size:var(--el-font-size-base);cursor:pointer}.status-icon[data-v-16fb8116]{font-size:var(--el-font-size-base)}.done[data-v-16fb8116]{color:#1ab059}.done.is-hovered[data-v-16fb8116]{color:#409eff;cursor:pointer}.error[data-v-16fb8116]{color:#ff6464}.icon-fade-enter-active[data-v-16fb8116],.icon-fade-leave-active[data-v-16fb8116]{transition:all .15s ease}.icon-fade-enter-from[data-v-16fb8116],.icon-fade-leave-to[data-v-16fb8116]{opacity:0;transform:scale(.8) rotate(90deg)} ");
-
+    return to;
+  };
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule || !__hasOwnProp.call(mod, "default") ? __defProp$1(target, "default", {
+    value: mod,
+    enumerable: true
+  }) : target, mod));
+  hotkeys_js = __toESM(hotkeys_js);
+  lodash = __toESM(lodash);
+  crypto_js = __toESM(crypto_js);
+  _element_plus_icons_vue = __toESM(_element_plus_icons_vue);
+  element_plus = __toESM(element_plus);
+  var s = new Set();
+  var _css = async (t) => {
+    if (s.has(t)) return;
+    s.add(t);
+    ((c) => {
+      if (typeof GM_addStyle === "function") GM_addStyle(c);
+      else (document.head || document.documentElement).appendChild(document.createElement("style")).append(c);
+    })(t);
+  };
+  _css(" #aside-el-menu[data-v-db397d59]:not(.el-menu--collapse){width:150px}.title[data-v-848fd8cc]{align-items:baseline;padding-left:20px;display:flex}.header-big-text[data-v-848fd8cc]{align-self:unset;font-size:var(--big-text-size)}.header-small-text[data-v-848fd8cc]{align-self:unset;font-size:var(--small-text-size);--small-text-size:18px;margin-left:10px}.collapse-btn[data-v-848fd8cc]{float:left;cursor:pointer;justify-content:center;align-items:center;height:100%;display:flex}.avatar-wrap[data-v-4e70a9db]{width:80px;height:80px}.like-summary[data-v-4e70a9db]{margin-bottom:8px;line-height:1.7;display:block}.avatar[data-v-4e70a9db]{border-radius:50%;justify-content:center;align-items:center;display:flex}.label-text[data-v-0ed6e292]{color:var(--el-text-color-primary);line-height:32px}.base[data-v-28de2807]{z-index:1003;background-color:var(--el-bg-color);position:absolute}.header[data-v-28de2807]{box-sizing:border-box;width:100%;height:60px;font-size:var(--big-text-size);--big-text-size:25px;border-bottom:1px solid #e3e5e7;align-items:center;display:flex;position:relative}.aside[data-v-28de2807]{width:auto}.main[data-v-28de2807]{padding:0}.panel-main[data-v-28de2807]{padding:calc(var(--el-main-padding) * .625) var(--el-main-padding)}.fade-enter-active[data-v-28de2807]{animation:.2s linear fade-in}.info-icon[data-v-02b5bf3e]{font-size:var(--el-font-size-base);cursor:pointer}.status-icon[data-v-16fb8116]{font-size:var(--el-font-size-base)}.done[data-v-16fb8116]{color:#1ab059}.done.is-hovered[data-v-16fb8116]{color:#409eff;cursor:pointer}.error[data-v-16fb8116]{color:#ff6464}.icon-fade-enter-active[data-v-16fb8116],.icon-fade-leave-active[data-v-16fb8116]{transition:all .15s}.icon-fade-enter-from[data-v-16fb8116],.icon-fade-leave-to[data-v-16fb8116]{opacity:0;transform:scale(.8)rotate(90deg)}\n/*$vite$:1*/ ");
+  var __defProp = Object.defineProperty;
+  var __exportAll = (all, no_symbols) => {
+    let target = {};
+    for (var name in all) __defProp(target, name, {
+      get: all[name],
+      enumerable: true
+    });
+    if (!no_symbols) __defProp(target, Symbol.toStringTag, { value: "Module" });
+    return target;
+  };
   var _GM_addStyle = (() => typeof GM_addStyle != "undefined" ? GM_addStyle : void 0)();
   var _GM_getResourceText = (() => typeof GM_getResourceText != "undefined" ? GM_getResourceText : void 0)();
   var _GM_getValue = (() => typeof GM_getValue != "undefined" ? GM_getValue : void 0)();
@@ -86,18 +107,13 @@
     });
     const startOfTomorrow = startOfADay.plus({ days: 1 });
     const startOfYesterday = startOfADay.minus({ days: 1 });
-    if (luxon.DateTime.now() >= startOfADay) {
-      return time >= startOfADay && time < startOfTomorrow;
-    } else {
-      return time >= startOfYesterday && time < startOfADay;
-    }
+    if (luxon.DateTime.now() >= startOfADay) return time >= startOfADay && time < startOfTomorrow;
+    else return time >= startOfYesterday && time < startOfADay;
   }
   function delayToNextMoment(hour = 0, minute = 5) {
     const now = luxon.DateTime.now();
     let nextTime = luxon.DateTime.local(now.year, now.month, now.day, hour, minute);
-    if (now > nextTime) {
-      nextTime = nextTime.plus({ days: 1 });
-    }
+    if (now > nextTime) nextTime = nextTime.plus({ days: 1 });
     const diff = nextTime.diff(now);
     return {
       ms: diff.toMillis(),
@@ -108,9 +124,7 @@
     const now = luxon.DateTime.now();
     const start = luxon.DateTime.local(now.year, now.month, now.day, startHour, startMinute);
     let end = luxon.DateTime.local(now.year, now.month, now.day, endHour, endMinute);
-    if (start > end) {
-      end = end.plus({ days: 1 });
-    }
+    if (start > end) end = end.plus({ days: 1 });
     return now >= start && now < end;
   }
   function ts() {
@@ -130,26 +144,19 @@
     return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
   }
   function sleep(milliseconds) {
-    return new Promise((resolve2) => setTimeout(resolve2, milliseconds));
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
   }
   function getFilenameFromUrl(url) {
     return url.substring(url.lastIndexOf("/") + 1).split(".")[0];
   }
   function addURLParams(url, params) {
-    if (!params) {
-      return url;
-    }
-    if (typeof params === "string") {
-      return url + "?" + params;
-    } else {
-      return url + "?" + new URLSearchParams(params).toString();
-    }
+    if (!params) return url;
+    if (typeof params === "string") return url + "?" + params;
+    else return url + "?" + new URLSearchParams(params).toString();
   }
-  const objectToWbiURLQuery = (params, sort = false) => {
+  var objectToWbiURLQuery = (params, sort = false) => {
     const keys = Object.keys(params);
-    if (sort) {
-      keys.sort();
-    }
+    if (sort) keys.sort();
     return keys.map((key) => {
       const value = params[key].toString().replace(/[!'()*]/g, "");
       return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
@@ -157,207 +164,167 @@
   };
   function wbiSign(params) {
     const wts = ts();
-    const _params = { ...params, wts };
-    const query = objectToWbiURLQuery(_params, true);
-    const w_rid = CryptoJS.MD5(query + useBiliStore().wbiSalt).toString();
+    const query = objectToWbiURLQuery({
+      ...params,
+      wts
+    }, true);
+    const w_rid = crypto_js.default.MD5(query + useBiliStore().wbiSalt).toString();
     return objectToWbiURLQuery(params) + `&w_rid=${w_rid}&wts=${wts}`;
   }
   function packFormData(json) {
     const formData = new FormData();
-    _.forEach(json, (value, key) => formData.append(key, value.toString()));
+    lodash.default.forEach(json, (value, key) => formData.append(key, value.toString()));
     return formData;
   }
   function deepestIterate(obj, fn, path) {
-    _.forOwn(obj, function (value, key) {
+    lodash.default.forOwn(obj, function (value, key) {
       const newPath = path ? path + "." + key : key;
-      if (_.isPlainObject(value) && !_.isEmpty(value)) {
-        deepestIterate(value, fn, newPath);
-      } else {
-        fn(value, newPath);
-      }
+      if (lodash.default.isPlainObject(value) && !lodash.default.isEmpty(value)) deepestIterate(value, fn, newPath);
+      else fn(value, newPath);
     });
   }
   function getUrlFromFetchInput(input) {
-    if (typeof input === "string") {
-      return input;
-    } else if (input instanceof URL) {
-      return input.toString();
-    } else if (input instanceof Request) {
-      return input.url;
-    } else {
-      throw new TypeError("Unsupported fetch input type");
-    }
+    if (typeof input === "string") return input;
+    else if (input instanceof URL) return input.toString();
+    else if (input instanceof Request) return input.url;
+    else throw new TypeError("Unsupported fetch input type");
   }
   function createFetchInputWithNewUrl(url, input) {
-    if (typeof input === "string") {
-      return url;
-    } else if (input instanceof URL) {
-      return new URL(url, input.toString());
-    } else if (input instanceof Request) {
-      return new Request(url, input);
-    } else {
-      throw new TypeError("Unsupported fetch input type");
-    }
+    if (typeof input === "string") return url;
+    else if (input instanceof URL) return new URL(url, input.toString());
+    else if (input instanceof Request) return new Request(url, input);
+    else throw new TypeError("Unsupported fetch input type");
   }
   function waitForMoment(moment) {
     switch (moment) {
-      case "document-start": {
-        return Promise.resolve();
-      }
-      case "document-head": {
-        return new Promise((resolve2) => {
-          if (document.head) {
-            resolve2();
-          } else {
-            const observer = new MutationObserver(() => {
-              if (document.head) {
-                observer.disconnect();
-                resolve2();
-              }
-            });
-            observer.observe(document.documentElement, { childList: true });
-          }
-        });
-      }
-      case "document-body": {
-        return new Promise((resolve2) => {
-          if (document.body) {
-            resolve2();
-          } else {
-            const observer = new MutationObserver(() => {
-              if (document.body) {
-                observer.disconnect();
-                resolve2();
-              }
-            });
-            observer.observe(document.documentElement, { childList: true });
-          }
-        });
-      }
-      case "document-end": {
-        return new Promise((resolve2) => {
-          if (document.readyState !== "loading") {
-            resolve2();
-          } else {
-            document.addEventListener("DOMContentLoaded", () => resolve2());
-          }
-        });
-      }
-      case "window-load": {
-        return new Promise((resolve2) => {
-          if (document.readyState === "complete") {
-            resolve2();
-          } else {
-            window.addEventListener("load", () => resolve2());
-          }
-        });
-      }
-      default: {
-        return Promise.reject("Illegal moment");
-      }
+      case "document-start": return Promise.resolve();
+      case "document-head": return new Promise((resolve) => {
+        if (document.head) resolve();
+        else {
+          const observer = new MutationObserver(() => {
+            if (document.head) {
+              observer.disconnect();
+              resolve();
+            }
+          });
+          observer.observe(document.documentElement, { childList: true });
+        }
+      });
+      case "document-body": return new Promise((resolve) => {
+        if (document.body) resolve();
+        else {
+          const observer = new MutationObserver(() => {
+            if (document.body) {
+              observer.disconnect();
+              resolve();
+            }
+          });
+          observer.observe(document.documentElement, { childList: true });
+        }
+      });
+      case "document-end": return new Promise((resolve) => {
+        if (document.readyState !== "loading") resolve();
+        else document.addEventListener("DOMContentLoaded", () => resolve());
+      });
+      case "window-load": return new Promise((resolve) => {
+        if (document.readyState === "complete") resolve();
+        else window.addEventListener("load", () => resolve());
+      });
+      default: return Promise.reject("Illegal moment");
     }
   }
   function arrayToMap(arr) {
     return new Map(arr.map((value, index) => [value, index]));
   }
-  const useBiliStore = pinia$1.defineStore("bili", () => {
-    const BilibiliLive2 = vue.ref();
-    const cookies = vue.ref();
-    const userInfo = vue.ref();
-    const dailyRewardInfo = vue.ref();
-    const dynamicVideos = vue.ref();
-    const fansMedals = vue.ref();
-    const filteredFansMedals = vue.computed(
-      () => fansMedals.value?.filter((m) => m.room_info.room_id !== 0 && m.anchor_info.nick_name != "账号已注销") ?? []
-    );
-    const fansMedalsStatus = vue.ref();
-    const wbiSalt = vue.computed(() => {
-      if (!userInfo.value) {
-        return "";
-      }
-      const imgKey = getFilenameFromUrl(userInfo.value.wbi_img.img_url);
-      const subKey = getFilenameFromUrl(userInfo.value.wbi_img.sub_url);
-      const imgAndSubKey = imgKey + subKey;
-      return [
-        46,
-        47,
-        18,
-        2,
-        53,
-        8,
-        23,
-        32,
-        15,
-        50,
-        10,
-        31,
-        58,
-        3,
-        45,
-        35,
-        27,
-        43,
-        5,
-        49,
-        33,
-        9,
-        42,
-        19,
-        29,
-        28,
-        14,
-        39,
-        12,
-        38,
-        41,
-        13,
-        37,
-        48,
-        7,
-        16,
-        24,
-        55,
-        40,
-        61,
-        26,
-        17,
-        0,
-        1,
-        60,
-        51,
-        30,
-        4,
-        22,
-        25,
-        54,
-        21,
-        56,
-        59,
-        6,
-        63,
-        57,
-        62,
-        11,
-        36,
-        20,
-        34,
-        44,
-        52
-      ].map((n) => imgAndSubKey[n]).join("").slice(0, 32);
-    });
+  var useBiliStore = (0, pinia.defineStore)("bili", () => {
+    const BilibiliLive = (0, vue.ref)();
+    const cookies = (0, vue.ref)();
+    const userInfo = (0, vue.ref)();
+    const dailyRewardInfo = (0, vue.ref)();
+    const dynamicVideos = (0, vue.ref)();
+    const fansMedals = (0, vue.ref)();
     return {
-      BilibiliLive: BilibiliLive2,
+      BilibiliLive,
       userInfo,
       cookies,
       dailyRewardInfo,
       dynamicVideos,
       fansMedals,
-      filteredFansMedals,
-      fansMedalsStatus,
-      wbiSalt
+      filteredFansMedals: (0, vue.computed)(() => fansMedals.value?.filter((m) => m.room_info.room_id !== 0 && m.anchor_info.nick_name != "账号已注销") ?? []),
+      fansMedalsStatus: (0, vue.ref)(),
+      wbiSalt: (0, vue.computed)(() => {
+        if (!userInfo.value) return "";
+        const imgAndSubKey = getFilenameFromUrl(userInfo.value.wbi_img.img_url) + getFilenameFromUrl(userInfo.value.wbi_img.sub_url);
+        return [
+          46,
+          47,
+          18,
+          2,
+          53,
+          8,
+          23,
+          32,
+          15,
+          50,
+          10,
+          31,
+          58,
+          3,
+          45,
+          35,
+          27,
+          43,
+          5,
+          49,
+          33,
+          9,
+          42,
+          19,
+          29,
+          28,
+          14,
+          39,
+          12,
+          38,
+          41,
+          13,
+          37,
+          48,
+          7,
+          16,
+          24,
+          55,
+          40,
+          61,
+          26,
+          17,
+          0,
+          1,
+          60,
+          51,
+          30,
+          4,
+          22,
+          25,
+          54,
+          21,
+          56,
+          59,
+          6,
+          63,
+          57,
+          62,
+          11,
+          36,
+          20,
+          34,
+          44,
+          52
+        ].map((n) => imgAndSubKey[n]).join("").slice(0, 32);
+      })
     };
   });
-  const defaultValues = {
+  var defaultValues = {
     ui: {
       isCollapse: false,
       isShowPanel: true,
@@ -392,7 +359,6 @@
               enabled: false,
               likeEnabled: true,
               danmuEnabled: true,
-              reserveLikeRoomids: [],
               danmuList: [
                 "(⌒▽⌒)",
                 "（￣▽￣）",
@@ -452,7 +418,7 @@
               ],
               _lastCompleteTime: 0,
               _todayLightLikes: 0,
-              _todayReserveLikes: {}
+              _lastLikeTime: Date.now()
             },
             watch: {
               enabled: false,
@@ -487,54 +453,26 @@
           enabled: false,
           qualityDesc: "原画"
         },
-        banp2p: {
-          enabled: false
-        },
-        noReport: {
-          enabled: false
-        },
-        noSleep: {
-          enabled: false
-        },
-        invisibility: {
-          enabled: false
-        },
+        banp2p: { enabled: false },
+        noReport: { enabled: false },
+        noSleep: { enabled: false },
+        invisibility: { enabled: false },
         autoRestart: {
           enabled: false,
           intervalMinutes: 60
         }
       },
       RemoveElement: {
-        removePKBox: {
-          enabled: false
-        },
-        removeLiveWaterMark: {
-          enabled: false
-        },
-        removeShopPopover: {
-          enabled: false
-        },
-        removeGameParty: {
-          enabled: false
-        },
-        removeGiftPopover: {
-          enabled: false
-        },
-        removeMicPopover: {
-          enabled: false
-        },
-        removeComboCard: {
-          enabled: false
-        },
-        removeHeaderStuff: {
-          enabled: false
-        },
-        removeFlipView: {
-          enabled: false
-        },
-        removeLiveMosaic: {
-          enabled: false
-        }
+        removePKBox: { enabled: false },
+        removeLiveWaterMark: { enabled: false },
+        removeShopPopover: { enabled: false },
+        removeGameParty: { enabled: false },
+        removeGiftPopover: { enabled: false },
+        removeMicPopover: { enabled: false },
+        removeComboCard: { enabled: false },
+        removeHeaderStuff: { enabled: false },
+        removeFlipView: { enabled: false },
+        removeLiveMosaic: { enabled: false }
       }
     },
     cache: {
@@ -542,14 +480,12 @@
       mainScriptLocation: ""
     }
   };
-  class Storage {
+  var Storage = class {
     static mergeConfigs(currentConfig, defaultConfig) {
-      const config = _.pick(currentConfig, _.keys(defaultConfig));
-      _.defaults(config, defaultConfig);
-      _.forOwn(config, (value, key, object) => {
-        if (_.isPlainObject(value) && _.isPlainObject(defaultConfig[key]) && !_.isEmpty(defaultConfig[key])) {
-          object[key] = this.mergeConfigs(value, defaultConfig[key]);
-        }
+      const config = lodash.default.pick(currentConfig, lodash.default.keys(defaultConfig));
+      lodash.default.defaults(config, defaultConfig);
+      lodash.default.forOwn(config, (value, key, object) => {
+        if (lodash.default.isPlainObject(value) && lodash.default.isPlainObject(defaultConfig[key]) && !lodash.default.isEmpty(defaultConfig[key])) object[key] = this.mergeConfigs(value, defaultConfig[key]);
       });
       return config;
     }
@@ -571,10 +507,10 @@
     static getCache() {
       return this.mergeConfigs(_GM_getValue("cache", {}), defaultValues.cache);
     }
-  }
-  const useCacheStore = pinia$1.defineStore("cache", () => {
-    const cache = vue.ref(Storage.getCache());
-    const currentScriptType = vue.ref("Main");
+  };
+  var useCacheStore = (0, pinia.defineStore)("cache", () => {
+    const cache = (0, vue.ref)(Storage.getCache());
+    const currentScriptType = (0, vue.ref)("Main");
     function startMainBLTHAliveHeartBeat() {
       cache.value.lastAliveHeartBeatTime = Date.now();
       const timer = setInterval(() => cache.value.lastAliveHeartBeatTime = Date.now(), 5e3);
@@ -586,17 +522,14 @@
     }
     function checkCurrentScriptType() {
       if (cache.value.lastAliveHeartBeatTime !== 0 && Date.now() - cache.value.lastAliveHeartBeatTime < 8e3) {
-        if (cache.value.mainScriptLocation === _unsafeWindow.top.location.pathname) {
-          currentScriptType.value = "SubMain";
-        } else {
-          currentScriptType.value = "Other";
-        }
+        if (cache.value.mainScriptLocation === _unsafeWindow.top.location.pathname) currentScriptType.value = "SubMain";
+        else currentScriptType.value = "Other";
       } else {
         currentScriptType.value = "Main";
         cache.value.mainScriptLocation = _unsafeWindow.top.location.pathname;
       }
     }
-    vue.watch(cache, (newCache) => Storage.setCache(newCache), { deep: true });
+    (0, vue.watch)(cache, (newCache) => Storage.setCache(newCache), { deep: true });
     return {
       cache,
       currentScriptType,
@@ -604,7 +537,7 @@
       checkCurrentScriptType
     };
   });
-  let Request$1 = class Request2 {
+  var Request$1 = class {
     url_prefix;
     origin;
     constructor(url_prefix, orgin) {
@@ -613,7 +546,7 @@
     }
     get(url, params, otherDetails) {
       url = addURLParams(this.url_prefix + url, params);
-      return new Promise((resolve2, reject2) => {
+      return new Promise((resolve, reject) => {
         const defaultDetails = {
           method: "GET",
           url,
@@ -625,14 +558,13 @@
             "Sec-Fetch-Site": "same-site"
           },
           onload: function (response) {
-            resolve2(response.response);
+            resolve(response.response);
           },
           onerror: function (err) {
-            reject2(new Error(JSON.stringify(err)));
+            reject(new Error(JSON.stringify(err)));
           }
         };
-        const details = _.defaultsDeep(otherDetails, defaultDetails);
-        _GM_xmlhttpRequest(details);
+        _GM_xmlhttpRequest(lodash.default.defaultsDeep(otherDetails, defaultDetails));
       });
     }
     post(url, data, otherDetails) {
@@ -643,17 +575,12 @@
         "Sec-Fetch-Site": "same-site",
         "Content-Type": "application/x-www-form-urlencoded"
       };
-      if (_.isNil(data)) {
-        data = "";
-      } else if (data instanceof FormData) {
-        delete headers["Content-Type"];
-      } else if (typeof data === "string");
-      else {
-        data = new URLSearchParams(data).toString();
-      }
+      if (lodash.default.isNil(data)) data = "";
+      else if (data instanceof FormData) delete headers["Content-Type"];
+      else if (typeof data === "string") { } else data = new URLSearchParams(data).toString();
       url = addURLParams(this.url_prefix + url, otherDetails?.params);
       delete otherDetails?.params;
-      return new Promise((resolve2, reject2) => {
+      return new Promise((resolve, reject) => {
         const defaultDetails = {
           method: "POST",
           url,
@@ -661,23 +588,28 @@
           responseType: "json",
           headers,
           onload: function (response) {
-            resolve2(response.response);
+            resolve(response.response);
           },
           onerror: function (err) {
-            reject2(new Error(JSON.stringify(err)));
+            reject(new Error(JSON.stringify(err)));
           }
         };
-        const details = _.defaultsDeep(otherDetails, defaultDetails);
-        _GM_xmlhttpRequest(details);
+        _GM_xmlhttpRequest(lodash.default.defaultsDeep(otherDetails, defaultDetails));
       });
     }
   };
-  const request = {
+  var request = {
     live: new Request$1("https://api.live.bilibili.com", "https://live.bilibili.com"),
     liveTrace: new Request$1("https://live-trace.bilibili.com", "https://live.bilibili.com"),
-    main: new Request$1("https://api.bilibili.com", "https://www.bilibili.com")
+    passport: new Request$1("https://passport.bilibili.com", "https://passport.bilibili.com/"),
+    main: new Request$1("https://api.bilibili.com", "https://www.bilibili.com"),
+    raw: new Request$1()
   };
-  const BAPI = {
+  var getSelfUid = () => {
+    const biliStore = useBiliStore();
+    return biliStore.BilibiliLive?.UID ?? biliStore.userInfo.mid;
+  };
+  var BAPI = {
     live: {
       fansMedalPanel: (page, page_size = 10) => {
         return request.live.get("/xlive/app-ucenter/v1/fansMedal/panel", {
@@ -685,64 +617,49 @@
           page_size
         });
       },
-      sendMsg: (msg, roomid, room_type = 0, mode = 1, jumpfrom = 0, fontsize = 25, color = 16777215, bubble = 0, reply_mid = 0, reply_attr = 0, replay_dmid = "", reply_type = 0, reply_uname = "", statistics = '{"appId":100,"platform":5}', data_extend = '{"trackid":"-99998"}', web_location = "444.8") => {
-        const biliStore = useBiliStore();
-        const bili_jct = biliStore.cookies.bili_jct;
-        return request.live.post(
-          "/msg/send",
-          packFormData({
-            bubble,
-            msg,
-            color,
-            mode,
-            room_type,
-            jumpfrom,
-            reply_mid,
-            reply_attr,
-            replay_dmid,
-            statistics,
-            reply_type,
-            reply_uname,
-            data_extend,
-            fontsize,
-            rnd: ts(),
-            roomid,
-            csrf: bili_jct,
-            csrf_token: bili_jct
-          }),
-          {
-            params: wbiSign({ web_location })
-          }
-        );
+      sendMsg: (msg, roomid, room_type = 0, mode = 1, jumpfrom = 0, fontsize = 25, color = 16777215, bubble = 0, reply_mid = 0, reply_attr = 0, replay_dmid = "", reply_type = 0, reply_uname = "", statistics = "{\"appId\":100,\"platform\":5}", data_extend = "{\"trackid\":\"-99998\"}", web_location = "444.8") => {
+        const bili_jct = useBiliStore().cookies.bili_jct;
+        return request.live.post("/msg/send", packFormData({
+          bubble,
+          msg,
+          color,
+          mode,
+          room_type,
+          jumpfrom,
+          reply_mid,
+          reply_attr,
+          replay_dmid,
+          statistics,
+          reply_type,
+          reply_uname,
+          data_extend,
+          fontsize,
+          rnd: ts(),
+          roomid,
+          csrf: bili_jct,
+          csrf_token: bili_jct
+        }), { params: wbiSign({ web_location }) });
       },
-      sendEmoji: (msg, roomid, mode = 1, fontsize = 25, color = 16777215, bubble = 0, dm_type = 1, web_location = "444.8", emoticonOptions = "[object Object]", data_extend = '{"trackid":"-99998"}') => {
-        const biliStore = useBiliStore();
-        const bili_jct = biliStore.cookies.bili_jct;
-        return request.live.post(
-          "/msg/send",
-          packFormData({
-            bubble,
-            msg,
-            color,
-            mode,
-            dm_type,
-            emoticonOptions,
-            data_extend,
-            fontsize,
-            rnd: ts(),
-            roomid,
-            csrf: bili_jct,
-            csrf_token: bili_jct
-          }),
-          {
-            params: wbiSign({ web_location })
-          }
-        );
+      sendEmoji: (msg, roomid, mode = 1, fontsize = 25, color = 16777215, bubble = 0, dm_type = 1, web_location = "444.8", emoticonOptions = "[object Object]", data_extend = "{\"trackid\":\"-99998\"}") => {
+        const bili_jct = useBiliStore().cookies.bili_jct;
+        return request.live.post("/msg/send", packFormData({
+          bubble,
+          msg,
+          color,
+          mode,
+          dm_type,
+          emoticonOptions,
+          data_extend,
+          fontsize,
+          rnd: ts(),
+          roomid,
+          csrf: bili_jct,
+          csrf_token: bili_jct
+        }), { params: wbiSign({ web_location }) });
       },
       likeReport: (room_id, anchor_id, click_time = 1, web_location = "444.8") => {
-        const biliStore = useBiliStore();
-        const bili_jct = biliStore.cookies.bili_jct;
-        const uid = biliStore.BilibiliLive.UID;
+        const bili_jct = useBiliStore().cookies.bili_jct;
+        const uid = getSelfUid();
         return request.live.post("/xlive/app-ucenter/v1/like_info_v3/like/likeReportV3", null, {
           params: wbiSign({
             click_time,
@@ -755,13 +672,10 @@
         });
       },
       getInfoByRoom: (room_id, web_location = "444.8") => {
-        return request.live.get(
-          "/xlive/web-room/v1/index/getInfoByRoom",
-          wbiSign({
-            room_id,
-            web_location
-          })
-        );
+        return request.live.get("/xlive/web-room/v1/index/getInfoByRoom", wbiSign({
+          room_id,
+          web_location
+        }));
       },
       silver2coin: (visit_id = "") => {
         const bili_jct = useBiliStore().cookies.bili_jct;
@@ -807,7 +721,7 @@
           })
         });
       },
-      X: (s, id, device, ruid, ets, benchmark, time, ts2, trackid = "-99998", web_location = "444.8") => {
+      X: (s, id, device, ruid, ets, benchmark, time, ts, trackid = "-99998", web_location = "444.8") => {
         const bili_jct = useBiliStore().cookies.bili_jct;
         return request.liveTrace.post("/xlive/data-interface/v1/x25Kn/X", null, {
           params: wbiSign({
@@ -818,7 +732,7 @@
             ets,
             benchmark,
             time,
-            ts: ts2,
+            ts,
             ua: navigator.userAgent,
             trackid,
             web_location,
@@ -834,81 +748,73 @@
       reward: (web_location = "333.33") => {
         return request.main.get("/x/member/web/exp/reward", { web_location });
       },
-      dynamicAll: (type = "video", page = 1, timezone_offset = -480, platform = "web", features = "itemOpusStyle,listOnlyfans,opusBigCover,onlyfansVote,decorationCard,onlyfansAssetsV2,forwardListHidden,ugcDelete,onlyfansQaCard,commentsNewVersion,avatarAutoTheme,sunflowerStyle,cardsEnhance,eva3CardOpus,eva3CardVideo,eva3CardComment,eva3CardVote,eva3CardUser", web_location = "333.1365", x_bili_device_req_json = '{"platform":"web","device":"pc","spmid":"333.1365"}') => {
-        return request.main.get(
-          "/x/polymer/web-dynamic/v1/feed/all",
-          {
-            timezone_offset,
-            type,
-            platform,
-            page,
-            features,
-            web_location,
-            x_bili_device_req_json
-          },
-          {
-            headers: {
-              Origin: "https://t.bilibili.com",
-              Referer: "https://t.bilibili.com/?tab=video"
-            }
+      dynamicAll: (type = "video", page = 1, timezone_offset = -480, platform = "web", features = "itemOpusStyle,listOnlyfans,opusBigCover,onlyfansVote,decorationCard,onlyfansAssetsV2,forwardListHidden,ugcDelete,onlyfansQaCard,commentsNewVersion,avatarAutoTheme,sunflowerStyle,cardsEnhance,eva3CardOpus,eva3CardVideo,eva3CardComment,eva3CardVote,eva3CardUser", web_location = "333.1365", x_bili_device_req_json = "{\"platform\":\"web\",\"device\":\"pc\",\"spmid\":\"333.1365\"}") => {
+        return request.main.get("/x/polymer/web-dynamic/v1/feed/all", {
+          timezone_offset,
+          type,
+          platform,
+          page,
+          features,
+          web_location,
+          x_bili_device_req_json
+        }, {
+          headers: {
+            Origin: "https://t.bilibili.com",
+            Referer: "https://t.bilibili.com/?tab=video"
           }
-        );
+        });
       },
-      videoHeartbeat: (aid, cid = 3e10, type = 3, sub_type = 0, dt = 2, play_type = 1, realtime = 61, played_time = 62, real_played_time = 62, refer_url = "https://t.bilibili.com/?tab=video", quality = 64, is_auto_qn = 0, video_duration = 180, last_play_progress_time = 62, max_play_progress_time = 62, outer = 0, statistics = '{"appId":100,"platform":5,"abtest":"","version":""}', mobi_app = "web", device = "web", platform = "web", cur_language_vt = "{}", perfer_type = "{}", play_mode = 1, spmid = "333.788.0.0", from_spmid = "333.1365.list.card_archive.click", session = random32Hash(), track_id = "", extra = `{"player_version":"4.9.76","video_dye_id":"${random32Hash()}","video_file_name":"${_.random(3e10, 4e10)}-1-${_.random(3e4, 4e4)}.m4s","play_method":1,"play_volume":1,"auto_play":0}`, web_location = 1315873) => {
+      videoHeartbeat: (aid, cid = 3e10, type = 3, sub_type = 0, dt = 2, play_type = 1, realtime = 61, played_time = 62, real_played_time = 62, refer_url = "https://t.bilibili.com/?tab=video", quality = 64, is_auto_qn = 0, video_duration = 180, last_play_progress_time = 62, max_play_progress_time = 62, outer = 0, statistics = "{\"appId\":100,\"platform\":5,\"abtest\":\"\",\"version\":\"\"}", mobi_app = "web", device = "web", platform = "web", cur_language_vt = "{}", perfer_type = "{}", play_mode = 1, spmid = "333.788.0.0", from_spmid = "333.1365.list.card_archive.click", session = random32Hash(), track_id = "", extra = `{"player_version":"4.9.76","video_dye_id":"${random32Hash()}","video_file_name":"${lodash.default.random(3e10, 4e10)}-1-${lodash.default.random(3e4, 4e4)}.m4s","play_method":1,"play_volume":1,"auto_play":0}`, web_location = 1315873) => {
         const biliStore = useBiliStore();
         const start_ts = ts();
         const mid = biliStore.userInfo.mid;
         const bili_jct = biliStore.cookies.bili_jct;
-        return request.main.post(
-          "/x/click-interface/web/heartbeat",
-          {
-            start_ts,
-            mid,
-            aid,
-            cid,
-            type,
-            sub_type,
-            dt,
-            play_type,
-            realtime,
-            played_time,
-            real_played_time,
-            refer_url,
-            quality,
-            is_auto_qn,
-            video_duration,
-            last_play_progress_time,
-            max_play_progress_time,
-            outer,
-            statistics,
-            mobi_app,
-            device,
-            platform,
-            cur_language_vt,
-            perfer_type,
-            play_mode,
-            spmid,
-            from_spmid,
-            session,
-            track_id,
-            extra,
-            csrf: bili_jct
-          },
-          {
-            params: wbiSign({
-              w_start_ts: start_ts,
-              w_mid: mid,
-              w_aid: aid,
-              w_dt: dt,
-              w_realtime: realtime,
-              w_played_time: played_time,
-              w_real_played_time: real_played_time,
-              w_video_duration: video_duration,
-              w_last_play_progress_time: last_play_progress_time,
-              web_location
-            })
-          }
-        );
+        return request.main.post("/x/click-interface/web/heartbeat", {
+          start_ts,
+          mid,
+          aid,
+          cid,
+          type,
+          sub_type,
+          dt,
+          play_type,
+          realtime,
+          played_time,
+          real_played_time,
+          refer_url,
+          quality,
+          is_auto_qn,
+          video_duration,
+          last_play_progress_time,
+          max_play_progress_time,
+          outer,
+          statistics,
+          mobi_app,
+          device,
+          platform,
+          cur_language_vt,
+          perfer_type,
+          play_mode,
+          spmid,
+          from_spmid,
+          session,
+          track_id,
+          extra,
+          csrf: bili_jct
+        }, {
+          params: wbiSign({
+            w_start_ts: start_ts,
+            w_mid: mid,
+            w_aid: aid,
+            w_dt: dt,
+            w_realtime: realtime,
+            w_played_time: played_time,
+            w_real_played_time: real_played_time,
+            w_video_duration: video_duration,
+            w_last_play_progress_time: last_play_progress_time,
+            web_location
+          })
+        });
       },
       share: (aid, source = "pc_client_normal", eab_x = 2, ramval = 0, ga = 1) => {
         const bili_jct = useBiliStore().cookies.bili_jct;
@@ -921,7 +827,7 @@
           csrf: bili_jct
         });
       },
-      coinAdd: (aid, num, select_like = 0, cross_domain = true, from_spmid = "333.1365.list.card_archive.click", spmid = "333.788.0.0", statistics = '{"appId":100,"platform":5}', eab_x = 1, ramval = 6, source = "web_normal", ga = 1) => {
+      coinAdd: (aid, num, select_like = 0, cross_domain = true, from_spmid = "333.1365.list.card_archive.click", spmid = "333.788.0.0", statistics = "{\"appId\":100,\"platform\":5}", eab_x = 1, ramval = 6, source = "web_normal", ga = 1) => {
         const bili_jct = useBiliStore().cookies.bili_jct;
         return request.main.post("/x/web-interface/coin/add ", {
           aid,
@@ -946,66 +852,52 @@
       },
       vip: {
         myPrivilege: (web_location = "333.33") => {
-          return request.main.get(
-            "/x/vip/privilege/my",
-            {
-              web_location
-            },
-            {
-              headers: {
-                Referer: "https://account.bilibili.com/",
-                Origin: "https://account.bilibili.com"
-              }
+          return request.main.get("/x/vip/privilege/my", { web_location }, {
+            headers: {
+              Referer: "https://account.bilibili.com/",
+              Origin: "https://account.bilibili.com"
             }
-          );
+          });
         },
         receivePrivilege: (type, platform = "web") => {
           const bili_jct = useBiliStore().cookies.bili_jct;
-          return request.main.post(
-            "/x/vip/privilege/receive",
-            {
-              type,
-              platform,
-              csrf: bili_jct
-            },
-            {
-              headers: {
-                Referer: "https://account.bilibili.com/",
-                Origin: "https://account.bilibili.com"
-              }
+          return request.main.post("/x/vip/privilege/receive", {
+            type,
+            platform,
+            csrf: bili_jct
+          }, {
+            headers: {
+              Referer: "https://account.bilibili.com/",
+              Origin: "https://account.bilibili.com"
             }
-          );
+          });
         },
         addExperience: () => {
           const biliStore = useBiliStore();
-          const mid = biliStore.BilibiliLive.UID;
+          const mid = getSelfUid();
           const buvid = biliStore.cookies.buvid3;
           const bili_jct = biliStore.cookies.bili_jct;
-          return request.main.post(
-            "/x/vip/experience/add",
-            {
-              mid,
-              buvid,
-              csrf: bili_jct
-            },
-            {
-              headers: {
-                Referer: "https://account.bilibili.com/",
-                Origin: "https://account.bilibili.com"
-              }
+          return request.main.post("/x/vip/experience/add", {
+            mid,
+            buvid,
+            csrf: bili_jct
+          }, {
+            headers: {
+              Referer: "https://account.bilibili.com/",
+              Origin: "https://account.bilibili.com"
             }
-          );
+          });
         }
       }
     }
   };
-  class Logger {
+  var Logger = class {
     NAME = "BLTH";
     prefix_title_str;
     title;
     get prefix() {
       return [
-        `%c${this.NAME}%c[${(new Date()).toLocaleString()}]%c[${this.prefix_title_str}]%c:`,
+        `%c${this.NAME}%c[${new Date().toLocaleString()}]%c[${this.prefix_title_str}]%c:`,
         "font-weight: bold; color: white; background-color: #23ade5; padding: 1px 4px; border-radius: 4px;",
         "font-weight: bold; color: #0920e6;",
         "font-weight: bold;",
@@ -1028,8 +920,8 @@
       this.title = title;
       this.prefix_title_str = title.split("_").join("][");
     }
-  }
-  class BaseModule {
+  };
+  var BaseModule = class {
     moduleName;
     static runOnMultiplePages = false;
     static runAt = "document-body";
@@ -1051,33 +943,30 @@
       this.moduleName = moduleName;
       this.logger = new Logger(this.moduleName);
     }
-  }
-  class ModuleError extends Error {
+  };
+  var ModuleError = class extends Error {
     name = "ModuleError";
     moduleName;
     constructor(moduleName, message) {
       super(message);
       this.moduleName = moduleName;
     }
-  }
-  class ModuleCriticalError extends ModuleError {
+  };
+  var ModuleCriticalError = class extends ModuleError {
     name = "ModuleCriticalError";
     moduleName;
     constructor(moduleName, message) {
       super(moduleName, message);
       this.moduleName = moduleName;
     }
-  }
-  class UserInfo extends BaseModule {
+  };
+  var UserInfo = class extends BaseModule {
     async getUserInfo() {
       try {
         const response = await BAPI.main.nav();
         this.logger.log("BAPI.main.nav response", response);
-        if (response.code === 0) {
-          return response.data;
-        } else {
-          throw new Error(`响应 code 不为 0: ${response.message}`);
-        }
+        if (response.code === 0) return response.data;
+        else throw new Error(`响应 code 不为 0: ${response.message}`);
       } catch (error) {
         throw new ModuleCriticalError(this.moduleName, `获取用户信息出错: ${error.message}`);
       }
@@ -1085,22 +974,16 @@
     async run() {
       const biliStore = useBiliStore();
       biliStore.userInfo = await this.getUserInfo();
-      this.nextRunTimer = setTimeout(
-        () => this.run().catch((reason) => this.logger.error(reason)),
-        delayToNextMoment(0, 4).ms
-      );
+      this.nextRunTimer = setTimeout(() => this.run().catch((reason) => this.logger.error(reason)), delayToNextMoment(0, 4).ms);
     }
-  }
-  class DailyRewardInfo extends BaseModule {
+  };
+  var DailyRewardInfo = class extends BaseModule {
     async getDailyRewardInfo() {
       try {
         const response = await BAPI.main.reward();
         this.logger.log("BAPI.main.reward response", response);
-        if (response.code === 0) {
-          return response.data;
-        } else {
-          throw new Error(`响应 code 不为 0: ${response.message}`);
-        }
+        if (response.code === 0) return response.data;
+        else throw new Error(`响应 code 不为 0: ${response.message}`);
       } catch (error) {
         throw new ModuleError(this.moduleName, `获取主站每日任务完成情况出错: ${error.message}`);
       }
@@ -1108,28 +991,17 @@
     async run(force = false) {
       const biliStore = useBiliStore();
       const mainSiteTasks = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks;
-      if (force ||
-        Object.values(mainSiteTasks).some(
-          (t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4)
-        )) {
-        biliStore.dailyRewardInfo = await this.getDailyRewardInfo();
-      }
-      this.nextRunTimer = setTimeout(
-        () => this.run().catch((reason) => this.logger.error(reason)),
-        delayToNextMoment(0, 4).ms
-      );
+      if (force || Object.values(mainSiteTasks).some((t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4))) biliStore.dailyRewardInfo = await this.getDailyRewardInfo();
+      this.nextRunTimer = setTimeout(() => this.run().catch((reason) => this.logger.error(reason)), delayToNextMoment(0, 4).ms);
     }
-  }
-  class DynamicVideos extends BaseModule {
+  };
+  var DynamicVideos = class extends BaseModule {
     async getDynamicVideos() {
       try {
         const response = await BAPI.main.dynamicAll("video");
         this.logger.log("BAPI.main.dynamicAll response", response);
-        if (response.code === 0) {
-          return response.data.items;
-        } else {
-          throw new Error(`响应 code 不为 0: ${response.message}`);
-        }
+        if (response.code === 0) return response.data.items;
+        else throw new Error(`响应 code 不为 0: ${response.message}`);
       } catch (error) {
         throw new ModuleError(this.moduleName, `获取主站每日任务完成情况出错: ${error.message}`);
       }
@@ -1137,18 +1009,16 @@
     async run(force = false) {
       const biliStore = useBiliStore();
       const mainSiteTasks = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks;
-      const taskValues = [mainSiteTasks.watch, mainSiteTasks.share, mainSiteTasks.coin];
-      if (force ||
-        taskValues.some((t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4))) {
-        biliStore.dynamicVideos = await this.getDynamicVideos();
-      }
-      this.nextRunTimer = setTimeout(
-        () => this.run().catch((reason) => this.logger.error(reason)),
-        delayToNextMoment(0, 4).ms
-      );
+      const taskValues = [
+        mainSiteTasks.watch,
+        mainSiteTasks.share,
+        mainSiteTasks.coin
+      ];
+      if (force || taskValues.some((t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4))) biliStore.dynamicVideos = await this.getDynamicVideos();
+      this.nextRunTimer = setTimeout(() => this.run().catch((reason) => this.logger.error(reason)), delayToNextMoment(0, 4).ms);
     }
-  }
-  class FansMedals extends BaseModule {
+  };
+  var FansMedals = class extends BaseModule {
     async getFansMedals(pages = Infinity) {
       const fansMedalList = [];
       let total_page = 1;
@@ -1158,22 +1028,16 @@
         if (firstPageResponse.code === 0) {
           total_page = firstPageResponse.data.page_info.total_page;
           fansMedalList.push(...firstPageResponse.data.special_list, ...firstPageResponse.data.list);
-        } else {
-          throw new Error(`获取粉丝勋章列表第1页失败: ${firstPageResponse.message}`);
-        }
+        } else throw new Error(`获取粉丝勋章列表第1页失败: ${firstPageResponse.message}`);
         for (let page = 2; page <= Math.min(total_page, pages); page++) {
           const response = await BAPI.live.fansMedalPanel(page);
           this.logger.log(`BAPI.live.fansMedalPanel(${page}) response`, response);
-          if (firstPageResponse.code === 0) {
-            fansMedalList.push(...response.data.list);
-          } else {
-            this.logger.error(
-              `获取粉丝勋章列表第${page}页失败，提前结束获取`,
-              firstPageResponse.message
-            );
+          if (firstPageResponse.code === 0) fansMedalList.push(...response.data.list);
+          else {
+            this.logger.error(`获取粉丝勋章列表第${page}页失败，提前结束获取`, firstPageResponse.message);
             return fansMedalList;
           }
-          await sleep(_.random(300, 500));
+          await sleep(lodash.default.random(300, 500));
         }
         return fansMedalList;
       } catch (error) {
@@ -1185,45 +1049,31 @@
       const biliStore = useBiliStore();
       const medalTasks = useModuleStore().moduleConfig.DailyTasks.LiveTasks.medalTasks;
       const taskValues = [medalTasks.light, medalTasks.watch];
-      if ((force ||
-        taskValues.some((t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4))) &&
-        biliStore.fansMedalsStatus !== "loading") {
+      if ((force || taskValues.some((t) => t.enabled && !isTimestampToday(t._lastCompleteTime, 0, 4))) && biliStore.fansMedalsStatus !== "loading") {
         biliStore.fansMedalsStatus = "loading";
         biliStore.fansMedals = await this.getFansMedals();
         biliStore.fansMedalsStatus = "loaded";
       }
-      this.nextRunTimer = setTimeout(
-        () => this.run().catch((reason) => this.logger.error(reason)),
-        delayToNextMoment(0, 4).ms
-      );
+      this.nextRunTimer = setTimeout(() => this.run().catch((reason) => this.logger.error(reason)), delayToNextMoment(0, 4).ms);
     }
-  }
-  class Cookie {
+  };
+  var Cookie = class {
     static async getAll() {
       const cookies = await cookieStore.getAll();
       const result = {};
-      for (const cookie of cookies) {
-        if (cookie.name) {
-          result[cookie.name] = cookie.value ?? "";
-        }
-      }
+      for (const cookie of cookies) if (cookie.name) result[cookie.name] = cookie.value ?? "";
       return result;
     }
     static async get(names, defaultValue) {
       if (Array.isArray(names)) {
         const result = {};
         const cookies = await Promise.all(names.map((name) => cookieStore.get(name)));
-        for (let i = 0; i < names.length; i++) {
-          result[names[i]] = cookies[i]?.value ?? defaultValue;
-        }
+        for (let i = 0; i < names.length; i++) result[names[i]] = cookies[i]?.value ?? defaultValue;
         return result;
-      } else {
-        const cookie = await cookieStore.get(names);
-        return cookie?.value ?? defaultValue;
-      }
+      } else return (await cookieStore.get(names))?.value ?? defaultValue;
     }
     static getAsync(names, timeout) {
-      return new Promise((resolve2, reject2) => {
+      return new Promise((resolve, reject) => {
         const cookies = {};
         const nameSet = new Set(names);
         let timeoutTimer;
@@ -1234,42 +1084,38 @@
         const checkDone = () => {
           if (names.every((n) => n in cookies)) {
             cleanup();
-            resolve2(cookies);
+            resolve(cookies);
             return true;
           }
           return false;
         };
         const onChange = (event) => {
-          for (const c of event.changed) {
-            if (c.name && c.value && nameSet.has(c.name) && !(c.name in cookies)) {
-              cookies[c.name] = c.value;
-            }
-          }
+          for (const c of event.changed) if (c.name && c.value && nameSet.has(c.name) && !(c.name in cookies)) cookies[c.name] = c.value;
           checkDone();
         };
         cookieStore.addEventListener("change", onChange);
         Promise.all(names.map((name) => cookieStore.get(name))).then((initialCookies) => {
           for (let i = 0; i < names.length; i++) {
             const c = initialCookies[i];
-            if (c && c.value && !(names[i] in cookies)) {
-              cookies[names[i]] = c.value;
-            }
+            if (c && c.value && !(names[i] in cookies)) cookies[names[i]] = c.value;
           }
           if (checkDone()) return;
-          if (timeout) {
-            timeoutTimer = setTimeout(() => {
-              const remain = names.filter((n) => !(n in cookies));
-              cleanup();
-              reject2(new Error(`获取以下 cookie 超时：${remain}`));
-            }, timeout);
-          }
+          if (timeout) timeoutTimer = setTimeout(() => {
+            const remain = names.filter((n) => !(n in cookies));
+            cleanup();
+            reject(new Error(`获取以下 cookie 超时：${remain}`));
+          }, timeout);
         });
       });
     }
-  }
-  class Cookies extends BaseModule {
+  };
+  var Cookies = class extends BaseModule {
     getCookies() {
-      return Cookie.getAsync(["bili_jct", "LIVE_BUVID", "buvid3"], 12e3);
+      return Cookie.getAsync([
+        "bili_jct",
+        "LIVE_BUVID",
+        "buvid3"
+      ], 12e3);
     }
     async run() {
       try {
@@ -1278,14 +1124,14 @@
         throw new ModuleCriticalError(this.moduleName, error.message);
       }
     }
-  }
-  class BilibiliLive extends BaseModule {
+  };
+  var BilibiliLive = class extends BaseModule {
     static runOnMultiplePages = true;
     getBilibiliLive() {
       this.logger.log("unsafeWindow.BilibiliLive", _unsafeWindow.BilibiliLive);
-      return new Promise((resolve2, reject2) => {
+      return new Promise((resolve, reject) => {
         if (_unsafeWindow.BilibiliLive.UID !== 0) {
-          resolve2(_unsafeWindow.BilibiliLive);
+          resolve(_unsafeWindow.BilibiliLive);
           return;
         }
         _unsafeWindow.BilibiliLive = new Proxy(_unsafeWindow.BilibiliLive, {
@@ -1293,12 +1139,12 @@
             target[prop] = value;
             if (prop === "UID") {
               _unsafeWindow.BilibiliLive = target;
-              resolve2(_unsafeWindow.BilibiliLive);
+              resolve(_unsafeWindow.BilibiliLive);
             }
             return true;
           }
         });
-        setTimeout(() => reject2(new Error("获取 BilibiliLive 超时")), 6e4);
+        setTimeout(() => reject(new Error("获取 BilibiliLive 超时")), 6e4);
       });
     }
     async run() {
@@ -1308,22 +1154,17 @@
         throw new ModuleCriticalError(this.moduleName, error.message);
       }
     }
-  }
-  class Default_AutoRestart extends BaseModule {
+  };
+  var Default_AutoRestart = class extends BaseModule {
     static runOnMultiplePages = false;
     static runAt = "document-body";
     static onFrame = "target";
     static runAfterDefault = false;
-    set status(_s) {
-    }
+    set status(_s) { }
     async run() {
-      if (!this.isEnabled() || !this.config) {
-        return Promise.resolve();
-      }
+      if (!this.isEnabled() || !this.config) return Promise.resolve();
       const { intervalMinutes } = this.config;
-      if (typeof intervalMinutes !== "number" || intervalMinutes <= 0) {
-        return Promise.resolve();
-      }
+      if (typeof intervalMinutes !== "number" || intervalMinutes <= 0) return Promise.resolve();
       const delay = intervalMinutes * 60 * 1e3;
       _unsafeWindow.setTimeout(() => {
         _unsafeWindow.location.reload();
@@ -1334,18 +1175,17 @@
       super("Default_AutoRestart");
       this.config = useModuleStore().moduleConfig.EnhanceExperience.autoRestart;
     }
-  }
-  const defaultModules = Object.freeze(Object.defineProperty({
-    __proto__: null,
-    Default_AutoRestart,
-    Default_BilibiliLive: BilibiliLive,
-    Default_Cookies: Cookies,
-    Default_DailyRewardInfo: DailyRewardInfo,
-    Default_DynamicVideos: DynamicVideos,
-    Default_FansMedals: FansMedals,
-    Default_UserInfo: UserInfo
-  }, Symbol.toStringTag, { value: "Module" }));
-  class LoginTask extends BaseModule {
+  };
+  var default_exports = __exportAll({
+    Default_AutoRestart: () => Default_AutoRestart,
+    Default_BilibiliLive: () => BilibiliLive,
+    Default_Cookies: () => Cookies,
+    Default_DailyRewardInfo: () => DailyRewardInfo,
+    Default_DynamicVideos: () => DynamicVideos,
+    Default_FansMedals: () => FansMedals,
+    Default_UserInfo: () => UserInfo
+  });
+  var LoginTask = class extends BaseModule {
     config = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks.login;
     set status(s) {
       useModuleStore().moduleStatus.DailyTasks.MainSiteTasks.login = s;
@@ -1366,26 +1206,22 @@
           return;
         }
         this.status = "running";
-        if (!biliStore.dailyRewardInfo.login) {
-          await this.login();
-        } else {
+        if (!biliStore.dailyRewardInfo.login) await this.login();
+        else {
           this.config._lastCompleteTime = tsm();
           this.status = "done";
         }
-      } else {
-        if (isNowIn(0, 0, 0, 5)) {
-          this.logger.log("昨天的每日登录任务已经完成过了，等到今天的00:05再执行");
-        } else {
-          this.logger.log("今天已经完成过每日登录任务了");
-          this.status = "done";
-        }
+      } else if (isNowIn(0, 0, 0, 5)) this.logger.log("昨天的每日登录任务已经完成过了，等到今天的00:05再执行");
+      else {
+        this.logger.log("今天已经完成过每日登录任务了");
+        this.status = "done";
       }
       const diff = delayToNextMoment();
       this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
       this.logger.log("距离每日登录模块下次运行时间:", diff.str);
     }
-  }
-  let WatchTask$1 = class WatchTask extends BaseModule {
+  };
+  var WatchTask$1 = class extends BaseModule {
     config = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks.watch;
     set status(s) {
       useModuleStore().moduleStatus.DailyTasks.MainSiteTasks.watch = s;
@@ -1395,7 +1231,7 @@
     }
     async watch(aid) {
       try {
-        const response = await BAPI.main.videoHeartbeat(aid, _.random(3e10, 4e10));
+        const response = await BAPI.main.videoHeartbeat(aid, lodash.default.random(3e10, 4e10));
         this.logger.log(`BAPI.main.videoHeartbeat(${aid}) response`, response);
         if (response.code === 0) {
           this.logger.log("每日观看视频任务已完成");
@@ -1427,9 +1263,7 @@
     async run() {
       this.logger.log("每日观看视频模块开始运行");
       if (!isTimestampToday(this.config._lastCompleteTime)) {
-        if (!this.runCheck()) {
-          return;
-        }
+        if (!this.runCheck()) return;
         const biliStore = useBiliStore();
         this.status = "running";
         if (!biliStore.dailyRewardInfo.watch) {
@@ -1440,27 +1274,23 @@
           this.status = "done";
           this.logger.log("每日观看视频任务已完成");
         }
-      } else {
-        if (isNowIn(0, 0, 0, 5)) {
-          this.logger.log("昨天的每日观看视频任务已经完成过了，等到今天的00:05再执行");
-        } else {
-          this.logger.log("今天已经完成过每日观看视频任务了");
-          this.status = "done";
-        }
+      } else if (isNowIn(0, 0, 0, 5)) this.logger.log("昨天的每日观看视频任务已经完成过了，等到今天的00:05再执行");
+      else {
+        this.logger.log("今天已经完成过每日观看视频任务了");
+        this.status = "done";
       }
       const diff = delayToNextMoment();
       this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
       this.logger.log("距离每日观看视频模块下次运行时间:", diff.str);
     }
   };
-  class ShareTask extends BaseModule {
+  var ShareTask = class extends BaseModule {
     config = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks.share;
     set status(s) {
       useModuleStore().moduleStatus.DailyTasks.MainSiteTasks.share = s;
     }
     getAid() {
-      const biliStore = useBiliStore();
-      return biliStore.dynamicVideos[0].modules.module_dynamic.major.archive.aid;
+      return useBiliStore().dynamicVideos[0].modules.module_dynamic.major.archive.aid;
     }
     async share(aid) {
       try {
@@ -1496,9 +1326,7 @@
     async run() {
       this.logger.log("每日分享视频模块开始运行");
       if (!isTimestampToday(this.config._lastCompleteTime)) {
-        if (!this.runCheck()) {
-          return;
-        }
+        if (!this.runCheck()) return;
         const biliStore = useBiliStore();
         this.status = "running";
         if (!biliStore.dailyRewardInfo.share) {
@@ -1509,32 +1337,24 @@
           this.status = "done";
           this.logger.log("每日分享视频任务已完成");
         }
-      } else {
-        if (isNowIn(0, 0, 0, 5)) {
-          this.logger.log("昨天的每日分享任务已经完成过了，等到今天的00:05再执行");
-        } else {
-          this.logger.log("今天已经完成过每日分享任务了");
-          this.status = "done";
-        }
+      } else if (isNowIn(0, 0, 0, 5)) this.logger.log("昨天的每日分享任务已经完成过了，等到今天的00:05再执行");
+      else {
+        this.logger.log("今天已经完成过每日分享任务了");
+        this.status = "done";
       }
       const diff = delayToNextMoment();
       this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
       this.logger.log("距离每日分享视频模块下次运行时间:", diff.str);
     }
-  }
-  class CoinTask extends BaseModule {
+  };
+  var CoinTask = class extends BaseModule {
     config = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks.coin;
     set status(s) {
       useModuleStore().moduleStatus.DailyTasks.MainSiteTasks.coin = s;
     }
-
-
-
-
     MAX_COIN = 1;
     getDynamicVideoIds() {
-      const biliStore = useBiliStore();
-      return biliStore.dynamicVideos.map((item) => {
+      return useBiliStore().dynamicVideos.map((item) => {
         const archive = item.modules.module_dynamic.major.archive;
         return {
           aid: archive.aid,
@@ -1546,9 +1366,8 @@
       try {
         const response = await BAPI.main.videoRelation(aid, bvid);
         this.logger.log(`BAPI.main.videoRelation(${aid}, ${bvid}) response`, response);
-        if (response.code === 0) {
-          return response.data.coin;
-        } else {
+        if (response.code === 0) return response.data.coin;
+        else {
           this.logger.error(`获取视频投币信息失败 aid = ${aid} bvid = ${bvid}`, response.message);
           return 0;
         }
@@ -1621,45 +1440,37 @@
     async run() {
       this.logger.log("每日投币模块开始运行");
       if (!isTimestampToday(this.config._lastCompleteTime)) {
-        if (!this.runCheck()) {
-          return;
-        }
+        if (!this.runCheck()) return;
         const biliStore = useBiliStore();
         this.status = "running";
         const total_coined_num = biliStore.dailyRewardInfo.coins / 10;
         if (total_coined_num < this.config.num) {
           const left_coin_num = this.config.num - total_coined_num;
-          const money = biliStore.userInfo.money ?? 5;
-          if (left_coin_num > money) {
+          if (left_coin_num > (biliStore.userInfo.money ?? 5)) {
             this.logger.log("硬币余额不足，不执行每日投币任务");
             this.status = "done";
-          } else {
-            await this.coinDynamicVideos(left_coin_num);
-          }
+          } else await this.coinDynamicVideos(left_coin_num);
         } else {
           this.config._lastCompleteTime = tsm();
           this.status = "done";
           this.logger.log("每日投币任务已完成");
         }
-      } else {
-        if (isNowIn(0, 0, 0, 5)) {
-          this.logger.log("昨天的每日投币任务已经完成过了，等到今天的00:05再执行");
-        } else {
-          this.logger.log("今天已经完成过每日投币任务了");
-          this.status = "done";
-        }
+      } else if (isNowIn(0, 0, 0, 5)) this.logger.log("昨天的每日投币任务已经完成过了，等到今天的00:05再执行");
+      else {
+        this.logger.log("今天已经完成过每日投币任务了");
+        this.status = "done";
       }
       const diff = delayToNextMoment();
       this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
       this.logger.log("距离每日投币模块下次运行时间:", diff.str);
     }
-  }
-  class MedalModule extends BaseModule {
+  };
+  var MedalModule = class MedalModule extends BaseModule {
     static get ROOM_STATUS_PROBE_DYNAMIC_DELAY() {
-      return _.random(600, 800);
+      return lodash.default.random(600, 800);
     }
     static get TASK_INFO_REQUEST_DYNAMIC_DELAY() {
-      return _.random(300, 500);
+      return lodash.default.random(300, 500);
     }
     static requestQueues = {
       taskInfo: Promise.resolve(),
@@ -1674,56 +1485,45 @@
     };
     sortMedals(medals) {
       const orderMap = arrayToMap(this.medalTasksConfig.roomidList);
-      return medals.sort(
-        (a, b) => orderMap.get(a.room_info.room_id) - orderMap.get(b.room_info.room_id)
-      );
+      return medals.sort((a, b) => orderMap.get(a.room_info.room_id) - orderMap.get(b.room_info.room_id));
     }
     waitForFansMedals() {
-      return new Promise((resolve2) => {
-        const { fansMedalsStatus } = pinia$1.storeToRefs(useBiliStore());
+      return new Promise((resolve) => {
+        const { fansMedalsStatus } = (0, pinia.storeToRefs)(useBiliStore());
         if (fansMedalsStatus.value === "loaded") {
-          resolve2(true);
+          resolve(true);
           return;
         }
         if (fansMedalsStatus.value === "error") {
-          resolve2(false);
+          resolve(false);
           return;
         }
-        const unwatch = vue.watch(fansMedalsStatus, (status) => {
+        const unwatch = (0, vue.watch)(fansMedalsStatus, (status) => {
           if (status === "loaded") {
             unwatch();
-            resolve2(true);
+            resolve(true);
           } else if (status === "error") {
             unwatch();
-            resolve2(false);
+            resolve(false);
           }
         });
-        if (fansMedalsStatus.value === void 0) {
-          try {
-            Promise.resolve(useModuleStore().rerunModule("Default_FansMedals", true)).catch(() => {
-            });
-          } catch {
-            unwatch();
-            resolve2(false);
-          }
+        if (fansMedalsStatus.value === void 0) try {
+          Promise.resolve(useModuleStore().rerunModule("Default_FansMedals", true)).catch(() => { });
+        } catch {
+          unwatch();
+          resolve(false);
         }
       });
     }
     sort_live_medals = (a, b) => {
       const roomid2 = this.medalTasksConfig.roomidList2;
-      if (roomid2.includes(a.room_info.room_id) && roomid2.includes(b.room_info.room_id))
-        return roomid2.indexOf(a.room_info.room_id) - roomid2.indexOf(b.room_info.room_id);
-      else if (roomid2.includes(a.room_info.room_id))
-        return -1;
-      else if (roomid2.includes(b.room_info.room_id))
-        return 1;
+      if (roomid2.includes(a.room_info.room_id) && roomid2.includes(b.room_info.room_id)) return roomid2.indexOf(a.room_info.room_id) - roomid2.indexOf(b.room_info.room_id);
+      else if (roomid2.includes(a.room_info.room_id)) return -1;
+      else if (roomid2.includes(b.room_info.room_id)) return 1;
       let flag = 0;
-      if (a.medal.level === b.medal.level)
-        flag = b.medal.intimacy - a.medal.intimacy;
-      else
-        flag = b.medal.level - a.medal.level;
-      if (Math.min(a.medal.level, b.medal.level) <= 15)
-        return -flag;
+      if (a.medal.level === b.medal.level) flag = b.medal.intimacy - a.medal.intimacy;
+      else flag = b.medal.level - a.medal.level;
+      if (Math.min(a.medal.level, b.medal.level) <= 15) return -flag;
       return flag;
     };
     async fetchMedalPageForLiveStatus(page, roomid) {
@@ -1741,9 +1541,7 @@
               liveStatus: medalLiveStatus,
               observedAt
             });
-            if (medalRoomid === roomid) {
-              status = medalLiveStatus;
-            }
+            if (medalRoomid === roomid) status = medalLiveStatus;
           }
           const currentPage = response.data.page_info.current_page;
           const totalPage = response.data.page_info.total_page;
@@ -1757,81 +1555,66 @@
       } catch (error) {
         console.warn(`BAPI.live.fansMedalPanel(${page}) 出错`, error);
       }
-      return { status: null, canTryNextPage: false };
+      return {
+        status: null,
+        canTryNextPage: false
+      };
     }
-    ROOM_LIVE_STATUS_FETCHERS = [
-      async (roomid) => {
-        const roomids = useBiliStore().filteredFansMedals;
-        let index = -1;
-        for (const r of roomids) {
-          index++;
-          if (r.room_info.room_id === roomid) {
-            break;
-          }
-        }
-        const page = Math.floor(index / 10) + 1;
-        const { status, canTryNextPage } = await this.fetchMedalPageForLiveStatus(page, roomid);
-        if (status !== null) {
-          return status;
-        }
-        if (canTryNextPage) {
-          await sleep(_.random(300, 500));
-          const { status: status2 } = await this.fetchMedalPageForLiveStatus(page + 1, roomid);
-          return status2;
-        }
-        return null;
-      },
-      async (roomid) => {
-        try {
-          const response = await BAPI.live.getInfoByRoom(roomid);
-          console.debug(`BAPI.live.getInfoByRoom(${roomid}) response`, response);
-          if (response.code === 0) {
-            const liveStatus = response.data.room_info.live_status;
-            MedalModule.liveStatusSnapshots.set(roomid, { liveStatus, observedAt: tsm() });
-            return liveStatus;
-          }
-          console.warn(`BAPI.live.getInfoByRoom(${roomid}) 失败`, response.message);
-        } catch (error) {
-          console.warn(`BAPI.live.getInfoByRoom(${roomid}) 出错`, error);
-        }
-        return null;
+    ROOM_LIVE_STATUS_FETCHERS = [async (roomid) => {
+      const roomids = useBiliStore().filteredFansMedals;
+      let index = -1;
+      for (const r of roomids) {
+        index++;
+        if (r.room_info.room_id === roomid) break;
       }
-    ];
+      const page = Math.floor(index / 10) + 1;
+      const { status, canTryNextPage } = await this.fetchMedalPageForLiveStatus(page, roomid);
+      if (status !== null) return status;
+      if (canTryNextPage) {
+        await sleep(lodash.default.random(300, 500));
+        const { status } = await this.fetchMedalPageForLiveStatus(page + 1, roomid);
+        return status;
+      }
+      return null;
+    }, async (roomid) => {
+      try {
+        const response = await BAPI.live.getInfoByRoom(roomid);
+        console.debug(`BAPI.live.getInfoByRoom(${roomid}) response`, response);
+        if (response.code === 0) {
+          const liveStatus = response.data.room_info.live_status;
+          MedalModule.liveStatusSnapshots.set(roomid, {
+            liveStatus,
+            observedAt: tsm()
+          });
+          return liveStatus;
+        }
+        console.warn(`BAPI.live.getInfoByRoom(${roomid}) 失败`, response.message);
+      } catch (error) {
+        console.warn(`BAPI.live.getInfoByRoom(${roomid}) 出错`, error);
+      }
+      return null;
+    }];
     static enqueueRequest(queueKey, getDelay, requester) {
-      const task = MedalModule.requestQueues[queueKey].catch(() => {
-      }).then(() => requester());
-      MedalModule.requestQueues[queueKey] = task.catch(() => {
-      }).then(() => getDelay());
+      const task = MedalModule.requestQueues[queueKey].catch(() => { }).then(() => requester());
+      MedalModule.requestQueues[queueKey] = task.catch(() => { }).then(() => getDelay());
       return task;
     }
     static enqueueRoomStatusProbe(requester) {
-      return MedalModule.enqueueRequest(
-        "roomStatus",
-        () => sleep(MedalModule.ROOM_STATUS_PROBE_DYNAMIC_DELAY),
-        requester
-      );
+      return MedalModule.enqueueRequest("roomStatus", () => sleep(MedalModule.ROOM_STATUS_PROBE_DYNAMIC_DELAY), requester);
     }
     async fetchRoomLiveStatus(roomid, preferMedalAPI = false) {
-      const fetchers = preferMedalAPI ? [this.ROOM_LIVE_STATUS_FETCHERS[0], ..._.shuffle(this.ROOM_LIVE_STATUS_FETCHERS.slice(1))] : _.shuffle(this.ROOM_LIVE_STATUS_FETCHERS);
+      const fetchers = preferMedalAPI ? [this.ROOM_LIVE_STATUS_FETCHERS[0], ...lodash.default.shuffle(this.ROOM_LIVE_STATUS_FETCHERS.slice(1))] : lodash.default.shuffle(this.ROOM_LIVE_STATUS_FETCHERS);
       for (let i = 0; i < fetchers.length; i++) {
         const liveStatus = await fetchers[i](roomid);
-        if (liveStatus !== null) {
-          return liveStatus;
-        }
-        if (i < fetchers.length - 1) {
-          await sleep(MedalModule.ROOM_STATUS_PROBE_DYNAMIC_DELAY);
-        }
+        if (liveStatus !== null) return liveStatus;
+        if (i < fetchers.length - 1) await sleep(MedalModule.ROOM_STATUS_PROBE_DYNAMIC_DELAY);
       }
       return null;
     }
     async resolveLiveStatus(roomid, preferMedalAPI = false) {
       const snapshot = MedalModule.liveStatusSnapshots.get(roomid);
-      if (snapshot && tsm() - snapshot.observedAt < MedalModule.LIVE_STATUS_SNAPSHOT_FRESHNESS_THRESHOLD) {
-        return snapshot.liveStatus;
-      }
-      return await MedalModule.enqueueRoomStatusProbe(
-        () => this.fetchRoomLiveStatus(roomid, preferMedalAPI)
-      );
+      if (snapshot && tsm() - snapshot.observedAt < MedalModule.LIVE_STATUS_SNAPSHOT_FRESHNESS_THRESHOLD) return snapshot.liveStatus;
+      return await MedalModule.enqueueRoomStatusProbe(() => this.fetchRoomLiveStatus(roomid, preferMedalAPI));
     }
     static async getTaskInfo(targetId) {
       try {
@@ -1841,9 +1624,7 @@
           if (data.reach_free_intimacy_limit) {
             console.warn(`${data.name}(uid: ${targetId}) 已储蓄满${data.free_intimacy}亲密度，无法进行任务`);
             return null;
-          } else if (data.free_intimacy > 0) {
-            console.warn(`${data.name}(uid: ${targetId}) 已储蓄${data.free_intimacy}亲密度`);
-          }
+          } else if (data.free_intimacy > 0) console.warn(`${data.name}(uid: ${targetId}) 已储蓄${data.free_intimacy}亲密度`);
           if (data.task_info) {
             console.debug("BAPI.live.getActivatedMedalInfo response", response);
             return data.task_info;
@@ -1858,32 +1639,31 @@
     static async getMissionProgress(targetId, title) {
       try {
         const targetTask = await MedalModule.getTaskInfo(targetId);
-        if (!targetTask) {
+        if (!targetTask) return [0, 0];
+        for (const task of targetTask) if (task.title === title) {
+          const match = task.sub_title?.match(/每日上限\s*(\d+)\/(\d+)/);
+          if (match) return [parseInt(match[1], 10), parseInt(match[2], 10)];
           return [0, 0];
-        }
-        for (const task of targetTask) {
-          if (task.title === title) {
-            const subTitle = task.sub_title;
-            const regex = /每日上限\s*(\d+)\/(\d+)/;
-            const match = subTitle?.match(regex);
-            if (match) {
-              return [parseInt(match[1], 10), parseInt(match[2], 10)];
-            }
-            return [0, 0];
-          }
         }
       } catch (error) {
         console.error("获取任务进度出错:", error);
       }
       return [0, 0];
     }
-  }
-  class LightTask extends MedalModule {
+  };
+  var LightTask = class LightTask extends MedalModule {
     config = this.medalTasksConfig.light;
-    static RESERVE_LIKE_COUNT = 360;
-    static RESERVE_LIKE_CLICK = 30;
+    static DAILY_LIKE_LIMIT = 5e3;
+    static LIKE_BATCH_SIZE = 10;
+    static LIKE_ROUNDS = 12;
+    static LIKE_MISSION_TITLE = "点赞30次";
+    manualLikeRunning = false;
+    checkedRooms = [];
     set status(s) {
       useModuleStore().moduleStatus.DailyTasks.LiveTasks.medalTasks.light = s;
+    }
+    get isManualLikeRunning() {
+      return this.manualLikeRunning;
     }
     MEDAL_FILTERS = {
       isLighted: (medal) => medal.medal.is_lighted === 1,
@@ -1895,10 +1675,7 @@
         on: [],
         off: []
       };
-      const idlist = fansMedals.filter(
-        (medal) => this.PUBLIC_MEDAL_FILTERS.whiteBlackList(medal) && (this.MEDAL_FILTERS.livingStatus(medal) == "on" || this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id))
-      );
-      idlist.forEach((medal) => {
+      fansMedals.filter((medal) => this.PUBLIC_MEDAL_FILTERS.whiteBlackList(medal) && (this.MEDAL_FILTERS.livingStatus(medal) == "on" || this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id))).forEach((medal) => {
         const livingStatus = this.MEDAL_FILTERS.livingStatus(medal);
         result[livingStatus].push(medal);
       });
@@ -1910,16 +1687,12 @@
       const room_id = medal.room_info.room_id;
       const target_id = medal.medal.target_id;
       const nick_name = medal.anchor_info.nick_name;
-      const medal_name = medal.medal.medal_name;
-      const logMessage = `粉丝勋章【${medal_name}】 给主播【${nick_name}】（UID：${target_id}）的直播间（${room_id}）点赞 ${click_time} 次`;
+      const logMessage = `粉丝勋章【${medal.medal.medal_name}】 给主播【${nick_name}】（UID：${target_id}）的直播间（${room_id}）点赞 ${click_time} 次`;
       try {
         const response = await BAPI.live.likeReport(room_id, target_id, click_time);
         this.logger.debug(`BAPI.live.likeReport(${room_id}, ${target_id}, ${click_time})`, response);
-        if (response.code === 0) {
-          this.logger.log(`点亮熄灭勋章-点赞 ${logMessage} 成功`);
-        } else {
-          this.logger.error(`点亮熄灭勋章-点赞 ${logMessage} 失败`, response.message);
-        }
+        if (response.code === 0) this.logger.log(`点亮熄灭勋章-点赞 ${logMessage} 成功`);
+        else this.logger.error(`点亮熄灭勋章-点赞 ${logMessage} 失败`, response.message);
       } catch (error) {
         this.logger.error(`点亮熄灭勋章-点赞 ${logMessage} 出错`, error);
       }
@@ -1928,21 +1701,17 @@
       const room_id = medal.room_info.room_id;
       const target_id = medal.medal.target_id;
       const nick_name = medal.anchor_info.nick_name;
-      const medal_name = medal.medal.medal_name;
-      const logMessage = `粉丝勋章【${medal_name}】 在主播【${nick_name}】（UID：${target_id}）的直播间（${room_id}）发送弹幕 ${danmu}`;
+      const logMessage = `粉丝勋章【${medal.medal.medal_name}】 在主播【${nick_name}】（UID：${target_id}）的直播间（${room_id}）发送弹幕 ${danmu}`;
       try {
         const response = await BAPI.live.sendMsg(danmu, room_id);
         this.logger.debug(`BAPI.live.sendMsg(${danmu}, ${room_id})`, response);
         if (response.code === 0) {
-          if (response.msg === "k") {
-            this.logger.warn(`点亮熄灭勋章-发送弹幕 ${logMessage} 异常，弹幕可能包含屏蔽词`);
-          } else {
+          if (response.msg === "k") this.logger.warn(`点亮熄灭勋章-发送弹幕 ${logMessage} 异常，弹幕可能包含屏蔽词`);
+          else {
             this.logger.log(`点亮熄灭勋章-发送弹幕 ${logMessage} 成功`);
             return true;
           }
-        } else {
-          this.logger.error(`点亮熄灭勋章-发送弹幕 ${logMessage} 失败`, response.message);
-        }
+        } else this.logger.error(`点亮熄灭勋章-发送弹幕 ${logMessage} 失败`, response.message);
       } catch (error) {
         this.logger.error(`点亮熄灭勋章-发送弹幕 ${logMessage} 出错`, error);
       }
@@ -1952,185 +1721,194 @@
       const room_id = medal.room_info.room_id;
       const target_id = medal.medal.target_id;
       const nick_name = medal.anchor_info.nick_name;
-      const medal_name = medal.medal.medal_name;
-      const logMessage = `粉丝勋章【${medal_name}】 在主播【${nick_name}】（UID：${target_id}）的直播间（${room_id}）发送表情 ${emoji}`;
+      const logMessage = `粉丝勋章【${medal.medal.medal_name}】 在主播【${nick_name}】（UID：${target_id}）的直播间（${room_id}）发送表情 ${emoji}`;
       try {
         const response = await BAPI.live.sendEmoji(emoji, room_id);
         this.logger.debug(`BAPI.live.sendEmoji(${emoji}, ${room_id})`, response);
         if (response.code === 0) {
-          if (response.msg === "k") {
-            this.logger.warn(`点亮熄灭勋章-发送表情 ${logMessage} 异常，表情可能包含屏蔽词`);
-          } else {
+          if (response.msg === "k") this.logger.warn(`点亮熄灭勋章-发送表情 ${logMessage} 异常，表情可能包含屏蔽词`);
+          else {
             this.logger.log(`点亮熄灭勋章-发送表情 ${logMessage} 成功`);
             return true;
           }
-        } else {
-          this.logger.error(`点亮熄灭勋章-发送表情 ${logMessage} 失败`, response.message);
-        }
+        } else this.logger.error(`点亮熄灭勋章-发送表情 ${logMessage} 失败`, response.message);
       } catch (error) {
         this.logger.error(`点亮熄灭勋章-发送表情 ${logMessage} 出错`, error);
       }
       return false;
     }
-    getPendingReservedLikes() {
-      return this.config.reserveLikeRoomids.reduce((total, roomid) => {
-        const roomLiked = this.config._todayReserveLikes[String(roomid)] ?? 0;
-        return total + Math.max(0, LightTask.RESERVE_LIKE_COUNT - roomLiked);
-      }, 0);
+    syncDailyLikeState() {
+      if (!isTimestampToday(this.config._lastLikeTime ?? 0)) {
+        this.config._todayLightLikes = 0;
+        this.config._lastLikeTime = tsm();
+        this.checkedRooms = [];
+      }
+      return this.config._todayLightLikes;
     }
-    async likeReserved(medals, budget) {
-      if (this.config.reserveLikeRoomids.length === 0) return 0;
-      const medalByRoomid = new Map(medals.map((medal) => [medal.room_info.room_id, medal]));
-      let liked = 0;
-      for (const roomid of this.config.reserveLikeRoomids) {
-        if (!this.config.likeEnabled) break;
-        if (liked >= budget) {
-          this.logger.warn("今日点赞额度不足，部分预留直播间未能完成预留点赞");
+    async checkLikeRooms() {
+      const medals = this.getMedals().on;
+      const candidates = [];
+      this.logger.log(`开始检查 ${medals.length} 个直播间是否可以点赞`);
+      for (const medal of medals) {
+        if (!this.config.likeEnabled) {
+          this.logger.log("点赞开关已关闭，停止检查点赞列表");
           break;
         }
-        const key = String(roomid);
-        let roomLiked = this.config._todayReserveLikes[key] ?? 0;
-        if (roomLiked >= LightTask.RESERVE_LIKE_COUNT) continue;
-        const medal = medalByRoomid.get(roomid);
-        if (!medal) {
-          this.logger.warn(`预留直播间（${roomid}）未开播或不在点赞列表中，跳过点赞`);
+        const roomid = medal.room_info.room_id;
+        const nick_name = medal.anchor_info.nick_name;
+        if (await this.resolveLiveStatus(roomid) === 0) {
+          this.logger.warn(`${nick_name} 已经下播，跳过点赞`);
           continue;
         }
-        while (roomLiked < LightTask.RESERVE_LIKE_COUNT && liked < budget) {
-          if (!this.config.likeEnabled) {
-            this.logger.log("点赞开关已关闭，停止点赞任务");
-            break;
+        let likeProgress = null;
+        let likeProgressTotal = null;
+        if (medal.medal.is_lighted) {
+          const [prog, total] = await MedalModule.getMissionProgress(medal.medal.target_id, LightTask.LIKE_MISSION_TITLE);
+          this.logger.log(`${nick_name} 点赞进度: ${prog} / ${total}`);
+          if (total > 0 && prog >= total) {
+            this.logger.log(`${nick_name} 点赞任务进度已达到上限，跳过点赞`);
+            continue;
           }
-          if (await this.resolveLiveStatus(roomid) === 0) {
-            this.logger.warn(`预留直播间（${roomid}）已经下播，跳过点赞`);
-            break;
-          }
-          const click = Math.min(
-            LightTask.RESERVE_LIKE_CLICK,
-            LightTask.RESERVE_LIKE_COUNT - roomLiked,
-            budget - liked
-          );
-          await this.like(medal, click);
-          roomLiked += click;
-          liked += click;
-          this.config._todayReserveLikes[key] = roomLiked;
-          if (roomLiked < LightTask.RESERVE_LIKE_COUNT) {
-            await sleep(_.random(5e3, 15e3));
-          }
+          likeProgress = prog;
+          likeProgressTotal = total;
         }
-        if (roomLiked >= LightTask.RESERVE_LIKE_COUNT) {
-          this.logger.log(`预留直播间（${roomid}）今日已点赞 ${roomLiked} 次`);
-        }
+        candidates.push({
+          roomid,
+          nick_name,
+          medal_name: medal.medal.medal_name,
+          avatar: medal.anchor_info.avatar,
+          medal_level: medal.medal.level,
+          is_lighted: medal.medal.is_lighted === 1,
+          likeProgress,
+          likeProgressTotal
+        });
       }
-      return liked;
+      this.checkedRooms = candidates;
+      this.logger.log(`共找到 ${candidates.length} 个可以点赞的直播间`);
+      return candidates;
     }
-    async likeTask(medals) {
-      const BATCH_SIZE = 10;
-      const DAILY_LIKE_LIMIT = 5e3;
-      const d = new Date();
-      const hours = d.getHours();
-      if (hours < 2) {
-        this.logger.log(`0-2点自动跳过点赞任务`);
+    async collectLikeCandidates() {
+      if (!this.config.enabled) {
+        this.logger.warn("点亮熄灭勋章开关未开启，无法点赞");
+        return null;
+      }
+      if (!this.config.likeEnabled) {
+        this.logger.warn("点赞开关已关闭，无法点赞");
+        return null;
+      }
+      if (!await this.waitForFansMedals()) {
+        this.logger.error("粉丝勋章数据不存在，无法点赞");
+        return null;
+      }
+      const totalLikes = this.syncDailyLikeState();
+      this.logger.log(`今日已点赞 ${totalLikes} 次（上限 ${LightTask.DAILY_LIKE_LIMIT}）`);
+      if (totalLikes >= LightTask.DAILY_LIKE_LIMIT) {
+        this.logger.log("今日点赞已达上限，无法点赞");
+        return null;
+      }
+      if (this.checkedRooms.length > 0) {
+        this.logger.log(`${this.checkedRooms.length} 个可以点赞的直播间`);
+        return {
+          candidates: this.checkedRooms,
+          todayLikes: totalLikes,
+          dailyLimit: LightTask.DAILY_LIKE_LIMIT
+        };
+      }
+      return {
+        candidates: await this.checkLikeRooms(),
+        todayLikes: totalLikes,
+        dailyLimit: LightTask.DAILY_LIKE_LIMIT
+      };
+    }
+    async likeRooms(roomids) {
+      if (this.manualLikeRunning) {
+        this.logger.warn("点赞任务正在运行中，忽略本次触发");
         return;
       }
-      if (!isTimestampToday(this.config._lastCompleteTime)) {
-        this.config._todayLightLikes = 0;
-        this.config._todayReserveLikes = {};
+      this.manualLikeRunning = true;
+      try {
+        await this.executeLike(roomids);
+      } finally {
+        this.manualLikeRunning = false;
       }
-      let totalLikes = this.config._todayLightLikes;
-      this.logger.log(`今日已点赞 ${totalLikes} 次（上限 ${DAILY_LIKE_LIMIT}）`);
-      if (totalLikes >= DAILY_LIKE_LIMIT) {
+    }
+    async executeLike(roomids) {
+      let totalLikes = this.syncDailyLikeState();
+      this.logger.log(`今日已点赞 ${totalLikes} 次（上限 ${LightTask.DAILY_LIKE_LIMIT}）`);
+      if (totalLikes >= LightTask.DAILY_LIKE_LIMIT) {
         this.logger.log("今日点赞已达上限，跳过点赞任务");
         return;
       }
-      const reserveRoomids = this.config.reserveLikeRoomids;
-      const reservedMedals = medals.filter(
-        (medal) => reserveRoomids.includes(medal.room_info.room_id)
-      );
-      const normalMedals = medals.filter(
-        (medal) => !reserveRoomids.includes(medal.room_info.room_id)
-      );
-      if (reserveRoomids.length > 0) {
-        this.logger.log(`预留直播间(${reserveRoomids.length}): ${reserveRoomids.join(", ")}`);
-        const likedForReserved = await this.likeReserved(reservedMedals, DAILY_LIKE_LIMIT - totalLikes);
-        totalLikes += likedForReserved;
-        this.config._todayLightLikes = totalLikes;
+      if (roomids.length === 0) {
+        this.logger.log("没有选择任何直播间，跳过点赞任务");
+        return;
       }
-      const pendingReservedLikes = this.getPendingReservedLikes();
-      const normalLikeLimit = Math.max(0, DAILY_LIKE_LIMIT - pendingReservedLikes);
-      if (pendingReservedLikes > 0) {
-        this.logger.log(
-          `预留直播间尚有 ${pendingReservedLikes} 次点赞未完成，普通直播间点赞上限为 ${normalLikeLimit} 次`
-        );
+      if (this.checkedRooms.length === 0) await this.checkLikeRooms();
+      const checked = new Set(this.checkedRooms.map((room) => room.roomid));
+      const wantedRoomids = roomids.filter((roomid) => checked.has(roomid));
+      if (wantedRoomids.length !== roomids.length) this.logger.warn(`${roomids.length - wantedRoomids.length} 个直播间未通过检查（已下播或任务已完成），跳过点赞`);
+      if (wantedRoomids.length === 0) {
+        this.logger.log("没有符合条件的直播间，跳过点赞任务");
+        return;
       }
+      const medalByRoomid = new Map(this.getMedals().on.map((medal) => [medal.room_info.room_id, medal]));
+      const medals = wantedRoomids.map((roomid) => medalByRoomid.get(roomid)).filter((medal) => Boolean(medal));
       const batchList = [];
-      for (let i = 0; i < normalMedals.length; i += BATCH_SIZE) {
-        batchList.push(normalMedals.slice(i, i + BATCH_SIZE));
-      }
+      for (let i = 0; i < medals.length; i += LightTask.LIKE_BATCH_SIZE) batchList.push(medals.slice(i, i + LightTask.LIKE_BATCH_SIZE));
       for (const batch of batchList) {
-        if (totalLikes >= normalLikeLimit || !this.config.likeEnabled) break;
+        if (totalLikes >= LightTask.DAILY_LIKE_LIMIT || !this.config.likeEnabled) break;
         let n = batch.length;
         this.logger.log(`点赞列表(${batch.length}): ${batch.map((medal) => medal.anchor_info.nick_name)}`);
         batch.reverse();
-        for (let j = 0; j < 12; j++) {
-          if (totalLikes >= normalLikeLimit || !this.config.likeEnabled) break;
+        for (let j = 0; j < LightTask.LIKE_ROUNDS; j++) {
+          if (n === 0) break;
+          if (totalLikes >= LightTask.DAILY_LIKE_LIMIT || !this.config.likeEnabled) break;
           for (let i = n - 1; i >= 0; i--) {
             if (!this.config.likeEnabled) {
               this.logger.log("点赞开关已关闭，停止点赞任务");
               break;
             }
-            if (totalLikes >= normalLikeLimit) break;
+            if (totalLikes >= LightTask.DAILY_LIKE_LIMIT) break;
             const medal = batch[i];
-            let flag = 1;
-            const liveStatus = await this.resolveLiveStatus(medal.room_info.room_id);
-            if (liveStatus == 0) {
+            let skip = false;
+            if (await this.resolveLiveStatus(medal.room_info.room_id) === 0) {
               this.logger.warn(`${medal.anchor_info.nick_name} 已经下播，跳过点赞任务`);
-              flag = 0;
+              skip = true;
             }
-            if (medal.medal.is_lighted) {
-              const [prog, total] = await MedalModule.getMissionProgress(medal.medal.target_id, "点赞30次");
+            if (!skip) {
+              const [prog, total] = await MedalModule.getMissionProgress(medal.medal.target_id, LightTask.LIKE_MISSION_TITLE);
               this.logger.log(`${medal.anchor_info.nick_name} 点赞进度: ${prog} / ${total}`);
-              if (prog == total || j - prog > 2) {
-                if (j - prog > 2) {
-                  this.logger.warn(`${medal.anchor_info.nick_name} 点赞任务进度达到上限`);
-                }
-                flag = 0;
+              if (total > 0 && prog === total || j - prog > 2) {
+                if (j - prog > 2) this.logger.warn(`${medal.anchor_info.nick_name} 点赞任务进度达到上限`);
+                skip = true;
               }
             }
-            if (flag == 0) {
+            if (skip) {
               [batch[i], batch[n - 1]] = [batch[n - 1], batch[i]];
               n--;
               continue;
             }
-            const likeCount = _.random(30, 40);
+            const likeCount = lodash.default.random(30, 40);
             await this.like(medal, likeCount);
             totalLikes += likeCount;
             this.config._todayLightLikes = totalLikes;
-            await sleep(_.random(5e3, 15e3));
+            await sleep(lodash.default.random(5e3, 15e3));
           }
         }
       }
+      this.checkedRooms = [];
       this.logger.log(`点赞任务已完成，本日总点赞次数: ${totalLikes}`);
-      if (medals.length === 0) {
-        this.logger.log("没有正在直播的粉丝勋章，点赞开关保持开启");
-      } else if (this.config.likeEnabled) {
-        this.config.likeEnabled = false;
-        this.logger.log("点赞任务已完成一次执行，点赞开关已自动关闭");
-      }
     }
     async sendDanmuTask(medals) {
       const BATCH_SIZE = 20;
-      const d = new Date();
-      const hours = d.getHours();
+      const hours = new Date().getHours();
       if (hours >= 19 && hours < 23) {
         this.logger.log(`19-23点自动跳过弹幕任务`);
         return;
       }
       let danmuIndex = 0;
       const batchList = [];
-      for (let i = 0; i < medals.length; i += BATCH_SIZE) {
-        batchList.push(medals.slice(i, i + BATCH_SIZE));
-      }
+      for (let i = 0; i < medals.length; i += BATCH_SIZE) batchList.push(medals.slice(i, i + BATCH_SIZE));
       for (const batch of batchList) {
         if (!this.config.danmuEnabled) break;
         let n = batch.length;
@@ -2145,34 +1923,23 @@
             }
             const medal = batch[i];
             let flag = 1;
-            const liveStatus = await this.resolveLiveStatus(medal.room_info.room_id);
-            if (liveStatus == 1) {
+            if (await this.resolveLiveStatus(medal.room_info.room_id) == 1) {
               this.logger.warn(`${medal.anchor_info.nick_name} 检测到直播中，跳过发送弹幕任务`);
               flag = 0;
             }
-            if (medal.medal.is_lighted) {
-              const [prog, total] = await MedalModule.getMissionProgress(medal.medal.target_id, "发弹幕");
-              this.logger.log(`${medal.anchor_info.nick_name} 发弹幕进度: ${prog} / ${total}`);
-              if (prog == total) {
-                flag = 0;
-              }
-            }
+            const [prog, total] = await MedalModule.getMissionProgress(medal.medal.target_id, "发弹幕");
+            this.logger.log(`${medal.anchor_info.nick_name} 发弹幕进度: ${prog} / ${total}`);
+            if (total > 0 && prog == total) flag = 0;
             if (flag == 0) {
               [batch[i], batch[n - 1]] = [batch[n - 1], batch[i]];
               n--;
               continue;
             }
-            const success = await this.sendDanmu(
-              medal,
-              this.config.danmuList[danmuIndex++ % this.config.danmuList.length]
-            );
-            const sleep_time = 300 / batch.length * 1e3 + _.random(5e3, 1e4);
+            const success = await this.sendDanmu(medal, this.config.danmuList[danmuIndex++ % this.config.danmuList.length]);
+            const sleep_time = 300 / batch.length * 1e3 + lodash.default.random(5e3, 1e4);
             if (!success) {
               await sleep(sleep_time);
-              await this.sendEmoji(
-                medal,
-                this.config.emojiList[danmuIndex++ % this.config.emojiList.length]
-              );
+              await this.sendEmoji(medal, this.config.emojiList[danmuIndex++ % this.config.emojiList.length]);
             }
             await sleep(sleep_time);
           }
@@ -2191,15 +1958,11 @@
       const fansMedals = this.getMedals();
       const tasks = [];
       if (this.config.likeEnabled) {
-        tasks.push(this.likeTask(fansMedals.on));
-      } else {
-        this.logger.log("点赞功能已关闭，跳过点赞任务");
-      }
-      if (this.config.danmuEnabled) {
-        tasks.push(this.sendDanmuTask(fansMedals.off));
-      } else {
-        this.logger.log("弹幕功能已关闭，跳过发送弹幕任务");
-      }
+        this.syncDailyLikeState();
+        tasks.push(this.checkLikeRooms().then(() => void 0));
+      } else this.logger.log("点赞功能已关闭，跳过点赞任务");
+      if (this.config.danmuEnabled) tasks.push(this.sendDanmuTask(fansMedals.off));
+      else this.logger.log("弹幕功能已关闭，跳过发送弹幕任务");
       await Promise.allSettled(tasks);
       this.config._lastCompleteTime = tsm();
       this.status = "done";
@@ -2208,8 +1971,8 @@
       this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
       this.logger.log("距离点亮熄灭勋章模块下次运行时间:", diff.str);
     }
-  }
-  class RoomHeart {
+  };
+  var RoomHeart = class {
     constructor(roomID, areaID, parentID, ruid, watchedSeconds) {
       this.roomID = roomID;
       this.areaID = areaID;
@@ -2231,7 +1994,12 @@
     seq = 0;
     progress = -1;
     get id() {
-      return [this.parentID, this.areaID, this.seq, this.roomID];
+      return [
+        this.parentID,
+        this.areaID,
+        this.seq,
+        this.roomID
+      ];
     }
     updateProgress() {
       this.watchedSeconds += this.heartBeatInterval;
@@ -2256,26 +2024,13 @@
     async E() {
       try {
         const response = await BAPI.liveTrace.E(this.id, this.device, this.ruid);
-        this.logger.debug(
-          `BAPI.liveTrace.E(${this.id}, ${this.device}, ${this.ruid}) response`,
-          response
-        );
+        this.logger.debug(`BAPI.liveTrace.E(${this.id}, ${this.device}, ${this.ruid}) response`, response);
         if (response.code === 0) {
           this.seq += 1;
-          ({
-            heartbeat_interval: this.heartBeatInterval,
-            secret_key: this.secretKey,
-            secret_rule: this.secretRule,
-            timestamp: this.timestamp
-          } = response.data);
+          ({ heartbeat_interval: this.heartBeatInterval, secret_key: this.secretKey, secret_rule: this.secretRule, timestamp: this.timestamp } = response.data);
           await sleep(this.heartBeatInterval * 1e3);
           return this.X();
-        } else {
-          this.logger.error(
-            `BAPI.liveTrace.E(${this.id}, ${this.device}, ${this.ruid}) 失败`,
-            response.message
-          );
-        }
+        } else this.logger.error(`BAPI.liveTrace.E(${this.id}, ${this.device}, ${this.ruid}) 失败`, response.message);
       } catch (error) {
         this.logger.error(`BAPI.liveTrace.E(${this.id}, ${this.device}, ${this.ruid}) 出错`, error);
       }
@@ -2300,20 +2055,8 @@
           ua: this.ua
         };
         const s = this.spyder(JSON.stringify(spyderData), this.secretRule);
-        const response = await BAPI.liveTrace.X(
-          s,
-          this.id,
-          this.device,
-          this.ruid,
-          this.timestamp,
-          this.secretKey,
-          this.heartBeatInterval,
-          spyderData.ts
-        );
-        this.logger.debug(
-          `BAPI.liveTrace.X(${s}, ${this.id}, ${this.device}, ${this.ruid}, ${this.timestamp}, ${this.secretKey}, ${this.heartBeatInterval}, ${spyderData.ts}) response`,
-          response
-        );
+        const response = await BAPI.liveTrace.X(s, this.id, this.device, this.ruid, this.timestamp, this.secretKey, this.heartBeatInterval, spyderData.ts);
+        this.logger.debug(`BAPI.liveTrace.X(${s}, ${this.id}, ${this.device}, ${this.ruid}, ${this.timestamp}, ${this.secretKey}, ${this.heartBeatInterval}, ${spyderData.ts}) response`, response);
         if (response.code === 0) {
           this.seq += 1;
           this.updateProgress();
@@ -2326,35 +2069,19 @@
             this.logger.log(`${this.roomID} 观看直播进度已满，观看结束`);
             return;
           }
-          if (this.watchedSeconds >= this.config.time * 60) {
-            return;
-          }
-          ;
-          ({
-            heartbeat_interval: this.heartBeatInterval,
-            secret_key: this.secretKey,
-            secret_rule: this.secretRule,
-            timestamp: this.timestamp
-          } = response.data);
+          if (this.watchedSeconds >= this.config.time * 60) return;
+          ({ heartbeat_interval: this.heartBeatInterval, secret_key: this.secretKey, secret_rule: this.secretRule, timestamp: this.timestamp } = response.data);
           await sleep(this.heartBeatInterval * 1e3);
           return this.X();
-        } else {
-          this.logger.error(
-            `BAPI.liveTrace.X(${s}, ${this.id}, ${this.device}, ${this.ruid}, ${this.timestamp}, ${this.secretKey}, ${this.heartBeatInterval}) 失败`,
-            response.message
-          );
-        }
+        } else this.logger.error(`BAPI.liveTrace.X(${s}, ${this.id}, ${this.device}, ${this.ruid}, ${this.timestamp}, ${this.secretKey}, ${this.heartBeatInterval}) 失败`, response.message);
       } catch (error) {
-        this.logger.error(
-          `BAPI.liveTrace.X(s, ${this.id}, ${this.device}, ${this.ruid}, ${this.timestamp}, ${this.secretKey}, ${this.heartBeatInterval}) 出错`,
-          error
-        );
+        this.logger.error(`BAPI.liveTrace.X(s, ${this.id}, ${this.device}, ${this.ruid}, ${this.timestamp}, ${this.secretKey}, ${this.heartBeatInterval}) 出错`, error);
       }
     }
     spyder(str, rule) {
       const data = JSON.parse(str);
       const [parent_id, area_id, seq_id, room_id] = JSON.parse(data.id);
-      const [buvid, uuid2] = JSON.parse(data.device);
+      const [buvid, uuid] = JSON.parse(data.device);
       const key = data.benchmark;
       const newData = {
         platform: "web",
@@ -2363,40 +2090,37 @@
         seq_id,
         room_id,
         buvid,
-        uuid: uuid2,
+        uuid,
         ets: data.ets,
         time: data.time,
         ts: data.ts
       };
       let s = JSON.stringify(newData);
-      for (const r of rule) {
-        switch (r) {
-          case 0:
-            s = CryptoJS.HmacMD5(s, key).toString(CryptoJS.enc.Hex);
-            break;
-          case 1:
-            s = CryptoJS.HmacSHA1(s, key).toString(CryptoJS.enc.Hex);
-            break;
-          case 2:
-            s = CryptoJS.HmacSHA256(s, key).toString(CryptoJS.enc.Hex);
-            break;
-          case 3:
-            s = CryptoJS.HmacSHA224(s, key).toString(CryptoJS.enc.Hex);
-            break;
-          case 4:
-            s = CryptoJS.HmacSHA512(s, key).toString(CryptoJS.enc.Hex);
-            break;
-          case 5:
-            s = CryptoJS.HmacSHA384(s, key).toString(CryptoJS.enc.Hex);
-            break;
-          default:
-            s = CryptoJS.HmacMD5(s, key).toString(CryptoJS.enc.Hex);
-        }
+      for (const r of rule) switch (r) {
+        case 0:
+          s = crypto_js.default.HmacMD5(s, key).toString(crypto_js.default.enc.Hex);
+          break;
+        case 1:
+          s = crypto_js.default.HmacSHA1(s, key).toString(crypto_js.default.enc.Hex);
+          break;
+        case 2:
+          s = crypto_js.default.HmacSHA256(s, key).toString(crypto_js.default.enc.Hex);
+          break;
+        case 3:
+          s = crypto_js.default.HmacSHA224(s, key).toString(crypto_js.default.enc.Hex);
+          break;
+        case 4:
+          s = crypto_js.default.HmacSHA512(s, key).toString(crypto_js.default.enc.Hex);
+          break;
+        case 5:
+          s = crypto_js.default.HmacSHA384(s, key).toString(crypto_js.default.enc.Hex);
+          break;
+        default: s = crypto_js.default.HmacMD5(s, key).toString(crypto_js.default.enc.Hex);
       }
       return s;
     }
-  }
-  class WatchTask2 extends MedalModule {
+  };
+  var WatchTask = class extends MedalModule {
     static runAt = "window-load";
     config = this.medalTasksConfig.watch;
     set status(s) {
@@ -2404,10 +2128,7 @@
     }
     playerStore = usePlayerStore();
     getMedals() {
-      const fansMedals = useBiliStore().filteredFansMedals;
-      const result = fansMedals.filter(
-        (medal) => medal.medal.is_lighted && (this.PUBLIC_MEDAL_FILTERS.whiteBlackList(medal) && (this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id) || medal.medal.level < 20))
-      );
+      const result = useBiliStore().filteredFansMedals.filter((medal) => medal.medal.is_lighted && this.PUBLIC_MEDAL_FILTERS.whiteBlackList(medal) && (this.medalTasksConfig.roomidList2.includes(medal.room_info.room_id) || medal.medal.level < 20));
       result.sort(this.sort_live_medals);
       this.logger.log(`观看直播列表(${result.length}): ${result.map((medal) => medal.anchor_info.nick_name)} `);
       return result;
@@ -2418,10 +2139,7 @@
         const area_id = Number(urlObj.searchParams.get("area_id"));
         const parent_area_id = Number(urlObj.searchParams.get("parent_area_id"));
         if (area_id > 0 && parent_area_id > 0) {
-          this.logger.log(
-            `已从直播间链接中（roomid = ${roomid}）获取到分区数据（area_id = ${area_id}，parent_area_id = ${parent_area_id}）`,
-            urlObj
-          );
+          this.logger.log(`已从直播间链接中（roomid = ${roomid}）获取到分区数据（area_id = ${area_id}，parent_area_id = ${parent_area_id}）`, urlObj);
           return [area_id, parent_area_id];
         }
         const response = await BAPI.live.getInfoByRoom(roomid);
@@ -2429,14 +2147,9 @@
         if (response.code === 0) {
           const room_info = response.data.room_info;
           return [room_info.area_id, room_info.parent_area_id];
-        } else {
-          return [-1, -1];
-        }
+        } else return [-1, -1];
       } catch (error) {
-        this.logger.error(
-          `获取指定直播间的 area_id 和 parent_area_id(roomid = ${roomid}) 出错`,
-          error
-        );
+        this.logger.error(`获取指定直播间的 area_id 和 parent_area_id(roomid = ${roomid}) 出错`, error);
         return [-1, -1];
       }
     }
@@ -2448,18 +2161,15 @@
         return;
       }
       this.status = "running";
-      if (!isTimestampToday(this.config._lastWatchTime, 0, 0)) {
-        this.config._watchingProgress = {};
-      } else {
-        _.forOwn(this.config._watchingProgress, (value, key, object) => {
-          object[key] -= value % 300;
-        });
-      }
+      if (!isTimestampToday(this.config._lastWatchTime, 0, 0)) this.config._watchingProgress = {};
+      else lodash.default.forOwn(this.config._watchingProgress, (value, key, object) => {
+        object[key] -= value % 300;
+      });
       this.config._lastWatchTime = tsm();
       const fansMedals = this.getMedals();
       if (fansMedals.length > 0) {
-        let i;
-        for (i = 0; i < fansMedals.length; i++) {
+        let i = 0;
+        for (; i < fansMedals.length; i++) {
           if (!this.config.enabled) {
             this.logger.log("观看直播开关已关闭，停止观看直播任务");
             break;
@@ -2474,16 +2184,8 @@
           const [area_id, parent_area_id] = await this.getAreaInfo(medal.room_info.url, roomid);
           if (area_id > 0 && parent_area_id > 0) {
             if (!this.config._watchingProgress[roomid] || this.config._watchingProgress[roomid] < this.config.time * 60) {
-              this.logger.log(
-                `粉丝勋章【${medal.medal.medal_name}】 开始直播间 ${roomid}（主播【${medal.anchor_info.nick_name}】，UID：${uid}）的观看直播任务`
-              );
-              await new RoomHeart(
-                roomid,
-                area_id,
-                parent_area_id,
-                uid,
-                this.config._watchingProgress[roomid] ?? 0
-              ).start();
+              this.logger.log(`粉丝勋章【${medal.medal.medal_name}】 开始直播间 ${roomid}（主播【${medal.anchor_info.nick_name}】，UID：${uid}）的观看直播任务`);
+              await new RoomHeart(roomid, area_id, parent_area_id, uid, this.config._watchingProgress[roomid] ?? 0).start();
             }
           }
         }
@@ -2491,9 +2193,7 @@
           this.config._lastCompleteTime = tsm();
           this.logger.log("观看直播任务已完成");
           this.status = "done";
-        } else {
-          this.status = "";
-        }
+        } else this.status = "";
       } else {
         this.status = "done";
         this.config._lastCompleteTime = tsm();
@@ -2502,8 +2202,8 @@
       this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
       this.logger.log("距离观看直播模块下次运行时间:", diff.str);
     }
-  }
-  class SilverToCoinTask extends BaseModule {
+  };
+  var SilverToCoinTask = class extends BaseModule {
     config = useModuleStore().moduleConfig.DailyTasks.OtherTasks.silverToCoin;
     set status(s) {
       useModuleStore().moduleStatus.DailyTasks.OtherTasks.silverToCoin = s;
@@ -2534,20 +2234,17 @@
       if (!isTimestampToday(this.config._lastCompleteTime)) {
         this.status = "running";
         this.exchange();
-      } else {
-        if (isNowIn(0, 0, 0, 5)) {
-          this.logger.log("昨天的银瓜子换硬币任务已经完成过了，等到今天的00:05再执行");
-        } else {
-          this.logger.log("今天已经完成过银瓜子换硬币任务了");
-          this.status = "done";
-        }
+      } else if (isNowIn(0, 0, 0, 5)) this.logger.log("昨天的银瓜子换硬币任务已经完成过了，等到今天的00:05再执行");
+      else {
+        this.logger.log("今天已经完成过银瓜子换硬币任务了");
+        this.status = "done";
       }
       const diff = delayToNextMoment();
       this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
       this.logger.log("银瓜子换硬币模块下次运行时间:", diff.str);
     }
-  }
-  class CoinToSilverTask extends BaseModule {
+  };
+  var CoinToSilverTask = class extends BaseModule {
     config = useModuleStore().moduleConfig.DailyTasks.OtherTasks.coinToSilver;
     set status(s) {
       useModuleStore().moduleStatus.DailyTasks.OtherTasks.coinToSilver = s;
@@ -2574,20 +2271,16 @@
       if (!isTimestampToday(this.config._lastCompleteTime)) {
         this.status = "running";
         await this.exchange();
-      } else {
-        if (!isNowIn(0, 0, 0, 5)) {
-          this.logger.log("今天已经完成过硬币换银瓜子任务了");
-          this.status = "done";
-        } else {
-          this.logger.log("昨天的硬币换银瓜子任务已经完成过了，等到今天的00:05再执行");
-        }
-      }
+      } else if (!isNowIn(0, 0, 0, 5)) {
+        this.logger.log("今天已经完成过硬币换银瓜子任务了");
+        this.status = "done";
+      } else this.logger.log("昨天的硬币换银瓜子任务已经完成过了，等到今天的00:05再执行");
       const diff = delayToNextMoment();
       this.nextRunTimer = setTimeout(() => this.run(), diff.ms);
       this.logger.log("硬币换银瓜子模块下次运行时间:", diff.str);
     }
-  }
-  class GetYearVipPrivilegeTask extends BaseModule {
+  };
+  var GetYearVipPrivilegeTask = class extends BaseModule {
     config = useModuleStore().moduleConfig.DailyTasks.OtherTasks.getYearVipPrivilege;
     set status(s) {
       useModuleStore().moduleStatus.DailyTasks.OtherTasks.getYearVipPrivilege = s;
@@ -2604,14 +2297,25 @@
       16: "大会员专享会员购10魔晶",
       17: "大会员专享游戏优惠券"
     };
-    blackList = [8, 14, 18, 19, 20, 21, 24, 25, 26, 27, 200];
+    blackList = [
+      8,
+      14,
+      18,
+      19,
+      20,
+      21,
+      24,
+      25,
+      26,
+      27,
+      200
+    ];
     async myPrivilege() {
       try {
         const response = await BAPI.main.vip.myPrivilege();
         this.logger.log(`BAPI.main.vip.myPrivilege response`, response);
-        if (response.code === 0) {
-          return response.data.list;
-        } else {
+        if (response.code === 0) return response.data.list;
+        else {
           this.logger.error(`获取年度大会员权益信息失败`, response.message);
           this.status = "error";
         }
@@ -2624,45 +2328,26 @@
       try {
         const response = await BAPI.main.vip.receivePrivilege(type);
         this.logger.log(`BAPI.main.vip.receivePrivilege(${type}) response`, response);
-        if (response.code === 0) {
-          this.logger.log(
-            `领取年度大会员权益（type = ${type}, ${this.type2Name[type] ?? "未知"}）成功`
-          );
-        } else {
-          this.logger.error(
-            `领取年度大会员权益（type = ${type}, ${this.type2Name[type] ?? "未知"}）失败`,
-            response.message
-          );
-        }
+        if (response.code === 0) this.logger.log(`领取年度大会员权益（type = ${type}, ${this.type2Name[type] ?? "未知"}）成功`);
+        else this.logger.error(`领取年度大会员权益（type = ${type}, ${this.type2Name[type] ?? "未知"}）失败`, response.message);
       } catch (error) {
-        this.logger.error(
-          `领取年度大会员权益（type = ${type}, ${this.type2Name[type] ?? "未知"}）出错`,
-          error
-        );
+        this.logger.error(`领取年度大会员权益（type = ${type}, ${this.type2Name[type] ?? "未知"}）出错`, error);
       }
     }
     async addExperience() {
       try {
         const response = await BAPI.main.vip.addExperience();
         this.logger.log(`BAPI.main.vip.addExperience response`, response);
-        if (response.code === 0) {
-          this.logger.log(`领取年度大会员权益（type = 9，专属等级加速包（10主站经验））成功`);
-        } else {
-          this.logger.error(
-            `领取年度大会员权益（type = 9，专属等级加速包（10主站经验））失败`,
-            response.message
-          );
-        }
+        if (response.code === 0) this.logger.log(`领取年度大会员权益（type = 9，专属等级加速包（10主站经验））成功`);
+        else this.logger.error(`领取年度大会员权益（type = 9，专属等级加速包（10主站经验））失败`, response.message);
       } catch (error) {
         this.logger.error(`领取年度大会员权益（type = 9，专属等级加速包（10主站经验））出错`, error);
       }
     }
     isYearVip() {
-      const biliStore = useBiliStore();
-      const userInfo = biliStore.userInfo;
-      if (userInfo.vip.status === 1 && userInfo.vip.type === 2) {
-        return true;
-      } else {
+      const userInfo = useBiliStore().userInfo;
+      if (userInfo.vip.status === 1 && userInfo.vip.type === 2) return true;
+      else {
         this.logger.log("当前账号不是年度大会员，不领取权益");
         return false;
       }
@@ -2675,58 +2360,33 @@
           const list = await this.myPrivilege();
           if (list) {
             for (const i of list) {
-              if (this.blackList.includes(i.type)) {
-                continue;
-              }
+              if (this.blackList.includes(i.type)) continue;
               if (i.state === 0) {
-                if (i.type === 9) {
-                  await this.addExperience();
-                } else {
-                  await this.receivePrivilege(i.type);
-                }
-              } else if (i.state === 1) {
-                this.logger.log(
-                  `该权益（type = ${i.type}, ${this.type2Name[i.type] ?? "未知"}）已经领取过了`
-                );
-              } else {
-                if (i.type === 9) {
-                  const watchTaskConfig = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks.watch;
-                  if (watchTaskConfig.enabled) {
-                    this.logger.log("等待观看视频任务完成后再领取专属等级加速包（10主站经验）...");
-                    vue.watch(
-                      () => watchTaskConfig._lastCompleteTime,
-                      () => sleep(3e3).then(() => this.addExperience()),
-                      { once: true }
-                    );
-                  } else {
-                    this.logger.warn(
-                      "领取专属等级加速包（10主站经验）前需要观看任意一个视频，请打开【主站任务】中的【每日观看视频】，或是在运行脚本前手动观看"
-                    );
-                  }
-                }
+                if (i.type === 9) await this.addExperience();
+                else await this.receivePrivilege(i.type);
+              } else if (i.state === 1) this.logger.log(`该权益（type = ${i.type}, ${this.type2Name[i.type] ?? "未知"}）已经领取过了`);
+              else if (i.type === 9) {
+                const watchTaskConfig = useModuleStore().moduleConfig.DailyTasks.MainSiteTasks.watch;
+                if (watchTaskConfig.enabled) {
+                  this.logger.log("等待观看视频任务完成后再领取专属等级加速包（10主站经验）...");
+                  (0, vue.watch)(() => watchTaskConfig._lastCompleteTime, () => sleep(3e3).then(() => this.addExperience()), { once: true });
+                } else this.logger.warn("领取专属等级加速包（10主站经验）前需要观看任意一个视频，请打开【主站任务】中的【每日观看视频】，或是在运行脚本前手动观看");
               }
               await sleep(500);
             }
             this.status = "done";
-            this.config._nextReceiveTime = Math.min(
-              ...list.map((i) => i.period_end_unix).filter((unix) => unix > ts())
-            );
+            this.config._nextReceiveTime = Math.min(...list.map((i) => i.period_end_unix).filter((unix) => unix > ts()));
           }
         }
         const diff = this.config._nextReceiveTime - ts() + 3e5;
         if (diff < 86400) {
-          this.logger.log(
-            "领取年度大会员权益模块下次运行时间:",
-            luxon.DateTime.fromSeconds(this.config._nextReceiveTime).toJSDate()
-          );
+          this.logger.log("领取年度大会员权益模块下次运行时间:", luxon.DateTime.fromSeconds(this.config._nextReceiveTime).toJSDate());
           this.nextRunTimer = setTimeout(() => this.run(), diff * 1e3);
-        } else {
-          this.logger.log("距离下次领取年度大会员权益的时间超过一天，不计划下次运行");
-        }
+        } else this.logger.log("距离下次领取年度大会员权益的时间超过一天，不计划下次运行");
       }
     }
-  }
-  class SwitchLiveStreamQuality extends BaseModule {
+  };
+  var SwitchLiveStreamQuality = class extends BaseModule {
     static runOnMultiplePages = true;
     static runAt = "window-load";
     static runAfterDefault = false;
@@ -2742,26 +2402,19 @@
       });
       const isHDR = this.config.qualityDesc.includes("HDR");
       const searchStr = this.config.qualityDesc.replace(/（.*）/, "");
-      const targetQuality = playerInfo.qualityCandidates.find(
-        ({ desc, hdrType }) => desc.includes(searchStr) && hdrType > 0 === isHDR
-      ) ??
-        (isHDR ? playerInfo.qualityCandidates.find(({ desc }) => desc.includes(searchStr)) : null);
+      const targetQuality = playerInfo.qualityCandidates.find(({ desc, hdrType }) => desc.includes(searchStr) && hdrType > 0 === isHDR) ?? (isHDR ? playerInfo.qualityCandidates.find(({ desc }) => desc.includes(searchStr)) : null);
       if (!targetQuality) {
         this.logger.log("当前直播不支持目标画质，保持默认画质");
         return;
       }
-      if (isHDR && targetQuality.hdrType === 0) {
-        this.logger.log(`当前直播不支持 ${this.config.qualityDesc}，回退到 ${targetQuality.desc}`);
-      }
+      if (isHDR && targetQuality.hdrType === 0) this.logger.log(`当前直播不支持 ${this.config.qualityDesc}，回退到 ${targetQuality.desc}`);
       const switchQualityTimer = setInterval(() => {
         playerInfo = livePlayer.getPlayerInfo();
         if (playerInfo.quality === targetQuality.qn && playerInfo.hdrType === targetQuality.hdrType) {
           this.logger.log(`已将画质切换为 ${targetQuality.desc}`, targetQuality);
           clearInterval(switchQualityTimer);
           clearTimeout(timeoutTimer);
-        } else {
-          livePlayer.switchQuality(targetQuality.qn, targetQuality.hdrType);
-        }
+        } else livePlayer.switchQuality(targetQuality.qn, targetQuality.hdrType);
       }, 500);
       const timeoutTimer = setTimeout(() => {
         clearInterval(switchQualityTimer);
@@ -2777,8 +2430,8 @@
         this.logger.error("自动切换画质模块出错", e);
       }
     }
-  }
-  class BanP2P extends BaseModule {
+  };
+  var BanP2P = class extends BaseModule {
     static runOnMultiplePages = true;
     static runAt = "document-start";
     static onFrame = "all";
@@ -2796,37 +2449,22 @@
       class FakeEventTarget {
         listeners = new Map();
         addEventListener(type, listener) {
-          if (!listener) {
-            return;
-          }
-          if (!this.listeners.has(type)) {
-            this.listeners.set(type, new Set());
-          }
+          if (!listener) return;
+          if (!this.listeners.has(type)) this.listeners.set(type, new Set());
           this.listeners.get(type).add(listener);
         }
         removeEventListener(type, listener) {
-          if (!listener) {
-            return;
-          }
+          if (!listener) return;
           this.listeners.get(type)?.delete(listener);
         }
         dispatchEvent(event) {
           const { type } = event;
           const handler = this[`on${type}`];
-          if (typeof handler === "function") {
-            handler.call(this, event);
-          }
+          if (typeof handler === "function") handler.call(this, event);
           const listeners = this.listeners.get(type);
-          if (!listeners) {
-            return true;
-          }
-          for (const listener of listeners) {
-            if (typeof listener === "function") {
-              listener.call(this, event);
-            } else {
-              listener.handleEvent(event);
-            }
-          }
+          if (!listeners) return true;
+          for (const listener of listeners) if (typeof listener === "function") listener.call(this, event);
+          else listener.handleEvent(event);
           return !event.defaultPrevented;
         }
       }
@@ -2854,17 +2492,10 @@
           this.ordered = ordered;
         }
         send(_data) {
-          if (this.readyState !== "open") {
-            throw BanP2P.createDOMException(
-              "Failed to execute 'send' on 'RTCDataChannel': RTCDataChannel.readyState is not 'open'.",
-              "InvalidStateError"
-            );
-          }
+          if (this.readyState !== "open") throw BanP2P.createDOMException("Failed to execute 'send' on 'RTCDataChannel': RTCDataChannel.readyState is not 'open'.", "InvalidStateError");
         }
         close() {
-          if (this.readyState === "closed") {
-            return;
-          }
+          if (this.readyState === "closed") return;
           this.readyState = "closing";
           setTimeout(() => {
             this.readyState = "closed";
@@ -2926,21 +2557,15 @@
           this.updateIceConnectionState("checking");
           this.updateConnectionState("connecting");
           _unsafeWindow.setTimeout(() => {
-            if (this.closed) {
-              return;
-            }
+            if (this.closed) return;
             this.updateIceGatheringState("complete");
             BanP2P.dispatchEvent(this, "icecandidate", { candidate: null });
           }, 0);
           _unsafeWindow.setTimeout(() => {
-            if (this.closed) {
-              return;
-            }
+            if (this.closed) return;
             this.updateIceConnectionState("failed");
             this.updateConnectionState("failed");
-            for (const channel of this.dataChannels) {
-              channel.close();
-            }
+            for (const channel of this.dataChannels) channel.close();
           }, 78);
         }
         createOffer() {
@@ -2956,9 +2581,7 @@
           });
         }
         setLocalDescription(description) {
-          if (this.isClosed()) {
-            return Promise.resolve();
-          }
+          if (this.isClosed()) return Promise.resolve();
           const nextDescription = description ? {
             type: description.type ?? "offer",
             sdp: description.sdp
@@ -2974,9 +2597,7 @@
           return Promise.resolve();
         }
         setRemoteDescription(description) {
-          if (this.isClosed()) {
-            return Promise.resolve();
-          }
+          if (this.isClosed()) return Promise.resolve();
           this.pendingRemoteDescription = description;
           this.remoteDescription = description;
           this.currentRemoteDescription = description;
@@ -3015,45 +2636,35 @@
         addTrack() {
           return {};
         }
-        removeTrack(_sender) {
-        }
+        removeTrack(_sender) { }
         restartIce() {
-          if (this.isClosed()) {
-            return;
-          }
+          if (this.isClosed()) return;
           this.scheduleConnectionFailure();
         }
         close() {
-          if (this.closed) {
-            return;
-          }
+          if (this.closed) return;
           this.closed = true;
           this.updateSignalingState("closed");
           this.updateIceGatheringState("complete");
           this.updateIceConnectionState("closed");
           this.updateConnectionState("closed");
-          for (const channel of this.dataChannels) {
-            channel.close();
-          }
+          for (const channel of this.dataChannels) channel.close();
         }
       }
       Object.defineProperty(FakeRTCPeerConnection.prototype, Symbol.toStringTag, {
         value: "RTCPeerConnection",
         configurable: true
       });
-      const RTClist = [
+      for (const i of [
         "RTCPeerConnection",
         "mozRTCPeerConnection",
         "webkitRTCPeerConnection"
-      ];
-      for (const i of RTClist) {
-        Object.defineProperty(_unsafeWindow, i, {
-          value: FakeRTCPeerConnection,
-          enumerable: false,
-          writable: true,
-          configurable: true
-        });
-      }
+      ]) Object.defineProperty(_unsafeWindow, i, {
+        value: FakeRTCPeerConnection,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      });
     }
     run() {
       this.logger.log("禁用P2P模块开始运行");
@@ -3063,8 +2674,15 @@
         this.logger.error("禁用P2P失败", e);
       }
     }
-  }
-  var events = ["load", "loadend", "timeout", "error", "readystatechange", "abort"];
+  };
+  var events = [
+    "load",
+    "loadend",
+    "timeout",
+    "error",
+    "readystatechange",
+    "abort"
+  ];
   var OriginXhr = "__origin_xhr";
   function configEvent(event, xhrProxy) {
     var e = {};
@@ -3072,7 +2690,7 @@
     e.target = e.currentTarget = xhrProxy;
     return e;
   }
-  function hook$1(proxy2, win) {
+  function hook$1(proxy, win) {
     win = win || window;
     var originXhr = win.XMLHttpRequest;
     var hooking = true;
@@ -3086,17 +2704,13 @@
         var type = "";
         try {
           type = typeof xhr[attr];
-        } catch (e) {
-        }
-        if (type === "function") {
-          this[attr] = hookFunction(attr);
-        } else if (attr !== OriginXhr) {
-          Object.defineProperty(this, attr, {
-            get: getterFactory(attr),
-            set: setterFactory(attr),
-            enumerable: true
-          });
-        }
+        } catch (e) { }
+        if (type === "function") this[attr] = hookFunction(attr);
+        else if (attr !== OriginXhr) Object.defineProperty(this, attr, {
+          get: getterFactory(attr),
+          set: setterFactory(attr),
+          enumerable: true
+        });
       }
       var that = this;
       xhr.getProxy = function () {
@@ -3107,17 +2721,21 @@
     HookXMLHttpRequest.prototype = originXhr.prototype;
     HookXMLHttpRequest.prototype.constructor = HookXMLHttpRequest;
     win.XMLHttpRequest = HookXMLHttpRequest;
-    Object.assign(win.XMLHttpRequest, { UNSENT: 0, OPENED: 1, HEADERS_RECEIVED: 2, LOADING: 3, DONE: 4 });
+    Object.assign(win.XMLHttpRequest, {
+      UNSENT: 0,
+      OPENED: 1,
+      HEADERS_RECEIVED: 2,
+      LOADING: 3,
+      DONE: 4
+    });
     function getterFactory(attr) {
       return function () {
         var originValue = this[OriginXhr][attr];
         if (hooking) {
           var v = this.hasOwnProperty(attr + "_") ? this[attr + "_"] : originValue;
-          var attrGetterHook = (proxy2[attr] || {})["getter"];
+          var attrGetterHook = (proxy[attr] || {})["getter"];
           return attrGetterHook && attrGetterHook(v, this) || v;
-        } else {
-          return originValue;
-        }
+        } else return originValue;
       };
     }
     function setterFactory(attr) {
@@ -3125,33 +2743,29 @@
         var xhr = this[OriginXhr];
         if (hooking) {
           var that = this;
-          var hook2 = proxy2[attr];
+          var hook = proxy[attr];
           if (attr.substring(0, 2) === "on") {
             that[attr + "_"] = v;
             xhr[attr] = function (e) {
               e = configEvent(e, that);
-              var ret = proxy2[attr] && proxy2[attr].call(that, xhr, e);
-              ret || v.call(that, e);
+              proxy[attr] && proxy[attr].call(that, xhr, e) || v.call(that, e);
             };
           } else {
-            var attrSetterHook = (hook2 || {})["setter"];
+            var attrSetterHook = (hook || {})["setter"];
             v = attrSetterHook && attrSetterHook(v, that) || v;
             this[attr + "_"] = v;
             try {
               xhr[attr] = v;
-            } catch (e) {
-            }
+            } catch (e) { }
           }
-        } else {
-          xhr[attr] = v;
-        }
+        } else xhr[attr] = v;
       };
     }
     function hookFunction(fun) {
       return function () {
         var args = [].slice.call(arguments);
-        if (proxy2[fun] && hooking) {
-          var ret = proxy2[fun].call(this, args, this[OriginXhr]);
+        if (proxy[fun] && hooking) {
+          var ret = proxy[fun].call(this, args, this[OriginXhr]);
           if (ret) return ret;
         }
         return this[OriginXhr][fun].apply(this[OriginXhr], args);
@@ -3165,13 +2779,21 @@
         originXhr = void 0;
       }
     }
-    return { originXhr, unHook };
+    return {
+      originXhr,
+      unHook
+    };
   }
-  var eventLoad = events[0], eventLoadEnd = events[1], eventTimeout = events[2], eventError = events[3], eventReadyStateChange = events[4], eventAbort = events[5];
+  var eventLoad = events[0];
+  var eventLoadEnd = events[1];
+  var eventTimeout = events[2];
+  var eventError = events[3];
+  var eventReadyStateChange = events[4];
+  var eventAbort = events[5];
   var prototype = "prototype";
-  function proxy(proxy2, win) {
+  function proxy(proxy, win) {
     win = win || window;
-    return proxyAjax(proxy2, win);
+    return proxyAjax(proxy, win);
   }
   function trim(str) {
     return str.replace(/^\s+|\s+$/g, "");
@@ -3185,9 +2807,8 @@
     var event = configEvent({ type: name }, xhrProxy);
     xhrProxy[callback] && xhrProxy[callback](event);
     var evt;
-    if (typeof Event === "function") {
-      evt = new Event(name, { bubbles: false });
-    } else {
+    if (typeof Event === "function") evt = new Event(name, { bubbles: false });
+    else {
       evt = document.createEvent("Event");
       evt.initEvent(name, false, true);
     }
@@ -3229,9 +2850,7 @@
     rq = rq || xhr.config;
     xhr.withCredentials = rq.withCredentials;
     xhr.open(rq.method, rq.url, rq.async !== false, rq.user, rq.password);
-    for (var key in rq.headers) {
-      xhr.setRequestHeader(key, rq.headers[key]);
-    }
+    for (var key in rq.headers) xhr.setRequestHeader(key, rq.headers[key]);
     xhr.send(rq.body);
   });
   var ResponseHandler$1 = makeHandler(function (response) {
@@ -3240,20 +2859,16 @@
   var ErrorHandler = makeHandler(function (error) {
     this.reject(error);
   });
-  function proxyAjax(proxy2, win) {
-    var onRequest = proxy2.onRequest, onResponse = proxy2.onResponse, onError = proxy2.onError;
+  function proxyAjax(proxy, win) {
+    var onRequest = proxy.onRequest, onResponse = proxy.onResponse, onError = proxy.onError;
     function getResponseData(xhrProxy) {
       var responseType = xhrProxy.responseType;
-      if (!responseType || responseType === "text") {
-        return xhrProxy.responseText;
-      }
+      if (!responseType || responseType === "text") return xhrProxy.responseText;
       var response = xhrProxy.response;
-      if (responseType === "json" && !response) {
-        try {
-          return JSON.parse(xhrProxy.responseText);
-        } catch (e) {
-          console.warn(e);
-        }
+      if (responseType === "json" && !response) try {
+        return JSON.parse(xhrProxy.responseText);
+      } catch (e) {
+        console.warn(e);
       }
       return response;
     }
@@ -3276,12 +2891,13 @@
     }
     function onerror(xhr, xhrProxy, error, errorType) {
       var handler = new ErrorHandler(xhr);
-      error = { config: xhr.config, error, type: errorType };
-      if (onError) {
-        onError(error, handler);
-      } else {
-        handler.next(error);
-      }
+      error = {
+        config: xhr.config,
+        error,
+        type: errorType
+      };
+      if (onError) onError(error, handler);
+      else handler.next(error);
     }
     function preventXhrProxyCallback() {
       return true;
@@ -3293,11 +2909,8 @@
       };
     }
     function stateChangeCallback(xhr, xhrProxy) {
-      if (xhr.readyState === 4 && xhr.status !== 0) {
-        handleResponse(xhr, xhrProxy);
-      } else if (xhr.readyState !== 4) {
-        triggerListener(xhr, eventReadyStateChange);
-      }
+      if (xhr.readyState === 4 && xhr.status !== 0) handleResponse(xhr, xhrProxy);
+      else if (xhr.readyState !== 4) triggerListener(xhr, eventReadyStateChange);
       return true;
     }
     var { originXhr, unHook } = hook$1({
@@ -3319,11 +2932,9 @@
         config.password = args[4];
         config.xhr = xhr;
         var evName = "on" + eventReadyStateChange;
-        if (!xhr[evName]) {
-          xhr[evName] = function () {
-            return stateChangeCallback(xhr, _this);
-          };
-        }
+        if (!xhr[evName]) xhr[evName] = function () {
+          return stateChangeCallback(xhr, _this);
+        };
         if (onRequest) return true;
       },
       send: function (args, xhr) {
@@ -3355,21 +2966,17 @@
           return true;
         }
       },
-      getAllResponseHeaders: function (_2, xhr) {
+      getAllResponseHeaders: function (_, xhr) {
         var headers = xhr.resHeader;
         if (headers) {
           var header = "";
-          for (var key in headers) {
-            header += key + ": " + headers[key] + "\r\n";
-          }
+          for (var key in headers) header += key + ": " + headers[key] + "\r\n";
           return header;
         }
       },
       getResponseHeader: function (args, xhr) {
         var headers = xhr.resHeader;
-        if (headers) {
-          return headers[(args[0] || "").toLowerCase()];
-        }
+        if (headers) return headers[(args[0] || "").toLowerCase()];
       }
     }, win);
     return {
@@ -3377,8 +2984,8 @@
       unProxy: unHook
     };
   }
-  const _fetch = window.fetch;
-  class RequestHandler {
+  var _fetch = window.fetch;
+  var RequestHandler = class {
     _resolve;
     _error;
     _next = false;
@@ -3395,8 +3002,8 @@
       this._input = config.input;
       this._init = config.init;
     }
-  }
-  class ResponseHandler {
+  };
+  var ResponseHandler = class {
     _resolve;
     _error;
     _next = false;
@@ -3411,24 +3018,21 @@
       this._next = true;
       this._response = response;
     }
-  }
-  let isHooked = false;
-  let onRequestHandlers = [];
-  let onResponseHandlers = [];
-  const hook = (win) => {
+  };
+  var isHooked = false;
+  var onRequestHandlers = [];
+  var onResponseHandlers = [];
+  var hook = (win) => {
     win.fetch = async (input, init) => {
       for (const handler of onRequestHandlers) {
         const requestHandler = new RequestHandler();
-        await handler.apply(_unsafeWindow, [{ input, init }, requestHandler]);
-        if (requestHandler._resolve) {
-          return requestHandler._resolve;
-        }
-        if (requestHandler._error) {
-          throw requestHandler._error;
-        }
-        if (!requestHandler._next) {
-          break;
-        }
+        await handler.apply(_unsafeWindow, [{
+          input,
+          init
+        }, requestHandler]);
+        if (requestHandler._resolve) return requestHandler._resolve;
+        if (requestHandler._error) throw requestHandler._error;
+        if (!requestHandler._next) break;
         input = requestHandler._input;
         init = requestHandler._init;
       }
@@ -3436,45 +3040,25 @@
       for (const handler of onResponseHandlers) {
         const responseHandler = new ResponseHandler();
         await handler.apply(_unsafeWindow, [response, responseHandler]);
-        if (responseHandler._resolve) {
-          return responseHandler._resolve;
-        }
-        if (responseHandler._error) {
-          throw responseHandler._error;
-        }
-        if (!responseHandler._next) {
-          break;
-        }
+        if (responseHandler._resolve) return responseHandler._resolve;
+        if (responseHandler._error) throw responseHandler._error;
+        if (!responseHandler._next) break;
         response = responseHandler._response;
       }
       return response;
     };
   };
-  const fproxy = (proxy2, win = _unsafeWindow) => {
-    if (proxy2.onRequest) {
-      onRequestHandlers.push(proxy2.onRequest);
-    }
-    if (proxy2.onResponse) {
-      onResponseHandlers.push(proxy2.onResponse);
-    }
+  var fproxy = (proxy, win = _unsafeWindow) => {
+    if (proxy.onRequest) onRequestHandlers.push(proxy.onRequest);
+    if (proxy.onResponse) onResponseHandlers.push(proxy.onResponse);
     if (!isHooked) {
       hook(win);
       isHooked = true;
     }
     return {
       unProxy: () => {
-        if (proxy2.onRequest) {
-          onRequestHandlers.splice(
-            onRequestHandlers.findIndex((handler) => handler === proxy2.onRequest),
-            1
-          );
-        }
-        if (proxy2.onResponse) {
-          onResponseHandlers.splice(
-            onResponseHandlers.findIndex((handler) => handler === proxy2.onResponse),
-            1
-          );
-        }
+        if (proxy.onRequest) onRequestHandlers.splice(onRequestHandlers.findIndex((handler) => handler === proxy.onRequest), 1);
+        if (proxy.onResponse) onResponseHandlers.splice(onResponseHandlers.findIndex((handler) => handler === proxy.onResponse), 1);
       },
       unHook: () => {
         win.fetch = _fetch;
@@ -3484,7 +3068,7 @@
       originFetch: _fetch
     };
   };
-  class NoReport extends BaseModule {
+  var NoReport = class NoReport extends BaseModule {
     static runOnMultiplePages = true;
     static runAt = "document-start";
     static onFrame = "all";
@@ -3494,214 +3078,159 @@
       return url.includes("//data.bilibili.com") || url.includes("//data.bilivideo.com");
     }
     hookProperties(win) {
-      Object.defineProperty(win.navigator, "sendBeacon", {
-        value: () => {
-        }
-      });
+      Object.defineProperty(win.navigator, "sendBeacon", { value: () => { } });
       Object.defineProperties(win, {
         reportObserver: {
           get() {
-            return () => {
-            };
+            return () => { };
           },
-          set() {
-          }
+          set() { }
         },
         reportConfig: {
           get() {
-            return () => {
-            };
+            return () => { };
           },
-          set() {
-          }
+          set() { }
         },
         __biliMirror__: {
           get() {
             return {};
           },
-          set() {
-          }
+          set() { }
         },
         __biliMirrorPbInstance__: {
           get() {
-            return new Proxy(
-              {},
-              {
-                get(_target, property) {
-                  const __biliMirrorPbInstance__ = {
-                    fpPromise: Promise.resolve(),
-                    initBuvidPromise: Promise.resolve(),
-                    miss: false,
-                    options: {
-                      feature: new Proxy(
-                        {},
-                        {
-                          get() {
-                            return false;
-                          },
-                          set() {
-                            return true;
-                          }
-                        }
-                      )
-                    },
-                    scheduler: {},
-                    sequencer: {},
-                    techEventReporter: {},
-                    version: ""
-                  };
-                  return __biliMirrorPbInstance__[property] ?? (() => {
-                  });
-                },
-                set() {
-                  return true;
-                }
+            return new Proxy({}, {
+              get(_target, property) {
+                return {
+                  fpPromise: Promise.resolve(),
+                  initBuvidPromise: Promise.resolve(),
+                  miss: false,
+                  options: {
+                    feature: new Proxy({}, {
+                      get() {
+                        return false;
+                      },
+                      set() {
+                        return true;
+                      }
+                    })
+                  },
+                  scheduler: {},
+                  sequencer: {},
+                  techEventReporter: {},
+                  version: ""
+                }[property] ?? (() => { });
+              },
+              set() {
+                return true;
               }
-            );
+            });
           },
-          set() {
-          }
+          set() { }
         },
         __INITIAL_MIRROR__: {
           get() {
-            return () => {
-            };
+            return () => { };
           },
-          set() {
-          }
+          set() { }
         },
         __MIRROR_REPORT__: {
           get() {
-            return new Proxy(
-              {},
-              {
-                get() {
-                  return () => {
-                  };
-                },
-                set() {
-                  return true;
-                }
+            return new Proxy({}, {
+              get() {
+                return () => { };
+              },
+              set() {
+                return true;
               }
-            );
+            });
           },
-          set() {
-          }
+          set() { }
         },
         __MIRROR_VERSION__: {
           get() {
             return "";
           },
-          set() {
-          }
+          set() { }
         },
         __statisObserver: {
-
-
           get() {
-            return new Proxy(
-              {},
-              {
-                get(_target, property) {
-                  switch (property) {
-                    case "__initConfig":
-                    case "__loadedFlag":
-                      return {};
-                    case "__bufferFuns":
-                      return [];
-                    case "__visitId":
-                      return "";
-                    default:
-                      return () => {
-                      };
-                  }
-                },
-                set() {
-                  return true;
+            return new Proxy({}, {
+              get(_target, property) {
+                switch (property) {
+                  case "__initConfig":
+                  case "__loadedFlag": return {};
+                  case "__bufferFuns": return [];
+                  case "__visitId": return "";
+                  default: return () => { };
                 }
+              },
+              set() {
+                return true;
               }
-            );
+            });
           },
-          set() {
-          }
+          set() { }
         },
         __statisObserverConfig: {
           get() {
             return {};
           },
-          set() {
-          }
+          set() { }
         },
         __cm_tracker__: {
-          get() {
-            return void 0;
-          },
-          set() {
-          }
+          get() { },
+          set() { }
         },
         bilicm: {
           get() {
             return {};
           },
-          set() {
-          }
+          set() { }
         },
         BiliCm: {
           get() {
             return {};
           },
-          set() {
-          }
+          set() { }
         },
         ReporterPb: {
           get() {
             return class ReporterPb {
               constructor() {
-                return new Proxy(
-                  {},
-                  {
-                    get() {
-                      return () => {
-                      };
-                    },
-                    set() {
-                      return true;
-                    }
+                return new Proxy({}, {
+                  get() {
+                    return () => { };
+                  },
+                  set() {
+                    return true;
                   }
-                );
+                });
               }
             };
           },
-          set() {
-          }
+          set() { }
         }
       });
     }
     ajaxHook() {
       const ajaxHookProxyConfig = {
         onRequest(config, handler) {
-          if (NoReport.isTargetURL(config.url)) {
-            handler.resolve({
-              config,
-              status: 200,
-              headers: {
-                "Content-Type": "text/plain; charset=utf-8"
-              },
-              response: "{}"
-            });
-          } else {
-            handler.next(config);
-          }
+          if (NoReport.isTargetURL(config.url)) handler.resolve({
+            config,
+            status: 200,
+            headers: { "Content-Type": "text/plain; charset=utf-8" },
+            response: "{}"
+          });
+          else handler.next(config);
         }
       };
       const fetchHookConfig = {
         onRequest(config, handler) {
           const url = getUrlFromFetchInput(config.input);
-          if (NoReport.isTargetURL(url)) {
-            handler.resolve(new Response("{}"));
-          } else {
-            handler.next(config);
-          }
+          if (NoReport.isTargetURL(url)) handler.resolve(new Response("{}"));
+          else handler.next(config);
         },
         onResponse(response, handler) {
           handler.next(response);
@@ -3719,8 +3248,8 @@
         this.logger.error("拦截日志数据上报失败", e);
       }
     }
-  }
-  class NoSleep extends BaseModule {
+  };
+  var NoSleep = class extends BaseModule {
     static runOnMultiplePages = true;
     static runAt = "window-load";
     static onFrame = "top";
@@ -3740,8 +3269,8 @@
         this.logger.warn("修改页面可见性相关属性失败，可能已被其它脚本锁定", e);
       }
     }
-  }
-  class Invisibility extends BaseModule {
+  };
+  var Invisibility = class extends BaseModule {
     static runOnMultiplePages = true;
     static runAt = "document-start";
     static runAfterDefault = false;
@@ -3749,20 +3278,16 @@
     config = useModuleStore().moduleConfig.EnhanceExperience.invisibility;
     run() {
       this.logger.log("隐身入场模块开始运行");
-      const fetchHookConfig = {
+      fproxy({
         onRequest: (config, handler) => {
           const url = getUrlFromFetchInput(config.input);
-          if (url.includes("//api.live.bilibili.com/xlive/web-room/v1/index/getInfoByUser")) {
-            const nextUrl = url.replace("not_mock_enter_effect=0", "not_mock_enter_effect=1");
-            config.input = createFetchInputWithNewUrl(nextUrl, config.input);
-          }
+          if (url.includes("//api.live.bilibili.com/xlive/web-room/v1/index/getInfoByUser")) config.input = createFetchInputWithNewUrl(url.replace("not_mock_enter_effect=0", "not_mock_enter_effect=1"), config.input);
           handler.next(config);
         }
-      };
-      fproxy(fetchHookConfig, _unsafeWindow);
+      }, _unsafeWindow);
     }
-  }
-  class RemovePKBox extends BaseModule {
+  };
+  var RemovePKBox = class extends BaseModule {
     static runOnMultiplePages = true;
     config = useModuleStore().moduleConfig.RemoveElement.removePKBox;
     removePKNode() {
@@ -3770,140 +3295,132 @@
     }
     removePKToast() {
       const blackWordList = ["主播即将结束PK", "连线断开中"];
-      const pkOB = new MutationObserver((mutationsList) => {
-        for (const mutation of mutationsList) {
-          mutation.addedNodes.forEach((addedNode) => {
-            if (addedNode instanceof HTMLElement && addedNode.classList.contains("link-toast") && blackWordList.some((word) => addedNode.textContent?.includes(word))) {
-              addedNode.style.display = "none";
-            }
-          });
-        }
-      });
-      pkOB.observe(document.body, { childList: true });
+      new MutationObserver((mutationsList) => {
+        for (const mutation of mutationsList) mutation.addedNodes.forEach((addedNode) => {
+          if (addedNode instanceof HTMLElement && addedNode.classList.contains("link-toast") && blackWordList.some((word) => addedNode.textContent?.includes(word))) addedNode.style.display = "none";
+        });
+      }).observe(document.body, { childList: true });
     }
     async run() {
       this.logger.log("移除大乱斗元素模块开始运行");
       this.removePKNode();
       this.removePKToast();
     }
-  }
-  class RemoveLiveWaterMark extends BaseModule {
+  };
+  var RemoveLiveWaterMark = class extends BaseModule {
     static runOnMultiplePages = true;
     config = useModuleStore().moduleConfig.RemoveElement.removeLiveWaterMark;
     async run() {
       this.logger.log("移除直播间水印模块开始运行");
       _GM_addStyle(".web-player-icon-roomStatus, .radio-room-brand-icon { display: none !important }");
     }
-  }
-  class RemoveShopPopover extends BaseModule {
+  };
+  var RemoveShopPopover = class extends BaseModule {
     static runOnMultiplePages = true;
     config = useModuleStore().moduleConfig.RemoveElement.removeShopPopover;
     async run() {
       this.logger.log("移除直播间小橙车弹窗模块开始运行");
       _GM_addStyle(".shop-popover { display: none !important }");
     }
-  }
-  class RemoveGameParty extends BaseModule {
+  };
+  var RemoveGameParty = class extends BaseModule {
     static runMultiple = true;
     config = useModuleStore().moduleConfig.RemoveElement.removeGameParty;
     async run() {
       this.logger.log("移除直播间幻星派对标志模块开始运行");
       _GM_addStyle("#game-id { display: none !important }");
     }
-  }
-  class RemoveGiftPopover extends BaseModule {
+  };
+  var RemoveGiftPopover = class extends BaseModule {
     static runOnMultiplePages = true;
     config = useModuleStore().moduleConfig.RemoveElement.removeGiftPopover;
     async run() {
       this.logger.log("移除礼物赠送提示弹窗模块开始运行");
       _GM_addStyle(".function-card { display: none !important }");
     }
-  }
-  class RemoveMicPopover extends BaseModule {
+  };
+  var RemoveMicPopover = class extends BaseModule {
     static runOnMultiplePages = true;
     config = useModuleStore().moduleConfig.RemoveElement.removeMicPopover;
     async run() {
       this.logger.log("移除连麦状态提示模块开始运行");
       _GM_addStyle(".lin-mic-cntr { display: none !important }");
     }
-  }
-  class RemoveComboCard extends BaseModule {
+  };
+  var RemoveComboCard = class extends BaseModule {
     static runOnMultiplePages = true;
     config = useModuleStore().moduleConfig.RemoveElement.removeComboCard;
     async run() {
       this.logger.log("移除直播间相同弹幕连续提示模块开始运行");
       _GM_addStyle("#combo-card { display: none !important }");
     }
-  }
-  class RemoveHeaderStuff extends BaseModule {
+  };
+  var RemoveHeaderStuff = class extends BaseModule {
     static runOnMultiplePages = true;
     config = useModuleStore().moduleConfig.RemoveElement.removeHeaderStuff;
     async run() {
       this.logger.log("移除直播画面上方杂项模块开始运行");
-      _GM_addStyle(
-        ".header-info-ctnr .right-section .right-dynamic-modules { display: none !important }"
-      );
+      _GM_addStyle(".header-info-ctnr .right-section .right-dynamic-modules { display: none !important }");
     }
-  }
-  class RemoveFlipView extends BaseModule {
+  };
+  var RemoveFlipView = class extends BaseModule {
     static runOnMultiplePages = true;
     config = useModuleStore().moduleConfig.RemoveElement.removeFlipView;
     async run() {
       this.logger.log("移除礼物栏下方广告模块开始运行");
       _GM_addStyle(".flip-view { display: none !important }");
     }
-  }
-  class RemoveLiveMosaic extends BaseModule {
+  };
+  var RemoveLiveMosaic = class extends BaseModule {
     static runOnMultiplePages = true;
     config = useModuleStore().moduleConfig.RemoveElement.removeLiveMosaic;
     async run() {
       this.logger.log("移除直播间马赛克模块开始运行");
       _GM_addStyle("#web-player-module-area-mask-panel { opacity: 0 !important }");
     }
-  }
-  const otherModules = Object.freeze(Object.defineProperty({
-    __proto__: null,
-    DailyTask_LiveTask_LightTask: LightTask,
-    DailyTask_LiveTask_WatchTask: WatchTask2,
-    DailyTask_MainSiteTask_CoinTask: CoinTask,
-    DailyTask_MainSiteTask_LoginTask: LoginTask,
-    DailyTask_MainSiteTask_ShareTask: ShareTask,
-    DailyTask_MainSiteTask_WatchTask: WatchTask$1,
-    DailyTask_OtherTask_CoinToSilverTask: CoinToSilverTask,
-    DailyTask_OtherTask_GetYearVipPrivilegeTask: GetYearVipPrivilegeTask,
-    DailyTask_OtherTask_SilverToCoinTask: SilverToCoinTask,
-    EnhanceExperience_BanP2P: BanP2P,
-    EnhanceExperience_Invisibility: Invisibility,
-    EnhanceExperience_NoReport: NoReport,
-    EnhanceExperience_NoSleep: NoSleep,
-    EnhanceExperience_SwitchLiveStreamQuality: SwitchLiveStreamQuality,
-    RemoveElement_RemoveComboCard: RemoveComboCard,
-    RemoveElement_RemoveFlipView: RemoveFlipView,
-    RemoveElement_RemoveGameParty: RemoveGameParty,
-    RemoveElement_RemoveGiftPopover: RemoveGiftPopover,
-    RemoveElement_RemoveHeaderStuff: RemoveHeaderStuff,
-    RemoveElement_RemoveLiveMosaic: RemoveLiveMosaic,
-    RemoveElement_RemoveLiveWaterMark: RemoveLiveWaterMark,
-    RemoveElement_RemoveMicPopover: RemoveMicPopover,
-    RemoveElement_RemovePKBox: RemovePKBox,
-    RemoveElement_RemoveShopPopover: RemoveShopPopover
-  }, Symbol.toStringTag, { value: "Module" }));
-  const dq = document.querySelector.bind(document);
+  };
+  var modules_exports = __exportAll({
+    DailyTask_LiveTask_LightTask: () => LightTask,
+    DailyTask_LiveTask_WatchTask: () => WatchTask,
+    DailyTask_MainSiteTask_CoinTask: () => CoinTask,
+    DailyTask_MainSiteTask_LoginTask: () => LoginTask,
+    DailyTask_MainSiteTask_ShareTask: () => ShareTask,
+    DailyTask_MainSiteTask_WatchTask: () => WatchTask$1,
+    DailyTask_OtherTask_CoinToSilverTask: () => CoinToSilverTask,
+    DailyTask_OtherTask_GetYearVipPrivilegeTask: () => GetYearVipPrivilegeTask,
+    DailyTask_OtherTask_SilverToCoinTask: () => SilverToCoinTask,
+    EnhanceExperience_BanP2P: () => BanP2P,
+    EnhanceExperience_Invisibility: () => Invisibility,
+    EnhanceExperience_NoReport: () => NoReport,
+    EnhanceExperience_NoSleep: () => NoSleep,
+    EnhanceExperience_SwitchLiveStreamQuality: () => SwitchLiveStreamQuality,
+    RemoveElement_RemoveComboCard: () => RemoveComboCard,
+    RemoveElement_RemoveFlipView: () => RemoveFlipView,
+    RemoveElement_RemoveGameParty: () => RemoveGameParty,
+    RemoveElement_RemoveGiftPopover: () => RemoveGiftPopover,
+    RemoveElement_RemoveHeaderStuff: () => RemoveHeaderStuff,
+    RemoveElement_RemoveLiveMosaic: () => RemoveLiveMosaic,
+    RemoveElement_RemoveLiveWaterMark: () => RemoveLiveWaterMark,
+    RemoveElement_RemoveMicPopover: () => RemoveMicPopover,
+    RemoveElement_RemovePKBox: () => RemovePKBox,
+    RemoveElement_RemoveShopPopover: () => RemoveShopPopover
+  });
+  var dq = document.querySelector.bind(document);
   document.querySelectorAll.bind(document);
-  const dce = document.createElement.bind(document);
+  var dce = document.createElement.bind(document);
   function waitForElement(parentElement, selector, timeout = 5e3) {
-    return new Promise((resolve2, reject2) => {
+    return new Promise((resolve, reject) => {
       const element = parentElement.querySelector(selector);
       if (element) {
-        resolve2(element);
+        resolve(element);
         return;
       }
       const observer = new MutationObserver(() => {
-        const element2 = parentElement.querySelector(selector);
-        if (element2) {
+        const element = parentElement.querySelector(selector);
+        if (element) {
           clearTimeout(timeoutId);
           observer.disconnect();
-          resolve2(element2);
+          resolve(element);
         }
       });
       observer.observe(parentElement, {
@@ -3912,14 +3429,14 @@
       });
       const timeoutId = setTimeout(() => {
         observer.disconnect();
-        reject2(new Error(`无法在${timeout}毫秒内找到${parentElement.localName}的子节点${selector}`));
+        reject(new Error(`无法在${timeout}毫秒内找到${parentElement.localName}的子节点${selector}`));
       }, timeout);
     });
   }
-  const isTargetFrame = () => document.head.innerHTML.includes("BilibiliLive");
-  const isSelfTopFrame = () => window.self === window.top;
-  const topFrameDocumentElement = () => window.top?.document.documentElement;
-  const defaultModuleStatus = {
+  var isTargetFrame = () => document.head.innerHTML.includes("BilibiliLive");
+  var isSelfTopFrame = () => window.self === window.top;
+  var topFrameDocumentElement = () => window.top?.document.documentElement;
+  var defaultModuleStatus = {
     DailyTasks: {
       MainSiteTasks: {
         login: "",
@@ -3940,12 +3457,12 @@
       }
     }
   };
-  const allAndTopFrameModuleNames = [];
-  const useModuleStore = pinia$1.defineStore("module", () => {
-    const moduleConfig = vue.ref(Storage.getModuleConfig());
-    const moduleStatus = vue.ref(defaultModuleStatus);
-    const moduleInstances = vue.ref({});
-    const moduleReset = vue.ref({
+  var allAndTopFrameModuleNames = [];
+  var useModuleStore = (0, pinia.defineStore)("module", () => {
+    const moduleConfig = (0, vue.ref)(Storage.getModuleConfig());
+    const moduleStatus = (0, vue.ref)(defaultModuleStatus);
+    const moduleInstances = (0, vue.ref)({});
+    const moduleReset = (0, vue.ref)({
       DailyTasks: {
         MainSiteTasks: {
           login: async () => {
@@ -3957,28 +3474,19 @@
           watch: async () => {
             moduleStatus.value.DailyTasks.MainSiteTasks.watch = "";
             moduleConfig.value.DailyTasks.MainSiteTasks.watch._lastCompleteTime = 0;
-            await Promise.all([
-              rerunModule("Default_DailyRewardInfo", true),
-              rerunModule("Default_DynamicVideos", true)
-            ]);
+            await Promise.all([rerunModule("Default_DailyRewardInfo", true), rerunModule("Default_DynamicVideos", true)]);
             await rerunModule("DailyTask_MainSiteTask_WatchTask");
           },
           coin: async () => {
             moduleStatus.value.DailyTasks.MainSiteTasks.coin = "";
             moduleConfig.value.DailyTasks.MainSiteTasks.coin._lastCompleteTime = 0;
-            await Promise.all([
-              rerunModule("Default_DailyRewardInfo", true),
-              rerunModule("Default_DynamicVideos", true)
-            ]);
+            await Promise.all([rerunModule("Default_DailyRewardInfo", true), rerunModule("Default_DynamicVideos", true)]);
             rerunModule("DailyTask_MainSiteTask_CoinTask");
           },
           share: async () => {
             moduleStatus.value.DailyTasks.MainSiteTasks.share = "";
             moduleConfig.value.DailyTasks.MainSiteTasks.share._lastCompleteTime = 0;
-            await Promise.all([
-              rerunModule("Default_DailyRewardInfo", true),
-              rerunModule("Default_DynamicVideos", true)
-            ]);
+            await Promise.all([rerunModule("Default_DailyRewardInfo", true), rerunModule("Default_DynamicVideos", true)]);
             rerunModule("DailyTask_MainSiteTask_ShareTask");
           }
         },
@@ -3988,6 +3496,7 @@
               moduleStatus.value.DailyTasks.LiveTasks.medalTasks.light = "";
               moduleConfig.value.DailyTasks.LiveTasks.medalTasks.light._lastCompleteTime = 0;
               moduleConfig.value.DailyTasks.LiveTasks.medalTasks.light._todayLightLikes = 0;
+              moduleConfig.value.DailyTasks.LiveTasks.medalTasks.light._lastLikeTime = 0;
               rerunModule("Default_FansMedals", true);
               rerunModule("DailyTask_LiveTask_LightTask");
             },
@@ -4023,65 +3532,47 @@
     function _runModule(module, name) {
       const moduleInstance = new module(name);
       moduleInstances.value[name] = moduleInstance;
-      if (moduleInstance.isEnabled()) {
-        return moduleInstance.run();
-      }
+      if (moduleInstance.isEnabled()) return moduleInstance.run();
     }
     function _loadDefaultModules() {
-      const cacheStore2 = useCacheStore();
+      const cacheStore = useCacheStore();
       const promiseArray = [];
-      for (const [name, module] of Object.entries(defaultModules)) {
-        if (module.runOnMultiplePages || cacheStore2.currentScriptType !== "Other") {
-          promiseArray.push(_runModule(module, name));
-        }
-      }
+      for (const [name, module] of Object.entries(default_exports)) if (module.runOnMultiplePages || cacheStore.currentScriptType !== "Other") promiseArray.push(_runModule(module, name));
       return Promise.allSettled(promiseArray);
     }
     function loadModules(isOnTargetFrame) {
-      const cacheStore2 = useCacheStore();
+      const cacheStore = useCacheStore();
       if (isOnTargetFrame === "unknown") {
-        for (const [name, module] of Object.entries(otherModules)) {
-          if (module.onFrame === "all" || module.onFrame === "top" && isSelfTopFrame()) {
-            if (module.runOnMultiplePages || cacheStore2.currentScriptType !== "Other") {
-              if (!module.runAfterDefault) {
-                waitForMoment(module.runAt).then(() => _runModule(module, name));
-                allAndTopFrameModuleNames.push(name);
-              }
+        for (const [name, module] of Object.entries(modules_exports)) if (module.onFrame === "all" || module.onFrame === "top" && isSelfTopFrame()) {
+          if (module.runOnMultiplePages || cacheStore.currentScriptType !== "Other") {
+            if (!module.runAfterDefault) {
+              waitForMoment(module.runAt).then(() => _runModule(module, name));
+              allAndTopFrameModuleNames.push(name);
             }
           }
         }
       } else {
         const moduleAfterDefault = {};
         const defaultModulesLoadingResult = _loadDefaultModules();
-        for (const [name, module] of Object.entries(otherModules)) {
-          if (module.onFrame === "target" || module.onFrame === "top" && isSelfTopFrame() && !allAndTopFrameModuleNames.includes(name) || module.onFrame === "all" && !allAndTopFrameModuleNames.includes(name)) {
-            if (module.runOnMultiplePages || cacheStore2.currentScriptType !== "Other") {
-              if (module.runAfterDefault) {
-                moduleAfterDefault[name] = module;
-              } else {
-                waitForMoment(module.runAt).then(() => _runModule(module, name));
-              }
-            }
+        for (const [name, module] of Object.entries(modules_exports)) if (module.onFrame === "target" || module.onFrame === "top" && isSelfTopFrame() && !allAndTopFrameModuleNames.includes(name) || module.onFrame === "all" && !allAndTopFrameModuleNames.includes(name)) {
+          if (module.runOnMultiplePages || cacheStore.currentScriptType !== "Other") {
+            if (module.runAfterDefault) moduleAfterDefault[name] = module;
+            else waitForMoment(module.runAt).then(() => _runModule(module, name));
           }
         }
         defaultModulesLoadingResult.then((results) => {
-          for (const result of results) {
-            if (result.status === "rejected") {
-              const error = result.reason;
-              if (error instanceof ModuleCriticalError) {
-                new Logger(error.moduleName).error(error.message);
-                return;
-              } else if (error instanceof ModuleError) {
-                new Logger(error.moduleName).error(error.message);
-              } else {
-                new Logger("ModuleStore").error(`意外错误: ${error.message}`);
-                return;
-              }
+          for (const result of results) if (result.status === "rejected") {
+            const error = result.reason;
+            if (error instanceof ModuleCriticalError) {
+              new Logger(error.moduleName).error(error.message);
+              return;
+            } else if (error instanceof ModuleError) new Logger(error.moduleName).error(error.message);
+            else {
+              new Logger("ModuleStore").error(`意外错误: ${error.message}`);
+              return;
             }
           }
-          for (const [name, module] of Object.entries(moduleAfterDefault)) {
-            waitForMoment(module.runAt).then(() => _runModule(module, name));
-          }
+          for (const [name, module] of Object.entries(moduleAfterDefault)) waitForMoment(module.runAt).then(() => _runModule(module, name));
         });
       }
     }
@@ -4090,24 +3581,20 @@
       if (moduleInstance) {
         clearTimeout(moduleInstance.nextRunTimer);
         return moduleInstance.run(...args);
-      } else {
-        throw new ModuleError("ModuleStore", `模块 ${moduleName} 不存在`);
-      }
+      } else throw new ModuleError("ModuleStore", `模块 ${moduleName} 不存在`);
     }
-    vue.watch(
-      moduleConfig,
-      _.debounce((newModuleConfig) => Storage.setModuleConfig(newModuleConfig), 250, {
-        leading: true,
-        trailing: true
-      }),
-      { deep: true }
-    );
+    (0, vue.watch)(moduleConfig, lodash.default.debounce((newModuleConfig) => Storage.setModuleConfig(newModuleConfig), 250, {
+      leading: true,
+      trailing: true
+    }), { deep: true });
     (function clearStatus() {
       setTimeout(() => {
-        deepestIterate(moduleStatus, (_value, path) => {
-          _.set(moduleStatus, path, "");
+        deepestIterate(moduleStatus.value, (_value, path) => {
+          lodash.default.set(moduleStatus.value, path, "");
         });
-        moduleConfig.value.DailyTasks.LiveTasks.medalTasks.light._todayLightLikes = 0;
+        const lightConfig = moduleConfig.value.DailyTasks.LiveTasks.medalTasks.light;
+        lightConfig._todayLightLikes = 0;
+        lightConfig._lastLikeTime = 0;
         clearStatus();
       }, delayToNextMoment(0, 0).ms);
     })();
@@ -4120,22 +3607,18 @@
       rerunModule
     };
   });
-  const DEFAULT_CONFIG = {
+  var DEFAULT_CONFIG = {
     getPlayer: {
       interval: 200,
       timeout: 12e3
     },
-    waitForLiveStatus: {
-      interval: 1e4
-    }
+    waitForLiveStatus: { interval: 1e4 }
   };
-  const usePlayerStore = pinia$1.defineStore("player", () => {
-    const player = vue.ref();
+  var usePlayerStore = (0, pinia.defineStore)("player", () => {
+    const player = (0, vue.ref)();
     const getPlayer = async (config = DEFAULT_CONFIG.getPlayer) => {
-      _.defaults(config, DEFAULT_CONFIG.getPlayer);
-      if (player.value) {
-        return player.value;
-      }
+      lodash.default.defaults(config, DEFAULT_CONFIG.getPlayer);
+      if (player.value) return player.value;
       const isPlayerAvailable = () => {
         return _unsafeWindow.livePlayer && Object.hasOwn(_unsafeWindow.livePlayer, "getPlayerInfo");
       };
@@ -4144,42 +3627,40 @@
         player.value = _unsafeWindow.livePlayer;
         return player.value;
       }
-      return new Promise(async (resolve2, reject2) => {
+      return new Promise(async (resolve, reject) => {
         const findPlayerTimer = setInterval(() => {
           if (isPlayerAvailable()) {
             clearInterval(findPlayerTimer);
             clearTimeout(timeoutTimer);
             player.value = _unsafeWindow.livePlayer;
-            resolve2(player.value);
+            resolve(player.value);
           }
         }, config.interval);
         const timeoutTimer = setTimeout(() => {
           clearInterval(findPlayerTimer);
-          reject2("等待播放器超时");
+          reject("等待播放器超时");
         }, config.timeout);
       });
     };
     const waitForLiveStatus = async (status, config = DEFAULT_CONFIG.waitForLiveStatus) => {
-      _.defaults(config, DEFAULT_CONFIG.waitForLiveStatus);
-      const player2 = await getPlayer();
-      const liveStatus = player2.getPlayerInfo().liveStatus;
-      if (liveStatus === status) {
+      lodash.default.defaults(config, DEFAULT_CONFIG.waitForLiveStatus);
+      const player = await getPlayer();
+      if (player.getPlayerInfo().liveStatus === status) {
         config.onImmediateSuccess?.();
         return true;
       }
       config.onNeedWait?.();
-      return new Promise((resolve2) => {
+      return new Promise((resolve) => {
         const liveStatusTimer = setInterval(() => {
-          const liveStatus2 = player2.getPlayerInfo().liveStatus;
-          if (liveStatus2 === status) {
+          if (player.getPlayerInfo().liveStatus === status) {
             clearTimeout(timeoutTimer);
             clearInterval(liveStatusTimer);
-            resolve2(true);
+            resolve(true);
           }
         }, config.interval);
         const timeoutTimer = config.timeout && setTimeout(() => {
           clearInterval(liveStatusTimer);
-          resolve2(false);
+          resolve(false);
         }, config.timeout);
       });
     };
@@ -4189,7 +3670,7 @@
       waitForLiveStatus
     };
   });
-  const index2name = {
+  var index2name = {
     MainSiteTasks: "主站任务",
     LiveTasks: "直播任务",
     OtherTasks: "其它任务",
@@ -4197,26 +3678,27 @@
     RemoveElement: "移除元素",
     ScriptSettings: "设置"
   };
-  const useUIStore = pinia$1.defineStore("ui", () => {
-    const uiConfig = vue.ref(Storage.getUiConfig());
-    const activeMenuName = vue.computed(() => index2name[uiConfig.value.activeMenuIndex]);
-    const livePlayerRect = vue.ref({
+  var useUIStore = (0, pinia.defineStore)("ui", () => {
+    const uiConfig = (0, vue.ref)(Storage.getUiConfig());
+    const activeMenuName = (0, vue.computed)(() => index2name[uiConfig.value.activeMenuIndex]);
+    const livePlayerRect = (0, vue.ref)({
       top: 0,
       left: 0,
       height: 0,
       width: 0
     });
-    const windowScrollPosition = vue.ref({ x: 0, y: 0 });
-    const panelStyle = vue.computed(() => ({
+    const windowScrollPosition = (0, vue.ref)({
+      x: 0,
+      y: 0
+    });
+    const panelStyle = (0, vue.computed)(() => ({
       top: `${livePlayerRect.value.top + windowScrollPosition.value.y}px`,
       left: `${livePlayerRect.value.left + windowScrollPosition.value.x}px`,
       height: `${livePlayerRect.value.height}px`,
       width: `${livePlayerRect.value.width * uiConfig.value.panelWidthPercent / 100}px`
     }));
-    const isShowPanelButtonText = vue.computed(
-      () => uiConfig.value.isShowPanel ? "隐藏控制面板" : "显示控制面板"
-    );
-    const scrollBarHeight = vue.computed(() => `${livePlayerRect.value.height - 60}px`);
+    const isShowPanelButtonText = (0, vue.computed)(() => uiConfig.value.isShowPanel ? "隐藏控制面板" : "显示控制面板");
+    const scrollBarHeight = (0, vue.computed)(() => `${livePlayerRect.value.height - 60}px`);
     function changeCollapse() {
       uiConfig.value.isCollapse = !uiConfig.value.isCollapse;
     }
@@ -4226,11 +3708,7 @@
     function setActiveMenuIndex(index) {
       uiConfig.value.activeMenuIndex = index;
     }
-    vue.watch(
-      uiConfig,
-      _.debounce((newUiConfig) => Storage.setUiConfig(newUiConfig), 350),
-      { deep: true }
-    );
+    (0, vue.watch)(uiConfig, lodash.default.debounce((newUiConfig) => Storage.setUiConfig(newUiConfig), 350), { deep: true });
     return {
       isShowPanelButtonText,
       activeMenuName,
@@ -4244,7 +3722,7 @@
       setActiveMenuIndex
     };
   });
-  const _sfc_main$c = vue.defineComponent({
+  var PanelAside_vue_vue_type_script_setup_true_lang_default = (0, vue.defineComponent)({
     __name: "PanelAside",
     setup(__props) {
       const uiStore = useUIStore();
@@ -4285,130 +3763,95 @@
         }
       ];
       return (_ctx, _cache) => {
-        const _component_el_icon = vue.resolveComponent("el-icon");
-        const _component_el_menu_item = vue.resolveComponent("el-menu-item");
-        const _component_el_sub_menu = vue.resolveComponent("el-sub-menu");
-        const _component_el_menu = vue.resolveComponent("el-menu");
-        return vue.openBlock(), vue.createBlock(_component_el_menu, {
+        const _component_el_icon = (0, vue.resolveComponent)("el-icon");
+        const _component_el_menu_item = (0, vue.resolveComponent)("el-menu-item");
+        const _component_el_sub_menu = (0, vue.resolveComponent)("el-sub-menu");
+        const _component_el_menu = (0, vue.resolveComponent)("el-menu");
+        return (0, vue.openBlock)(), (0, vue.createBlock)(_component_el_menu, {
           id: "aside-el-menu",
-          "default-active": vue.unref(uiStore).uiConfig.activeMenuIndex,
-          style: vue.normalizeStyle({ "min-height": vue.unref(uiStore).scrollBarHeight }),
-          collapse: vue.unref(uiStore).uiConfig.isCollapse,
+          "default-active": (0, vue.unref)(uiStore).uiConfig.activeMenuIndex,
+          style: (0, vue.normalizeStyle)({ "min-height": (0, vue.unref)(uiStore).scrollBarHeight }),
+          collapse: (0, vue.unref)(uiStore).uiConfig.isCollapse,
           "unique-opened": "",
-          onSelect: _cache[0] || (_cache[0] = (index) => vue.unref(uiStore).setActiveMenuIndex(index))
+          onSelect: _cache[0] || (_cache[0] = (index) => (0, vue.unref)(uiStore).setActiveMenuIndex(index))
         }, {
-          default: vue.withCtx(() => [
-            (vue.openBlock(), vue.createElementBlock(vue.Fragment, null, vue.renderList(items, (item) => {
-              return vue.openBlock(), vue.createElementBlock(vue.Fragment, null, [
-                item.subs ? (vue.openBlock(), vue.createBlock(_component_el_sub_menu, {
-                  key: item.index,
-                  index: item.index
+          default: (0, vue.withCtx)(() => [((0, vue.openBlock)(), (0, vue.createElementBlock)(vue.Fragment, null, (0, vue.renderList)(items, (item) => {
+            return (0, vue.openBlock)(), (0, vue.createElementBlock)(vue.Fragment, null, [item.subs ? ((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_sub_menu, {
+              key: item.index,
+              index: item.index
+            }, {
+              title: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_icon, null, {
+                default: (0, vue.withCtx)(() => [((0, vue.openBlock)(), (0, vue.createBlock)((0, vue.resolveDynamicComponent)(item.icon)))]),
+                _: 2
+              }, 1024), (0, vue.createElementVNode)("span", null, (0, vue.toDisplayString)(item.title), 1)]),
+              default: (0, vue.withCtx)(() => [((0, vue.openBlock)(true), (0, vue.createElementBlock)(vue.Fragment, null, (0, vue.renderList)(item.subs, (subItem) => {
+                return (0, vue.openBlock)(), (0, vue.createBlock)(_component_el_menu_item, {
+                  key: subItem.index,
+                  index: subItem.index
                 }, {
-                  title: vue.withCtx(() => [
-                    vue.createVNode(_component_el_icon, null, {
-                      default: vue.withCtx(() => [
-                        (vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent(item.icon)))
-                      ]),
-                      _: 2
-                    }, 1024),
-                    vue.createElementVNode("span", null, vue.toDisplayString(item.title), 1)
-                  ]),
-                  default: vue.withCtx(() => [
-                    (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(item.subs, (subItem) => {
-                      return vue.openBlock(), vue.createBlock(_component_el_menu_item, {
-                        key: subItem.index,
-                        index: subItem.index
-                      }, {
-                        default: vue.withCtx(() => [
-                          vue.createTextVNode(vue.toDisplayString(subItem.title), 1)
-                        ]),
-                        _: 2
-                      }, 1032, ["index"]);
-                    }), 128))
-                  ]),
+                  default: (0, vue.withCtx)(() => [(0, vue.createTextVNode)((0, vue.toDisplayString)(subItem.title), 1)]),
                   _: 2
-                }, 1032, ["index"])) : (vue.openBlock(), vue.createBlock(_component_el_menu_item, {
-                  key: item.index,
-                  index: item.index
-                }, {
-                  title: vue.withCtx(() => [
-                    vue.createTextVNode(vue.toDisplayString(item.title), 1)
-                  ]),
-                  default: vue.withCtx(() => [
-                    vue.createVNode(_component_el_icon, null, {
-                      default: vue.withCtx(() => [
-                        (vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent(item.icon)))
-                      ]),
-                      _: 2
-                    }, 1024)
-                  ]),
-                  _: 2
-                }, 1032, ["index"]))
-              ], 64);
-            }), 64))
-          ]),
+                }, 1032, ["index"]);
+              }), 128))]),
+              _: 2
+            }, 1032, ["index"])) : ((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_menu_item, {
+              key: item.index,
+              index: item.index
+            }, {
+              title: (0, vue.withCtx)(() => [(0, vue.createTextVNode)((0, vue.toDisplayString)(item.title), 1)]),
+              default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_icon, null, {
+                default: (0, vue.withCtx)(() => [((0, vue.openBlock)(), (0, vue.createBlock)((0, vue.resolveDynamicComponent)(item.icon)))]),
+                _: 2
+              }, 1024)]),
+              _: 2
+            }, 1032, ["index"]))], 64);
+          }), 64))]),
           _: 1
-        }, 8, ["default-active", "style", "collapse"]);
+        }, 8, [
+          "default-active",
+          "style",
+          "collapse"
+        ]);
       };
     }
   });
-  const _export_sfc = (sfc, props) => {
+  var _plugin_vue_export_helper_default = (sfc, props) => {
     const target = sfc.__vccOpts || sfc;
-    for (const [key, val] of props) {
-      target[key] = val;
-    }
+    for (const [key, val] of props) target[key] = val;
     return target;
   };
-  const PanelAside = _export_sfc(_sfc_main$c, [["__scopeId", "data-v-db397d59"]]);
-  const _hoisted_1$2 = { class: "title" };
-  const _sfc_main$b = vue.defineComponent({
+  var PanelAside_default = _plugin_vue_export_helper_default(PanelAside_vue_vue_type_script_setup_true_lang_default, [["__scopeId", "data-v-db397d59"]]);
+  var _hoisted_1$2 = { class: "title" };
+  var PanelHeader_default = _plugin_vue_export_helper_default((0, vue.defineComponent)({
     __name: "PanelHeader",
     setup(__props) {
       const uiStore = useUIStore();
       return (_ctx, _cache) => {
-        const _component_el_icon = vue.resolveComponent("el-icon");
-        const _component_el_text = vue.resolveComponent("el-text");
-        return vue.openBlock(), vue.createElementBlock(vue.Fragment, null, [
-          vue.createElementVNode("div", {
-            class: "collapse-btn",
-            onClick: _cache[0] || (_cache[0] =
-              (...args) => vue.unref(uiStore).changeCollapse && vue.unref(uiStore).changeCollapse(...args))
-          }, [
-            vue.unref(uiStore).uiConfig.isCollapse ? (vue.openBlock(), vue.createBlock(_component_el_icon, { key: 0 }, {
-              default: vue.withCtx(() => [
-                vue.createVNode(vue.unref(ElementPlusIconsVue.Expand))
-              ]),
-              _: 1
-            })) : (vue.openBlock(), vue.createBlock(_component_el_icon, { key: 1 }, {
-              default: vue.withCtx(() => [
-                vue.createVNode(vue.unref(ElementPlusIconsVue.Fold))
-              ]),
-              _: 1
-            }))
-          ]),
-          vue.createElementVNode("div", _hoisted_1$2, [
-            vue.createVNode(_component_el_text, {
-              tag: "b",
-              class: "header-big-text"
-            }, {
-              default: vue.withCtx(() => [..._cache[1] || (_cache[1] = [
-                vue.createTextVNode("控制面板", -1)
-              ])]),
-              _: 1
-            }),
-            vue.createVNode(_component_el_text, { class: "header-small-text" }, {
-              default: vue.withCtx(() => [
-                vue.createTextVNode(vue.toDisplayString(vue.unref(uiStore).activeMenuName), 1)
-              ]),
-              _: 1
-            })
-          ])
-        ], 64);
+        const _component_el_icon = (0, vue.resolveComponent)("el-icon");
+        const _component_el_text = (0, vue.resolveComponent)("el-text");
+        return (0, vue.openBlock)(), (0, vue.createElementBlock)(vue.Fragment, null, [(0, vue.createElementVNode)("div", {
+          class: "collapse-btn",
+          onClick: _cache[0] || (_cache[0] = (...args) => (0, vue.unref)(uiStore).changeCollapse && (0, vue.unref)(uiStore).changeCollapse(...args))
+        }, [(0, vue.unref)(uiStore).uiConfig.isCollapse ? ((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_icon, { key: 0 }, {
+          default: (0, vue.withCtx)(() => [(0, vue.createVNode)((0, vue.unref)(_element_plus_icons_vue.Expand))]),
+          _: 1
+        })) : ((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_icon, { key: 1 }, {
+          default: (0, vue.withCtx)(() => [(0, vue.createVNode)((0, vue.unref)(_element_plus_icons_vue.Fold))]),
+          _: 1
+        }))]), (0, vue.createElementVNode)("div", _hoisted_1$2, [(0, vue.createVNode)(_component_el_text, {
+          tag: "b",
+          class: "header-big-text"
+        }, {
+          default: (0, vue.withCtx)(() => [..._cache[1] || (_cache[1] = [(0, vue.createTextVNode)("控制面板", -1)])]),
+          _: 1
+        }), (0, vue.createVNode)(_component_el_text, { class: "header-small-text" }, {
+          default: (0, vue.withCtx)(() => [(0, vue.createTextVNode)((0, vue.toDisplayString)((0, vue.unref)(uiStore).activeMenuName), 1)]),
+          _: 1
+        })])], 64);
       };
     }
-  });
-  const PanelHeader = _export_sfc(_sfc_main$b, [["__scopeId", "data-v-848fd8cc"]]);
-  const helpInfo = {
+  }), [["__scopeId", "data-v-848fd8cc"]]);
+  var helpInfo = {
     DailyTasks: {
       MainSiteTasks: {
         login: {
@@ -4417,134 +3860,87 @@
         },
         watch: {
           title: "每日观看视频",
-          message: vue.h("p", [
-            vue.h("div", "完成主站的每日观看视频任务。"),
-            vue.h("div", "从动态中选取视频观看，会产生观看历史记录。")
-          ])
+          message: (0, vue.h)("p", [(0, vue.h)("div", "完成主站的每日观看视频任务。"), (0, vue.h)("div", "从动态中选取视频观看，会产生观看历史记录。")])
         },
         coin: {
           title: "每日投币",
-          message: vue.h("p", [
-            vue.h("div", "完成主站的每日投币任务。"),
-            vue.h("div", "从动态中选取视频投币，会根据你今天已经投过的币的数量计算还要投几个币。")
-          ])
+          message: (0, vue.h)("p", [(0, vue.h)("div", "完成主站的每日投币任务。"), (0, vue.h)("div", "从动态中选取视频投币，会根据你今天已经投过的币的数量计算还要投几个币。")])
         },
         share: {
           title: "每日分享视频",
-          message: vue.h("p", [
-            vue.h("div", "完成主站的每日分享视频任务。"),
-            vue.h("div", "不会真的分享到某处。")
-          ])
+          message: (0, vue.h)("p", [(0, vue.h)("div", "完成主站的每日分享视频任务。"), (0, vue.h)("div", "不会真的分享到某处。")])
         }
       },
       LiveTasks: {
         medalTasks: {
           list: {
             title: "黑白名单 / 排序模式",
-            message: vue.h("p", [
-              vue.h(
-                "div",
-                "为了更精细地控制为哪些粉丝勋章执行点亮熄灭勋章和观看直播任务，你可以使用黑名单或白名单模式。"
-              ),
-              vue.h("ul", [
-                vue.h("li", [
-                  vue.h("span", "黑名单：仅为"),
-                  vue.h("strong", "不在"),
-                  vue.h("span", "名单中的粉丝勋章执行任务。")
-                ]),
-                vue.h("li", [
-                  vue.h("span", "白名单：仅为"),
-                  vue.h("strong", "在"),
-                  vue.h("span", "名单中的粉丝勋章执行任务。")
-                ])
-              ]),
-              vue.h("div", "点击【编辑名单】按钮，然后使用第一列的多选框即可编辑名单中的粉丝勋章。"),
-              vue.h(
-                "div",
-                "使用白名单模式时，点击【编辑粉丝勋章名单】窗口右下角的开关即可在【常规模式】和【排序模式】之间切换。"
-              ),
-              vue.h("div", "在排序模式下，你可以调整脚本执行观看任务的粉丝勋章顺序。"),
-              vue.h("ul", [
-                vue.h("li", "使用鼠标拖拽表格中的行来调整顺序。"),
-                vue.h("li", "拖拽行至表格的顶部和底部可以触发滚动。")
-              ])
+            message: (0, vue.h)("p", [
+              (0, vue.h)("div", "为了更精细地控制为哪些粉丝勋章执行点亮熄灭勋章和观看直播任务，你可以使用黑名单或白名单模式。"),
+              (0, vue.h)("ul", [(0, vue.h)("li", [
+                (0, vue.h)("span", "黑名单：仅为"),
+                (0, vue.h)("strong", "不在"),
+                (0, vue.h)("span", "名单中的粉丝勋章执行任务。")
+              ]), (0, vue.h)("li", [
+                (0, vue.h)("span", "白名单：仅为"),
+                (0, vue.h)("strong", "在"),
+                (0, vue.h)("span", "名单中的粉丝勋章执行任务。")
+              ])]),
+              (0, vue.h)("div", "点击【编辑名单】按钮，然后使用第一列的多选框即可编辑名单中的粉丝勋章。"),
+              (0, vue.h)("div", "使用白名单模式时，点击【编辑粉丝勋章名单】窗口右下角的开关即可在【常规模式】和【排序模式】之间切换。"),
+              (0, vue.h)("div", "在排序模式下，你可以调整脚本执行观看任务的粉丝勋章顺序。"),
+              (0, vue.h)("ul", [(0, vue.h)("li", "使用鼠标拖拽表格中的行来调整顺序。"), (0, vue.h)("li", "拖拽行至表格的顶部和底部可以触发滚动。")])
             ])
           },
           light: {
             title: "点亮熄灭勋章",
-            message: vue.h("p", [
-              vue.h("div", "在你的每个已熄灭的粉丝勋章对应的直播间完成点亮任务，从而点亮粉丝勋章。"),
-              vue.h("div", "根据直播间是否开播，脚本会自动选择点亮方式："),
-              vue.h("ol", [
-                vue.h(
-                  "li",
-                  vue.h("p", [
-                    vue.h("strong", "点赞"),
-                    vue.h("div", "对于正在直播的房间，给直播间点赞约30次。"),
-                    vue.h("ul", [
-                      vue.h("li", [vue.h("span", "点赞次数为略微超过任务要求的随机值。")]),
-                      vue.h("li", [vue.h("span", "部分直播间无法完成该任务，原因未知。")]),
-                      vue.h("li", [
-                        vue.h(
-                          "span",
-                          "点击【预留点赞直播间】按钮，可为特定直播间每天固定预留 360 次点赞，优先于其他直播间执行，未完成的额度不会被其他直播间占用。"
-                        )
-                      ])
+            message: (0, vue.h)("p", [
+              (0, vue.h)("div", "在你的每个已熄灭的粉丝勋章对应的直播间完成点亮任务，从而点亮粉丝勋章。"),
+              (0, vue.h)("div", "根据直播间是否开播，脚本会自动选择点亮方式："),
+              (0, vue.h)("ol", [(0, vue.h)("li", (0, vue.h)("p", [
+                (0, vue.h)("strong", "点赞"),
+                (0, vue.h)("div", "对于正在直播的房间，给直播间点赞约30次。"),
+                (0, vue.h)("ul", [
+                  (0, vue.h)("li", [(0, vue.h)("span", "点赞次数为略微超过任务要求的随机值。")]),
+                  (0, vue.h)("li", [(0, vue.h)("span", "部分直播间无法完成该任务，原因未知。")]),
+                  (0, vue.h)("li", [(0, vue.h)("span", "点赞为手动运行：打开点赞开关（或模块运行时）会在后台把可以点赞的直播间查好（已剔除已下播、点赞任务已完成的房间），之后点击【选择直播间点赞】直接展示结果，在粉丝勋章名单窗口里勾选要执行的房间即可。窗口会显示今日已点赞次数，以及每个房间的勋章等级、点亮状态和「点赞30次」任务进度。")]),
+                  (0, vue.h)("li", [(0, vue.h)("span", "候选列表只在模块运行（含打开点赞开关、手动重跑）时检查一次，窗口反复打开或重复点按钮都不会重新探测；真正点赞时每个房间每一轮仍会重新确认直播状态与任务进度，已经下播或任务已完成的房间会被跳过。")])
+                ])
+              ])), (0, vue.h)("li", (0, vue.h)("p", [
+                (0, vue.h)("strong", "发送弹幕"),
+                (0, vue.h)("div", "对于未开播的房间，发送十条弹幕。"),
+                (0, vue.h)("div", [
+                  (0, vue.h)("div", "点击【编辑弹幕】按钮编辑要发送的弹幕，脚本会从中按顺序循环抽取弹幕发送。建议修改默认的弹幕。"),
+                  (0, vue.h)("div", "部分直播间无法完成该任务，可能的原因有:"),
+                  (0, vue.h)("ul", [
+                    (0, vue.h)("li", "你被禁言了"),
+                    (0, vue.h)("li", "发言有粉丝勋章等级要求"),
+                    (0, vue.h)("li", "发送的弹幕包含屏蔽词"),
+                    (0, vue.h)("li", [
+                      (0, vue.h)("span", "特殊直播间（比如"),
+                      (0, vue.h)("a", {
+                        href: "https://live.bilibili.com/54",
+                        rel: "noreferrer",
+                        target: "_blank"
+                      }, "54"),
+                      (0, vue.h)("span", "）")
                     ])
                   ])
-                ),
-                vue.h(
-                  "li",
-                  vue.h("p", [
-                    vue.h("strong", "发送弹幕"),
-                    vue.h("div", "对于未开播的房间，发送十条弹幕。"),
-                    vue.h("div", [
-                      vue.h(
-                        "div",
-                        "点击【编辑弹幕】按钮编辑要发送的弹幕，脚本会从中按顺序循环抽取弹幕发送。建议修改默认的弹幕。"
-                      ),
-                      vue.h("div", "部分直播间无法完成该任务，可能的原因有:"),
-                      vue.h("ul", [
-                        vue.h("li", "你被禁言了"),
-                        vue.h("li", "发言有粉丝勋章等级要求"),
-                        vue.h("li", "发送的弹幕包含屏蔽词"),
-                        vue.h("li", [
-                          vue.h("span", "特殊直播间（比如"),
-                          vue.h(
-                            "a",
-                            {
-                              href: "https://live.bilibili.com/54",
-                              rel: "noreferrer",
-                              target: "_blank"
-                            },
-                            "54"
-                          ),
-                          vue.h("span", "）")
-                        ])
-                      ])
-                    ])
-                  ])
-                )
-              ])
+                ])
+              ]))])
             ])
           },
           watch: {
             title: "观看直播",
-            message: vue.h("p", [
-              vue.h("div", "完成粉丝勋章的观看直播任务。"),
-              vue.h("ul", [
-                vue.h("li", "部分直播间因为没有设置直播分区导致任务无法完成。"),
-                vue.h("li", "主播当前是否开播不会影响该任务的完成。"),
-                vue.h("li", "根据目前规则，观看15分钟可点亮粉丝勋章，再观看25分钟即可获得全部30亲密度。"),
-                vue.h("li", "由于计时存在误差，可以在目标基础上适当增加一些观看时长。")
+            message: (0, vue.h)("p", [
+              (0, vue.h)("div", "完成粉丝勋章的观看直播任务。"),
+              (0, vue.h)("ul", [
+                (0, vue.h)("li", "部分直播间因为没有设置直播分区导致任务无法完成。"),
+                (0, vue.h)("li", "主播当前是否开播不会影响该任务的完成。"),
+                (0, vue.h)("li", "根据目前规则，观看15分钟可点亮粉丝勋章，再观看25分钟即可获得全部30亲密度。"),
+                (0, vue.h)("li", "由于计时存在误差，可以在目标基础上适当增加一些观看时长。")
               ]),
-              vue.h("div", [
-                vue.h("strong", "注意："),
-                vue.h(
-                  "span",
-                  "使用本功能时不能以任何方式观看直播（网页、APP、电视），否则可能无法获得任何亲密度。"
-                )
-              ])
+              (0, vue.h)("div", [(0, vue.h)("strong", "注意："), (0, vue.h)("span", "使用本功能时不能以任何方式观看直播（网页、APP、电视），否则可能无法获得任何亲密度。")])
             ])
           }
         }
@@ -4552,95 +3948,54 @@
       OtherTasks: {
         silverToCoin: {
           title: "银瓜子换硬币",
-          message: vue.h("p", [
-            vue.h("div", "把银瓜子兑换为硬币。"),
-            vue.h("div", "具体兑换规则请点击直播间页面的“立即充值→银瓜子商店”查看。")
-          ])
+          message: (0, vue.h)("p", [(0, vue.h)("div", "把银瓜子兑换为硬币。"), (0, vue.h)("div", "具体兑换规则请点击直播间页面的“立即充值→银瓜子商店”查看。")])
         },
         coinToSilver: {
           title: "硬币换银瓜子",
-          message: vue.h("p", [
-            vue.h("div", "把硬币兑换为银瓜子。"),
-            vue.h("div", "具体兑换规则请点击直播间页面的“立即充值→银瓜子商店”查看。")
-          ])
+          message: (0, vue.h)("p", [(0, vue.h)("div", "把硬币兑换为银瓜子。"), (0, vue.h)("div", "具体兑换规则请点击直播间页面的“立即充值→银瓜子商店”查看。")])
         },
         getYearVipPrivilege: {
           title: "领取年度大会员权益",
-          message: vue.h("p", [
-            vue.h("div", "自动领取年度大会员权益。"),
-            vue.h("div", [
-              vue.h("span", "具体权益请前往"),
-              vue.h(
-                "a",
-                {
-                  href: "https://account.bilibili.com/account/big/myPackage",
-                  rel: "noreferrer",
-                  target: "_blank"
-                },
-                "卡券包"
-              ),
-              vue.h("span", "查看。")
-            ])
-          ])
+          message: (0, vue.h)("p", [(0, vue.h)("div", "自动领取年度大会员权益。"), (0, vue.h)("div", [
+            (0, vue.h)("span", "具体权益请前往"),
+            (0, vue.h)("a", {
+              href: "https://account.bilibili.com/account/big/myPackage",
+              rel: "noreferrer",
+              target: "_blank"
+            }, "卡券包"),
+            (0, vue.h)("span", "查看。")
+          ])])
         }
       }
     },
     EnhanceExperience: {
       switchLiveStreamQuality: {
         title: "自动切换画质",
-        message: vue.h("p", [
-          vue.h("div", "打开直播间后自动把播放器切换到目标画质。"),
-          vue.h("div", "如果目标画质不存在，先查找无HDR版本的画质，仍没有则使用B站的默认画质。")
-        ])
+        message: (0, vue.h)("p", [(0, vue.h)("div", "打开直播间后自动把播放器切换到目标画质。"), (0, vue.h)("div", "如果目标画质不存在，先查找无HDR版本的画质，仍没有则使用B站的默认画质。")])
       },
       banp2p: {
         title: "禁用P2P",
-        message: vue.h("p", [
-          vue.h("div", "禁用直播流的P2P上传/下载"),
-          vue.h(
-            "div",
-            "B站使用WebRTC技术把许多浏览器点对点（P2P）地连接起来，实现视频流和音频流的传输。这样做是为了减轻B站服务器的压力，但是会占用你一定的上行带宽（大约几百kb每秒）。如果你不想被占用上行带宽，可以开启该功能。若开启后发现观看直播时有明显卡顿，请关闭。"
-          )
-        ])
+        message: (0, vue.h)("p", [(0, vue.h)("div", "禁用直播流的P2P上传/下载"), (0, vue.h)("div", "B站使用WebRTC技术把许多浏览器点对点（P2P）地连接起来，实现视频流和音频流的传输。这样做是为了减轻B站服务器的压力，但是会占用你一定的上行带宽（大约几百kb每秒）。如果你不想被占用上行带宽，可以开启该功能。若开启后发现观看直播时有明显卡顿，请关闭。")])
       },
       noReport: {
         title: "拦截日志数据上报",
-        message: vue.h("p", [
-          vue.h("div", "禁止B站上报日志数据。"),
-          vue.h("div", [
-            vue.h(
-              "span",
-              "B站会实时地上报大量日志信息，比如直播观看情况、代码报错等等。开启本功能后绝大多数日志上报都会被劫持或拦截并返回一个成功的响应。相比于带有广告拦截功能的浏览器拓展，比如"
-            ),
-            vue.h(
-              "a",
-              {
-                href: "https://github.com/uBlockOrigin/uBOL-home",
-                rel: "noreferrer",
-                target: "_blank"
-              },
-              "uBlock Origin Lite"
-            ),
-            vue.h(
-              "span",
-              "，本功能会通过劫持的方式从根源上阻止部分日志上报，并模拟成功的响应来尽可能地减少B站代码的报错。理论上来说这样做会有更好的性能表现。"
-            )
-          ])
-        ])
+        message: (0, vue.h)("p", [(0, vue.h)("div", "禁止B站上报日志数据。"), (0, vue.h)("div", [
+          (0, vue.h)("span", "B站会实时地上报大量日志信息，比如直播观看情况、代码报错等等。开启本功能后绝大多数日志上报都会被劫持或拦截并返回一个成功的响应。相比于带有广告拦截功能的浏览器拓展，比如"),
+          (0, vue.h)("a", {
+            href: "https://github.com/uBlockOrigin/uBOL-home",
+            rel: "noreferrer",
+            target: "_blank"
+          }, "uBlock Origin Lite"),
+          (0, vue.h)("span", "，本功能会通过劫持的方式从根源上阻止部分日志上报，并模拟成功的响应来尽可能地减少B站代码的报错。理论上来说这样做会有更好的性能表现。")
+        ])])
       },
       noSleep: {
         title: "屏蔽挂机检测",
-        message: vue.h("p", [
-          vue.h("div", "屏蔽B站直播间的挂机检测。"),
-          vue.h(
-            "div",
-            "如果长时间没有操作，会提示“检测到您已离开当前屏幕，倒计时后即将暂停播放”。此外切换标签页或把浏览器切到后台导致直播间页面不可见时，播放器可能会自动切换到低画质或暂停播放。开启本功能即可避免这类情况。"
-          )
-        ])
+        message: (0, vue.h)("p", [(0, vue.h)("div", "屏蔽B站直播间的挂机检测。"), (0, vue.h)("div", "如果长时间没有操作，会提示“检测到您已离开当前屏幕，倒计时后即将暂停播放”。此外切换标签页或把浏览器切到后台导致直播间页面不可见时，播放器可能会自动切换到低画质或暂停播放。开启本功能即可避免这类情况。")])
       },
       invisibility: {
         title: "隐身入场",
-        message: vue.h("p", [vue.h("div", "进入直播间时其他人不会收到提示，但还是会出现在高能用户榜单上。")])
+        message: (0, vue.h)("p", [(0, vue.h)("div", "进入直播间时其他人不会收到提示，但还是会出现在高能用户榜单上。")])
       }
     },
     RemoveElement: {
@@ -4686,1401 +4041,1196 @@
       }
     }
   };
-  const _sfc_main$a = vue.defineComponent({
+  var MainSiteTasks_default = (0, vue.defineComponent)({
     __name: "MainSiteTasks",
     setup(__props) {
-      const moduleStore2 = useModuleStore();
-      const config = moduleStore2.moduleConfig.DailyTasks.MainSiteTasks;
-      const status = moduleStore2.moduleStatus.DailyTasks.MainSiteTasks;
-      const reset = moduleStore2.moduleReset.DailyTasks.MainSiteTasks;
+      const moduleStore = useModuleStore();
+      const config = moduleStore.moduleConfig.DailyTasks.MainSiteTasks;
+      const status = moduleStore.moduleStatus.DailyTasks.MainSiteTasks;
+      const reset = moduleStore.moduleReset.DailyTasks.MainSiteTasks;
       return (_ctx, _cache) => {
-        const _component_el_switch = vue.resolveComponent("el-switch");
-        const _component_Info = vue.resolveComponent("Info");
-        const _component_TaskStatus = vue.resolveComponent("TaskStatus");
-        const _component_el_space = vue.resolveComponent("el-space");
-        const _component_el_row = vue.resolveComponent("el-row");
-        const _component_el_option = vue.resolveComponent("el-option");
-        const _component_el_select = vue.resolveComponent("el-select");
-        const _component_el_text = vue.resolveComponent("el-text");
-        const _component_el_divider = vue.resolveComponent("el-divider");
-        const _component_el_link = vue.resolveComponent("el-link");
-        return vue.openBlock(), vue.createElementBlock("div", null, [
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).login.enabled,
-                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => vue.unref(config).login.enabled = $event),
-                    "active-text": "每日登录"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).DailyTasks.MainSiteTasks.login
-                  }, null, 8, ["item"]),
-                  vue.createVNode(_component_TaskStatus, {
-                    status: vue.unref(status).login,
-                    onClick: vue.unref(reset).login
-                  }, null, 8, ["status", "onClick"])
-                ]),
-                _: 1
-              })
-            ]),
+        const _component_el_switch = (0, vue.resolveComponent)("el-switch");
+        const _component_Info = (0, vue.resolveComponent)("Info");
+        const _component_TaskStatus = (0, vue.resolveComponent)("TaskStatus");
+        const _component_el_space = (0, vue.resolveComponent)("el-space");
+        const _component_el_row = (0, vue.resolveComponent)("el-row");
+        const _component_el_option = (0, vue.resolveComponent)("el-option");
+        const _component_el_select = (0, vue.resolveComponent)("el-select");
+        const _component_el_text = (0, vue.resolveComponent)("el-text");
+        const _component_el_divider = (0, vue.resolveComponent)("el-divider");
+        const _component_el_link = (0, vue.resolveComponent)("el-link");
+        return (0, vue.openBlock)(), (0, vue.createElementBlock)("div", null, [
+          (0, vue.createVNode)(_component_el_row, null, {
+            default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+              wrap: "",
+              size: [8, 0]
+            }, {
+              default: (0, vue.withCtx)(() => [
+                (0, vue.createVNode)(_component_el_switch, {
+                  modelValue: (0, vue.unref)(config).login.enabled,
+                  "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => (0, vue.unref)(config).login.enabled = $event),
+                  "active-text": "每日登录"
+                }, null, 8, ["modelValue"]),
+                (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).DailyTasks.MainSiteTasks.login }, null, 8, ["item"]),
+                (0, vue.createVNode)(_component_TaskStatus, {
+                  status: (0, vue.unref)(status).login,
+                  onClick: (0, vue.unref)(reset).login
+                }, null, 8, ["status", "onClick"])
+              ]),
+              _: 1
+            })]),
             _: 1
           }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).watch.enabled,
-                    "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => vue.unref(config).watch.enabled = $event),
-                    "active-text": "每日观看视频"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).DailyTasks.MainSiteTasks.watch
-                  }, null, 8, ["item"]),
-                  vue.createVNode(_component_TaskStatus, {
-                    status: vue.unref(status).watch,
-                    onClick: vue.unref(reset).watch
-                  }, null, 8, ["status", "onClick"])
-                ]),
-                _: 1
-              })
-            ]),
+          (0, vue.createVNode)(_component_el_row, null, {
+            default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+              wrap: "",
+              size: [8, 0]
+            }, {
+              default: (0, vue.withCtx)(() => [
+                (0, vue.createVNode)(_component_el_switch, {
+                  modelValue: (0, vue.unref)(config).watch.enabled,
+                  "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => (0, vue.unref)(config).watch.enabled = $event),
+                  "active-text": "每日观看视频"
+                }, null, 8, ["modelValue"]),
+                (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).DailyTasks.MainSiteTasks.watch }, null, 8, ["item"]),
+                (0, vue.createVNode)(_component_TaskStatus, {
+                  status: (0, vue.unref)(status).watch,
+                  onClick: (0, vue.unref)(reset).watch
+                }, null, 8, ["status", "onClick"])
+              ]),
+              _: 1
+            })]),
             _: 1
           }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).coin.enabled,
-                    "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => vue.unref(config).coin.enabled = $event),
-                    "active-text": "每日投币"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_el_select, {
-                    modelValue: vue.unref(config).coin.num,
-                    "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => vue.unref(config).coin.num = $event),
-                    placeholder: "Select",
-                    style: { "width": "64px" }
-                  }, {
-                    default: vue.withCtx(() => [
-                      (vue.openBlock(), vue.createElementBlock(vue.Fragment, null, vue.renderList(5, (i) => {
-                        return vue.createVNode(_component_el_option, {
-                          key: i,
-                          label: i,
-                          value: i
-                        }, null, 8, ["label", "value"]);
-                      }), 64))
-                    ]),
-                    _: 1
-                  }, 8, ["modelValue"]),
-                  vue.createVNode(_component_el_text, null, {
-                    default: vue.withCtx(() => [..._cache[5] || (_cache[5] = [
-                      vue.createTextVNode("个", -1)
-                    ])]),
-                    _: 1
-                  }),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).DailyTasks.MainSiteTasks.coin
-                  }, null, 8, ["item"]),
-                  vue.createVNode(_component_TaskStatus, {
-                    status: vue.unref(status).coin,
-                    onClick: vue.unref(reset).coin
-                  }, null, 8, ["status", "onClick"])
-                ]),
-                _: 1
-              })
-            ]),
+          (0, vue.createVNode)(_component_el_row, null, {
+            default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+              wrap: "",
+              size: [8, 0]
+            }, {
+              default: (0, vue.withCtx)(() => [
+                (0, vue.createVNode)(_component_el_switch, {
+                  modelValue: (0, vue.unref)(config).coin.enabled,
+                  "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => (0, vue.unref)(config).coin.enabled = $event),
+                  "active-text": "每日投币"
+                }, null, 8, ["modelValue"]),
+                (0, vue.createVNode)(_component_el_select, {
+                  modelValue: (0, vue.unref)(config).coin.num,
+                  "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => (0, vue.unref)(config).coin.num = $event),
+                  placeholder: "Select",
+                  style: { "width": "64px" }
+                }, {
+                  default: (0, vue.withCtx)(() => [((0, vue.openBlock)(), (0, vue.createElementBlock)(vue.Fragment, null, (0, vue.renderList)(5, (i) => {
+                    return (0, vue.createVNode)(_component_el_option, {
+                      key: i,
+                      label: i,
+                      value: i
+                    }, null, 8, ["label", "value"]);
+                  }), 64))]),
+                  _: 1
+                }, 8, ["modelValue"]),
+                (0, vue.createVNode)(_component_el_text, null, {
+                  default: (0, vue.withCtx)(() => [..._cache[5] || (_cache[5] = [(0, vue.createTextVNode)("个", -1)])]),
+                  _: 1
+                }),
+                (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).DailyTasks.MainSiteTasks.coin }, null, 8, ["item"]),
+                (0, vue.createVNode)(_component_TaskStatus, {
+                  status: (0, vue.unref)(status).coin,
+                  onClick: (0, vue.unref)(reset).coin
+                }, null, 8, ["status", "onClick"])
+              ]),
+              _: 1
+            })]),
             _: 1
           }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).share.enabled,
-                    "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => vue.unref(config).share.enabled = $event),
-                    "active-text": "每日分享视频"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).DailyTasks.MainSiteTasks.share
-                  }, null, 8, ["item"]),
-                  vue.createVNode(_component_TaskStatus, {
-                    status: vue.unref(status).share,
-                    onClick: vue.unref(reset).share
-                  }, null, 8, ["status", "onClick"])
-                ]),
-                _: 1
-              })
-            ]),
+          (0, vue.createVNode)(_component_el_row, null, {
+            default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+              wrap: "",
+              size: [8, 0]
+            }, {
+              default: (0, vue.withCtx)(() => [
+                (0, vue.createVNode)(_component_el_switch, {
+                  modelValue: (0, vue.unref)(config).share.enabled,
+                  "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => (0, vue.unref)(config).share.enabled = $event),
+                  "active-text": "每日分享视频"
+                }, null, 8, ["modelValue"]),
+                (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).DailyTasks.MainSiteTasks.share }, null, 8, ["item"]),
+                (0, vue.createVNode)(_component_TaskStatus, {
+                  status: (0, vue.unref)(status).share,
+                  onClick: (0, vue.unref)(reset).share
+                }, null, 8, ["status", "onClick"])
+              ]),
+              _: 1
+            })]),
             _: 1
           }),
-          vue.createVNode(_component_el_divider),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_text, null, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_text, null, {
-                    default: vue.withCtx(() => [..._cache[6] || (_cache[6] = [
-                      vue.createTextVNode("  主站每日任务的完成情况可在", -1)
-                    ])]),
-                    _: 1
-                  }),
-                  vue.createVNode(_component_el_link, {
-                    rel: "noreferrer",
-                    type: "primary",
-                    href: "https://account.bilibili.com/account/home",
-                    target: "_blank",
-                    style: { "vertical-align": "unset" }
-                  }, {
-                    default: vue.withCtx(() => [..._cache[7] || (_cache[7] = [
-                      vue.createTextVNode("个人中心", -1)
-                    ])]),
-                    _: 1
-                  }),
-                  vue.createVNode(_component_el_text, null, {
-                    default: vue.withCtx(() => [..._cache[8] || (_cache[8] = [
-                      vue.createTextVNode("查看。", -1)
-                    ])]),
-                    _: 1
-                  }),
-                  vue.createVNode(_component_el_text, null, {
-                    default: vue.withCtx(() => [..._cache[9] || (_cache[9] = [
-                      vue.createTextVNode("数据更新可能有一定的延时。", -1)
-                    ])]),
-                    _: 1
-                  })
-                ]),
-                _: 1
-              })
-            ]),
+          (0, vue.createVNode)(_component_el_divider),
+          (0, vue.createVNode)(_component_el_row, null, {
+            default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_text, null, {
+              default: (0, vue.withCtx)(() => [
+                (0, vue.createVNode)(_component_el_text, null, {
+                  default: (0, vue.withCtx)(() => [..._cache[6] || (_cache[6] = [(0, vue.createTextVNode)("  主站每日任务的完成情况可在", -1)])]),
+                  _: 1
+                }),
+                (0, vue.createVNode)(_component_el_link, {
+                  rel: "noreferrer",
+                  type: "primary",
+                  href: "https://account.bilibili.com/account/home",
+                  target: "_blank",
+                  style: { "vertical-align": "unset" }
+                }, {
+                  default: (0, vue.withCtx)(() => [..._cache[7] || (_cache[7] = [(0, vue.createTextVNode)("个人中心", -1)])]),
+                  _: 1
+                }),
+                (0, vue.createVNode)(_component_el_text, null, {
+                  default: (0, vue.withCtx)(() => [..._cache[8] || (_cache[8] = [(0, vue.createTextVNode)("查看。", -1)])]),
+                  _: 1
+                }),
+                (0, vue.createVNode)(_component_el_text, null, {
+                  default: (0, vue.withCtx)(() => [..._cache[9] || (_cache[9] = [(0, vue.createTextVNode)("数据更新可能有一定的延时。", -1)])]),
+                  _: 1
+                })
+              ]),
+              _: 1
+            })]),
             _: 1
           })
         ]);
       };
     }
   });
-  const _hoisted_1$1 = { class: "avatar-wrap" };
-  const _sfc_main$9 = vue.defineComponent({
-    __name: "LiveTasks",
-    setup(__props) {
-      const moduleStore2 = useModuleStore();
-      const biliStore = useBiliStore();
-      const uiStore = useUIStore();
-      const medalTableMaxHeight = screen.height * 0.55;
-      const danmuTableMaxHeight = screen.height * 0.5;
-      const config = moduleStore2.moduleConfig.DailyTasks.LiveTasks;
-      const status = moduleStore2.moduleStatus.DailyTasks.LiveTasks;
-      const reset = moduleStore2.moduleReset.DailyTasks.LiveTasks;
-      const medalDanmuPanelVisible = vue.ref(false);
-      const danmuTableData = vue.computed(
-        () => config.medalTasks.light.danmuList.map((danmu) => {
-          return { content: danmu };
-        })
-      );
-      const handleEditDanmu = (index, row) => {
-        ElementPlus.ElMessageBox.prompt("请输入弹幕内容", "修改弹幕", {
-          confirmButtonText: "确认",
-          cancelButtonText: "取消",
-          inputPattern: /^.{1,30}$/,
-          inputErrorMessage: "弹幕内容不得为空且长度不能超过30",
-          inputValue: row.content,
-          lockScroll: false
-        }).then(({ value }) => {
-          config.medalTasks.light.danmuList[index] = value;
-        }).catch(() => {
-        });
-      };
-      const handleDeleteDanmu = (index) => {
-        if (config.medalTasks.light.danmuList.length === 1) {
-          ElementPlus.ElMessage.warning({
-            message: "至少要有一条弹幕",
-            appendTo: ".el-dialog"
-          });
-          return;
-        }
-        config.medalTasks.light.danmuList.splice(index, 1);
-      };
-      const handleAddDanmu = () => {
-        ElementPlus.ElMessageBox.prompt("请输入新增的弹幕内容", "新增弹幕", {
-          confirmButtonText: "确认",
-          cancelButtonText: "取消",
-          inputPattern: /^.{1,30}$/,
-          inputErrorMessage: "弹幕内容不得为空且长度不能超过30",
-          lockScroll: false
-        }).then(({ value }) => {
-          config.medalTasks.light.danmuList.push(value);
-        }).catch(() => {
-        });
-      };
-      const reserveLikePanelVisible = vue.ref(false);
-      const reserveLikeTableData = vue.computed(
-        () => config.medalTasks.light.reserveLikeRoomids.map((roomid) => {
-          const medal = biliStore.filteredFansMedals.find((m) => m.room_info.room_id === roomid);
-          return {
-            roomid,
-            nick_name: medal ? medal.anchor_info.nick_name : "不在粉丝勋章列表中"
-          };
-        })
-      );
-      const handleDeleteReserveLike = (index) => {
-        config.medalTasks.light.reserveLikeRoomids.splice(index, 1);
-      };
-      const handleAddReserveLike = () => {
-        ElementPlus.ElMessageBox.prompt("请输入要预留点赞的直播间号", "新增预留直播间", {
-          confirmButtonText: "确认",
-          cancelButtonText: "取消",
-          inputPattern: /^\d+$/,
-          inputErrorMessage: "直播间号应为数字",
-          lockScroll: false
-        }).then(({ value }) => {
-          const roomid = Number(value);
-          if (config.medalTasks.light.reserveLikeRoomids.includes(roomid)) {
-            ElementPlus.ElMessage.warning({
-              message: "该直播间已在预留列表中",
-              appendTo: ".el-dialog"
-            });
-            return;
-          }
-          config.medalTasks.light.reserveLikeRoomids.push(roomid);
-        }).catch(() => {
-        });
-      };
-      const medalInfoPanelVisible = vue.ref(false);
-      const medalInfoTableData = vue.computed({
-        get() {
-          const medals = biliStore.filteredFansMedals.map((medal) => ({
-            avatar: medal.anchor_info.avatar,
-            nick_name: medal.anchor_info.nick_name,
-            medal_name: medal.medal.medal_name,
-            medal_level: medal.medal.level,
-            roomid: medal.room_info.room_id
+  var _hoisted_1$1 = { class: "avatar-wrap" };
+  var __default__ = (0, vue.defineComponent)({
+    components: {
+      MainSiteTasks: MainSiteTasks_default,
+      LiveTasks: _plugin_vue_export_helper_default((0, vue.defineComponent)({
+        __name: "LiveTasks",
+        setup(__props) {
+          const moduleStore = useModuleStore();
+          const biliStore = useBiliStore();
+          const uiStore = useUIStore();
+          const medalTableMaxHeight = screen.height * .55;
+          const danmuTableMaxHeight = screen.height * .5;
+          const config = moduleStore.moduleConfig.DailyTasks.LiveTasks;
+          const status = moduleStore.moduleStatus.DailyTasks.LiveTasks;
+          const reset = moduleStore.moduleReset.DailyTasks.LiveTasks;
+          const medalDanmuPanelVisible = (0, vue.ref)(false);
+          const danmuTableData = (0, vue.computed)(() => config.medalTasks.light.danmuList.map((danmu) => {
+            return { content: danmu };
           }));
-          if (uiStore.uiConfig.medalInfoPanelSortMode) {
-            const filteredMedals = medals.filter(
-              (medal) => config.medalTasks.isWhiteList ? config.medalTasks.roomidList.includes(medal.roomid) : !config.medalTasks.roomidList.includes(medal.roomid)
-            );
-            const orderMap = arrayToMap(config.medalTasks.roomidList);
-            return filteredMedals.sort((a, b) => orderMap.get(a.roomid) - orderMap.get(b.roomid));
-          }
-          return medals;
-        },
-        set(newValue) {
-          config.medalTasks.roomidList = newValue.map((row) => row.roomid);
-        }
-      });
-      const medalInfoLoading = vue.ref(false);
-      let firstClickEditList = true;
-      const handleEditList = async () => {
-        medalInfoPanelVisible.value = true;
-        if (firstClickEditList) {
-          firstClickEditList = false;
-          await vue.nextTick();
-          if (!biliStore.fansMedals) {
-            medalInfoLoading.value = true;
-            vue.watch(
-              medalInfoTableData,
-              (newData) => {
-                vue.nextTick(() => {
+          const handleEditDanmu = (index, row) => {
+            element_plus.ElMessageBox.prompt("请输入弹幕内容", "修改弹幕", {
+              confirmButtonText: "确认",
+              cancelButtonText: "取消",
+              inputPattern: /^.{1,30}$/,
+              inputErrorMessage: "弹幕内容不得为空且长度不能超过30",
+              inputValue: row.content,
+              lockScroll: false
+            }).then(({ value }) => {
+              config.medalTasks.light.danmuList[index] = value;
+            }).catch(() => { });
+          };
+          const handleDeleteDanmu = (index) => {
+            if (config.medalTasks.light.danmuList.length === 1) {
+              element_plus.ElMessage.warning({
+                message: "至少要有一条弹幕",
+                appendTo: ".el-dialog"
+              });
+              return;
+            }
+            config.medalTasks.light.danmuList.splice(index, 1);
+          };
+          const handleAddDanmu = () => {
+            element_plus.ElMessageBox.prompt("请输入新增的弹幕内容", "新增弹幕", {
+              confirmButtonText: "确认",
+              cancelButtonText: "取消",
+              inputPattern: /^.{1,30}$/,
+              inputErrorMessage: "弹幕内容不得为空且长度不能超过30",
+              lockScroll: false
+            }).then(({ value }) => {
+              config.medalTasks.light.danmuList.push(value);
+            }).catch(() => { });
+          };
+          const medalInfoPanelVisible = (0, vue.ref)(false);
+          const medalInfoPanelMode = (0, vue.ref)("list");
+          const isLikeMode = (0, vue.computed)(() => medalInfoPanelMode.value === "like");
+          const medalInfoTableData = (0, vue.computed)({
+            get() {
+              const medals = biliStore.filteredFansMedals.map((medal) => ({
+                avatar: medal.anchor_info.avatar,
+                nick_name: medal.anchor_info.nick_name,
+                medal_name: medal.medal.medal_name,
+                medal_level: medal.medal.level,
+                roomid: medal.room_info.room_id,
+                is_lighted: medal.medal.is_lighted === 1
+              }));
+              if (uiStore.uiConfig.medalInfoPanelSortMode) {
+                const filteredMedals = medals.filter((medal) => config.medalTasks.isWhiteList ? config.medalTasks.roomidList.includes(medal.roomid) : !config.medalTasks.roomidList.includes(medal.roomid));
+                const orderMap = arrayToMap(config.medalTasks.roomidList);
+                return filteredMedals.sort((a, b) => orderMap.get(a.roomid) - orderMap.get(b.roomid));
+              }
+              return medals;
+            },
+            set(newValue) {
+              config.medalTasks.roomidList = newValue.map((row) => row.roomid);
+            }
+          });
+          const medalTableData = (0, vue.computed)({
+            get() {
+              return isLikeMode.value ? likeCandidates.value : medalInfoTableData.value;
+            },
+            set(rows) {
+              if (!isLikeMode.value) medalInfoTableData.value = rows;
+            }
+          });
+          const medalInfoLoading = (0, vue.ref)(false);
+          const handleEditList = async () => {
+            medalInfoPanelMode.value = "list";
+            medalInfoPanelVisible.value = true;
+            await (0, vue.nextTick)();
+            medalInfoTableRef.value?.clearSelection();
+            if (!biliStore.fansMedals) {
+              medalInfoLoading.value = true;
+              (0, vue.watch)(medalInfoTableData, (newData) => {
+                (0, vue.nextTick)(() => {
                   initSelection(newData);
                   medalInfoLoading.value = false;
                 });
-              },
-              { once: true }
-            );
-            if (!biliStore.fansMedalsStatus) {
-              moduleStore2.rerunModule("Default_FansMedals", true);
+              }, { once: true });
+              if (!biliStore.fansMedalsStatus) moduleStore.rerunModule("Default_FansMedals", true);
+              return;
             }
-          } else {
             initSelection(medalInfoTableData.value);
-          }
-        }
-      };
-      const medalInfoTableRef = vue.ref();
-      const initSelection = (rows) => {
-        if (rows && !uiStore.uiConfig.medalInfoPanelSortMode) {
-          config.medalTasks.roomidList.forEach((roomid, index) => {
-            const row = rows.find((row2) => row2.roomid === roomid);
-            if (row) {
-              medalInfoTableRef.value?.toggleRowSelection(row, true);
-            } else {
-              config.medalTasks.roomidList.splice(index, 1);
+          };
+          const medalInfoTableRef = (0, vue.ref)();
+          const initSelection = (rows) => {
+            if (rows && !uiStore.uiConfig.medalInfoPanelSortMode) config.medalTasks.roomidList.forEach((roomid, index) => {
+              const row = rows.find((row) => row.roomid === roomid);
+              if (row) medalInfoTableRef.value?.toggleRowSelection(row, true);
+              else config.medalTasks.roomidList.splice(index, 1);
+            });
+          };
+          function handleSelect(selection) {
+            if (isLikeMode.value) {
+              likeSelection.value = selection;
+              return;
             }
+            config.medalTasks.roomidList = selection.map((row) => row.roomid);
+          }
+          function handleRowClick(row) {
+            if (!isLikeMode.value && uiStore.uiConfig.medalInfoPanelSortMode) return;
+            medalInfoTableRef.value?.toggleRowSelection(row);
+            const selection = medalInfoTableRef.value?.getSelectionRows() ?? [];
+            if (isLikeMode.value) likeSelection.value = selection;
+            else config.medalTasks.roomidList = selection.map((row) => row.roomid);
+          }
+          const manualLikeLoading = (0, vue.ref)(false);
+          const likeCandidates = (0, vue.ref)([]);
+          const likeTodayLikes = (0, vue.ref)(0);
+          const likeDailyLimit = (0, vue.ref)(0);
+          const likeSelection = (0, vue.ref)([]);
+          function getLightTaskInstance() {
+            return moduleStore.moduleInstances["DailyTask_LiveTask_LightTask"];
+          }
+          const handleManualLike = async () => {
+            const instance = getLightTaskInstance();
+            if (!instance) {
+              element_plus.ElMessage.warning("点赞模块尚未加载，请稍后再试");
+              return;
+            }
+            if (instance.isManualLikeRunning) {
+              element_plus.ElMessage.warning("点赞任务正在运行中，请等待当前任务结束");
+              return;
+            }
+            if (manualLikeLoading.value) return;
+            manualLikeLoading.value = true;
+            try {
+              const snapshot = await instance.collectLikeCandidates();
+              if (!snapshot) return;
+              if (snapshot.candidates.length === 0) {
+                element_plus.ElMessage.info("没有可以点赞的直播间");
+                return;
+              }
+              likeCandidates.value = snapshot.candidates;
+              likeTodayLikes.value = snapshot.todayLikes;
+              likeDailyLimit.value = snapshot.dailyLimit;
+              likeSelection.value = [];
+              medalInfoPanelMode.value = "like";
+              medalInfoPanelVisible.value = true;
+              await (0, vue.nextTick)();
+              medalInfoTableRef.value?.clearSelection();
+              likeCandidates.value.forEach((row) => {
+                medalInfoTableRef.value?.toggleRowSelection(row, true);
+              });
+            } catch (error) {
+              element_plus.ElMessage.error(`获取可点赞直播间失败：${error.message}`);
+            } finally {
+              manualLikeLoading.value = false;
+            }
+          };
+          const handleConfirmLikeSelection = async () => {
+            const instance = getLightTaskInstance();
+            if (!instance) {
+              medalInfoPanelVisible.value = false;
+              return;
+            }
+            const roomids = likeSelection.value.map((row) => row.roomid);
+            medalInfoPanelVisible.value = false;
+            try {
+              await instance.likeRooms(roomids);
+            } catch (error) {
+              element_plus.ElMessage.error(`点赞任务执行出错：${error.message}`);
+            }
+          };
+          const handleCancelLikeSelection = () => {
+            medalInfoPanelVisible.value = false;
+          };
+          const handleSelectionChange = (rows) => {
+            if (isLikeMode.value) likeSelection.value = rows;
+          };
+          const hasLikeProgress = (row) => typeof row.likeProgress === "number" && (row.likeProgressTotal ?? 0) > 0;
+          const likePercent = (row) => {
+            const total = row.likeProgressTotal ?? 0;
+            if (!hasLikeProgress(row) || total <= 0) return 0;
+            return Math.min(100, Math.round(row.likeProgress / total * 100));
+          };
+          (0, vue.watch)(() => config.medalTasks.light.likeEnabled, (newVal, oldVal) => {
+            if (!newVal || oldVal) return;
+            if (moduleStore.moduleStatus.DailyTasks.LiveTasks.medalTasks.light === "running") return;
+            if (!moduleStore.moduleInstances["DailyTask_LiveTask_LightTask"]) return;
+            moduleStore.rerunModule("DailyTask_LiveTask_LightTask");
           });
-        }
-      };
-      function handleSelect(selection) {
-        config.medalTasks.roomidList = selection.map((row) => row.roomid);
-      }
-      function handleRowClick(row) {
-        if (!uiStore.uiConfig.medalInfoPanelSortMode) {
-          medalInfoTableRef.value?.toggleRowSelection(row);
-          const selection = medalInfoTableRef.value?.getSelectionRows() ?? [];
-          config.medalTasks.roomidList = selection.map((row2) => row2.roomid);
-        }
-      }
-      vue.watch(
-        () => [config.medalTasks.light.likeEnabled, config.medalTasks.light.danmuEnabled],
-        ([likeNew, danmuNew], [likeOld, danmuOld]) => {
-          const turnedOn = likeNew && !likeOld || danmuNew && !danmuOld;
-          if (!turnedOn) return;
-          if (moduleStore2.moduleStatus.DailyTasks.LiveTasks.medalTasks.light === "running") return;
-          if (!moduleStore2.moduleInstances["DailyTask_LiveTask_LightTask"]) return;
-          moduleStore2.rerunModule("DailyTask_LiveTask_LightTask");
-        }
-      );
-      vue.watch(
-        () => config.medalTasks.watch.enabled,
-        (newVal, oldVal) => {
-          if (!newVal || oldVal) return;
-          if (moduleStore2.moduleStatus.DailyTasks.LiveTasks.medalTasks.watch === "running") return;
-          if (!moduleStore2.moduleInstances["DailyTask_LiveTask_WatchTask"]) return;
-          moduleStore2.rerunModule("DailyTask_LiveTask_WatchTask");
-        }
-      );
-      return (_ctx, _cache) => {
-        const _component_el_switch = vue.resolveComponent("el-switch");
-        const _component_el_button = vue.resolveComponent("el-button");
-        const _component_Info = vue.resolveComponent("Info");
-        const _component_TaskStatus = vue.resolveComponent("TaskStatus");
-        const _component_el_space = vue.resolveComponent("el-space");
-        const _component_el_row = vue.resolveComponent("el-row");
-        const _component_el_option = vue.resolveComponent("el-option");
-        const _component_el_select = vue.resolveComponent("el-select");
-        const _component_el_text = vue.resolveComponent("el-text");
-        const _component_el_divider = vue.resolveComponent("el-divider");
-        const _component_el_link = vue.resolveComponent("el-link");
-        const _component_el_table_column = vue.resolveComponent("el-table-column");
-        const _component_el_dialog = vue.resolveComponent("el-dialog");
-        const _component_el_image = vue.resolveComponent("el-image");
-        const _directive_loading = vue.resolveDirective("loading");
-        return vue.openBlock(), vue.createElementBlock("div", null, [
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).medalTasks.light.enabled,
-                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => vue.unref(config).medalTasks.light.enabled = $event),
-                    "active-text": "点亮熄灭勋章"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).medalTasks.light.likeEnabled,
-                    "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => vue.unref(config).medalTasks.light.likeEnabled = $event),
-                    "active-text": "点赞",
-                    disabled: !vue.unref(config).medalTasks.light.enabled
-                  }, null, 8, ["modelValue", "disabled"]),
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).medalTasks.light.danmuEnabled,
-                    "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => vue.unref(config).medalTasks.light.danmuEnabled = $event),
-                    "active-text": "弹幕",
-                    disabled: !vue.unref(config).medalTasks.light.enabled
-                  }, null, 8, ["modelValue", "disabled"]),
-                  vue.createVNode(_component_el_button, {
-                    type: "primary",
-                    size: "small",
-                    icon: vue.unref(ElementPlusIconsVue.Edit),
-                    onClick: _cache[3] || (_cache[3] = ($event) => medalDanmuPanelVisible.value = !medalDanmuPanelVisible.value)
-                  }, {
-                    default: vue.withCtx(() => [..._cache[16] || (_cache[16] = [
-                      vue.createTextVNode("编辑弹幕 ", -1)
-                    ])]),
-                    _: 1
-                  }, 8, ["icon"]),
-                  vue.createVNode(_component_el_button, {
-                    type: "primary",
-                    size: "small",
-                    icon: vue.unref(ElementPlusIconsVue.Edit),
-                    disabled: !vue.unref(config).medalTasks.light.enabled,
-                    onClick: _cache[4] || (_cache[4] = ($event) => reserveLikePanelVisible.value = !reserveLikePanelVisible.value)
-                  }, {
-                    default: vue.withCtx(() => [..._cache[17] || (_cache[17] = [
-                      vue.createTextVNode("预留点赞直播间 ", -1)
-                    ])]),
-                    _: 1
-                  }, 8, ["icon", "disabled"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).DailyTasks.LiveTasks.medalTasks.light
-                  }, null, 8, ["item"]),
-                  vue.createVNode(_component_TaskStatus, {
-                    status: vue.unref(status).medalTasks.light,
-                    onClick: vue.unref(reset).medalTasks.light
-                  }, null, 8, ["status", "onClick"])
-                ]),
+          (0, vue.watch)(() => config.medalTasks.light.danmuEnabled, (newVal, oldVal) => {
+            if (!newVal || oldVal) return;
+            if (moduleStore.moduleStatus.DailyTasks.LiveTasks.medalTasks.light === "running") return;
+            if (!moduleStore.moduleInstances["DailyTask_LiveTask_LightTask"]) return;
+            moduleStore.rerunModule("DailyTask_LiveTask_LightTask");
+          });
+          (0, vue.watch)(() => config.medalTasks.watch.enabled, (newVal, oldVal) => {
+            if (!newVal || oldVal) return;
+            if (moduleStore.moduleStatus.DailyTasks.LiveTasks.medalTasks.watch === "running") return;
+            if (!moduleStore.moduleInstances["DailyTask_LiveTask_WatchTask"]) return;
+            moduleStore.rerunModule("DailyTask_LiveTask_WatchTask");
+          });
+          return (_ctx, _cache) => {
+            const _component_el_switch = (0, vue.resolveComponent)("el-switch");
+            const _component_el_button = (0, vue.resolveComponent)("el-button");
+            const _component_Info = (0, vue.resolveComponent)("Info");
+            const _component_TaskStatus = (0, vue.resolveComponent)("TaskStatus");
+            const _component_el_space = (0, vue.resolveComponent)("el-space");
+            const _component_el_row = (0, vue.resolveComponent)("el-row");
+            const _component_el_option = (0, vue.resolveComponent)("el-option");
+            const _component_el_select = (0, vue.resolveComponent)("el-select");
+            const _component_el_text = (0, vue.resolveComponent)("el-text");
+            const _component_el_divider = (0, vue.resolveComponent)("el-divider");
+            const _component_el_link = (0, vue.resolveComponent)("el-link");
+            const _component_el_table_column = (0, vue.resolveComponent)("el-table-column");
+            const _component_el_dialog = (0, vue.resolveComponent)("el-dialog");
+            const _component_el_image = (0, vue.resolveComponent)("el-image");
+            const _component_el_tag = (0, vue.resolveComponent)("el-tag");
+            const _component_el_progress = (0, vue.resolveComponent)("el-progress");
+            const _directive_loading = (0, vue.resolveDirective)("loading");
+            return (0, vue.openBlock)(), (0, vue.createElementBlock)("div", null, [
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [
+                    (0, vue.createVNode)(_component_el_switch, {
+                      modelValue: (0, vue.unref)(config).medalTasks.light.enabled,
+                      "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => (0, vue.unref)(config).medalTasks.light.enabled = $event),
+                      "active-text": "点亮熄灭勋章"
+                    }, null, 8, ["modelValue"]),
+                    (0, vue.createVNode)(_component_el_switch, {
+                      modelValue: (0, vue.unref)(config).medalTasks.light.likeEnabled,
+                      "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => (0, vue.unref)(config).medalTasks.light.likeEnabled = $event),
+                      "active-text": "点赞（手动）",
+                      disabled: !(0, vue.unref)(config).medalTasks.light.enabled
+                    }, null, 8, ["modelValue", "disabled"]),
+                    (0, vue.createVNode)(_component_el_button, {
+                      type: "primary",
+                      size: "small",
+                      icon: (0, vue.unref)(_element_plus_icons_vue.Check),
+                      loading: manualLikeLoading.value,
+                      disabled: !(0, vue.unref)(config).medalTasks.light.enabled || !(0, vue.unref)(config).medalTasks.light.likeEnabled,
+                      onClick: handleManualLike
+                    }, {
+                      default: (0, vue.withCtx)(() => [..._cache[15] || (_cache[15] = [(0, vue.createTextVNode)("选择直播间点赞 ", -1)])]),
+                      _: 1
+                    }, 8, [
+                      "icon",
+                      "loading",
+                      "disabled"
+                    ]),
+                    (0, vue.createVNode)(_component_el_switch, {
+                      modelValue: (0, vue.unref)(config).medalTasks.light.danmuEnabled,
+                      "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => (0, vue.unref)(config).medalTasks.light.danmuEnabled = $event),
+                      "active-text": "弹幕",
+                      disabled: !(0, vue.unref)(config).medalTasks.light.enabled
+                    }, null, 8, ["modelValue", "disabled"]),
+                    (0, vue.createVNode)(_component_el_button, {
+                      type: "primary",
+                      size: "small",
+                      icon: (0, vue.unref)(_element_plus_icons_vue.Edit),
+                      onClick: _cache[3] || (_cache[3] = ($event) => medalDanmuPanelVisible.value = !medalDanmuPanelVisible.value)
+                    }, {
+                      default: (0, vue.withCtx)(() => [..._cache[16] || (_cache[16] = [(0, vue.createTextVNode)("编辑弹幕 ", -1)])]),
+                      _: 1
+                    }, 8, ["icon"]),
+                    (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).DailyTasks.LiveTasks.medalTasks.light }, null, 8, ["item"]),
+                    (0, vue.createVNode)(_component_TaskStatus, {
+                      status: (0, vue.unref)(status).medalTasks.light,
+                      onClick: (0, vue.unref)(reset).medalTasks.light
+                    }, null, 8, ["status", "onClick"])
+                  ]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).medalTasks.watch.enabled,
-                    "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event) => vue.unref(config).medalTasks.watch.enabled = $event),
-                    "active-text": "观看直播"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_el_select, {
-                    modelValue: vue.unref(config).medalTasks.watch.time,
-                    "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => vue.unref(config).medalTasks.watch.time = $event),
-                    placeholder: "Select",
-                    style: { "width": "70px" }
-                  }, {
-                    default: vue.withCtx(() => [
-                      (vue.openBlock(), vue.createElementBlock(vue.Fragment, null, vue.renderList(12, (i) => {
-                        return vue.createVNode(_component_el_option, {
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [
+                    (0, vue.createVNode)(_component_el_switch, {
+                      modelValue: (0, vue.unref)(config).medalTasks.watch.enabled,
+                      "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => (0, vue.unref)(config).medalTasks.watch.enabled = $event),
+                      "active-text": "观看直播"
+                    }, null, 8, ["modelValue"]),
+                    (0, vue.createVNode)(_component_el_select, {
+                      modelValue: (0, vue.unref)(config).medalTasks.watch.time,
+                      "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event) => (0, vue.unref)(config).medalTasks.watch.time = $event),
+                      placeholder: "Select",
+                      style: { "width": "70px" }
+                    }, {
+                      default: (0, vue.withCtx)(() => [((0, vue.openBlock)(), (0, vue.createElementBlock)(vue.Fragment, null, (0, vue.renderList)(12, (i) => {
+                        return (0, vue.createVNode)(_component_el_option, {
                           key: i,
                           label: i * 5,
                           value: i * 5
                         }, null, 8, ["label", "value"]);
-                      }), 64))
-                    ]),
-                    _: 1
-                  }, 8, ["modelValue"]),
-                  vue.createVNode(_component_el_text, null, {
-                    default: vue.withCtx(() => [..._cache[18] || (_cache[18] = [
-                      vue.createTextVNode("分钟 / 直播间", -1)
-                    ])]),
+                      }), 64))]),
+                      _: 1
+                    }, 8, ["modelValue"]),
+                    (0, vue.createVNode)(_component_el_text, null, {
+                      default: (0, vue.withCtx)(() => [..._cache[17] || (_cache[17] = [(0, vue.createTextVNode)("分钟 / 直播间", -1)])]),
+                      _: 1
+                    }),
+                    (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).DailyTasks.LiveTasks.medalTasks.watch }, null, 8, ["item"]),
+                    (0, vue.createVNode)(_component_TaskStatus, {
+                      status: (0, vue.unref)(status).medalTasks.watch,
+                      onClick: (0, vue.unref)(reset).medalTasks.watch
+                    }, null, 8, ["status", "onClick"])
+                  ]),
+                  _: 1
+                })]),
+                _: 1
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [
+                    (0, vue.createVNode)(_component_el_switch, {
+                      modelValue: (0, vue.unref)(config).medalTasks.isWhiteList,
+                      "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => (0, vue.unref)(config).medalTasks.isWhiteList = $event),
+                      "active-text": "白名单",
+                      "inactive-text": "黑名单",
+                      onChange: _cache[7] || (_cache[7] = (val) => !val && ((0, vue.unref)(uiStore).uiConfig.medalInfoPanelSortMode = false))
+                    }, null, 8, ["modelValue"]),
+                    (0, vue.createVNode)(_component_el_button, {
+                      type: "primary",
+                      size: "small",
+                      icon: (0, vue.unref)(_element_plus_icons_vue.Edit),
+                      onClick: handleEditList
+                    }, {
+                      default: (0, vue.withCtx)(() => [..._cache[18] || (_cache[18] = [(0, vue.createTextVNode)("编辑名单 ", -1)])]),
+                      _: 1
+                    }, 8, ["icon"]),
+                    (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).DailyTasks.LiveTasks.medalTasks.list }, null, 8, ["item"])
+                  ]),
+                  _: 1
+                })]),
+                _: 1
+              }),
+              (0, vue.createVNode)(_component_el_divider),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [
+                  (0, vue.createVNode)(_component_el_text, null, {
+                    default: (0, vue.withCtx)(() => [..._cache[19] || (_cache[19] = [(0, vue.createTextVNode)("直播任务相关信息可在", -1)])]),
                     _: 1
                   }),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).DailyTasks.LiveTasks.medalTasks.watch
-                  }, null, 8, ["item"]),
-                  vue.createVNode(_component_TaskStatus, {
-                    status: vue.unref(status).medalTasks.watch,
-                    onClick: vue.unref(reset).medalTasks.watch
-                  }, null, 8, ["status", "onClick"])
-                ]),
-                _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).medalTasks.isWhiteList,
-                    "onUpdate:modelValue": _cache[7] || (_cache[7] = ($event) => vue.unref(config).medalTasks.isWhiteList = $event),
-                    "active-text": "白名单",
-                    "inactive-text": "黑名单",
-                    onChange: _cache[8] || (_cache[8] = (val) => !val && (vue.unref(uiStore).uiConfig.medalInfoPanelSortMode = false))
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_el_button, {
+                  (0, vue.createVNode)(_component_el_link, {
+                    rel: "noreferrer",
                     type: "primary",
-                    size: "small",
-                    icon: vue.unref(ElementPlusIconsVue.Edit),
-                    onClick: handleEditList
+                    href: "https://link.bilibili.com/p/help/index#/audience-fans-medal",
+                    target: "_blank"
                   }, {
-                    default: vue.withCtx(() => [..._cache[19] || (_cache[19] = [
-                      vue.createTextVNode("编辑名单 ", -1)
-                    ])]),
+                    default: (0, vue.withCtx)(() => [..._cache[20] || (_cache[20] = [(0, vue.createTextVNode)("帮助中心 ", -1)])]),
                     _: 1
-                  }, 8, ["icon"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).DailyTasks.LiveTasks.medalTasks.list
-                  }, null, 8, ["item"])
+                  }),
+                  (0, vue.createVNode)(_component_el_text, null, {
+                    default: (0, vue.withCtx)(() => [..._cache[21] || (_cache[21] = [(0, vue.createTextVNode)("查看。", -1)])]),
+                    _: 1
+                  })
                 ]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_divider),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_text, null, {
-                default: vue.withCtx(() => [..._cache[20] || (_cache[20] = [
-                  vue.createTextVNode("直播任务相关信息可在", -1)
-                ])]),
-                _: 1
               }),
-              vue.createVNode(_component_el_link, {
-                rel: "noreferrer",
-                type: "primary",
-                href: "https://link.bilibili.com/p/help/index#/audience-fans-medal",
-                target: "_blank"
+              _cache[27] || (_cache[27] = (0, vue.createElementVNode)("br", null, null, -1)),
+              (0, vue.createVNode)(_component_el_dialog, {
+                modelValue: medalDanmuPanelVisible.value,
+                "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => medalDanmuPanelVisible.value = $event),
+                title: "编辑弹幕内容",
+                "lock-scroll": false,
+                width: "40%"
               }, {
-                default: vue.withCtx(() => [..._cache[21] || (_cache[21] = [
-                  vue.createTextVNode("帮助中心 ", -1)
-                ])]),
-                _: 1
-              }),
-              vue.createVNode(_component_el_text, null, {
-                default: vue.withCtx(() => [..._cache[22] || (_cache[22] = [
-                  vue.createTextVNode("查看。", -1)
-                ])]),
-                _: 1
-              })
-            ]),
-            _: 1
-          }),
-          _cache[29] || (_cache[29] = vue.createElementVNode("br", null, null, -1)),
-          vue.createVNode(_component_el_dialog, {
-            modelValue: medalDanmuPanelVisible.value,
-            "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => medalDanmuPanelVisible.value = $event),
-            title: "编辑弹幕内容",
-            "lock-scroll": false,
-            width: "40%"
-          }, {
-            footer: vue.withCtx(() => [
-              vue.createVNode(_component_el_button, {
-                type: "primary",
-                onClick: handleAddDanmu
-              }, {
-                default: vue.withCtx(() => [..._cache[25] || (_cache[25] = [
-                  vue.createTextVNode("新增弹幕", -1)
-                ])]),
-                _: 1
-              })
-            ]),
-            default: vue.withCtx(() => [
-              vue.createVNode(vue.unref(ElementPlus.ElTable), {
-                data: danmuTableData.value,
-                "max-height": danmuTableMaxHeight
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_table_column, {
-                    type: "index",
-                    width: "80"
-                  }),
-                  vue.createVNode(_component_el_table_column, {
-                    prop: "content",
-                    label: "弹幕内容"
-                  }),
-                  vue.createVNode(_component_el_table_column, {
-                    label: "操作",
-                    width: "220",
-                    align: "center"
-                  }, {
-                    default: vue.withCtx((scope) => [
-                      vue.createVNode(_component_el_button, {
+                footer: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_button, {
+                  type: "primary",
+                  onClick: handleAddDanmu
+                }, {
+                  default: (0, vue.withCtx)(() => [..._cache[24] || (_cache[24] = [(0, vue.createTextVNode)("新增弹幕", -1)])]),
+                  _: 1
+                })]),
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)((0, vue.unref)(element_plus.ElTable), {
+                  data: danmuTableData.value,
+                  "max-height": danmuTableMaxHeight
+                }, {
+                  default: (0, vue.withCtx)(() => [
+                    (0, vue.createVNode)(_component_el_table_column, {
+                      type: "index",
+                      width: "80"
+                    }),
+                    (0, vue.createVNode)(_component_el_table_column, {
+                      prop: "content",
+                      label: "弹幕内容"
+                    }),
+                    (0, vue.createVNode)(_component_el_table_column, {
+                      label: "操作",
+                      width: "220",
+                      align: "center"
+                    }, {
+                      default: (0, vue.withCtx)((scope) => [(0, vue.createVNode)(_component_el_button, {
                         text: "",
-                        icon: vue.unref(ElementPlusIconsVue.Edit),
+                        icon: (0, vue.unref)(_element_plus_icons_vue.Edit),
                         onClick: ($event) => handleEditDanmu(scope.$index, scope.row)
                       }, {
-                        default: vue.withCtx(() => [..._cache[23] || (_cache[23] = [
-                          vue.createTextVNode(" 修改 ", -1)
-                        ])]),
+                        default: (0, vue.withCtx)(() => [..._cache[22] || (_cache[22] = [(0, vue.createTextVNode)(" 修改 ", -1)])]),
                         _: 1
-                      }, 8, ["icon", "onClick"]),
-                      vue.createVNode(_component_el_button, {
+                      }, 8, ["icon", "onClick"]), (0, vue.createVNode)(_component_el_button, {
                         text: "",
-                        icon: vue.unref(ElementPlusIconsVue.Delete),
+                        icon: (0, vue.unref)(_element_plus_icons_vue.Delete),
                         type: "danger",
                         onClick: ($event) => handleDeleteDanmu(scope.$index)
                       }, {
-                        default: vue.withCtx(() => [..._cache[24] || (_cache[24] = [
-                          vue.createTextVNode(" 删除 ", -1)
-                        ])]),
+                        default: (0, vue.withCtx)(() => [..._cache[23] || (_cache[23] = [(0, vue.createTextVNode)(" 删除 ", -1)])]),
                         _: 1
-                      }, 8, ["icon", "onClick"])
-                    ]),
-                    _: 1
-                  })
-                ]),
+                      }, 8, ["icon", "onClick"])]),
+                      _: 1
+                    })
+                  ]),
+                  _: 1
+                }, 8, ["data"])]),
                 _: 1
-              }, 8, ["data"])
-            ]),
-            _: 1
-          }, 8, ["modelValue"]),
-          vue.createVNode(_component_el_dialog, {
-            modelValue: reserveLikePanelVisible.value,
-            "onUpdate:modelValue": _cache[10] || (_cache[10] = ($event) => reserveLikePanelVisible.value = $event),
-            title: "编辑预留点赞直播间",
-            "lock-scroll": false,
-            width: "40%"
-          }, {
-            footer: vue.withCtx(() => [
-              vue.createVNode(_component_el_button, {
-                type: "primary",
-                onClick: handleAddReserveLike
+              }, 8, ["modelValue"]),
+              (0, vue.createVNode)(_component_el_dialog, {
+                modelValue: medalInfoPanelVisible.value,
+                "onUpdate:modelValue": _cache[14] || (_cache[14] = ($event) => medalInfoPanelVisible.value = $event),
+                title: isLikeMode.value ? "选择要点赞的直播间" : "编辑粉丝勋章名单",
+                "lock-scroll": false,
+                "close-on-click-modal": !isLikeMode.value,
+                width: "62%"
               }, {
-                default: vue.withCtx(() => [..._cache[28] || (_cache[28] = [
-                  vue.createTextVNode("新增直播间", -1)
-                ])]),
-                _: 1
-              })
-            ]),
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_text, { type: "info" }, {
-                default: vue.withCtx(() => [..._cache[26] || (_cache[26] = [
-                  vue.createTextVNode("每个预留直播间每天固定点赞 360 次，优先于点其他直播间执行。", -1)
-                ])]),
-                _: 1
-              }),
-              vue.createVNode(vue.unref(ElementPlus.ElTable), {
-                data: reserveLikeTableData.value,
-                "max-height": danmuTableMaxHeight
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_table_column, {
-                    type: "index",
-                    width: "80"
-                  }),
-                  vue.createVNode(_component_el_table_column, {
-                    prop: "nick_name",
-                    label: "昵称"
-                  }),
-                  vue.createVNode(_component_el_table_column, {
-                    prop: "roomid",
-                    label: "房间号"
-                  }, {
-                    default: vue.withCtx((scope) => [
-                      vue.createVNode(_component_el_link, {
-                        href: "https://live.bilibili.com/" + scope.row.roomid + "?visit_id=",
-                        rel: "noreferrer",
-                        type: "primary",
-                        target: "_blank"
-                      }, {
-                        default: vue.withCtx(() => [
-                          vue.createTextVNode(vue.toDisplayString(scope.row.roomid), 1)
-                        ]),
-                        _: 2
-                      }, 1032, ["href"])
-                    ]),
-                    _: 1
-                  }),
-                  vue.createVNode(_component_el_table_column, {
-                    label: "操作",
-                    width: "140",
-                    align: "center"
-                  }, {
-                    default: vue.withCtx((scope) => [
-                      vue.createVNode(_component_el_button, {
-                        text: "",
-                        icon: vue.unref(ElementPlusIconsVue.Delete),
-                        type: "danger",
-                        onClick: ($event) => handleDeleteReserveLike(scope.$index)
-                      }, {
-                        default: vue.withCtx(() => [..._cache[27] || (_cache[27] = [
-                          vue.createTextVNode(" 删除 ", -1)
-                        ])]),
-                        _: 1
-                      }, 8, ["icon", "onClick"])
-                    ]),
-                    _: 1
-                  })
-                ]),
-                _: 1
-              }, 8, ["data"])
-            ]),
-            _: 1
-          }, 8, ["modelValue"]),
-          vue.createVNode(_component_el_dialog, {
-            modelValue: medalInfoPanelVisible.value,
-            "onUpdate:modelValue": _cache[15] || (_cache[15] = ($event) => medalInfoPanelVisible.value = $event),
-            title: "编辑粉丝勋章名单",
-            "lock-scroll": false
-          }, {
-            footer: vue.withCtx(() => [
-              vue.createVNode(_component_el_switch, {
-                modelValue: vue.unref(uiStore).uiConfig.medalInfoPanelSortMode,
-                "onUpdate:modelValue": _cache[13] || (_cache[13] = ($event) => vue.unref(uiStore).uiConfig.medalInfoPanelSortMode = $event),
-                disabled: !vue.unref(config).medalTasks.isWhiteList,
-                "inactive-text": "常规模式",
-                "active-text": "排序模式",
-                onChange: _cache[14] || (_cache[14] = (val) => !val && vue.nextTick(() => initSelection(medalInfoTableData.value)))
-              }, null, 8, ["modelValue", "disabled"])
-            ]),
-            default: vue.withCtx(() => [
-              vue.createVNode(vue.unref(vueDraggablePlus.VueDraggable), {
-                modelValue: medalInfoTableData.value,
-                "onUpdate:modelValue": _cache[12] || (_cache[12] = ($event) => medalInfoTableData.value = $event),
-                target: "#draggable-fans-medal-table table tbody",
-                disabled: !vue.unref(uiStore).uiConfig.medalInfoPanelSortMode,
-                animation: 150,
-                "scroll-sensitivity": 36,
-                "scroll-speed": 8
-              }, {
-                default: vue.withCtx(() => [
-                  vue.withDirectives((vue.openBlock(), vue.createBlock(vue.unref(ElementPlus.ElTable), {
+                footer: (0, vue.withCtx)(() => [isLikeMode.value ? ((0, vue.openBlock)(), (0, vue.createElementBlock)(vue.Fragment, { key: 0 }, [(0, vue.createVNode)(_component_el_button, { onClick: _cache[11] || (_cache[11] = ($event) => handleCancelLikeSelection()) }, {
+                  default: (0, vue.withCtx)(() => [..._cache[26] || (_cache[26] = [(0, vue.createTextVNode)("取消", -1)])]),
+                  _: 1
+                }), (0, vue.createVNode)(_component_el_button, {
+                  type: "primary",
+                  disabled: likeSelection.value.length === 0,
+                  onClick: handleConfirmLikeSelection
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.createTextVNode)(" 开始点赞（" + (0, vue.toDisplayString)(likeSelection.value.length) + "） ", 1)]),
+                  _: 1
+                }, 8, ["disabled"])], 64)) : ((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_switch, {
+                  key: 1,
+                  modelValue: (0, vue.unref)(uiStore).uiConfig.medalInfoPanelSortMode,
+                  "onUpdate:modelValue": _cache[12] || (_cache[12] = ($event) => (0, vue.unref)(uiStore).uiConfig.medalInfoPanelSortMode = $event),
+                  disabled: !(0, vue.unref)(config).medalTasks.isWhiteList,
+                  "inactive-text": "常规模式",
+                  "active-text": "排序模式",
+                  onChange: _cache[13] || (_cache[13] = (val) => !val && (0, vue.nextTick)(() => initSelection(medalInfoTableData.value)))
+                }, null, 8, ["modelValue", "disabled"]))]),
+                default: (0, vue.withCtx)(() => [isLikeMode.value ? ((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_text, {
+                  key: 0,
+                  type: "info",
+                  class: "like-summary"
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.createTextVNode)(" 共 " + (0, vue.toDisplayString)(likeCandidates.value.length) + " 个直播间可以点赞；今日已点赞 " + (0, vue.toDisplayString)(likeTodayLikes.value) + " 次（上限 " + (0, vue.toDisplayString)(likeDailyLimit.value) + "）。勾选后点击【开始点赞】，关闭窗口视为取消。 ", 1)]),
+                  _: 1
+                })) : (0, vue.createCommentVNode)("", true), (0, vue.createVNode)((0, vue.unref)(vue_draggable_plus.VueDraggable), {
+                  modelValue: medalTableData.value,
+                  "onUpdate:modelValue": _cache[10] || (_cache[10] = ($event) => medalTableData.value = $event),
+                  target: "#draggable-fans-medal-table table tbody",
+                  disabled: isLikeMode.value || !(0, vue.unref)(uiStore).uiConfig.medalInfoPanelSortMode,
+                  animation: 150,
+                  "scroll-sensitivity": 36,
+                  "scroll-speed": 8
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.withDirectives)(((0, vue.openBlock)(), (0, vue.createBlock)((0, vue.unref)(element_plus.ElTable), {
                     id: "draggable-fans-medal-table",
                     ref_key: "medalInfoTableRef",
                     ref: medalInfoTableRef,
-                    data: medalInfoTableData.value,
+                    data: medalTableData.value,
                     "max-height": medalTableMaxHeight,
                     "empty-text": "没有粉丝勋章",
                     "row-key": (row) => row.roomid.toString(),
                     onSelect: handleSelect,
                     onSelectAll: handleSelect,
+                    onSelectionChange: handleSelectionChange,
                     onRowClick: handleRowClick
                   }, {
-                    default: vue.withCtx(() => [
-                      !vue.unref(uiStore).uiConfig.medalInfoPanelSortMode ? (vue.openBlock(), vue.createBlock(_component_el_table_column, {
+                    default: (0, vue.withCtx)(() => [
+                      isLikeMode.value || !(0, vue.unref)(uiStore).uiConfig.medalInfoPanelSortMode ? ((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_table_column, {
                         key: 0,
                         type: "selection",
                         align: "center",
-                        width: "80"
-                      })) : (vue.openBlock(), vue.createBlock(_component_el_table_column, {
+                        width: "60"
+                      })) : ((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_table_column, {
                         key: 1,
                         type: "index",
                         align: "center",
-                        width: "80"
+                        width: "60"
                       })),
-                      vue.createVNode(_component_el_table_column, {
+                      (0, vue.createVNode)(_component_el_table_column, {
                         prop: "avatar",
                         label: "头像",
-                        width: "100"
+                        width: "90"
                       }, {
-                        default: vue.withCtx((scope) => [
-                          vue.createElementVNode("div", _hoisted_1$1, [
-                            vue.createVNode(_component_el_image, {
-                              src: scope.row.avatar,
-                              loading: "lazy",
-                              referrerpolicy: "origin",
-                              class: "avatar"
-                            }, {
-                              error: vue.withCtx(() => [
-                                vue.createVNode(_component_el_image, {
-                                  src: "//i0.hdslb.com/bfs/face/member/noface.jpg",
-                                  referrerpolicy: "origin",
-                                  class: "avatar"
-                                })
-                              ]),
-                              _: 1
-                            }, 8, ["src"])
-                          ])
-                        ]),
+                        default: (0, vue.withCtx)((scope) => [(0, vue.createElementVNode)("div", _hoisted_1$1, [(0, vue.createVNode)(_component_el_image, {
+                          src: scope.row.avatar,
+                          loading: "lazy",
+                          referrerpolicy: "origin",
+                          class: "avatar"
+                        }, {
+                          error: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_image, {
+                            src: "//i0.hdslb.com/bfs/face/member/noface.jpg",
+                            referrerpolicy: "origin",
+                            class: "avatar"
+                          })]),
+                          _: 1
+                        }, 8, ["src"])])]),
                         _: 1
                       }),
-                      vue.createVNode(_component_el_table_column, {
+                      (0, vue.createVNode)(_component_el_table_column, {
                         prop: "nick_name",
-                        label: "昵称"
+                        label: "昵称",
+                        "min-width": "110"
                       }),
-                      vue.createVNode(_component_el_table_column, {
+                      (0, vue.createVNode)(_component_el_table_column, {
                         prop: "medal_name",
-                        label: "粉丝勋章"
+                        label: "粉丝勋章",
+                        "min-width": "100"
                       }),
-                      vue.createVNode(_component_el_table_column, {
+                      (0, vue.createVNode)(_component_el_table_column, {
                         prop: "medal_level",
                         label: "等级",
-                        width: "80"
+                        width: "70",
+                        align: "center"
                       }),
-                      vue.createVNode(_component_el_table_column, {
-                        prop: "roomid",
-                        label: "房间号"
+                      (0, vue.createVNode)(_component_el_table_column, {
+                        label: "点亮状态",
+                        width: "90",
+                        align: "center"
                       }, {
-                        default: vue.withCtx((scope) => [
-                          vue.createVNode(_component_el_link, {
-                            href: "https://live.bilibili.com/" + scope.row.roomid + "?visit_id=",
-                            rel: "noreferrer",
-                            type: "primary",
-                            target: "_blank",
-                            onClick: _cache[11] || (_cache[11] = vue.withModifiers(() => {
-                            }, ["stop"]))
-                          }, {
-                            default: vue.withCtx(() => [
-                              vue.createTextVNode(vue.toDisplayString(scope.row.roomid), 1)
-                            ]),
-                            _: 2
-                          }, 1032, ["href"])
-                        ]),
+                        default: (0, vue.withCtx)((scope) => [(0, vue.createVNode)(_component_el_tag, {
+                          type: scope.row.is_lighted ? "success" : "info",
+                          size: "small",
+                          effect: "plain"
+                        }, {
+                          default: (0, vue.withCtx)(() => [(0, vue.createTextVNode)((0, vue.toDisplayString)(scope.row.is_lighted ? "已点亮" : "未点亮"), 1)]),
+                          _: 2
+                        }, 1032, ["type"])]),
+                        _: 1
+                      }),
+                      isLikeMode.value ? ((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_table_column, {
+                        key: 2,
+                        label: "点赞进度",
+                        width: "150"
+                      }, {
+                        default: (0, vue.withCtx)((scope) => [hasLikeProgress(scope.row) ? ((0, vue.openBlock)(), (0, vue.createElementBlock)(vue.Fragment, { key: 0 }, [(0, vue.createVNode)(_component_el_progress, {
+                          percentage: likePercent(scope.row),
+                          "stroke-width": 6,
+                          "show-text": false
+                        }, null, 8, ["percentage"]), (0, vue.createVNode)(_component_el_text, { size: "small" }, {
+                          default: (0, vue.withCtx)(() => [(0, vue.createTextVNode)((0, vue.toDisplayString)(scope.row.likeProgress) + " / " + (0, vue.toDisplayString)(scope.row.likeProgressTotal), 1)]),
+                          _: 2
+                        }, 1024)], 64)) : ((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_text, {
+                          key: 1,
+                          type: "info"
+                        }, {
+                          default: (0, vue.withCtx)(() => [..._cache[25] || (_cache[25] = [(0, vue.createTextVNode)("—", -1)])]),
+                          _: 1
+                        }))]),
+                        _: 1
+                      })) : (0, vue.createCommentVNode)("", true),
+                      (0, vue.createVNode)(_component_el_table_column, {
+                        prop: "roomid",
+                        label: "房间号",
+                        width: "120"
+                      }, {
+                        default: (0, vue.withCtx)((scope) => [(0, vue.createVNode)(_component_el_link, {
+                          href: "https://live.bilibili.com/" + scope.row.roomid + "?visit_id=",
+                          rel: "noreferrer",
+                          type: "primary",
+                          target: "_blank",
+                          onClick: _cache[9] || (_cache[9] = (0, vue.withModifiers)(() => { }, ["stop"]))
+                        }, {
+                          default: (0, vue.withCtx)(() => [(0, vue.createTextVNode)((0, vue.toDisplayString)(scope.row.roomid), 1)]),
+                          _: 2
+                        }, 1032, ["href"])]),
                         _: 1
                       })
                     ]),
                     _: 1
-                  }, 8, ["data", "row-key"])), [
-                    [_directive_loading, medalInfoLoading.value]
-                  ])
-                ]),
+                  }, 8, ["data", "row-key"])), [[_directive_loading, medalInfoLoading.value]])]),
+                  _: 1
+                }, 8, ["modelValue", "disabled"])]),
                 _: 1
-              }, 8, ["modelValue", "disabled"])
-            ]),
-            _: 1
-          }, 8, ["modelValue"])
-        ]);
-      };
-    }
-  });
-  const LiveTasks = _export_sfc(_sfc_main$9, [["__scopeId", "data-v-ad73e0e2"]]);
-  const _sfc_main$8 = vue.defineComponent({
-    __name: "OtherTasks",
-    setup(__props) {
-      const moduleStore2 = useModuleStore();
-      const config = moduleStore2.moduleConfig.DailyTasks.OtherTasks;
-      const status = moduleStore2.moduleStatus.DailyTasks.OtherTasks;
-      const reset = moduleStore2.moduleReset.DailyTasks.OtherTasks;
-      return (_ctx, _cache) => {
-        const _component_el_switch = vue.resolveComponent("el-switch");
-        const _component_Info = vue.resolveComponent("Info");
-        const _component_TaskStatus = vue.resolveComponent("TaskStatus");
-        const _component_el_space = vue.resolveComponent("el-space");
-        const _component_el_row = vue.resolveComponent("el-row");
-        const _component_el_text = vue.resolveComponent("el-text");
-        const _component_el_option = vue.resolveComponent("el-option");
-        const _component_el_select = vue.resolveComponent("el-select");
-        const _component_el_divider = vue.resolveComponent("el-divider");
-        return vue.openBlock(), vue.createElementBlock("div", null, [
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, { wrap: "" }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).silverToCoin.enabled,
-                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => vue.unref(config).silverToCoin.enabled = $event),
-                    "active-text": "银瓜子换硬币"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).DailyTasks.OtherTasks.silverToCoin
-                  }, null, 8, ["item"]),
-                  vue.createVNode(_component_TaskStatus, {
-                    status: vue.unref(status).silverToCoin,
-                    onClick: vue.unref(reset).silverToCoin
-                  }, null, 8, ["status", "onClick"])
-                ]),
+              }, 8, [
+                "modelValue",
+                "title",
+                "close-on-click-modal"
+              ])
+            ]);
+          };
+        }
+      }), [["__scopeId", "data-v-4e70a9db"]]),
+      OtherTasks: (0, vue.defineComponent)({
+        __name: "OtherTasks",
+        setup(__props) {
+          const moduleStore = useModuleStore();
+          const config = moduleStore.moduleConfig.DailyTasks.OtherTasks;
+          const status = moduleStore.moduleStatus.DailyTasks.OtherTasks;
+          const reset = moduleStore.moduleReset.DailyTasks.OtherTasks;
+          return (_ctx, _cache) => {
+            const _component_el_switch = (0, vue.resolveComponent)("el-switch");
+            const _component_Info = (0, vue.resolveComponent)("Info");
+            const _component_TaskStatus = (0, vue.resolveComponent)("TaskStatus");
+            const _component_el_space = (0, vue.resolveComponent)("el-space");
+            const _component_el_row = (0, vue.resolveComponent)("el-row");
+            const _component_el_text = (0, vue.resolveComponent)("el-text");
+            const _component_el_option = (0, vue.resolveComponent)("el-option");
+            const _component_el_select = (0, vue.resolveComponent)("el-select");
+            const _component_el_divider = (0, vue.resolveComponent)("el-divider");
+            return (0, vue.openBlock)(), (0, vue.createElementBlock)("div", null, [
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, { wrap: "" }, {
+                  default: (0, vue.withCtx)(() => [
+                    (0, vue.createVNode)(_component_el_switch, {
+                      modelValue: (0, vue.unref)(config).silverToCoin.enabled,
+                      "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => (0, vue.unref)(config).silverToCoin.enabled = $event),
+                      "active-text": "银瓜子换硬币"
+                    }, null, 8, ["modelValue"]),
+                    (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).DailyTasks.OtherTasks.silverToCoin }, null, 8, ["item"]),
+                    (0, vue.createVNode)(_component_TaskStatus, {
+                      status: (0, vue.unref)(status).silverToCoin,
+                      onClick: (0, vue.unref)(reset).silverToCoin
+                    }, null, 8, ["status", "onClick"])
+                  ]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).coinToSilver.enabled,
-                    "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => vue.unref(config).coinToSilver.enabled = $event),
-                    "active-text": "硬币换银瓜子"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_el_text, null, {
-                    default: vue.withCtx(() => [..._cache[4] || (_cache[4] = [
-                      vue.createTextVNode("花费硬币", -1)
-                    ])]),
-                    _: 1
-                  }),
-                  vue.createVNode(_component_el_select, {
-                    modelValue: vue.unref(config).coinToSilver.num,
-                    "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => vue.unref(config).coinToSilver.num = $event),
-                    placeholder: "Select",
-                    style: { "width": "64px" }
-                  }, {
-                    default: vue.withCtx(() => [
-                      (vue.openBlock(), vue.createElementBlock(vue.Fragment, null, vue.renderList(50, (i) => {
-                        return vue.createVNode(_component_el_option, {
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [
+                    (0, vue.createVNode)(_component_el_switch, {
+                      modelValue: (0, vue.unref)(config).coinToSilver.enabled,
+                      "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => (0, vue.unref)(config).coinToSilver.enabled = $event),
+                      "active-text": "硬币换银瓜子"
+                    }, null, 8, ["modelValue"]),
+                    (0, vue.createVNode)(_component_el_text, null, {
+                      default: (0, vue.withCtx)(() => [..._cache[4] || (_cache[4] = [(0, vue.createTextVNode)("花费硬币", -1)])]),
+                      _: 1
+                    }),
+                    (0, vue.createVNode)(_component_el_select, {
+                      modelValue: (0, vue.unref)(config).coinToSilver.num,
+                      "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => (0, vue.unref)(config).coinToSilver.num = $event),
+                      placeholder: "Select",
+                      style: { "width": "64px" }
+                    }, {
+                      default: (0, vue.withCtx)(() => [((0, vue.openBlock)(), (0, vue.createElementBlock)(vue.Fragment, null, (0, vue.renderList)(50, (i) => {
+                        return (0, vue.createVNode)(_component_el_option, {
                           key: i,
                           label: i,
                           value: i
                         }, null, 8, ["label", "value"]);
-                      }), 64))
-                    ]),
-                    _: 1
-                  }, 8, ["modelValue"]),
-                  vue.createVNode(_component_el_text, null, {
-                    default: vue.withCtx(() => [..._cache[5] || (_cache[5] = [
-                      vue.createTextVNode("个", -1)
-                    ])]),
-                    _: 1
-                  }),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).DailyTasks.OtherTasks.coinToSilver
-                  }, null, 8, ["item"]),
-                  vue.createVNode(_component_TaskStatus, {
-                    status: vue.unref(status).coinToSilver,
-                    onClick: vue.unref(reset).coinToSilver
-                  }, null, 8, ["status", "onClick"])
-                ]),
+                      }), 64))]),
+                      _: 1
+                    }, 8, ["modelValue"]),
+                    (0, vue.createVNode)(_component_el_text, null, {
+                      default: (0, vue.withCtx)(() => [..._cache[5] || (_cache[5] = [(0, vue.createTextVNode)("个", -1)])]),
+                      _: 1
+                    }),
+                    (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).DailyTasks.OtherTasks.coinToSilver }, null, 8, ["item"]),
+                    (0, vue.createVNode)(_component_TaskStatus, {
+                      status: (0, vue.unref)(status).coinToSilver,
+                      onClick: (0, vue.unref)(reset).coinToSilver
+                    }, null, 8, ["status", "onClick"])
+                  ]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).getYearVipPrivilege.enabled,
-                    "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => vue.unref(config).getYearVipPrivilege.enabled = $event),
-                    "active-text": "领取年度大会员权益"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).DailyTasks.OtherTasks.getYearVipPrivilege
-                  }, null, 8, ["item"]),
-                  vue.createVNode(_component_TaskStatus, {
-                    status: vue.unref(status).getYearVipPrivilege,
-                    onClick: vue.unref(reset).getYearVipPrivilege
-                  }, null, 8, ["status", "onClick"])
-                ]),
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [
+                    (0, vue.createVNode)(_component_el_switch, {
+                      modelValue: (0, vue.unref)(config).getYearVipPrivilege.enabled,
+                      "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => (0, vue.unref)(config).getYearVipPrivilege.enabled = $event),
+                      "active-text": "领取年度大会员权益"
+                    }, null, 8, ["modelValue"]),
+                    (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).DailyTasks.OtherTasks.getYearVipPrivilege }, null, 8, ["item"]),
+                    (0, vue.createVNode)(_component_TaskStatus, {
+                      status: (0, vue.unref)(status).getYearVipPrivilege,
+                      onClick: (0, vue.unref)(reset).getYearVipPrivilege
+                    }, null, 8, ["status", "onClick"])
+                  ]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_divider)
-        ]);
-      };
-    }
-  });
-  const _sfc_main$7 = vue.defineComponent({
-    __name: "EnhanceExperience",
-    setup(__props) {
-      const moduleStore2 = useModuleStore();
-      const config = moduleStore2.moduleConfig.EnhanceExperience;
-      const qualityDescList = ["原画（HDR）", "原画", "蓝光", "超清", "高清"];
-      if (!qualityDescList.includes(config.switchLiveStreamQuality.qualityDesc)) {
-        config.switchLiveStreamQuality.qualityDesc = "原画";
-      }
-      return (_ctx, _cache) => {
-        const _component_el_switch = vue.resolveComponent("el-switch");
-        const _component_el_option = vue.resolveComponent("el-option");
-        const _component_el_select = vue.resolveComponent("el-select");
-        const _component_Info = vue.resolveComponent("Info");
-        const _component_el_space = vue.resolveComponent("el-space");
-        const _component_el_row = vue.resolveComponent("el-row");
-        const _component_el_divider = vue.resolveComponent("el-divider");
-        return vue.openBlock(), vue.createElementBlock("div", null, [
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).switchLiveStreamQuality.enabled,
-                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => vue.unref(config).switchLiveStreamQuality.enabled = $event),
-                    "active-text": "自动切换画质"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_el_select, {
-                    modelValue: vue.unref(config).switchLiveStreamQuality.qualityDesc,
-                    "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => vue.unref(config).switchLiveStreamQuality.qualityDesc = $event),
-                    placeholder: "Select",
-                    style: { "width": "140px" }
-                  }, {
-                    default: vue.withCtx(() => [
-                      (vue.openBlock(), vue.createElementBlock(vue.Fragment, null, vue.renderList(qualityDescList, (i) => {
-                        return vue.createVNode(_component_el_option, {
+              }),
+              (0, vue.createVNode)(_component_el_divider)
+            ]);
+          };
+        }
+      }),
+      EnhanceExperience: (0, vue.defineComponent)({
+        __name: "EnhanceExperience",
+        setup(__props) {
+          const config = useModuleStore().moduleConfig.EnhanceExperience;
+          const qualityDescList = [
+            "原画（HDR）",
+            "原画",
+            "蓝光",
+            "超清",
+            "高清"
+          ];
+          if (!qualityDescList.includes(config.switchLiveStreamQuality.qualityDesc)) config.switchLiveStreamQuality.qualityDesc = "原画";
+          return (_ctx, _cache) => {
+            const _component_el_switch = (0, vue.resolveComponent)("el-switch");
+            const _component_el_option = (0, vue.resolveComponent)("el-option");
+            const _component_el_select = (0, vue.resolveComponent)("el-select");
+            const _component_Info = (0, vue.resolveComponent)("Info");
+            const _component_el_space = (0, vue.resolveComponent)("el-space");
+            const _component_el_row = (0, vue.resolveComponent)("el-row");
+            const _component_el_divider = (0, vue.resolveComponent)("el-divider");
+            return (0, vue.openBlock)(), (0, vue.createElementBlock)("div", null, [
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [
+                    (0, vue.createVNode)(_component_el_switch, {
+                      modelValue: (0, vue.unref)(config).switchLiveStreamQuality.enabled,
+                      "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => (0, vue.unref)(config).switchLiveStreamQuality.enabled = $event),
+                      "active-text": "自动切换画质"
+                    }, null, 8, ["modelValue"]),
+                    (0, vue.createVNode)(_component_el_select, {
+                      modelValue: (0, vue.unref)(config).switchLiveStreamQuality.qualityDesc,
+                      "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => (0, vue.unref)(config).switchLiveStreamQuality.qualityDesc = $event),
+                      placeholder: "Select",
+                      style: { "width": "140px" }
+                    }, {
+                      default: (0, vue.withCtx)(() => [((0, vue.openBlock)(), (0, vue.createElementBlock)(vue.Fragment, null, (0, vue.renderList)(qualityDescList, (i) => {
+                        return (0, vue.createVNode)(_component_el_option, {
                           key: i,
                           label: i,
                           value: i
                         }, null, 8, ["label", "value"]);
-                      }), 64))
-                    ]),
-                    _: 1
-                  }, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).EnhanceExperience.switchLiveStreamQuality
-                  }, null, 8, ["item"])
-                ]),
+                      }), 64))]),
+                      _: 1
+                    }, 8, ["modelValue"]),
+                    (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).EnhanceExperience.switchLiveStreamQuality }, null, 8, ["item"])
+                  ]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).banp2p.enabled,
-                    "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => vue.unref(config).banp2p.enabled = $event),
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_switch, {
+                    modelValue: (0, vue.unref)(config).banp2p.enabled,
+                    "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => (0, vue.unref)(config).banp2p.enabled = $event),
                     "active-text": "禁用P2P"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).EnhanceExperience.banp2p
-                  }, null, 8, ["item"])
-                ]),
+                  }, null, 8, ["modelValue"]), (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).EnhanceExperience.banp2p }, null, 8, ["item"])]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).noReport.enabled,
-                    "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => vue.unref(config).noReport.enabled = $event),
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_switch, {
+                    modelValue: (0, vue.unref)(config).noReport.enabled,
+                    "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => (0, vue.unref)(config).noReport.enabled = $event),
                     "active-text": "拦截日志数据上报"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).EnhanceExperience.noReport
-                  }, null, 8, ["item"])
-                ]),
+                  }, null, 8, ["modelValue"]), (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).EnhanceExperience.noReport }, null, 8, ["item"])]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).noSleep.enabled,
-                    "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => vue.unref(config).noSleep.enabled = $event),
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_switch, {
+                    modelValue: (0, vue.unref)(config).noSleep.enabled,
+                    "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => (0, vue.unref)(config).noSleep.enabled = $event),
                     "active-text": "屏蔽挂机检测"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).EnhanceExperience.noSleep
-                  }, null, 8, ["item"])
-                ]),
+                  }, null, 8, ["modelValue"]), (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).EnhanceExperience.noSleep }, null, 8, ["item"])]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).invisibility.enabled,
-                    "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event) => vue.unref(config).invisibility.enabled = $event),
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_switch, {
+                    modelValue: (0, vue.unref)(config).invisibility.enabled,
+                    "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event) => (0, vue.unref)(config).invisibility.enabled = $event),
                     "active-text": "隐身入场"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).EnhanceExperience.invisibility
-                  }, null, 8, ["item"])
-                ]),
+                  }, null, 8, ["modelValue"]), (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).EnhanceExperience.invisibility }, null, 8, ["item"])]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_divider)
-        ]);
-      };
-    }
-  });
-  const _sfc_main$6 = vue.defineComponent({
-    __name: "RemoveElement",
-    setup(__props) {
-      const moduleStore2 = useModuleStore();
-      const config = moduleStore2.moduleConfig.RemoveElement;
-      return (_ctx, _cache) => {
-        const _component_el_switch = vue.resolveComponent("el-switch");
-        const _component_Info = vue.resolveComponent("Info");
-        const _component_el_space = vue.resolveComponent("el-space");
-        const _component_el_row = vue.resolveComponent("el-row");
-        const _component_el_divider = vue.resolveComponent("el-divider");
-        return vue.openBlock(), vue.createElementBlock("div", null, [
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).removePKBox.enabled,
-                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => vue.unref(config).removePKBox.enabled = $event),
+              }),
+              (0, vue.createVNode)(_component_el_divider)
+            ]);
+          };
+        }
+      }),
+      RemoveElement: (0, vue.defineComponent)({
+        __name: "RemoveElement",
+        setup(__props) {
+          const config = useModuleStore().moduleConfig.RemoveElement;
+          return (_ctx, _cache) => {
+            const _component_el_switch = (0, vue.resolveComponent)("el-switch");
+            const _component_Info = (0, vue.resolveComponent)("Info");
+            const _component_el_space = (0, vue.resolveComponent)("el-space");
+            const _component_el_row = (0, vue.resolveComponent)("el-row");
+            const _component_el_divider = (0, vue.resolveComponent)("el-divider");
+            return (0, vue.openBlock)(), (0, vue.createElementBlock)("div", null, [
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_switch, {
+                    modelValue: (0, vue.unref)(config).removePKBox.enabled,
+                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => (0, vue.unref)(config).removePKBox.enabled = $event),
                     "active-text": "移除大乱斗元素"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).RemoveElement.removePKBox
-                  }, null, 8, ["item"])
-                ]),
+                  }, null, 8, ["modelValue"]), (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).RemoveElement.removePKBox }, null, 8, ["item"])]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).removeLiveWaterMark.enabled,
-                    "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => vue.unref(config).removeLiveWaterMark.enabled = $event),
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_switch, {
+                    modelValue: (0, vue.unref)(config).removeLiveWaterMark.enabled,
+                    "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => (0, vue.unref)(config).removeLiveWaterMark.enabled = $event),
                     "active-text": "移除直播间水印"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).RemoveElement.removeLiveWaterMark
-                  }, null, 8, ["item"])
-                ]),
+                  }, null, 8, ["modelValue"]), (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).RemoveElement.removeLiveWaterMark }, null, 8, ["item"])]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).removeShopPopover.enabled,
-                    "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => vue.unref(config).removeShopPopover.enabled = $event),
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_switch, {
+                    modelValue: (0, vue.unref)(config).removeShopPopover.enabled,
+                    "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => (0, vue.unref)(config).removeShopPopover.enabled = $event),
                     "active-text": "移除直播间小橙车弹窗"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).RemoveElement.removeShopPopover
-                  }, null, 8, ["item"])
-                ]),
+                  }, null, 8, ["modelValue"]), (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).RemoveElement.removeShopPopover }, null, 8, ["item"])]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).removeGameParty.enabled,
-                    "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => vue.unref(config).removeGameParty.enabled = $event),
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_switch, {
+                    modelValue: (0, vue.unref)(config).removeGameParty.enabled,
+                    "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => (0, vue.unref)(config).removeGameParty.enabled = $event),
                     "active-text": "移除直播间幻星派对标志"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).RemoveElement.removeGameParty
-                  }, null, 8, ["item"])
-                ]),
+                  }, null, 8, ["modelValue"]), (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).RemoveElement.removeGameParty }, null, 8, ["item"])]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).removeGiftPopover.enabled,
-                    "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => vue.unref(config).removeGiftPopover.enabled = $event),
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_switch, {
+                    modelValue: (0, vue.unref)(config).removeGiftPopover.enabled,
+                    "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => (0, vue.unref)(config).removeGiftPopover.enabled = $event),
                     "active-text": "移除礼物赠送提示弹窗"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).RemoveElement.removeGiftPopover
-                  }, null, 8, ["item"])
-                ]),
+                  }, null, 8, ["modelValue"]), (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).RemoveElement.removeGiftPopover }, null, 8, ["item"])]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).removeMicPopover.enabled,
-                    "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event) => vue.unref(config).removeMicPopover.enabled = $event),
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_switch, {
+                    modelValue: (0, vue.unref)(config).removeMicPopover.enabled,
+                    "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event) => (0, vue.unref)(config).removeMicPopover.enabled = $event),
                     "active-text": "移除连麦状态提示"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).RemoveElement.removeMicPopover
-                  }, null, 8, ["item"])
-                ]),
+                  }, null, 8, ["modelValue"]), (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).RemoveElement.removeMicPopover }, null, 8, ["item"])]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).removeComboCard.enabled,
-                    "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => vue.unref(config).removeComboCard.enabled = $event),
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_switch, {
+                    modelValue: (0, vue.unref)(config).removeComboCard.enabled,
+                    "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => (0, vue.unref)(config).removeComboCard.enabled = $event),
                     "active-text": "移除直播间相同弹幕连续提示"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).RemoveElement.removeComboCard
-                  }, null, 8, ["item"])
-                ]),
+                  }, null, 8, ["modelValue"]), (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).RemoveElement.removeComboCard }, null, 8, ["item"])]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).removeHeaderStuff.enabled,
-                    "onUpdate:modelValue": _cache[7] || (_cache[7] = ($event) => vue.unref(config).removeHeaderStuff.enabled = $event),
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_switch, {
+                    modelValue: (0, vue.unref)(config).removeHeaderStuff.enabled,
+                    "onUpdate:modelValue": _cache[7] || (_cache[7] = ($event) => (0, vue.unref)(config).removeHeaderStuff.enabled = $event),
                     "active-text": "移除直播画面上方杂项"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).RemoveElement.removeHeaderStuff
-                  }, null, 8, ["item"])
-                ]),
+                  }, null, 8, ["modelValue"]), (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).RemoveElement.removeHeaderStuff }, null, 8, ["item"])]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).removeFlipView.enabled,
-                    "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => vue.unref(config).removeFlipView.enabled = $event),
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_switch, {
+                    modelValue: (0, vue.unref)(config).removeFlipView.enabled,
+                    "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => (0, vue.unref)(config).removeFlipView.enabled = $event),
                     "active-text": "移除礼物栏下方广告"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).RemoveElement.removeFlipView
-                  }, null, 8, ["item"])
-                ]),
+                  }, null, 8, ["modelValue"]), (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).RemoveElement.removeFlipView }, null, 8, ["item"])]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_row, null, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
-                wrap: "",
-                size: [8, 0]
-              }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_switch, {
-                    modelValue: vue.unref(config).removeLiveMosaic.enabled,
-                    "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => vue.unref(config).removeLiveMosaic.enabled = $event),
+              }),
+              (0, vue.createVNode)(_component_el_row, null, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
+                  wrap: "",
+                  size: [8, 0]
+                }, {
+                  default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_switch, {
+                    modelValue: (0, vue.unref)(config).removeLiveMosaic.enabled,
+                    "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => (0, vue.unref)(config).removeLiveMosaic.enabled = $event),
                     "active-text": "移除直播间马赛克"
-                  }, null, 8, ["modelValue"]),
-                  vue.createVNode(_component_Info, {
-                    item: vue.unref(helpInfo).RemoveElement.removeLiveMosaic
-                  }, null, 8, ["item"])
-                ]),
+                  }, null, 8, ["modelValue"]), (0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).RemoveElement.removeLiveMosaic }, null, 8, ["item"])]),
+                  _: 1
+                })]),
                 _: 1
-              })
-            ]),
-            _: 1
-          }),
-          vue.createVNode(_component_el_divider)
-        ]);
-      };
-    }
-  });
-  const _sfc_main$5 = vue.defineComponent({
-    __name: "ScriptSettings",
-    setup(__props) {
-      const uiConfig = useUIStore().uiConfig;
-      return (_ctx, _cache) => {
-        const _component_el_text = vue.resolveComponent("el-text");
-        const _component_el_slider = vue.resolveComponent("el-slider");
-        const _component_el_space = vue.resolveComponent("el-space");
-        const _component_el_row = vue.resolveComponent("el-row");
-        return vue.openBlock(), vue.createElementBlock("div", null, [
-          vue.createVNode(_component_el_row, { align: "middle" }, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_component_el_space, {
+              }),
+              (0, vue.createVNode)(_component_el_divider)
+            ]);
+          };
+        }
+      }),
+      ScriptSettings: _plugin_vue_export_helper_default((0, vue.defineComponent)({
+        __name: "ScriptSettings",
+        setup(__props) {
+          const uiConfig = useUIStore().uiConfig;
+          return (_ctx, _cache) => {
+            const _component_el_text = (0, vue.resolveComponent)("el-text");
+            const _component_el_slider = (0, vue.resolveComponent)("el-slider");
+            const _component_el_space = (0, vue.resolveComponent)("el-space");
+            const _component_el_row = (0, vue.resolveComponent)("el-row");
+            return (0, vue.openBlock)(), (0, vue.createElementBlock)("div", null, [(0, vue.createVNode)(_component_el_row, { align: "middle" }, {
+              default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_space, {
                 wrap: "",
                 size: [16, 0]
               }, {
-                default: vue.withCtx(() => [
-                  vue.createVNode(_component_el_text, { class: "label-text" }, {
-                    default: vue.withCtx(() => [..._cache[1] || (_cache[1] = [
-                      vue.createTextVNode("控制面板宽度", -1)
-                    ])]),
-                    _: 1
-                  }),
-                  vue.createVNode(_component_el_slider, {
-                    modelValue: vue.unref(uiConfig).panelWidthPercent,
-                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => vue.unref(uiConfig).panelWidthPercent = $event),
-                    style: { "width": "150px" },
-                    class: "slider",
-                    min: 30,
-                    max: 60
-                  }, null, 8, ["modelValue"])
-                ]),
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_text, { class: "label-text" }, {
+                  default: (0, vue.withCtx)(() => [..._cache[1] || (_cache[1] = [(0, vue.createTextVNode)("控制面板宽度", -1)])]),
+                  _: 1
+                }), (0, vue.createVNode)(_component_el_slider, {
+                  modelValue: (0, vue.unref)(uiConfig).panelWidthPercent,
+                  "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => (0, vue.unref)(uiConfig).panelWidthPercent = $event),
+                  style: { "width": "150px" },
+                  class: "slider",
+                  min: 30,
+                  max: 60
+                }, null, 8, ["modelValue"])]),
                 _: 1
-              })
-            ]),
-            _: 1
-          })
-        ]);
-      };
+              })]),
+              _: 1
+            })]);
+          };
+        }
+      }), [["__scopeId", "data-v-0ed6e292"]])
     }
   });
-  const ScriptSettings = _export_sfc(_sfc_main$5, [["__scopeId", "data-v-0ed6e292"]]);
-  const __default__ = vue.defineComponent({
-    components: {
-      MainSiteTasks: _sfc_main$a,
-      LiveTasks,
-      OtherTasks: _sfc_main$8,
-      EnhanceExperience: _sfc_main$7,
-      RemoveElement: _sfc_main$6,
-      ScriptSettings
-    }
-  });
-  const _sfc_main$4 = vue.defineComponent({
+  var PanelMain_default = (0, vue.defineComponent)({
     ...__default__,
     __name: "PanelMain",
     setup(__props) {
       const uiStore = useUIStore();
       return (_ctx, _cache) => {
-        return vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent(vue.unref(uiStore).uiConfig.activeMenuIndex));
+        return (0, vue.openBlock)(), (0, vue.createBlock)((0, vue.resolveDynamicComponent)((0, vue.unref)(uiStore).uiConfig.activeMenuIndex));
       };
     }
   });
-  const _sfc_main$3 = vue.defineComponent({
+  var App_default = _plugin_vue_export_helper_default((0, vue.defineComponent)({
     __name: "App",
     setup(__props) {
       const uiStore = useUIStore();
-      const logger2 = new Logger("App.vue");
+      const logger = new Logger("App.vue");
       const isShowPanel = uiStore.uiConfig.isShowPanel;
       uiStore.uiConfig.isShowPanel = false;
       let button;
@@ -6097,7 +5247,7 @@
         uiStore.changeShowPanel();
         button.innerText = uiStore.isShowPanelButtonText;
       }
-      const throttleButtonOnClick = _.throttle(buttonOnClick, 300);
+      const throttleButtonOnClick = lodash.default.throttle(buttonOnClick, 300);
       const livePlayer = dq(".player-section");
       if (livePlayer) {
         updatePosition();
@@ -6107,105 +5257,66 @@
           button.onclick = throttleButtonOnClick;
           button.innerText = uiStore.isShowPanelButtonText;
           const firstChild = normalRowCtnr.firstChild;
-          if (firstChild) {
-            firstChild.after(button);
-          } else {
-            logger2.warn(".normal-row-ctnr 没有子节点", normalRowCtnr);
+          if (firstChild) firstChild.after(button);
+          else {
+            logger.warn(".normal-row-ctnr 没有子节点", normalRowCtnr);
             normalRowCtnr.appendChild(button);
           }
-          if (!isSelfTopFrame()) {
-            hotkeys(
-              "alt+b",
-              {
-                element: topFrameDocumentElement()
-              },
-              throttleButtonOnClick
-            );
-          }
-          hotkeys("alt+b", throttleButtonOnClick);
-        }).catch((e) => logger2.error(e));
+          if (!isSelfTopFrame()) (0, hotkeys_js.default)("alt+b", { element: topFrameDocumentElement() }, throttleButtonOnClick);
+          (0, hotkeys_js.default)("alt+b", throttleButtonOnClick);
+        }).catch((e) => logger.error(e));
         window.addEventListener("resize", () => updatePosition());
         const observer = new MutationObserver(() => updatePosition());
         observer.observe(document.body, { attributes: true });
         observer.observe(document.documentElement, { attributes: true });
-        if (isShowPanel) {
-          uiStore.uiConfig.isShowPanel = true;
-        }
-      } else {
-        logger2.error("livePlayer not found");
-      }
+        if (isShowPanel) uiStore.uiConfig.isShowPanel = true;
+      } else logger.error("livePlayer not found");
       return (_ctx, _cache) => {
-        const _component_el_header = vue.resolveComponent("el-header");
-        const _component_el_aside = vue.resolveComponent("el-aside");
-        const _component_el_scrollbar = vue.resolveComponent("el-scrollbar");
-        const _component_el_main = vue.resolveComponent("el-main");
-        const _component_el_container = vue.resolveComponent("el-container");
-        const _component_el_collapse_transition = vue.resolveComponent("el-collapse-transition");
-        return vue.openBlock(), vue.createBlock(_component_el_collapse_transition, null, {
-          default: vue.withCtx(() => [
-            vue.withDirectives(vue.createVNode(_component_el_container, {
-              style: vue.normalizeStyle(vue.unref(uiStore).panelStyle),
-              class: "base"
-            }, {
-              default: vue.withCtx(() => [
-                vue.createVNode(_component_el_header, { class: "header" }, {
-                  default: vue.withCtx(() => [
-                    vue.createVNode(PanelHeader)
-                  ]),
-                  _: 1
-                }),
-                vue.createVNode(_component_el_container, null, {
-                  default: vue.withCtx(() => [
-                    vue.createVNode(_component_el_aside, { class: "aside" }, {
-                      default: vue.withCtx(() => [
-                        vue.createVNode(PanelAside)
-                      ]),
-                      _: 1
-                    }),
-                    vue.createVNode(_component_el_main, { class: "main" }, {
-                      default: vue.withCtx(() => [
-                        vue.createVNode(_component_el_scrollbar, {
-                          height: vue.unref(uiStore).scrollBarHeight
-                        }, {
-                          default: vue.withCtx(() => [
-                            (vue.openBlock(), vue.createBlock(vue.KeepAlive, null, [
-                              vue.createVNode(vue.Transition, {
-                                name: "fade",
-                                mode: "out-in"
-                              }, {
-                                default: vue.withCtx(() => [
-                                  vue.createVNode(_sfc_main$4, { class: "panel-main" })
-                                ]),
-                                _: 1
-                              })
-                            ], 1024))
-                          ]),
-                          _: 1
-                        }, 8, ["height"])
-                      ]),
-                      _: 1
-                    })
-                  ]),
-                  _: 1
-                })
-              ]),
+        const _component_el_header = (0, vue.resolveComponent)("el-header");
+        const _component_el_aside = (0, vue.resolveComponent)("el-aside");
+        const _component_el_scrollbar = (0, vue.resolveComponent)("el-scrollbar");
+        const _component_el_main = (0, vue.resolveComponent)("el-main");
+        const _component_el_container = (0, vue.resolveComponent)("el-container");
+        const _component_el_collapse_transition = (0, vue.resolveComponent)("el-collapse-transition");
+        return (0, vue.openBlock)(), (0, vue.createBlock)(_component_el_collapse_transition, null, {
+          default: (0, vue.withCtx)(() => [(0, vue.withDirectives)((0, vue.createVNode)(_component_el_container, {
+            style: (0, vue.normalizeStyle)((0, vue.unref)(uiStore).panelStyle),
+            class: "base"
+          }, {
+            default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_header, { class: "header" }, {
+              default: (0, vue.withCtx)(() => [(0, vue.createVNode)(PanelHeader_default)]),
               _: 1
-            }, 8, ["style"]), [
-              [vue.vShow, vue.unref(uiStore).uiConfig.isShowPanel]
-            ])
-          ]),
+            }), (0, vue.createVNode)(_component_el_container, null, {
+              default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_aside, { class: "aside" }, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(PanelAside_default)]),
+                _: 1
+              }), (0, vue.createVNode)(_component_el_main, { class: "main" }, {
+                default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_scrollbar, { height: (0, vue.unref)(uiStore).scrollBarHeight }, {
+                  default: (0, vue.withCtx)(() => [((0, vue.openBlock)(), (0, vue.createBlock)(vue.KeepAlive, null, [(0, vue.createVNode)(vue.Transition, {
+                    name: "fade",
+                    mode: "out-in"
+                  }, {
+                    default: (0, vue.withCtx)(() => [(0, vue.createVNode)(PanelMain_default, { class: "panel-main" })]),
+                    _: 1
+                  })], 1024))]),
+                  _: 1
+                }, 8, ["height"])]),
+                _: 1
+              })]),
+              _: 1
+            })]),
+            _: 1
+          }, 8, ["style"]), [[vue.vShow, (0, vue.unref)(uiStore).uiConfig.isShowPanel]])]),
           _: 1
         });
       };
     }
-  });
-  const App = _export_sfc(_sfc_main$3, [["__scopeId", "data-v-28de2807"]]);
-  const cssLoader = (e) => _GM_addStyle(_GM_getResourceText(e));
+  }), [["__scopeId", "data-v-28de2807"]]);
+  var cssLoader = (name) => _GM_addStyle(_GM_getResourceText(name));
   cssLoader("element-plus/dist/index.css");
-  const elementDarkCssVarsCss = "html[lab-style*=dark]{color-scheme:dark;--el-color-primary: #409eff;--el-color-primary-light-3: rgb(51 117 185);--el-color-primary-light-5: rgb(42 89 138);--el-color-primary-light-7: rgb(33 61 91);--el-color-primary-light-8: rgb(29 48 67);--el-color-primary-light-9: rgb(24 34 43);--el-color-primary-dark-2: rgb(102 177 255);--el-color-success: #67c23a;--el-color-success-light-3: rgb(78 142 47);--el-color-success-light-5: rgb(62 107 39);--el-color-success-light-7: rgb(45 72 31);--el-color-success-light-8: rgb(37 55 28);--el-color-success-light-9: rgb(28 37 24);--el-color-success-dark-2: rgb(133 206 97);--el-color-warning: #e6a23c;--el-color-warning-light-3: rgb(167 119 48);--el-color-warning-light-5: rgb(125 91 40);--el-color-warning-light-7: rgb(83 63 32);--el-color-warning-light-8: rgb(62 48 28);--el-color-warning-light-9: rgb(41 34 24);--el-color-warning-dark-2: rgb(235 181 99);--el-color-danger: #f56c6c;--el-color-danger-light-3: rgb(178 82 82);--el-color-danger-light-5: rgb(133 64 64);--el-color-danger-light-7: rgb(88 46 46);--el-color-danger-light-8: rgb(65 38 38);--el-color-danger-light-9: rgb(42 29 29);--el-color-danger-dark-2: rgb(247 137 137);--el-color-error: #f56c6c;--el-color-error-light-3: rgb(178 82 82);--el-color-error-light-5: rgb(133 64 64);--el-color-error-light-7: rgb(88 46 46);--el-color-error-light-8: rgb(65 38 38);--el-color-error-light-9: rgb(42 29 29);--el-color-error-dark-2: rgb(247 137 137);--el-color-info: #909399;--el-color-info-light-3: rgb(107 109 113);--el-color-info-light-5: rgb(82 84 87);--el-color-info-light-7: rgb(57 58 60);--el-color-info-light-8: rgb(45 45 47);--el-color-info-light-9: rgb(32 33 33);--el-color-info-dark-2: rgb(166 169 173);--el-box-shadow: 0px 12px 32px 4px rgb(0 0 0 / 36%), 0px 8px 20px rgb(0 0 0 / 72%);--el-box-shadow-light: 0px 0px 12px rgb(0 0 0 / 72%);--el-box-shadow-lighter: 0px 0px 6px rgb(0 0 0 / 72%);--el-box-shadow-dark: 0px 16px 48px 16px rgb(0 0 0 / 72%), 0px 12px 32px #000, 0px 8px 16px -8px #000;--el-bg-color-page: #0a0a0a;--el-bg-color: #141414;--el-bg-color-overlay: #1d1e1f;--el-text-color-primary: #e5eaf3;--el-text-color-regular: #cfd3dc;--el-text-color-secondary: #a3a6ad;--el-text-color-placeholder: #8d9095;--el-text-color-disabled: #6c6e72;--el-border-color-darker: #636466;--el-border-color-dark: #58585b;--el-border-color: #4c4d4f;--el-border-color-light: #414243;--el-border-color-lighter: #363637;--el-border-color-extra-light: #2b2b2c;--el-fill-color-darker: #424243;--el-fill-color-dark: #39393a;--el-fill-color: #303030;--el-fill-color-light: #262727;--el-fill-color-lighter: #1d1d1d;--el-fill-color-extra-light: #191919;--el-fill-color-blank: transparent;--el-mask-color: rgb(0 0 0 / 80%);--el-mask-color-extra-light: rgb(0 0 0 / 30%)}html[lab-style*=dark] .el-button{--el-button-disabled-text-color: rgb(255 255 255 / 50%)}html[lab-style*=dark] .el-card{--el-card-bg-color: var(--el-bg-color-overlay)}html[lab-style*=dark] .el-empty{--el-empty-fill-color-0: var(--el-color-black);--el-empty-fill-color-1: #4b4b52;--el-empty-fill-color-2: #36383d;--el-empty-fill-color-3: #1e1e20;--el-empty-fill-color-4: #262629;--el-empty-fill-color-5: #202124;--el-empty-fill-color-6: #212224;--el-empty-fill-color-7: #1b1c1f;--el-empty-fill-color-8: #1c1d1f;--el-empty-fill-color-9: #18181a}";
-  importCSS(elementDarkCssVarsCss);
-  const _sfc_main$2 = {};
-  const _hoisted_1 = {
+  _css("/*! Modified from element-plus/theme-chalk/dark/css-vars.css */\nhtml[lab-style*=dark]{--lightningcss-light: ;--lightningcss-dark:initial;color-scheme:dark;--el-color-primary:#409eff;--el-color-primary-light-3:#3375b9;--el-color-primary-light-5:#2a598a;--el-color-primary-light-7:#213d5b;--el-color-primary-light-8:#1d3043;--el-color-primary-light-9:#18222b;--el-color-primary-dark-2:#66b1ff;--el-color-success:#67c23a;--el-color-success-light-3:#4e8e2f;--el-color-success-light-5:#3e6b27;--el-color-success-light-7:#2d481f;--el-color-success-light-8:#25371c;--el-color-success-light-9:#1c2518;--el-color-success-dark-2:#85ce61;--el-color-warning:#e6a23c;--el-color-warning-light-3:#a77730;--el-color-warning-light-5:#7d5b28;--el-color-warning-light-7:#533f20;--el-color-warning-light-8:#3e301c;--el-color-warning-light-9:#292218;--el-color-warning-dark-2:#ebb563;--el-color-danger:#f56c6c;--el-color-danger-light-3:#b25252;--el-color-danger-light-5:#854040;--el-color-danger-light-7:#582e2e;--el-color-danger-light-8:#412626;--el-color-danger-light-9:#2a1d1d;--el-color-danger-dark-2:#f78989;--el-color-error:#f56c6c;--el-color-error-light-3:#b25252;--el-color-error-light-5:#854040;--el-color-error-light-7:#582e2e;--el-color-error-light-8:#412626;--el-color-error-light-9:#2a1d1d;--el-color-error-dark-2:#f78989;--el-color-info:#909399;--el-color-info-light-3:#6b6d71;--el-color-info-light-5:#525457;--el-color-info-light-7:#393a3c;--el-color-info-light-8:#2d2d2f;--el-color-info-light-9:#202121;--el-color-info-dark-2:#a6a9ad;--el-box-shadow:0px 12px 32px 4px #0000005c, 0px 8px 20px #000000b8;--el-box-shadow-light:0px 0px 12px #000000b8;--el-box-shadow-lighter:0px 0px 6px #000000b8;--el-box-shadow-dark:0px 16px 48px 16px #000000b8, 0px 12px 32px #000, 0px 8px 16px -8px #000;--el-bg-color-page:#0a0a0a;--el-bg-color:#141414;--el-bg-color-overlay:#1d1e1f;--el-text-color-primary:#e5eaf3;--el-text-color-regular:#cfd3dc;--el-text-color-secondary:#a3a6ad;--el-text-color-placeholder:#8d9095;--el-text-color-disabled:#6c6e72;--el-border-color-darker:#636466;--el-border-color-dark:#58585b;--el-border-color:#4c4d4f;--el-border-color-light:#414243;--el-border-color-lighter:#363637;--el-border-color-extra-light:#2b2b2c;--el-fill-color-darker:#424243;--el-fill-color-dark:#39393a;--el-fill-color:#303030;--el-fill-color-light:#262727;--el-fill-color-lighter:#1d1d1d;--el-fill-color-extra-light:#191919;--el-fill-color-blank:transparent;--el-mask-color:#000c;--el-mask-color-extra-light:#0000004d}html[lab-style*=dark] .el-button{--el-button-disabled-text-color:#ffffff80}html[lab-style*=dark] .el-card{--el-card-bg-color:var(--el-bg-color-overlay)}html[lab-style*=dark] .el-empty{--el-empty-fill-color-0:var(--el-color-black);--el-empty-fill-color-1:#4b4b52;--el-empty-fill-color-2:#36383d;--el-empty-fill-color-3:#1e1e20;--el-empty-fill-color-4:#262629;--el-empty-fill-color-5:#202124;--el-empty-fill-color-6:#212224;--el-empty-fill-color-7:#1b1c1f;--el-empty-fill-color-8:#1c1d1f;--el-empty-fill-color-9:#18181a}");
+  var _sfc_main = {};
+  var _hoisted_1 = {
     xmlns: "http://www.w3.org/2000/svg",
     width: "128",
     height: "128",
@@ -6213,88 +5324,71 @@
     viewBox: "0 0 1024 1024"
   };
   function _sfc_render(_ctx, _cache) {
-    return vue.openBlock(), vue.createElementBlock("svg", _hoisted_1, [..._cache[0] || (_cache[0] = [
-      vue.createElementVNode("path", { d: "M831.825 63.94H191.94c-70.692 0-128 57.308-128 128v639.885c0 70.692 57.308 128 128 128h639.885c70.692 0 128-57.308 128-128V191.94c0-70.692-57.308-128-128-128zM895.885 832a63.835 63.835 0 0 1-63.973 63.886H192.088c-17.112 0-33.27-6.575-45.372-18.676S127.88 849.112 127.88 832V192a64.236 64.236 0 0 1 64.208-64.12h639.824A64.038 64.038 0 0 1 895.885 192v640z" }, null, -1),
-      vue.createElementVNode("path", { d: "M791.998 351.852H536a31.97 31.97 0 0 0 0 63.94h256a31.97 31.97 0 0 0 0-63.94zm0 256.121H536a31.97 31.97 0 0 0 0 63.94h256a31.97 31.97 0 0 0 0-63.94zm-447.996-79.975c-61.856 0-111.986 50.144-111.986 111.985S282.16 751.97 344.002 751.97s111.985-50.144 111.985-111.986-50.13-111.985-111.985-111.985zm33.982 145.982a48.045 48.045 0 1 1 14.088-33.982 47.746 47.746 0 0 1-14.088 33.986zm39.412-376.586L311.999 402.787l-41.391-41.395a31.97 31.97 0 1 0-45.213 45.213l63.997 64.002a31.97 31.97 0 0 0 45.214 0l128-128a31.97 31.97 0 0 0-45.21-45.213z" }, null, -1)
-    ])]);
+    return (0, vue.openBlock)(), (0, vue.createElementBlock)("svg", _hoisted_1, [..._cache[0] || (_cache[0] = [(0, vue.createElementVNode)("path", { d: "M831.825 63.94H191.94c-70.692 0-128 57.308-128 128v639.885c0 70.692 57.308 128 128 128h639.885c70.692 0 128-57.308 128-128V191.94c0-70.692-57.308-128-128-128zM895.885 832a63.835 63.835 0 0 1-63.973 63.886H192.088c-17.112 0-33.27-6.575-45.372-18.676S127.88 849.112 127.88 832V192a64.236 64.236 0 0 1 64.208-64.12h639.824A64.038 64.038 0 0 1 895.885 192v640z" }, null, -1), (0, vue.createElementVNode)("path", { d: "M791.998 351.852H536a31.97 31.97 0 0 0 0 63.94h256a31.97 31.97 0 0 0 0-63.94zm0 256.121H536a31.97 31.97 0 0 0 0 63.94h256a31.97 31.97 0 0 0 0-63.94zm-447.996-79.975c-61.856 0-111.986 50.144-111.986 111.985S282.16 751.97 344.002 751.97s111.985-50.144 111.985-111.986-50.13-111.985-111.985-111.985zm33.982 145.982a48.045 48.045 0 1 1 14.088-33.982 47.746 47.746 0 0 1-14.088 33.986zm39.412-376.586L311.999 402.787l-41.391-41.395a31.97 31.97 0 1 0-45.213 45.213l63.997 64.002a31.97 31.97 0 0 0 45.214 0l128-128a31.97 31.97 0 0 0-45.21-45.213z" }, null, -1)])]);
   }
-  const TasksIcon = _export_sfc(_sfc_main$2, [["render", _sfc_render]]);
-  const _sfc_main$1 = vue.defineComponent({
+  var TasksIcon_default = _plugin_vue_export_helper_default(_sfc_main, [["render", _sfc_render]]);
+  var InfoIcon_default = _plugin_vue_export_helper_default((0, vue.defineComponent)({
     __name: "InfoIcon",
-    props: {
-      item: {}
-    },
+    props: { item: {} },
     setup(__props) {
       const props = __props;
       const open = () => {
         const { title, message } = props.item;
-        ElementPlus.ElMessageBox({
+        (0, element_plus.ElMessageBox)({
           title,
           message,
           lockScroll: false,
           autofocus: true,
           confirmButtonText: "OK"
-        }).catch(() => {
-        });
+        }).catch(() => { });
       };
       return (_ctx, _cache) => {
-        const _component_el_icon = vue.resolveComponent("el-icon");
-        return vue.openBlock(), vue.createBlock(_component_el_icon, {
+        const _component_el_icon = (0, vue.resolveComponent)("el-icon");
+        return (0, vue.openBlock)(), (0, vue.createBlock)(_component_el_icon, {
           class: "info-icon",
           onClick: open
         }, {
-          default: vue.withCtx(() => [..._cache[0] || (_cache[0] = [
-            vue.createElementVNode("svg", {
-              xmlns: "http://www.w3.org/2000/svg",
-              width: "128",
-              height: "128",
-              class: "icon",
-              viewBox: "0 0 1024 1024"
-            }, [
-              vue.createElementVNode("path", {
-                fill: "#276BC0",
-                d: "M512.67 959.47c-246.343 0-446.76-200.632-446.76-447.24S266.326 64.98 512.67 64.98s446.76 200.642 446.76 447.25-200.416 447.24-446.76 447.24zm0-829.04c-210.291 0-381.38 171.283-381.38 381.8s171.089 381.79 381.38 381.79 381.381-171.273 381.381-381.79-171.09-381.8-381.38-381.8z"
-              }),
-              vue.createElementVNode("path", {
-                fill: "#276BC0",
-                d: "M447.29 317.172a63.891 63.959 0 1 0 130.76 0 63.891 63.959 0 1 0-130.76 0Zm64.907 503.047c-30.093 0-54.235-24.416-54.235-54.541V482.062c0-30.126 24.142-54.541 54.235-54.541 30.094 0 54.236 24.416 54.236 54.541v283.616c0 30.125-24.142 54.54-54.236 54.54z"
-              })
-            ], -1)
-          ])]),
+          default: (0, vue.withCtx)(() => [..._cache[0] || (_cache[0] = [(0, vue.createElementVNode)("svg", {
+            xmlns: "http://www.w3.org/2000/svg",
+            width: "128",
+            height: "128",
+            class: "icon",
+            viewBox: "0 0 1024 1024"
+          }, [(0, vue.createElementVNode)("path", {
+            fill: "#276BC0",
+            d: "M512.67 959.47c-246.343 0-446.76-200.632-446.76-447.24S266.326 64.98 512.67 64.98s446.76 200.642 446.76 447.25-200.416 447.24-446.76 447.24zm0-829.04c-210.291 0-381.38 171.283-381.38 381.8s171.089 381.79 381.38 381.79 381.381-171.273 381.381-381.79-171.09-381.8-381.38-381.8z"
+          }), (0, vue.createElementVNode)("path", {
+            fill: "#276BC0",
+            d: "M447.29 317.172a63.891 63.959 0 1 0 130.76 0 63.891 63.959 0 1 0-130.76 0Zm64.907 503.047c-30.093 0-54.235-24.416-54.235-54.541V482.062c0-30.126 24.142-54.541 54.235-54.541 30.094 0 54.236 24.416 54.236 54.541v283.616c0 30.125-24.142 54.54-54.236 54.54z"
+          })], -1)])]),
           _: 1
         });
       };
     }
-  });
-  const InfoIcon = _export_sfc(_sfc_main$1, [["__scopeId", "data-v-02b5bf3e"]]);
-  const _sfc_main = vue.defineComponent({
+  }), [["__scopeId", "data-v-02b5bf3e"]]);
+  var TaskStatusIcon_default = _plugin_vue_export_helper_default((0, vue.defineComponent)({
     __name: "TaskStatusIcon",
-    props: {
-      status: {}
-    },
+    props: { status: {} },
     emits: ["click"],
     setup(__props, { emit: __emit }) {
       const props = __props;
       const emit = __emit;
-      const throttleClick = _.throttle(() => emit("click"), 1e3);
-      const isHovered = vue.ref(false);
-      const isRunning = vue.computed(() => props.status === "running");
-      const isDone = vue.computed(() => props.status === "done");
-      const isError = vue.computed(() => props.status === "error");
-      const iconComponent = vue.computed(() => {
-        if (isRunning.value) return ElementPlusIconsVue.Loading;
-        if (isDone.value) return isHovered.value ? ElementPlusIconsVue.Refresh : ElementPlusIconsVue.Select;
-        if (isError.value) return ElementPlusIconsVue.CloseBold;
+      const throttleClick = lodash.default.throttle(() => emit("click"), 1e3);
+      const isHovered = (0, vue.ref)(false);
+      const isRunning = (0, vue.computed)(() => props.status === "running");
+      const isDone = (0, vue.computed)(() => props.status === "done");
+      const isError = (0, vue.computed)(() => props.status === "error");
+      const iconComponent = (0, vue.computed)(() => {
+        if (isRunning.value) return _element_plus_icons_vue.Loading;
+        if (isDone.value) return isHovered.value ? _element_plus_icons_vue.Refresh : _element_plus_icons_vue.Select;
+        if (isError.value) return _element_plus_icons_vue.CloseBold;
         return null;
       });
-      vue.watch(
-        () => props.status,
-        () => isHovered.value = false
-      );
+      (0, vue.watch)(() => props.status, () => isHovered.value = false);
       return (_ctx, _cache) => {
-        const _component_el_icon = vue.resolveComponent("el-icon");
-        return vue.withDirectives((vue.openBlock(), vue.createBlock(_component_el_icon, {
-          class: vue.normalizeClass(["status-icon", {
+        const _component_el_icon = (0, vue.resolveComponent)("el-icon");
+        return (0, vue.withDirectives)(((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_icon, {
+          class: (0, vue.normalizeClass)(["status-icon", {
             "is-loading": isRunning.value,
             done: isDone.value,
             error: isError.value,
@@ -6302,58 +5396,43 @@
           }]),
           onMouseenter: _cache[0] || (_cache[0] = ($event) => isDone.value && (isHovered.value = true)),
           onMouseleave: _cache[1] || (_cache[1] = ($event) => isDone.value && (isHovered.value = false)),
-          onClick: _cache[2] || (_cache[2] = ($event) => isDone.value && vue.unref(throttleClick)())
+          onClick: _cache[2] || (_cache[2] = ($event) => isDone.value && (0, vue.unref)(throttleClick)())
         }, {
-          default: vue.withCtx(() => [
-            isDone.value ? (vue.openBlock(), vue.createBlock(vue.Transition, {
-              key: 0,
-              name: "icon-fade",
-              mode: "out-in"
-            }, {
-              default: vue.withCtx(() => [
-                (vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent(iconComponent.value)))
-              ]),
-              _: 1
-            })) : (vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent(iconComponent.value), { key: 1 }))
-          ]),
+          default: (0, vue.withCtx)(() => [isDone.value ? ((0, vue.openBlock)(), (0, vue.createBlock)(vue.Transition, {
+            key: 0,
+            name: "icon-fade",
+            mode: "out-in"
+          }, {
+            default: (0, vue.withCtx)(() => [((0, vue.openBlock)(), (0, vue.createBlock)((0, vue.resolveDynamicComponent)(iconComponent.value)))]),
+            _: 1
+          })) : ((0, vue.openBlock)(), (0, vue.createBlock)((0, vue.resolveDynamicComponent)(iconComponent.value), { key: 1 }))]),
           _: 1
-        }, 8, ["class"])), [
-          [vue.vShow, __props.status]
-        ]);
+        }, 8, ["class"])), [[vue.vShow, __props.status]]);
       };
     }
+  }), [["__scopeId", "data-v-16fb8116"]]);
+  var icons_exports = __exportAll({
+    Info: () => InfoIcon_default,
+    TaskStatus: () => TaskStatusIcon_default,
+    Tasks: () => TasksIcon_default
   });
-  const TaskStatusIcon = _export_sfc(_sfc_main, [["__scopeId", "data-v-16fb8116"]]);
-  const MyIconsVue = Object.freeze(Object.defineProperty({
-    __proto__: null,
-    Info: InfoIcon,
-    TaskStatus: TaskStatusIcon,
-    Tasks: TasksIcon
-  }, Symbol.toStringTag, { value: "Module" }));
-  const baseCss = ".blth-btn{padding:5px;margin-left:15px;font-size:small;line-height:10px;color:#fff;cursor:pointer;background-color:#23ade5;border:none;border-radius:4px;box-shadow:0 0 2px #00000075}.blth-btn:hover{background-color:#1097cc}.blth-btn:hover:active{position:relative;top:1px;background-color:#0e86b6}.el-message-box ul,ol{padding-left:1em!important}.el-message-box ul{list-style:initial!important}.el-message-box ol{list-style:decimal!important}@media screen and (min-width:1930px){html[lab-style*=adaptive] .base{zoom:.9375}}@media screen and (min-width:2058px){html[lab-style*=adaptive] .base{zoom:.75}}@media screen and (min-width:2570px){html[lab-style*=adaptive] .base{zoom:calc(2 / 3)}}@media screen and (min-width:3210px){html[lab-style*=adaptive] .base{zoom:.5}}@media screen and (min-width:3850px){html[lab-style*=adaptive] .base{zoom:.46875}}";
-  importCSS(baseCss);
-  const logger = new Logger("Main");
+  _css(".blth-btn{color:#fff;cursor:pointer;background-color:#23ade5;border:none;border-radius:4px;margin-left:15px;padding:5px;font-size:small;line-height:10px;box-shadow:0 0 2px #00000075}.blth-btn:hover{background-color:#1097cc}.blth-btn:hover:active{background-color:#0e86b6;position:relative;top:1px}.el-message-box ul,ol{padding-left:1em!important}.el-message-box ul{list-style:initial!important}.el-message-box ol{list-style:decimal!important}@media screen and (width>=1930px){html[lab-style*=adaptive] .base{zoom:calc(15 / 16)}}@media screen and (width>=2058px){html[lab-style*=adaptive] .base{zoom:calc(3 / 4)}}@media screen and (width>=2570px){html[lab-style*=adaptive] .base{zoom:calc(2 / 3)}}@media screen and (width>=3210px){html[lab-style*=adaptive] .base{zoom:calc(1 / 2)}}@media screen and (width>=3850px){html[lab-style*=adaptive] .base{zoom:calc(15 / 32)}}");
+  var logger = new Logger("Main");
   logger.log("document.readyState", document.readyState);
-  const pinia = pinia$1.createPinia();
-  const cacheStore = useCacheStore(pinia);
-  const moduleStore = useModuleStore(pinia);
+  var pinia$1 = (0, pinia.createPinia)();
+  var cacheStore = useCacheStore(pinia$1);
+  var moduleStore = useModuleStore(pinia$1);
   cacheStore.checkCurrentScriptType();
   logger.log("当前脚本的类型为", cacheStore.currentScriptType);
-  if (cacheStore.currentScriptType === "Main") {
-    cacheStore.startMainBLTHAliveHeartBeat();
-  }
+  if (cacheStore.currentScriptType === "Main") cacheStore.startMainBLTHAliveHeartBeat();
   moduleStore.loadModules("unknown");
   await (waitForMoment("document-body"));
   if (isTargetFrame()) {
-    const app = vue.createApp(App);
-    app.use(ElementPlus);
-    app.use(pinia);
-    for (const [key, component] of Object.entries(ElementPlusIconsVue__namespace)) {
-      app.component(key, component);
-    }
-    for (const [key, component] of Object.entries(MyIconsVue)) {
-      app.component(key, component);
-    }
+    const app = (0, vue.createApp)(App_default);
+    app.use(element_plus.default);
+    app.use(pinia$1);
+    for (const [key, component] of Object.entries(_element_plus_icons_vue)) app.component(key, component);
+    for (const [key, component] of Object.entries(icons_exports)) app.component(key, component);
     moduleStore.loadModules("yes");
     await (waitForMoment("document-end"));
     const div = dce("div");
@@ -6361,5 +5440,4 @@
     document.body.append(div);
     app.mount(div);
   }
-
 })(Vue, hotkeys, _, Pinia, CryptoJS, luxon, ElementPlusIconsVue, ElementPlus, VueDraggablePlus);
