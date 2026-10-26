@@ -89,14 +89,11 @@
                         ],
                         "_lastCompleteTime": 0,
                         "_todayLightLikes": 0,
-                        "reserveLikeRoomids": [
-                            27628019
-                        ],
-                        "_todayReserveLikes": {}
+                        "_lastLikeTime": 0
                     },
                     "watch": {
-                        "enabled": false,
-                        "time": 150,
+                        "enabled": true,
+                        "time": 180,
                         "_watchingProgress": {},
                         "_lastWatchTime": 0,
                         "_lastCompleteTime": 0
@@ -268,7 +265,6 @@
                         21672024,
                         696067,
                         1727071052,
-                        1700301235,
                         22642754,
                         31368705,
                         850221,
@@ -283,11 +279,12 @@
                         3473884,
                         23945583,
                         3649650,
-                        4634167,
-                        21708004,
                         370468,
                         27628030,
-                        21672023
+                        21672023,
+                        1700301235,
+                        4634167,
+                        21708004
                     ]
                 }
             },
