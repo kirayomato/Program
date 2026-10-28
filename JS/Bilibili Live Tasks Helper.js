@@ -79,7 +79,7 @@
       else (document.head || document.documentElement).appendChild(document.createElement("style")).append(c);
     })(t);
   };
-  _css(" #aside-el-menu[data-v-db397d59]:not(.el-menu--collapse){width:150px}.title[data-v-848fd8cc]{align-items:baseline;padding-left:20px;display:flex}.header-big-text[data-v-848fd8cc]{align-self:unset;font-size:var(--big-text-size)}.header-small-text[data-v-848fd8cc]{align-self:unset;font-size:var(--small-text-size);--small-text-size:18px;margin-left:10px}.collapse-btn[data-v-848fd8cc]{float:left;cursor:pointer;justify-content:center;align-items:center;height:100%;display:flex}.avatar-wrap[data-v-bc17710b]{width:80px;height:80px}.like-summary[data-v-bc17710b]{margin-bottom:8px;line-height:1.7;display:block}.avatar[data-v-bc17710b]{border-radius:50%;justify-content:center;align-items:center;display:flex}.label-text[data-v-0ed6e292]{color:var(--el-text-color-primary);line-height:32px}.base[data-v-28de2807]{z-index:1003;background-color:var(--el-bg-color);position:absolute}.header[data-v-28de2807]{box-sizing:border-box;width:100%;height:60px;font-size:var(--big-text-size);--big-text-size:25px;border-bottom:1px solid #e3e5e7;align-items:center;display:flex;position:relative}.aside[data-v-28de2807]{width:auto}.main[data-v-28de2807]{padding:0}.panel-main[data-v-28de2807]{padding:calc(var(--el-main-padding) * .625) var(--el-main-padding)}.fade-enter-active[data-v-28de2807]{animation:.2s linear fade-in}.info-icon[data-v-02b5bf3e]{font-size:var(--el-font-size-base);cursor:pointer}.status-icon[data-v-16fb8116]{font-size:var(--el-font-size-base)}.done[data-v-16fb8116]{color:#1ab059}.done.is-hovered[data-v-16fb8116]{color:#409eff;cursor:pointer}.error[data-v-16fb8116]{color:#ff6464}.icon-fade-enter-active[data-v-16fb8116],.icon-fade-leave-active[data-v-16fb8116]{transition:all .15s}.icon-fade-enter-from[data-v-16fb8116],.icon-fade-leave-to[data-v-16fb8116]{opacity:0;transform:scale(.8)rotate(90deg)}\n/*$vite$:1*/ ");
+  _css(" #aside-el-menu[data-v-db397d59]:not(.el-menu--collapse){width:150px}.title[data-v-848fd8cc]{align-items:baseline;padding-left:20px;display:flex}.header-big-text[data-v-848fd8cc]{align-self:unset;font-size:var(--big-text-size)}.header-small-text[data-v-848fd8cc]{align-self:unset;font-size:var(--small-text-size);--small-text-size:18px;margin-left:10px}.collapse-btn[data-v-848fd8cc]{float:left;cursor:pointer;justify-content:center;align-items:center;height:100%;display:flex}.avatar-wrap[data-v-59627b65]{width:80px;height:80px}.like-summary[data-v-59627b65]{margin-bottom:8px;line-height:1.7;display:block}.avatar[data-v-59627b65]{border-radius:50%;justify-content:center;align-items:center;display:flex}.label-text[data-v-0ed6e292]{color:var(--el-text-color-primary);line-height:32px}.base[data-v-28de2807]{z-index:1003;background-color:var(--el-bg-color);position:absolute}.header[data-v-28de2807]{box-sizing:border-box;width:100%;height:60px;font-size:var(--big-text-size);--big-text-size:25px;border-bottom:1px solid #e3e5e7;align-items:center;display:flex;position:relative}.aside[data-v-28de2807]{width:auto}.main[data-v-28de2807]{padding:0}.panel-main[data-v-28de2807]{padding:calc(var(--el-main-padding) * .625) var(--el-main-padding)}.fade-enter-active[data-v-28de2807]{animation:.2s linear fade-in}.info-icon[data-v-02b5bf3e]{font-size:var(--el-font-size-base);cursor:pointer}.status-icon[data-v-16fb8116]{font-size:var(--el-font-size-base)}.done[data-v-16fb8116]{color:#1ab059}.done.is-hovered[data-v-16fb8116]{color:#409eff;cursor:pointer}.error[data-v-16fb8116]{color:#ff6464}.icon-fade-enter-active[data-v-16fb8116],.icon-fade-leave-active[data-v-16fb8116]{transition:all .15s}.icon-fade-enter-from[data-v-16fb8116],.icon-fade-leave-to[data-v-16fb8116]{opacity:0;transform:scale(.8)rotate(90deg)}\n/*$vite$:1*/ ");
   var __defProp = Object.defineProperty;
   var __exportAll = (all, no_symbols) => {
     let target = {};
@@ -1631,6 +1631,7 @@
         else if (data.free_intimacy > 0) console.warn(`${data.name}(uid: ${targetId}) 已储蓄${data.free_intimacy}亲密度`);
         return {
           isLighted,
+          freeIntimacy: data.free_intimacy ?? 0,
           reachFreeIntimacyLimit: Boolean(data.reach_free_intimacy_limit),
           tasks: data.task_info ?? []
         };
@@ -1764,6 +1765,7 @@
       if (!summary) return {
         available: false,
         isLighted: medal.medal.is_lighted === 1,
+        freeIntimacy: null,
         reachFreeIntimacyLimit: false,
         prog: 0,
         total: 0
@@ -1773,6 +1775,7 @@
       return {
         available: true,
         isLighted,
+        freeIntimacy: summary.freeIntimacy,
         reachFreeIntimacyLimit: summary.reachFreeIntimacyLimit,
         prog,
         total
@@ -1823,6 +1826,8 @@
           avatar: medal.anchor_info.avatar,
           medal_level: medal.medal.level,
           is_lighted: isLighted,
+          freeIntimacy: state.freeIntimacy,
+          reachFreeIntimacyLimit: state.reachFreeIntimacyLimit,
           likeProgress,
           likeProgressTotal
         });
@@ -4420,7 +4425,7 @@
               medalInfoPanelVisible.value = true;
               await (0, vue.nextTick)();
               medalInfoTableRef.value?.clearSelection();
-              likeCandidates.value.forEach((row) => {
+              likeCandidates.value.filter((row) => !row.reachFreeIntimacyLimit).forEach((row) => {
                 medalInfoTableRef.value?.toggleRowSelection(row, true);
               });
             } catch (error) {
@@ -4640,7 +4645,7 @@
                 ]),
                 _: 1
               }),
-              _cache[27] || (_cache[27] = (0, vue.createElementVNode)("br", null, null, -1)),
+              _cache[28] || (_cache[28] = (0, vue.createElementVNode)("br", null, null, -1)),
               (0, vue.createVNode)(_component_el_dialog, {
                 modelValue: medalDanmuPanelVisible.value,
                 "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => medalDanmuPanelVisible.value = $event),
@@ -4702,10 +4707,10 @@
                 title: isLikeMode.value ? "选择要点赞的直播间" : "编辑粉丝勋章名单",
                 "lock-scroll": false,
                 "close-on-click-modal": !isLikeMode.value,
-                width: "62%"
+                width: isLikeMode.value ? "85%" : "65%"
               }, {
                 footer: (0, vue.withCtx)(() => [isLikeMode.value ? ((0, vue.openBlock)(), (0, vue.createElementBlock)(vue.Fragment, { key: 0 }, [(0, vue.createVNode)(_component_el_button, { onClick: _cache[11] || (_cache[11] = ($event) => handleCancelLikeSelection()) }, {
-                  default: (0, vue.withCtx)(() => [..._cache[26] || (_cache[26] = [(0, vue.createTextVNode)("取消", -1)])]),
+                  default: (0, vue.withCtx)(() => [..._cache[27] || (_cache[27] = [(0, vue.createTextVNode)("取消", -1)])]),
                   _: 1
                 }), (0, vue.createVNode)(_component_el_button, {
                   type: "primary",
@@ -4728,7 +4733,7 @@
                   type: "info",
                   class: "like-summary"
                 }, {
-                  default: (0, vue.withCtx)(() => [(0, vue.createTextVNode)(" 共 " + (0, vue.toDisplayString)(likeCandidates.value.length) + " 个直播间可以点赞；今日已点亮勋章点赞 " + (0, vue.toDisplayString)(likeTodayLikes.value) + " 次（上限 " + (0, vue.toDisplayString)(likeDailyLimit.value) + "，未点亮勋章的点赞不计数、不受限）。勾选后点击【开始点赞】，关闭窗口视为取消。 ", 1)]),
+                  default: (0, vue.withCtx)(() => [(0, vue.createTextVNode)(" 共 " + (0, vue.toDisplayString)(likeCandidates.value.length) + " 个直播间可以点赞；今日已点亮勋章点赞 " + (0, vue.toDisplayString)(likeTodayLikes.value) + " 次（上限 " + (0, vue.toDisplayString)(likeDailyLimit.value) + "，未点亮勋章的点赞不计数、不受限）。亲密度储蓄已满的勋章标记为【已满】并默认不勾选，需要时手动勾上。勾选后点击【开始点赞】，关闭窗口视为取消。 ", 1)]),
                   _: 1
                 })) : (0, vue.createCommentVNode)("", true), (0, vue.createVNode)((0, vue.unref)(vue_draggable_plus.VueDraggable), {
                   modelValue: medalTableData.value,
@@ -4817,6 +4822,36 @@
                       }),
                       isLikeMode.value ? ((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_table_column, {
                         key: 2,
+                        label: "亲密度",
+                        width: "120",
+                        align: "center"
+                      }, {
+                        default: (0, vue.withCtx)((scope) => [scope.row.reachFreeIntimacyLimit ? ((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_tag, {
+                          key: 0,
+                          type: "warning",
+                          size: "small",
+                          effect: "plain"
+                        }, {
+                          default: (0, vue.withCtx)(() => [(0, vue.createTextVNode)(" 已满 " + (0, vue.toDisplayString)(scope.row.freeIntimacy), 1)]),
+                          _: 2
+                        }, 1024)) : typeof scope.row.freeIntimacy === "number" ? ((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_text, {
+                          key: 1,
+                          type: "info",
+                          size: "small"
+                        }, {
+                          default: (0, vue.withCtx)(() => [(0, vue.createTextVNode)((0, vue.toDisplayString)(scope.row.freeIntimacy), 1)]),
+                          _: 2
+                        }, 1024)) : ((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_text, {
+                          key: 2,
+                          type: "info"
+                        }, {
+                          default: (0, vue.withCtx)(() => [..._cache[25] || (_cache[25] = [(0, vue.createTextVNode)("—", -1)])]),
+                          _: 1
+                        }))]),
+                        _: 1
+                      })) : (0, vue.createCommentVNode)("", true),
+                      isLikeMode.value ? ((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_table_column, {
+                        key: 3,
                         label: "点赞进度",
                         width: "150"
                       }, {
@@ -4831,7 +4866,7 @@
                           key: 1,
                           type: "info"
                         }, {
-                          default: (0, vue.withCtx)(() => [..._cache[25] || (_cache[25] = [(0, vue.createTextVNode)("—", -1)])]),
+                          default: (0, vue.withCtx)(() => [..._cache[26] || (_cache[26] = [(0, vue.createTextVNode)("—", -1)])]),
                           _: 1
                         }))]),
                         _: 1
@@ -4862,12 +4897,13 @@
               }, 8, [
                 "modelValue",
                 "title",
-                "close-on-click-modal"
+                "close-on-click-modal",
+                "width"
               ])
             ]);
           };
         }
-      }), [["__scopeId", "data-v-bc17710b"]]),
+      }), [["__scopeId", "data-v-59627b65"]]),
       OtherTasks: (0, vue.defineComponent)({
         __name: "OtherTasks",
         setup(__props) {
