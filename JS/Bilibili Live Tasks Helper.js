@@ -79,7 +79,7 @@
 			else (document.head || document.documentElement).appendChild(document.createElement("style")).append(c);
 		})(t);
 	};
-	_css(" #aside-el-menu[data-v-db397d59]:not(.el-menu--collapse){width:150px}.title[data-v-848fd8cc]{align-items:baseline;padding-left:20px;display:flex}.header-big-text[data-v-848fd8cc]{align-self:unset;font-size:var(--big-text-size)}.header-small-text[data-v-848fd8cc]{align-self:unset;font-size:var(--small-text-size);--small-text-size:18px;margin-left:10px}.collapse-btn[data-v-848fd8cc]{float:left;cursor:pointer;justify-content:center;align-items:center;height:100%;display:flex}.avatar-wrap[data-v-4956e9ef]{width:80px;height:80px}.panel-summary[data-v-4956e9ef]{margin-bottom:8px;line-height:1.7;display:block}.filter-bar[data-v-4956e9ef]{margin-bottom:8px}.filter-bar[data-v-4956e9ef] .el-input__inner::placeholder{font-size:12px}.filter-hint[data-v-4956e9ef]{margin-right:8px}.panel-resize-handle[data-v-4956e9ef]{z-index:3;cursor:ew-resize;background:var(--el-color-primary-light-7);border-right:2px solid var(--el-color-primary-light-5);border-radius:0 4px 4px 0;width:12px;transition:background-color .15s;position:absolute;top:0;bottom:0;right:-6px}.panel-resize-handle[data-v-4956e9ef]:hover{background:var(--el-color-primary-light-3);border-right-color:var(--el-color-primary)}.cancelled-tag[data-v-4956e9ef]{margin-left:4px}.order-list[data-v-4956e9ef]{max-height:40vh;padding:2px;overflow:auto}.order-item[data-v-4956e9ef]{cursor:grab;background:var(--el-fill-color-light);border:1px solid var(--el-border-color);border-radius:4px;align-items:center;gap:8px;margin-bottom:6px;padding:6px 8px;display:flex}.order-handle[data-v-4956e9ef]{color:var(--el-text-color-secondary);cursor:grab}.avatar[data-v-4956e9ef]{border-radius:50%;justify-content:center;align-items:center;display:flex}.label-text[data-v-0ed6e292]{color:var(--el-text-color-primary);line-height:32px}.base[data-v-28de2807]{z-index:1003;background-color:var(--el-bg-color);position:absolute}.header[data-v-28de2807]{box-sizing:border-box;width:100%;height:60px;font-size:var(--big-text-size);--big-text-size:25px;border-bottom:1px solid #e3e5e7;align-items:center;display:flex;position:relative}.aside[data-v-28de2807]{width:auto}.main[data-v-28de2807]{padding:0}.panel-main[data-v-28de2807]{padding:calc(var(--el-main-padding) * .625) var(--el-main-padding)}.fade-enter-active[data-v-28de2807]{animation:.2s linear fade-in}.info-icon[data-v-02b5bf3e]{font-size:var(--el-font-size-base);cursor:pointer}.status-icon[data-v-16fb8116]{font-size:var(--el-font-size-base)}.done[data-v-16fb8116]{color:#1ab059}.done.is-hovered[data-v-16fb8116]{color:#409eff;cursor:pointer}.error[data-v-16fb8116]{color:#ff6464}.icon-fade-enter-active[data-v-16fb8116],.icon-fade-leave-active[data-v-16fb8116]{transition:all .15s}.icon-fade-enter-from[data-v-16fb8116],.icon-fade-leave-to[data-v-16fb8116]{opacity:0;transform:scale(.8)rotate(90deg)}\n/*$vite$:1*/ ");
+	_css(" #aside-el-menu[data-v-db397d59]:not(.el-menu--collapse){width:150px}.title[data-v-848fd8cc]{align-items:baseline;padding-left:20px;display:flex}.header-big-text[data-v-848fd8cc]{align-self:unset;font-size:var(--big-text-size)}.header-small-text[data-v-848fd8cc]{align-self:unset;font-size:var(--small-text-size);--small-text-size:18px;margin-left:10px}.collapse-btn[data-v-848fd8cc]{float:left;cursor:pointer;justify-content:center;align-items:center;height:100%;display:flex}.avatar-wrap[data-v-a1972651]{width:80px;height:80px}.panel-summary[data-v-a1972651]{margin-bottom:8px;line-height:1.7;display:block}.filter-bar[data-v-a1972651]{margin-bottom:8px}.filter-bar[data-v-a1972651] .el-input__inner::placeholder{font-size:12px}.filter-hint[data-v-a1972651]{margin-right:8px}.panel-resize-handle[data-v-a1972651]{z-index:3;cursor:ew-resize;background:var(--el-color-primary-light-7);border-right:2px solid var(--el-color-primary-light-5);border-radius:0 4px 4px 0;width:12px;transition:background-color .15s;position:absolute;top:0;bottom:0;right:-6px}.panel-resize-handle[data-v-a1972651]:hover{background:var(--el-color-primary-light-3);border-right-color:var(--el-color-primary)}.cancelled-tag[data-v-a1972651]{margin-left:4px}.order-list[data-v-a1972651]{max-height:40vh;padding:2px;overflow:auto}.order-item[data-v-a1972651]{cursor:grab;background:var(--el-fill-color-light);border:1px solid var(--el-border-color);border-radius:4px;align-items:center;gap:8px;margin-bottom:6px;padding:6px 8px;display:flex}.order-handle[data-v-a1972651]{color:var(--el-text-color-secondary);cursor:grab}.avatar[data-v-a1972651]{border-radius:50%;justify-content:center;align-items:center;display:flex}.label-text[data-v-0ed6e292]{color:var(--el-text-color-primary);line-height:32px}.base[data-v-28de2807]{z-index:1003;background-color:var(--el-bg-color);position:absolute}.header[data-v-28de2807]{box-sizing:border-box;width:100%;height:60px;font-size:var(--big-text-size);--big-text-size:25px;border-bottom:1px solid #e3e5e7;align-items:center;display:flex;position:relative}.aside[data-v-28de2807]{width:auto}.main[data-v-28de2807]{padding:0}.panel-main[data-v-28de2807]{padding:calc(var(--el-main-padding) * .625) var(--el-main-padding)}.fade-enter-active[data-v-28de2807]{animation:.2s linear fade-in}.info-icon[data-v-02b5bf3e]{font-size:var(--el-font-size-base);cursor:pointer}.status-icon[data-v-16fb8116]{font-size:var(--el-font-size-base)}.done[data-v-16fb8116]{color:#1ab059}.done.is-hovered[data-v-16fb8116]{color:#409eff;cursor:pointer}.error[data-v-16fb8116]{color:#ff6464}.icon-fade-enter-active[data-v-16fb8116],.icon-fade-leave-active[data-v-16fb8116]{transition:all .15s}.icon-fade-enter-from[data-v-16fb8116],.icon-fade-leave-to[data-v-16fb8116]{opacity:0;transform:scale(.8)rotate(90deg)}\n/*$vite$:1*/ ");
 	var __defProp = Object.defineProperty;
 	var __exportAll = (all, no_symbols) => {
 		let target = {};
@@ -1532,16 +1532,16 @@
 			});
 		}
 		sort_live_medals = (a, b) => {
+			let flag = 0;
+			if (a.medal.level === b.medal.level) flag = b.medal.intimacy - a.medal.intimacy;
+			else flag = b.medal.level - a.medal.level;
+			if (Math.min(a.medal.level, b.medal.level) <= 15) return -flag;
 			const roomid2 = this.medalTasksConfig.roomidList2;
 			const indexA = roomid2.findIndex((entry) => entry.roomid === a.room_info.room_id);
 			const indexB = roomid2.findIndex((entry) => entry.roomid === b.room_info.room_id);
 			if (indexA >= 0 && indexB >= 0) return indexA - indexB;
 			else if (indexA >= 0) return -1;
 			else if (indexB >= 0) return 1;
-			let flag = 0;
-			if (a.medal.level === b.medal.level) flag = b.medal.intimacy - a.medal.intimacy;
-			else flag = b.medal.level - a.medal.level;
-			if (Math.min(a.medal.level, b.medal.level) <= 15) return -flag;
 			return flag;
 		};
 		async fetchMedalPageForLiveStatus(page, roomid) {
@@ -1697,7 +1697,7 @@
 				on: [],
 				off: []
 			};
-			fansMedals.filter((medal) => this.PUBLIC_MEDAL_FILTERS.whiteBlackList(medal) && (this.MEDAL_FILTERS.livingStatus(medal) == "on" || this.medalTasksConfig.roomidList2.some((entry) => entry.roomid === medal.room_info.room_id))).forEach((medal) => {
+			fansMedals.filter((medal) => this.PUBLIC_MEDAL_FILTERS.whiteBlackList(medal) && (this.MEDAL_FILTERS.livingStatus(medal) == "on" || this.medalTasksConfig.roomidList2.some((entry) => entry.roomid === medal.room_info.room_id) || medal.medal.level < 15)).forEach((medal) => {
 				const livingStatus = this.MEDAL_FILTERS.livingStatus(medal);
 				result[livingStatus].push(medal);
 			});
@@ -2214,7 +2214,7 @@
 		}
 		playerStore = usePlayerStore();
 		getMedals() {
-			const result = useBiliStore().filteredFansMedals.filter((medal) => medal.medal.is_lighted && this.PUBLIC_MEDAL_FILTERS.whiteBlackList(medal) && (this.medalTasksConfig.roomidList2.some((entry) => entry.roomid === medal.room_info.room_id) || medal.medal.level < 20));
+			const result = useBiliStore().filteredFansMedals.filter((medal) => medal.medal.is_lighted && this.PUBLIC_MEDAL_FILTERS.whiteBlackList(medal) && (this.medalTasksConfig.roomidList2.some((entry) => entry.roomid === medal.room_info.room_id) || medal.medal.level < 15));
 			result.sort(this.sort_live_medals);
 			this.logger.log(`观看直播列表(${result.length}): ${result.map((medal) => medal.anchor_info.nick_name)} `);
 			return result;
@@ -4642,8 +4642,7 @@
 					const _component_TaskStatus = (0, vue.resolveComponent)("TaskStatus");
 					const _component_el_space = (0, vue.resolveComponent)("el-space");
 					const _component_el_row = (0, vue.resolveComponent)("el-row");
-					const _component_el_option = (0, vue.resolveComponent)("el-option");
-					const _component_el_select = (0, vue.resolveComponent)("el-select");
+					const _component_el_input_number = (0, vue.resolveComponent)("el-input-number");
 					const _component_el_text = (0, vue.resolveComponent)("el-text");
 					const _component_el_divider = (0, vue.resolveComponent)("el-divider");
 					const _component_el_link = (0, vue.resolveComponent)("el-link");
@@ -4651,7 +4650,9 @@
 					const _component_el_dialog = (0, vue.resolveComponent)("el-dialog");
 					const _component_el_input = (0, vue.resolveComponent)("el-input");
 					const _component_el_col = (0, vue.resolveComponent)("el-col");
+					const _component_el_option = (0, vue.resolveComponent)("el-option");
 					const _component_el_option_group = (0, vue.resolveComponent)("el-option-group");
+					const _component_el_select = (0, vue.resolveComponent)("el-select");
 					const _component_el_image = (0, vue.resolveComponent)("el-image");
 					const _component_el_tag = (0, vue.resolveComponent)("el-tag");
 					const _component_el_progress = (0, vue.resolveComponent)("el-progress");
@@ -4727,21 +4728,16 @@
 										"onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => (0, vue.unref)(config).medalTasks.watch.enabled = $event),
 										"active-text": "观看直播"
 									}, null, 8, ["modelValue"]),
-									(0, vue.createVNode)(_component_el_select, {
+									(0, vue.createVNode)(_component_el_input_number, {
 										modelValue: (0, vue.unref)(config).medalTasks.watch.time,
 										"onUpdate:modelValue": _cache[5] || (_cache[5] = ($event) => (0, vue.unref)(config).medalTasks.watch.time = $event),
-										placeholder: "Select",
-										style: { "width": "70px" }
-									}, {
-										default: (0, vue.withCtx)(() => [((0, vue.openBlock)(), (0, vue.createElementBlock)(vue.Fragment, null, (0, vue.renderList)(12, (i) => {
-											return (0, vue.createVNode)(_component_el_option, {
-												key: i,
-												label: i * 5,
-												value: i * 5
-											}, null, 8, ["label", "value"]);
-										}), 64))]),
-										_: 1
-									}, 8, ["modelValue"]),
+										min: 5,
+										max: 180,
+										precision: 0,
+										controls: false,
+										"value-on-clear": 25,
+										style: { "width": "80px" }
+									}, null, 8, ["modelValue"]),
 									(0, vue.createVNode)(_component_el_text, null, {
 										default: (0, vue.withCtx)(() => [..._cache[24] || (_cache[24] = [(0, vue.createTextVNode)("分钟 / 直播间", -1)])]),
 										_: 1
@@ -5254,7 +5250,7 @@
 					]);
 				};
 			}
-		}), [["__scopeId", "data-v-4956e9ef"]]),
+		}), [["__scopeId", "data-v-a1972651"]]),
 		OtherTasks: (0, vue.defineComponent)({
 			__name: "OtherTasks",
 			setup(__props) {
