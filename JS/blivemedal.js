@@ -1,40 +1,61 @@
 // ==UserScript==
+// @
+// ==UserScript==
 // @name         blivemedal
 // @namespace    http://tampermonkey.net/
-// @version      0.10.2
+// @version      0.11.0
 // @description  拯救B站直播换牌子的用户体验
 // @author       xfgryujk
-// @include      /https?:\/\/live\.bilibili\.com\/?\??.*/
 // @include      /https?:\/\/live\.bilibili\.com\/\d+\??.*/
 // @include      /https?:\/\/live\.bilibili\.com\/(blanc\/)?\d+\??.*/
-// @require      https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/2.6.14/vue.js
-// @require      https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/vuex/3.6.2/vuex.js
-// @require      https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/axios/0.26.0/axios.js
-// @require      https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/element-ui/2.15.7/index.js
-// @resource     element-ui-css https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/element-ui/2.15.7/theme-chalk/index.css
+// @require      https://cdn.bootcdn.net/ajax/libs/vue/2.6.14/vue.min.js
+// @require      https://cdn.bootcdn.net/ajax/libs/vuex/3.6.2/vuex.min.js
+// @require      https://cdn.bootcdn.net/ajax/libs/axios/0.26.0/axios.min.js
+// @require      https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.7/index.js
+// @resource     element-ui-css https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.7/theme-chalk/index.css
 // @grant        GM_getResourceText
 // @downloadURL https://update.greasyfork.org/scripts/418957/blivemedal.user.js
 // @updateURL https://update.greasyfork.org/scripts/418957/blivemedal.meta.js
 // ==/UserScript==
 
 // grant不能是none，为了和网页的全局变量隔离。直播间网页全局变量有Vue，会导致element-ui出错
+//
+// 备用CDN（BootCDN不可用时，把上面 @require / @resource 换成这些）：
+//   vue:     https://registry.npmmirror.com/vue/2.6.14/files/dist/vue.min.js
+//   vuex:    https://registry.npmmirror.com/vuex/3.6.2/files/dist/vuex.min.js
+//   axios:   https://registry.npmmirror.com/axios/0.26.0/files/dist/axios.min.js
+//   element: https://registry.npmmirror.com/element-ui/2.15.7/files/lib/index.js
+//   css:     https://registry.npmmirror.com/element-ui/2.15.7/files/theme-chalk/index.css
 
 (function () {
   async function main() {
-    initLib()
-    initCss()
-    await waitForLoaded()
-    initUi()
+    try {
+      initLib()
+      initCss()
+      await waitForLoaded()
+      initUi()
+    } catch (e) {
+      // 初始化失败时恢复原生牌子按钮，避免“牌子按钮直接消失”
+      restoreNativeMedalUi()
+      throw e
+    }
   }
 
   function initLib() {
     let css = GM_getResourceText('element-ui-css')
+    if (!css) {
+      console.warn('[blivemedal] element-ui CSS 加载失败，弹窗可能缺少样式')
+      return
+    }
     // 不是通过URL引用的，要修复相对URL
-    css = css.replace(/url\(fonts\//g, 'url(https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/element-ui/2.15.7/theme-chalk/fonts/')
+    css = css.replace(/url\(fonts\//g,
+      'url(https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.7/theme-chalk/fonts/')
     let styleElement = unsafeWindow.document.createElement('style')
     styleElement.innerText = css
     unsafeWindow.document.head.appendChild(styleElement)
   }
+
+  let hideNativeStyleElement = null
 
   function initCss() {
     let css = `
@@ -48,9 +69,16 @@
         display: none !important;
       }
     `
-    let styleElement = unsafeWindow.document.createElement('style')
-    styleElement.innerText = css
-    unsafeWindow.document.head.appendChild(styleElement)
+    hideNativeStyleElement = unsafeWindow.document.createElement('style')
+    hideNativeStyleElement.innerText = css
+    unsafeWindow.document.head.appendChild(hideNativeStyleElement)
+  }
+
+  function restoreNativeMedalUi() {
+    if (hideNativeStyleElement !== null && hideNativeStyleElement.parentNode !== null) {
+      hideNativeStyleElement.parentNode.removeChild(hideNativeStyleElement)
+      hideNativeStyleElement = null
+    }
   }
 
   async function waitForLoaded(timeout = 10 * 1000) {
@@ -125,7 +153,10 @@
     },
     actions: {
       async updateMedals({ commit }) {
-        commit('setMedals', getMedalsAsync())
+        // 拉完所有页再一次提交。绝不能把“边分页push的数组”提前塞进store，
+        // 否则每push一次都触发 sortedMedals全量重排 + el-table重建DOM，
+        // 几百个勋章时是 O(N²) 主线程开销，会把页面跑死
+        commit('setMedals', await getMedalsAsync())
       },
       async updateCurMedal({ commit }) {
         commit('setCurMedal', await getCurMedal())
@@ -135,6 +166,9 @@
 
   function initUi() {
     let panelElement = unsafeWindow.document.querySelector('#control-panel-ctnr-box')
+    if (panelElement === null) {
+      throw new Error('[blivemedal] 找不到 #control-panel-ctnr-box，页面结构可能已改版')
+    }
     let myMedalButtonElement = unsafeWindow.document.createElement('div')
     panelElement.appendChild(myMedalButtonElement)
 
@@ -162,7 +196,7 @@
       },
       async created() {
         await this.tryAutoWearMedal()
-        this.updateCurMedal()
+        this.updateCurMedal().catch(e => console.error('[blivemedal] 获取当前佩戴的勋章失败：', e))
       },
       methods: {
         ...Vuex.mapActions([
@@ -224,7 +258,7 @@
           <el-input type="primary" v-model="query" placeholder="搜索" clearable style="margin-left: 70px; width: 180px"></el-input>
         </div>
 
-        <el-table :data="medalsTableData" stripe height="80vh">
+        <el-table :data="medalsTableData" v-loading="loadingTable" stripe height="80vh">
           <el-table-column label="勋章" prop="medal.medal_name" width="100" sortable :sort-method="sortState">
             <template slot-scope="scope">
               <el-tag :type="scope.row.medal.is_lighted ? '' : 'info'">{{ scope.row.medal.medal_name }}</el-tag>
@@ -252,10 +286,10 @@
             </template>
           </el-table-column>
           <el-table-column label="直播状态" prop="room_info.living_status" width="100" sortable :sort-method="sortState2">
-  <template slot-scope="scope">
-    <el-badge v-if="scope.row.room_info.living_status" is-dot></el-badge>
-  </template>
-</el-table-column>
+            <template slot-scope="scope">
+              <el-badge v-if="scope.row.room_info.living_status" is-dot></el-badge>
+            </template>
+          </el-table-column>
           <el-table-column label="操作" width="120">
             <template slot-scope="scope">
               <el-button v-if="curMedal !== null && scope.row.medal.medal_id === curMedal.medal_id"
@@ -270,7 +304,8 @@
     data() {
       return {
         dialogVisible: false,
-        query: ''
+        query: '',
+        loadingTable: false
       }
     },
     computed: {
@@ -316,7 +351,7 @@
           }
         }
 
-        // 不是当前牌子或当前房间牌子的按 (等级降序, 亲密度降序, 牌子ID升序) 排序
+        // 不是当前牌子或当前房间牌子的按 (点亮状态降序, 等级降序) 排序
         medals.sort((a, b) => {
           let aKey = [-a.medal.is_lighted, -a.medal.level]
           let bKey = [-b.medal.is_lighted, -b.medal.level]
@@ -351,13 +386,15 @@
       refreshMedals() {
         this.updateMedals()
         this.updateCurMedal()
-        refreshBilibiliCurMedalCache()
       },
       async updateMedals() {
+        this.loadingTable = true
         try {
           await this.doUpdateMedals()
         } catch (e) {
           this.$message.error(e)
+        } finally {
+          this.loadingTable = false
         }
       },
       async updateCurMedal() {
@@ -420,22 +457,17 @@
     let addedMedalIds = new Set()
 
     async function doGetMedalsAsync() {
-      // 获取第一页和总页数
-      let rsp
-      try {
-        rsp = await getPage(1)
-      } catch (e) {
-        console.error('获取勋章列表第 1 页失败：', e)
-        return
-      }
+      // 获取第一页和总页数。第一页失败直接抛错，由调用方弹提示
+      let rsp = await getPage(1)
       pushResFromRsp(rsp)
 
       // 并发获取剩下的页
-      if (rsp.page_info.total_page <= 1) {
+      let totalPages = (rsp.page_info && rsp.page_info.total_page) || 1
+      if (totalPages <= 1) {
         return
       }
       let pageQueue = []
-      for (let page = 2; page <= rsp.page_info.total_page; page++) {
+      for (let page = 2; page <= totalPages; page++) {
         pageQueue.push(page)
       }
       const WORKER_NUM = 8
@@ -453,19 +485,20 @@
           break
         }
 
-        let rsp
         try {
-          rsp = await getPage(page)
+          let rsp = await getPage(page)
+          pushResFromRsp(rsp)
         } catch (e) {
           console.error(`获取勋章列表第 ${page} 页失败：`, e)
-          continue
         }
-        pushResFromRsp(rsp)
       }
     }
 
     function pushResFromRsp(rsp) {
       for (let medals of [rsp.special_list, rsp.list]) {
+        if (!Array.isArray(medals)) {
+          continue
+        }
         for (let medal of medals) {
           if (addedMedalIds.has(medal.medal.medal_id)) {
             continue
@@ -479,7 +512,7 @@
     async function getPage(page) {
       let rsp = (await apiClient.get('/xlive/app-ucenter/v1/fansMedal/panel', {
         params: {
-          page_size: 10, // 目前没有发现这个接口有尺寸限制，为了防止以后被背刺，还是一次请求10个
+          page_size: 20,
           page: page
         }
       })).data
@@ -489,8 +522,8 @@
       return rsp.data
     }
 
-    doGetMedalsAsync()
-    return res
+    // 全部页拉完后才返回完整数组，让调用方一次性提交进store
+    return doGetMedalsAsync().then(() => res)
   }
 
   async function getCurMedal() {
@@ -523,7 +556,8 @@
     if (rsp.code !== 0) {
       throw new Error(rsp.message)
     }
-    refreshBilibiliCurMedalCache()
+    // 不再模拟点击原生牌子按钮刷新B站自己的缓存：
+    // 原生按钮已被CSS隐藏，连点两次容易让原生弹层状态错乱（牌子按钮消失等问题）
   }
 
   async function takeOffMedal() {
@@ -535,7 +569,6 @@
     if (rsp.code !== 0) {
       throw new Error(rsp.message)
     }
-    refreshBilibiliCurMedalCache()
   }
 
   function getCsrfToken() {
@@ -546,18 +579,9 @@
     return match[1]
   }
 
-  function refreshBilibiliCurMedalCache() {
-    let originalMedalButton = unsafeWindow.document.querySelector('.medal-section .fans-medal-item')
-    if (originalMedalButton === null) {
-      return
-    }
-    originalMedalButton.click()
-    setTimeout(() => originalMedalButton.click(), 0)
-  }
-
   async function sleep(time) {
     return new Promise(resolve => window.setTimeout(resolve, time))
   }
 
-  main()
+  main().catch(e => console.error(e))
 })();
