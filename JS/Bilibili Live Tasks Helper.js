@@ -79,7 +79,7 @@
 			else (document.head || document.documentElement).appendChild(document.createElement("style")).append(c);
 		})(t);
 	};
-	_css(" #aside-el-menu[data-v-db397d59]:not(.el-menu--collapse){width:150px}.title[data-v-848fd8cc]{align-items:baseline;padding-left:20px;display:flex}.header-big-text[data-v-848fd8cc]{align-self:unset;font-size:var(--big-text-size)}.header-small-text[data-v-848fd8cc]{align-self:unset;font-size:var(--small-text-size);--small-text-size:18px;margin-left:10px}.collapse-btn[data-v-848fd8cc]{float:left;cursor:pointer;justify-content:center;align-items:center;height:100%;display:flex}.avatar-wrap[data-v-f087ba62]{width:80px;height:80px}.panel-summary[data-v-f087ba62]{margin-bottom:8px;line-height:1.7;display:block}.filter-bar[data-v-f087ba62]{margin-bottom:8px}.filter-bar[data-v-f087ba62] .el-input__inner::placeholder{font-size:12px}.filter-hint[data-v-f087ba62]{margin-right:8px}.panel-resize-handle[data-v-f087ba62]{z-index:3;cursor:ew-resize;background:var(--el-color-primary-light-7);border-right:2px solid var(--el-color-primary-light-5);border-radius:0 4px 4px 0;width:12px;transition:background-color .15s;position:absolute;top:0;bottom:0;right:-6px}.panel-resize-handle[data-v-f087ba62]:hover{background:var(--el-color-primary-light-3);border-right-color:var(--el-color-primary)}.cancelled-tag[data-v-f087ba62]{margin-left:4px}.order-list[data-v-f087ba62]{max-height:40vh;padding:2px;overflow:auto}.order-item[data-v-f087ba62]{cursor:grab;background:var(--el-fill-color-light);border:1px solid var(--el-border-color);border-radius:4px;align-items:center;gap:8px;margin-bottom:6px;padding:6px 8px;display:flex}.order-handle[data-v-f087ba62]{color:var(--el-text-color-secondary);cursor:grab}.avatar[data-v-f087ba62]{border-radius:50%;justify-content:center;align-items:center;display:flex}.label-text[data-v-0ed6e292]{color:var(--el-text-color-primary);line-height:32px}.base[data-v-28de2807]{z-index:1003;background-color:var(--el-bg-color);position:absolute}.header[data-v-28de2807]{box-sizing:border-box;width:100%;height:60px;font-size:var(--big-text-size);--big-text-size:25px;border-bottom:1px solid #e3e5e7;align-items:center;display:flex;position:relative}.aside[data-v-28de2807]{width:auto}.main[data-v-28de2807]{padding:0}.panel-main[data-v-28de2807]{padding:calc(var(--el-main-padding) * .625) var(--el-main-padding)}.fade-enter-active[data-v-28de2807]{animation:.2s linear fade-in}.info-icon[data-v-02b5bf3e]{font-size:var(--el-font-size-base);cursor:pointer}.status-icon[data-v-16fb8116]{font-size:var(--el-font-size-base)}.done[data-v-16fb8116]{color:#1ab059}.done.is-hovered[data-v-16fb8116]{color:#409eff;cursor:pointer}.error[data-v-16fb8116]{color:#ff6464}.icon-fade-enter-active[data-v-16fb8116],.icon-fade-leave-active[data-v-16fb8116]{transition:all .15s}.icon-fade-enter-from[data-v-16fb8116],.icon-fade-leave-to[data-v-16fb8116]{opacity:0;transform:scale(.8)rotate(90deg)}\n/*$vite$:1*/ ");
+	_css(" #aside-el-menu[data-v-db397d59]:not(.el-menu--collapse){width:150px}.title[data-v-848fd8cc]{align-items:baseline;padding-left:20px;display:flex}.header-big-text[data-v-848fd8cc]{align-self:unset;font-size:var(--big-text-size)}.header-small-text[data-v-848fd8cc]{align-self:unset;font-size:var(--small-text-size);--small-text-size:18px;margin-left:10px}.collapse-btn[data-v-848fd8cc]{float:left;cursor:pointer;justify-content:center;align-items:center;height:100%;display:flex}.avatar-wrap[data-v-e5f853aa]{width:80px;height:80px}.panel-summary[data-v-e5f853aa]{margin-bottom:8px;line-height:1.7;display:block}.filter-bar[data-v-e5f853aa]{margin-bottom:8px}.filter-bar[data-v-e5f853aa] .el-input__inner::placeholder{font-size:12px}.filter-hint[data-v-e5f853aa]{margin-right:8px}.panel-resize-handle[data-v-e5f853aa]{z-index:3;cursor:ew-resize;background:var(--el-color-primary-light-7);border-right:2px solid var(--el-color-primary-light-5);border-radius:0 4px 4px 0;width:12px;transition:background-color .15s;position:absolute;top:0;bottom:0;right:-6px}.panel-resize-handle[data-v-e5f853aa]:hover{background:var(--el-color-primary-light-3);border-right-color:var(--el-color-primary)}.cancelled-tag[data-v-e5f853aa]{margin-left:4px}.order-list[data-v-e5f853aa]{max-height:40vh;padding:2px;overflow:auto}.order-item[data-v-e5f853aa]{cursor:grab;background:var(--el-fill-color-light);border:1px solid var(--el-border-color);border-radius:4px;align-items:center;gap:8px;margin-bottom:6px;padding:6px 8px;display:flex}.order-handle[data-v-e5f853aa]{color:var(--el-text-color-secondary);cursor:grab}.avatar[data-v-e5f853aa]{border-radius:50%;justify-content:center;align-items:center;display:flex}.label-text[data-v-0ed6e292]{color:var(--el-text-color-primary);line-height:32px}.base[data-v-28de2807]{z-index:1003;background-color:var(--el-bg-color);position:absolute}.header[data-v-28de2807]{box-sizing:border-box;width:100%;height:60px;font-size:var(--big-text-size);--big-text-size:25px;border-bottom:1px solid #e3e5e7;align-items:center;display:flex;position:relative}.aside[data-v-28de2807]{width:auto}.main[data-v-28de2807]{padding:0}.panel-main[data-v-28de2807]{padding:calc(var(--el-main-padding) * .625) var(--el-main-padding)}.fade-enter-active[data-v-28de2807]{animation:.2s linear fade-in}.info-icon[data-v-02b5bf3e]{font-size:var(--el-font-size-base);cursor:pointer}.status-icon[data-v-16fb8116]{font-size:var(--el-font-size-base)}.done[data-v-16fb8116]{color:#1ab059}.done.is-hovered[data-v-16fb8116]{color:#409eff;cursor:pointer}.error[data-v-16fb8116]{color:#ff6464}.icon-fade-enter-active[data-v-16fb8116],.icon-fade-leave-active[data-v-16fb8116]{transition:all .15s}.icon-fade-enter-from[data-v-16fb8116],.icon-fade-leave-to[data-v-16fb8116]{opacity:0;transform:scale(.8)rotate(90deg)}\n/*$vite$:1*/ ");
 	var __defProp = Object.defineProperty;
 	var __exportAll = (all, no_symbols) => {
 		let target = {};
@@ -424,6 +424,7 @@
 						watch: {
 							enabled: false,
 							time: 25,
+							autoAllocateTime: true,
 							_lastCompleteTime: 0
 						},
 						isWhiteList: false,
@@ -2285,8 +2286,11 @@
 					const uid = medal.medal.target_id;
 					const uname = medal.anchor_info.nick_name;
 					const [area_id, parent_area_id] = await this.getAreaInfo(medal.room_info.url, roomid);
-					let watchMinutes = Math.min(this.config.time, delayToNextMoment(0, 0).ms / (6e4 * _len));
-					watchMinutes = Math.ceil(watchMinutes / 15) * 15;
+					let watchMinutes = this.config.time;
+					if (this.config.autoAllocateTime) {
+						watchMinutes = Math.min(watchMinutes, delayToNextMoment(0, 0).ms / (6e4 * _len));
+						watchMinutes = Math.ceil(watchMinutes / 15) * 15;
+					}
 					if (area_id > 0 && parent_area_id > 0) {
 						const [prog, total] = await MedalModule.getMissionProgress(uid, "观看");
 						if (prog > 0 && prog == total) {
@@ -4050,7 +4054,9 @@
 								(0, vue.h)("li", "部分直播间因为没有设置直播分区导致任务无法完成。"),
 								(0, vue.h)("li", "主播当前是否开播不会影响该任务的完成。"),
 								(0, vue.h)("li", "根据目前规则，观看15分钟可点亮粉丝勋章，再观看25分钟即可获得全部30亲密度。"),
-								(0, vue.h)("li", "由于计时存在误差，可以在目标基础上适当增加一些观看时长。")
+								(0, vue.h)("li", "由于计时存在误差，可以在目标基础上适当增加一些观看时长。"),
+								(0, vue.h)("li", [(0, vue.h)("span", "开启【自动分配时长】后，脚本会把到 24:00 之前的剩余时间平均分配给本次要观看的直播间（向上取整到 15 分钟的倍数），"), (0, vue.h)("span", "避免时间不够导致排在后面的直播间轮不到；关闭后每个直播间都看满后面设置的时长。")]),
+								(0, vue.h)("li", "无论开关如何，单个直播间的观看时长都不会超过后面设置的时长。")
 							]),
 							(0, vue.h)("div", [(0, vue.h)("strong", "注意："), (0, vue.h)("span", "使用本功能时不能以任何方式观看直播（网页、APP、电视），否则可能无法获得任何亲密度。")])
 						])
@@ -4728,7 +4734,7 @@
 											disabled: !(0, vue.unref)(config).medalTasks.light.enabled || !(0, vue.unref)(config).medalTasks.light.likeEnabled,
 											onClick: handleManualLike
 										}, {
-											default: (0, vue.withCtx)(() => [..._cache[22] || (_cache[22] = [(0, vue.createTextVNode)("选择直播间点赞 ", -1)])]),
+											default: (0, vue.withCtx)(() => [..._cache[23] || (_cache[23] = [(0, vue.createTextVNode)("选择直播间点赞 ", -1)])]),
 											_: 1
 										}, 8, [
 											"icon",
@@ -4747,7 +4753,7 @@
 											icon: (0, vue.unref)(_element_plus_icons_vue.Edit),
 											onClick: _cache[3] || (_cache[3] = ($event) => medalDanmuPanelVisible.value = !medalDanmuPanelVisible.value)
 										}, {
-											default: (0, vue.withCtx)(() => [..._cache[23] || (_cache[23] = [(0, vue.createTextVNode)("编辑弹幕 ", -1)])]),
+											default: (0, vue.withCtx)(() => [..._cache[24] || (_cache[24] = [(0, vue.createTextVNode)("编辑弹幕 ", -1)])]),
 											_: 1
 										}, 8, ["icon"]),
 										(0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).DailyTasks.LiveTasks.medalTasks.light }, null, 8, ["item"]),
@@ -4782,9 +4788,15 @@
 											style: { "width": "80px" }
 										}, null, 8, ["modelValue"]),
 										(0, vue.createVNode)(_component_el_text, null, {
-											default: (0, vue.withCtx)(() => [..._cache[24] || (_cache[24] = [(0, vue.createTextVNode)("分钟 / 直播间", -1)])]),
+											default: (0, vue.withCtx)(() => [..._cache[25] || (_cache[25] = [(0, vue.createTextVNode)("分钟 / 直播间", -1)])]),
 											_: 1
 										}),
+										(0, vue.createVNode)(_component_el_switch, {
+											modelValue: (0, vue.unref)(config).medalTasks.watch.autoAllocateTime,
+											"onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => (0, vue.unref)(config).medalTasks.watch.autoAllocateTime = $event),
+											"active-text": "自动分配时长",
+											disabled: !(0, vue.unref)(config).medalTasks.watch.enabled
+										}, null, 8, ["modelValue", "disabled"]),
 										(0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).DailyTasks.LiveTasks.medalTasks.watch }, null, 8, ["item"]),
 										(0, vue.createVNode)(_component_TaskStatus, {
 											status: (0, vue.unref)(status).medalTasks.watch,
@@ -4803,10 +4815,10 @@
 									default: (0, vue.withCtx)(() => [
 										(0, vue.createVNode)(_component_el_switch, {
 											modelValue: (0, vue.unref)(config).medalTasks.isWhiteList,
-											"onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => (0, vue.unref)(config).medalTasks.isWhiteList = $event),
+											"onUpdate:modelValue": _cache[7] || (_cache[7] = ($event) => (0, vue.unref)(config).medalTasks.isWhiteList = $event),
 											"active-text": "白名单",
 											"inactive-text": "黑名单",
-											onChange: _cache[7] || (_cache[7] = (val) => !val && ((0, vue.unref)(uiStore).uiConfig.medalInfoPanelSortMode = false))
+											onChange: _cache[8] || (_cache[8] = (val) => !val && ((0, vue.unref)(uiStore).uiConfig.medalInfoPanelSortMode = false))
 										}, null, 8, ["modelValue"]),
 										(0, vue.createVNode)(_component_el_button, {
 											type: "primary",
@@ -4814,7 +4826,7 @@
 											icon: (0, vue.unref)(_element_plus_icons_vue.Edit),
 											onClick: handleEditList
 										}, {
-											default: (0, vue.withCtx)(() => [..._cache[25] || (_cache[25] = [(0, vue.createTextVNode)("编辑名单 ", -1)])]),
+											default: (0, vue.withCtx)(() => [..._cache[26] || (_cache[26] = [(0, vue.createTextVNode)("编辑名单 ", -1)])]),
 											_: 1
 										}, 8, ["icon"]),
 										(0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).DailyTasks.LiveTasks.medalTasks.list }, null, 8, ["item"]),
@@ -4824,7 +4836,7 @@
 											icon: (0, vue.unref)(_element_plus_icons_vue.Star),
 											onClick: handleEditPriorityList
 										}, {
-											default: (0, vue.withCtx)(() => [..._cache[26] || (_cache[26] = [(0, vue.createTextVNode)("优先名单 ", -1)])]),
+											default: (0, vue.withCtx)(() => [..._cache[27] || (_cache[27] = [(0, vue.createTextVNode)("优先名单 ", -1)])]),
 											_: 1
 										}, 8, ["icon"]),
 										(0, vue.createVNode)(_component_Info, { item: (0, vue.unref)(helpInfo).DailyTasks.LiveTasks.medalTasks.priority }, null, 8, ["item"])
@@ -4837,7 +4849,7 @@
 							(0, vue.createVNode)(_component_el_row, null, {
 								default: (0, vue.withCtx)(() => [
 									(0, vue.createVNode)(_component_el_text, null, {
-										default: (0, vue.withCtx)(() => [..._cache[27] || (_cache[27] = [(0, vue.createTextVNode)("直播任务相关信息可在", -1)])]),
+										default: (0, vue.withCtx)(() => [..._cache[28] || (_cache[28] = [(0, vue.createTextVNode)("直播任务相关信息可在", -1)])]),
 										_: 1
 									}),
 									(0, vue.createVNode)(_component_el_link, {
@@ -4846,20 +4858,20 @@
 										href: "https://link.bilibili.com/p/help/index#/audience-fans-medal",
 										target: "_blank"
 									}, {
-										default: (0, vue.withCtx)(() => [..._cache[28] || (_cache[28] = [(0, vue.createTextVNode)("帮助中心 ", -1)])]),
+										default: (0, vue.withCtx)(() => [..._cache[29] || (_cache[29] = [(0, vue.createTextVNode)("帮助中心 ", -1)])]),
 										_: 1
 									}),
 									(0, vue.createVNode)(_component_el_text, null, {
-										default: (0, vue.withCtx)(() => [..._cache[29] || (_cache[29] = [(0, vue.createTextVNode)("查看。", -1)])]),
+										default: (0, vue.withCtx)(() => [..._cache[30] || (_cache[30] = [(0, vue.createTextVNode)("查看。", -1)])]),
 										_: 1
 									})
 								]),
 								_: 1
 							}),
-							_cache[44] || (_cache[44] = (0, vue.createElementVNode)("br", null, null, -1)),
+							_cache[45] || (_cache[45] = (0, vue.createElementVNode)("br", null, null, -1)),
 							(0, vue.createVNode)(_component_el_dialog, {
 								modelValue: medalDanmuPanelVisible.value,
-								"onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => medalDanmuPanelVisible.value = $event),
+								"onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => medalDanmuPanelVisible.value = $event),
 								title: "编辑弹幕内容",
 								"lock-scroll": false,
 								width: "40%"
@@ -4868,7 +4880,7 @@
 									type: "primary",
 									onClick: handleAddDanmu
 								}, {
-									default: (0, vue.withCtx)(() => [..._cache[32] || (_cache[32] = [(0, vue.createTextVNode)("新增弹幕", -1)])]),
+									default: (0, vue.withCtx)(() => [..._cache[33] || (_cache[33] = [(0, vue.createTextVNode)("新增弹幕", -1)])]),
 									_: 1
 								})]),
 								default: (0, vue.withCtx)(() => [(0, vue.createVNode)((0, vue.unref)(element_plus.ElTable), {
@@ -4894,7 +4906,7 @@
 												icon: (0, vue.unref)(_element_plus_icons_vue.Edit),
 												onClick: ($event) => handleEditDanmu(scope.$index, scope.row)
 											}, {
-												default: (0, vue.withCtx)(() => [..._cache[30] || (_cache[30] = [(0, vue.createTextVNode)(" 修改 ", -1)])]),
+												default: (0, vue.withCtx)(() => [..._cache[31] || (_cache[31] = [(0, vue.createTextVNode)(" 修改 ", -1)])]),
 												_: 1
 											}, 8, ["icon", "onClick"]), (0, vue.createVNode)(_component_el_button, {
 												text: "",
@@ -4902,7 +4914,7 @@
 												type: "danger",
 												onClick: ($event) => handleDeleteDanmu(scope.$index)
 											}, {
-												default: (0, vue.withCtx)(() => [..._cache[31] || (_cache[31] = [(0, vue.createTextVNode)(" 删除 ", -1)])]),
+												default: (0, vue.withCtx)(() => [..._cache[32] || (_cache[32] = [(0, vue.createTextVNode)(" 删除 ", -1)])]),
 												_: 1
 											}, 8, ["icon", "onClick"])]),
 											_: 1
@@ -4914,14 +4926,14 @@
 							}, 8, ["modelValue"]),
 							(0, vue.createVNode)(_component_el_dialog, {
 								modelValue: medalInfoPanelVisible.value,
-								"onUpdate:modelValue": _cache[21] || (_cache[21] = ($event) => medalInfoPanelVisible.value = $event),
+								"onUpdate:modelValue": _cache[22] || (_cache[22] = ($event) => medalInfoPanelVisible.value = $event),
 								title: isLikeMode.value ? "选择要点赞的直播间" : isPriorityMode.value ? "编辑优先名单" : "编辑粉丝勋章名单",
 								"lock-scroll": false,
 								"close-on-click-modal": !isLikeMode.value,
 								width: medalInfoPanelWidth.value
 							}, {
-								footer: (0, vue.withCtx)(() => [isLikeMode.value ? ((0, vue.openBlock)(), (0, vue.createElementBlock)(vue.Fragment, { key: 0 }, [(0, vue.createVNode)(_component_el_button, { onClick: _cache[15] || (_cache[15] = ($event) => handleCancelLikeSelection()) }, {
-									default: (0, vue.withCtx)(() => [..._cache[38] || (_cache[38] = [(0, vue.createTextVNode)("取消", -1)])]),
+								footer: (0, vue.withCtx)(() => [isLikeMode.value ? ((0, vue.openBlock)(), (0, vue.createElementBlock)(vue.Fragment, { key: 0 }, [(0, vue.createVNode)(_component_el_button, { onClick: _cache[16] || (_cache[16] = ($event) => handleCancelLikeSelection()) }, {
+									default: (0, vue.withCtx)(() => [..._cache[39] || (_cache[39] = [(0, vue.createTextVNode)("取消", -1)])]),
 									_: 1
 								}), (0, vue.createVNode)(_component_el_button, {
 									type: "primary",
@@ -4941,18 +4953,18 @@
 									type: "info",
 									class: "filter-hint"
 								}, {
-									default: (0, vue.withCtx)(() => [..._cache[39] || (_cache[39] = [(0, vue.createTextVNode)(" 搜索/筛选生效时无法拖拽排序 ", -1)])]),
+									default: (0, vue.withCtx)(() => [..._cache[40] || (_cache[40] = [(0, vue.createTextVNode)(" 搜索/筛选生效时无法拖拽排序 ", -1)])]),
 									_: 1
 								})) : (0, vue.createCommentVNode)("", true), (0, vue.createVNode)(_component_el_switch, {
 									modelValue: (0, vue.unref)(uiStore).uiConfig.medalInfoPanelSortMode,
-									"onUpdate:modelValue": _cache[16] || (_cache[16] = ($event) => (0, vue.unref)(uiStore).uiConfig.medalInfoPanelSortMode = $event),
+									"onUpdate:modelValue": _cache[17] || (_cache[17] = ($event) => (0, vue.unref)(uiStore).uiConfig.medalInfoPanelSortMode = $event),
 									disabled: !(0, vue.unref)(config).medalTasks.isWhiteList,
 									"inactive-text": "常规模式",
 									"active-text": "排序模式",
-									onChange: _cache[17] || (_cache[17] = (val) => !val && (0, vue.nextTick)(() => initSelection()))
+									onChange: _cache[18] || (_cache[18] = (val) => !val && (0, vue.nextTick)(() => initSelection()))
 								}, null, 8, ["modelValue", "disabled"])], 64))]),
 								default: (0, vue.withCtx)(() => [
-									_cache[43] || (_cache[43] = (0, vue.createElementVNode)("div", {
+									_cache[44] || (_cache[44] = (0, vue.createElementVNode)("div", {
 										class: "panel-resize-handle",
 										title: "拖拽调整窗口宽度"
 									}, null, -1)),
@@ -4969,7 +4981,7 @@
 										type: "info",
 										class: "panel-summary"
 									}, {
-										default: (0, vue.withCtx)(() => [..._cache[33] || (_cache[33] = [(0, vue.createTextVNode)(" roomidList2 ", -1)])]),
+										default: (0, vue.withCtx)(() => [..._cache[34] || (_cache[34] = [(0, vue.createTextVNode)(" roomidList2 ", -1)])]),
 										_: 1
 									})) : (0, vue.createCommentVNode)("", true),
 									(0, vue.createVNode)(_component_el_row, {
@@ -4980,7 +4992,7 @@
 											(0, vue.createVNode)(_component_el_col, { span: 11 }, {
 												default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_input, {
 													modelValue: medalSearchText.value,
-													"onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => medalSearchText.value = $event),
+													"onUpdate:modelValue": _cache[10] || (_cache[10] = ($event) => medalSearchText.value = $event),
 													placeholder: "搜索昵称 / 粉丝勋章 / 房间号 / UID",
 													clearable: "",
 													"prefix-icon": (0, vue.unref)(_element_plus_icons_vue.Search)
@@ -4990,7 +5002,7 @@
 											(0, vue.createVNode)(_component_el_col, { span: 7 }, {
 												default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_select, {
 													modelValue: medalFilter.value,
-													"onUpdate:modelValue": _cache[10] || (_cache[10] = ($event) => medalFilter.value = $event),
+													"onUpdate:modelValue": _cache[11] || (_cache[11] = ($event) => medalFilter.value = $event),
 													style: { "width": "100%" }
 												}, {
 													default: (0, vue.withCtx)(() => [
@@ -5027,9 +5039,9 @@
 												default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_button, {
 													icon: (0, vue.unref)(_element_plus_icons_vue.Rank),
 													style: { "width": "100%" },
-													onClick: _cache[11] || (_cache[11] = ($event) => orderPanelVisible.value = true)
+													onClick: _cache[12] || (_cache[12] = ($event) => orderPanelVisible.value = true)
 												}, {
-													default: (0, vue.withCtx)(() => [..._cache[34] || (_cache[34] = [(0, vue.createTextVNode)("调整顺序 ", -1)])]),
+													default: (0, vue.withCtx)(() => [..._cache[35] || (_cache[35] = [(0, vue.createTextVNode)("调整顺序 ", -1)])]),
 													_: 1
 												}, 8, ["icon"])]),
 												_: 1
@@ -5039,7 +5051,7 @@
 									}),
 									(0, vue.createVNode)((0, vue.unref)(vue_draggable_plus.VueDraggable), {
 										modelValue: medalTableData.value,
-										"onUpdate:modelValue": _cache[14] || (_cache[14] = ($event) => medalTableData.value = $event),
+										"onUpdate:modelValue": _cache[15] || (_cache[15] = ($event) => medalTableData.value = $event),
 										target: "#draggable-fans-medal-table table tbody",
 										disabled: isLikeMode.value || isPriorityMode.value || medalFilterActive.value || !(0, vue.unref)(uiStore).uiConfig.medalInfoPanelSortMode,
 										animation: 150,
@@ -5103,7 +5115,7 @@
 														effect: "plain",
 														class: "cancelled-tag"
 													}, {
-														default: (0, vue.withCtx)(() => [..._cache[35] || (_cache[35] = [(0, vue.createTextVNode)(" 已注销 ", -1)])]),
+														default: (0, vue.withCtx)(() => [..._cache[36] || (_cache[36] = [(0, vue.createTextVNode)(" 已注销 ", -1)])]),
 														_: 1
 													})) : (0, vue.createCommentVNode)("", true)]),
 													_: 1
@@ -5161,7 +5173,7 @@
 														key: 2,
 														type: "info"
 													}, {
-														default: (0, vue.withCtx)(() => [..._cache[36] || (_cache[36] = [(0, vue.createTextVNode)("—", -1)])]),
+														default: (0, vue.withCtx)(() => [..._cache[37] || (_cache[37] = [(0, vue.createTextVNode)("—", -1)])]),
 														_: 1
 													}))]),
 													_: 1
@@ -5182,7 +5194,7 @@
 														key: 1,
 														type: "info"
 													}, {
-														default: (0, vue.withCtx)(() => [..._cache[37] || (_cache[37] = [(0, vue.createTextVNode)("—", -1)])]),
+														default: (0, vue.withCtx)(() => [..._cache[38] || (_cache[38] = [(0, vue.createTextVNode)("—", -1)])]),
 														_: 1
 													}))]),
 													_: 1
@@ -5198,7 +5210,7 @@
 														rel: "noreferrer",
 														type: "primary",
 														target: "_blank",
-														onClick: _cache[12] || (_cache[12] = (0, vue.withModifiers)(() => { }, ["stop"]))
+														onClick: _cache[13] || (_cache[13] = (0, vue.withModifiers)(() => { }, ["stop"]))
 													}, {
 														default: (0, vue.withCtx)(() => [(0, vue.createTextVNode)((0, vue.toDisplayString)(scope.row.roomid), 1)]),
 														_: 2
@@ -5216,7 +5228,7 @@
 														rel: "noreferrer",
 														type: "primary",
 														target: "_blank",
-														onClick: _cache[13] || (_cache[13] = (0, vue.withModifiers)(() => { }, ["stop"]))
+														onClick: _cache[14] || (_cache[14] = (0, vue.withModifiers)(() => { }, ["stop"]))
 													}, {
 														default: (0, vue.withCtx)(() => [(0, vue.createTextVNode)((0, vue.toDisplayString)(scope.row.uid), 1)]),
 														_: 2
@@ -5234,26 +5246,26 @@
 									}, 8, ["modelValue", "disabled"]),
 									(0, vue.createVNode)(_component_el_dialog, {
 										modelValue: orderPanelVisible.value,
-										"onUpdate:modelValue": _cache[20] || (_cache[20] = ($event) => orderPanelVisible.value = $event),
+										"onUpdate:modelValue": _cache[21] || (_cache[21] = ($event) => orderPanelVisible.value = $event),
 										title: "调整写入顺序",
 										"lock-scroll": false,
 										width: "40%"
 									}, {
 										footer: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_button, { onClick: resetOrder }, {
-											default: (0, vue.withCtx)(() => [..._cache[41] || (_cache[41] = [(0, vue.createTextVNode)("恢复默认顺序", -1)])]),
+											default: (0, vue.withCtx)(() => [..._cache[42] || (_cache[42] = [(0, vue.createTextVNode)("恢复默认顺序", -1)])]),
 											_: 1
 										}), (0, vue.createVNode)(_component_el_button, {
 											type: "primary",
-											onClick: _cache[19] || (_cache[19] = ($event) => orderPanelVisible.value = false)
+											onClick: _cache[20] || (_cache[20] = ($event) => orderPanelVisible.value = false)
 										}, {
-											default: (0, vue.withCtx)(() => [..._cache[42] || (_cache[42] = [(0, vue.createTextVNode)("完成", -1)])]),
+											default: (0, vue.withCtx)(() => [..._cache[43] || (_cache[43] = [(0, vue.createTextVNode)("完成", -1)])]),
 											_: 1
 										})]),
 										default: (0, vue.withCtx)(() => [(0, vue.createVNode)(_component_el_text, {
 											type: "info",
 											class: "panel-summary"
 										}, {
-											default: (0, vue.withCtx)(() => [..._cache[40] || (_cache[40] = [(0, vue.createTextVNode)(" 拖拽调整名单的写入顺序，顺序决定任务执行的先后；新勾选的直播间会排在末尾。 ", -1)])]),
+											default: (0, vue.withCtx)(() => [..._cache[41] || (_cache[41] = [(0, vue.createTextVNode)(" 拖拽调整名单的写入顺序，顺序决定任务执行的先后；新勾选的直播间会排在末尾。 ", -1)])]),
 											_: 1
 										}), orderedCheckedRows.value.length === 0 ? ((0, vue.openBlock)(), (0, vue.createBlock)(_component_el_empty, {
 											key: 0,
@@ -5262,7 +5274,7 @@
 										})) : ((0, vue.openBlock)(), (0, vue.createBlock)((0, vue.unref)(vue_draggable_plus.VueDraggable), {
 											key: 1,
 											modelValue: orderedCheckedRows.value,
-											"onUpdate:modelValue": _cache[18] || (_cache[18] = ($event) => orderedCheckedRows.value = $event),
+											"onUpdate:modelValue": _cache[19] || (_cache[19] = ($event) => orderedCheckedRows.value = $event),
 											class: "order-list",
 											animation: 150
 										}, {
@@ -5293,7 +5305,7 @@
 						]);
 					};
 				}
-			}), [["__scopeId", "data-v-f087ba62"]]),
+			}), [["__scopeId", "data-v-e5f853aa"]]),
 			OtherTasks: (0, vue.defineComponent)({
 				__name: "OtherTasks",
 				setup(__props) {
