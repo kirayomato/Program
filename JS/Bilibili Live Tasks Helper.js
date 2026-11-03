@@ -79,7 +79,7 @@
 			else (document.head || document.documentElement).appendChild(document.createElement("style")).append(c);
 		})(t);
 	};
-	_css(" #aside-el-menu[data-v-db397d59]:not(.el-menu--collapse){width:150px}.title[data-v-848fd8cc]{align-items:baseline;padding-left:20px;display:flex}.header-big-text[data-v-848fd8cc]{align-self:unset;font-size:var(--big-text-size)}.header-small-text[data-v-848fd8cc]{align-self:unset;font-size:var(--small-text-size);--small-text-size:18px;margin-left:10px}.collapse-btn[data-v-848fd8cc]{float:left;cursor:pointer;justify-content:center;align-items:center;height:100%;display:flex}.avatar-wrap[data-v-a1972651]{width:80px;height:80px}.panel-summary[data-v-a1972651]{margin-bottom:8px;line-height:1.7;display:block}.filter-bar[data-v-a1972651]{margin-bottom:8px}.filter-bar[data-v-a1972651] .el-input__inner::placeholder{font-size:12px}.filter-hint[data-v-a1972651]{margin-right:8px}.panel-resize-handle[data-v-a1972651]{z-index:3;cursor:ew-resize;background:var(--el-color-primary-light-7);border-right:2px solid var(--el-color-primary-light-5);border-radius:0 4px 4px 0;width:12px;transition:background-color .15s;position:absolute;top:0;bottom:0;right:-6px}.panel-resize-handle[data-v-a1972651]:hover{background:var(--el-color-primary-light-3);border-right-color:var(--el-color-primary)}.cancelled-tag[data-v-a1972651]{margin-left:4px}.order-list[data-v-a1972651]{max-height:40vh;padding:2px;overflow:auto}.order-item[data-v-a1972651]{cursor:grab;background:var(--el-fill-color-light);border:1px solid var(--el-border-color);border-radius:4px;align-items:center;gap:8px;margin-bottom:6px;padding:6px 8px;display:flex}.order-handle[data-v-a1972651]{color:var(--el-text-color-secondary);cursor:grab}.avatar[data-v-a1972651]{border-radius:50%;justify-content:center;align-items:center;display:flex}.label-text[data-v-0ed6e292]{color:var(--el-text-color-primary);line-height:32px}.base[data-v-28de2807]{z-index:1003;background-color:var(--el-bg-color);position:absolute}.header[data-v-28de2807]{box-sizing:border-box;width:100%;height:60px;font-size:var(--big-text-size);--big-text-size:25px;border-bottom:1px solid #e3e5e7;align-items:center;display:flex;position:relative}.aside[data-v-28de2807]{width:auto}.main[data-v-28de2807]{padding:0}.panel-main[data-v-28de2807]{padding:calc(var(--el-main-padding) * .625) var(--el-main-padding)}.fade-enter-active[data-v-28de2807]{animation:.2s linear fade-in}.info-icon[data-v-02b5bf3e]{font-size:var(--el-font-size-base);cursor:pointer}.status-icon[data-v-16fb8116]{font-size:var(--el-font-size-base)}.done[data-v-16fb8116]{color:#1ab059}.done.is-hovered[data-v-16fb8116]{color:#409eff;cursor:pointer}.error[data-v-16fb8116]{color:#ff6464}.icon-fade-enter-active[data-v-16fb8116],.icon-fade-leave-active[data-v-16fb8116]{transition:all .15s}.icon-fade-enter-from[data-v-16fb8116],.icon-fade-leave-to[data-v-16fb8116]{opacity:0;transform:scale(.8)rotate(90deg)}\n/*$vite$:1*/ ");
+	_css(" #aside-el-menu[data-v-db397d59]:not(.el-menu--collapse){width:150px}.title[data-v-848fd8cc]{align-items:baseline;padding-left:20px;display:flex}.header-big-text[data-v-848fd8cc]{align-self:unset;font-size:var(--big-text-size)}.header-small-text[data-v-848fd8cc]{align-self:unset;font-size:var(--small-text-size);--small-text-size:18px;margin-left:10px}.collapse-btn[data-v-848fd8cc]{float:left;cursor:pointer;justify-content:center;align-items:center;height:100%;display:flex}.avatar-wrap[data-v-f087ba62]{width:80px;height:80px}.panel-summary[data-v-f087ba62]{margin-bottom:8px;line-height:1.7;display:block}.filter-bar[data-v-f087ba62]{margin-bottom:8px}.filter-bar[data-v-f087ba62] .el-input__inner::placeholder{font-size:12px}.filter-hint[data-v-f087ba62]{margin-right:8px}.panel-resize-handle[data-v-f087ba62]{z-index:3;cursor:ew-resize;background:var(--el-color-primary-light-7);border-right:2px solid var(--el-color-primary-light-5);border-radius:0 4px 4px 0;width:12px;transition:background-color .15s;position:absolute;top:0;bottom:0;right:-6px}.panel-resize-handle[data-v-f087ba62]:hover{background:var(--el-color-primary-light-3);border-right-color:var(--el-color-primary)}.cancelled-tag[data-v-f087ba62]{margin-left:4px}.order-list[data-v-f087ba62]{max-height:40vh;padding:2px;overflow:auto}.order-item[data-v-f087ba62]{cursor:grab;background:var(--el-fill-color-light);border:1px solid var(--el-border-color);border-radius:4px;align-items:center;gap:8px;margin-bottom:6px;padding:6px 8px;display:flex}.order-handle[data-v-f087ba62]{color:var(--el-text-color-secondary);cursor:grab}.avatar[data-v-f087ba62]{border-radius:50%;justify-content:center;align-items:center;display:flex}.label-text[data-v-0ed6e292]{color:var(--el-text-color-primary);line-height:32px}.base[data-v-28de2807]{z-index:1003;background-color:var(--el-bg-color);position:absolute}.header[data-v-28de2807]{box-sizing:border-box;width:100%;height:60px;font-size:var(--big-text-size);--big-text-size:25px;border-bottom:1px solid #e3e5e7;align-items:center;display:flex;position:relative}.aside[data-v-28de2807]{width:auto}.main[data-v-28de2807]{padding:0}.panel-main[data-v-28de2807]{padding:calc(var(--el-main-padding) * .625) var(--el-main-padding)}.fade-enter-active[data-v-28de2807]{animation:.2s linear fade-in}.info-icon[data-v-02b5bf3e]{font-size:var(--el-font-size-base);cursor:pointer}.status-icon[data-v-16fb8116]{font-size:var(--el-font-size-base)}.done[data-v-16fb8116]{color:#1ab059}.done.is-hovered[data-v-16fb8116]{color:#409eff;cursor:pointer}.error[data-v-16fb8116]{color:#ff6464}.icon-fade-enter-active[data-v-16fb8116],.icon-fade-leave-active[data-v-16fb8116]{transition:all .15s}.icon-fade-enter-from[data-v-16fb8116],.icon-fade-leave-to[data-v-16fb8116]{opacity:0;transform:scale(.8)rotate(90deg)}\n/*$vite$:1*/ ");
 	var __defProp = Object.defineProperty;
 	var __exportAll = (all, no_symbols) => {
 		let target = {};
@@ -424,8 +424,6 @@
 						watch: {
 							enabled: false,
 							time: 25,
-							_watchingProgress: {},
-							_lastWatchTime: 0,
 							_lastCompleteTime: 0
 						},
 						isWhiteList: false,
@@ -1682,7 +1680,7 @@
 		}
 		static parseMissionProgress(tasks, title) {
 			if (!tasks) return [0, 0];
-			for (const task of tasks) if (task.title === title) {
+			for (const task of tasks) if (task.title.includes(title)) {
 				const match = task.sub_title?.match(/每日上限\s*(\d+)\/(\d+)/);
 				if (match) return [parseInt(match[1], 10), parseInt(match[2], 10)];
 				return [0, 0];
@@ -1700,7 +1698,7 @@
 		static DAILY_LIKE_LIMIT = 5e3;
 		static LIKE_BATCH_SIZE = 10;
 		static LIKE_ROUNDS = 12;
-		static LIKE_MISSION_TITLE = "点赞30次";
+		static LIKE_MISSION_TITLE = "点赞";
 		manualLikeRunning = false;
 		checkedRooms = [];
 		set status(s) {
@@ -2023,7 +2021,7 @@
 							flag = 0;
 						}
 						if (flag !== 0) {
-							const state = await this.fetchMissionState(medal, "发弹幕");
+							const state = await this.fetchMissionState(medal, "弹幕");
 							if (state.isLighted) {
 								if (!state.available) {
 									this.logger.warn(`${medal.anchor_info.nick_name} 勋章信息获取失败，跳过发送弹幕`);
@@ -2081,21 +2079,22 @@
 		}
 	};
 	var RoomHeart = class {
-		constructor(roomID, uname, areaID, parentID, ruid, watchedSeconds) {
+		constructor(roomID, uname, areaID, parentID, ruid, watchMinutes) {
 			this.roomID = roomID;
 			this.areaID = areaID;
 			this.parentID = parentID;
 			this.ruid = ruid;
-			this.watchedSeconds = watchedSeconds;
 			this.config = useModuleStore().moduleConfig.DailyTasks.LiveTasks.medalTasks.watch;
 			this.uname = uname;
+			this.watchMinutes = watchMinutes;
 		}
 		logger = new Logger("RoomHeart");
 		config;
+		watchMinutes;
 		set status(s) {
 			useModuleStore().moduleStatus.DailyTasks.LiveTasks.medalTasks.watch = s;
 		}
-		watchedSeconds;
+		watchedSeconds = 0;
 		areaID;
 		parentID;
 		roomID;
@@ -2111,10 +2110,6 @@
 				this.roomID
 			];
 		}
-		updateProgress() {
-			this.watchedSeconds += this.heartBeatInterval;
-			useModuleStore().moduleConfig.DailyTasks.LiveTasks.medalTasks.watch._watchingProgress[this.roomID] = this.watchedSeconds;
-		}
 		buvid = useBiliStore().cookies.LIVE_BUVID;
 		uuid = uuid();
 		device = [this.buvid, this.uuid];
@@ -2128,7 +2123,6 @@
 				this.logger.error(`缺少buvid，无法为直播间 ${this.roomID} 执行观看直播任务，请尝试刷新页面`);
 				return Promise.resolve();
 			}
-			this.watchedSeconds = 0;
 			return this.E();
 		}
 		async E() {
@@ -2169,17 +2163,19 @@
 				this.logger.debug(`BAPI.liveTrace.X(${s}, ${this.id}, ${this.device}, ${this.ruid}, ${this.timestamp}, ${this.secretKey}, ${this.heartBeatInterval}, ${spyderData.ts}) response`, response);
 				if (response.code === 0) {
 					this.seq += 1;
-					this.updateProgress();
-					const [prog, total] = await MedalModule.getMissionProgress(this.ruid, "观看直播满15分钟");
-					if (prog != this.progress || this.progress == -1) {
-						this.progress = prog;
-						this.logger.log(`${this.uname}(${this.roomID}) 观看直播进度: ${prog}/${total}`);
+					this.watchedSeconds += this.heartBeatInterval;
+					const [prog, total] = await MedalModule.getMissionProgress(this.ruid, "观看");
+					if (total > 0) {
+						if (prog != this.progress) {
+							this.progress = prog;
+							this.logger.log(`${this.uname}(${this.roomID}) 观看直播进度: ${prog}/${total}`);
+						}
+						if (prog == total) {
+							this.logger.log(`${this.uname}(${this.roomID}) 观看直播进度已满，观看结束`);
+							return;
+						}
 					}
-					if (prog == total) {
-						this.logger.log(`${this.uname}(${this.roomID}) 观看直播进度已满，观看结束`);
-						return;
-					}
-					if (this.watchedSeconds >= this.config.time * 60) return;
+					if (this.watchedSeconds >= this.watchMinutes * 60) return;
 					({ heartbeat_interval: this.heartBeatInterval, secret_key: this.secretKey, secret_rule: this.secretRule, timestamp: this.timestamp } = response.data);
 					await sleep(this.heartBeatInterval * 1e3);
 					return this.X();
@@ -2271,13 +2267,9 @@
 				return;
 			}
 			this.status = "running";
-			if (!isTimestampToday(this.config._lastWatchTime, 0, 0)) this.config._watchingProgress = {};
-			else lodash.default.forOwn(this.config._watchingProgress, (value, key, object) => {
-				object[key] -= value % 300;
-			});
-			this.config._lastWatchTime = tsm();
 			const fansMedals = this.getMedals();
-			if (fansMedals.length > 0) {
+			let _len = fansMedals.length;
+			if (_len > 0) {
 				let i = 0;
 				for (; i < fansMedals.length; i++) {
 					if (!this.config.enabled) {
@@ -2291,13 +2283,20 @@
 					const medal = fansMedals[i];
 					const roomid = medal.room_info.room_id;
 					const uid = medal.medal.target_id;
+					const uname = medal.anchor_info.nick_name;
 					const [area_id, parent_area_id] = await this.getAreaInfo(medal.room_info.url, roomid);
+					let watchMinutes = Math.min(this.config.time, delayToNextMoment(0, 0).ms / (6e4 * _len));
+					watchMinutes = Math.ceil(watchMinutes / 15) * 15;
 					if (area_id > 0 && parent_area_id > 0) {
-						if (!this.config._watchingProgress[roomid] || this.config._watchingProgress[roomid] < this.config.time * 60) {
-							this.logger.log(`粉丝勋章【${medal.medal.medal_name}】 开始直播间 ${roomid}（主播【${medal.anchor_info.nick_name}】，UID：${uid}）的观看直播任务`);
-							await new RoomHeart(roomid, medal.anchor_info.nick_name, area_id, parent_area_id, uid, this.config._watchingProgress[roomid] ?? 0).start();
+						const [prog, total] = await MedalModule.getMissionProgress(uid, "观看");
+						if (prog > 0 && prog == total) {
+							this.logger.log(`${uname}(${roomid}) 观看直播进度已满，${prog}/${total}`);
+							continue;
 						}
+						this.logger.log(`粉丝勋章【${medal.medal.medal_name}】 开始直播间 ${roomid}（主播【${uname}】，UID：${uid}）的观看直播任务，本次观看时间上限: ${watchMinutes}分钟`);
+						await new RoomHeart(roomid, uname, area_id, parent_area_id, uid, watchMinutes).start();
 					}
+					_len--;
 				}
 				if (i === fansMedals.length) {
 					this.config._lastCompleteTime = tsm();
@@ -3613,8 +3612,6 @@
 						watch: () => {
 							moduleStatus.value.DailyTasks.LiveTasks.medalTasks.watch = "";
 							moduleConfig.value.DailyTasks.LiveTasks.medalTasks.watch._lastCompleteTime = 0;
-							moduleConfig.value.DailyTasks.LiveTasks.medalTasks.watch._lastWatchTime = 0;
-							moduleConfig.value.DailyTasks.LiveTasks.medalTasks.watch._watchingProgress = {};
 							rerunModule("Default_FansMedals", true);
 							rerunModule("DailyTask_LiveTask_WatchTask");
 						}
@@ -4613,7 +4610,7 @@
 								element_plus.ElMessage.info("没有可以点赞的直播间");
 								return;
 							}
-							likeCandidates.value = snapshot.candidates.map((row) => {
+							const candidates = snapshot.candidates.map((row) => {
 								const is_canceled = row.nick_name === CANCELLED_NICK_NAME;
 								return {
 									...row,
@@ -4623,13 +4620,16 @@
 							});
 							likeTodayLikes.value = snapshot.todayLikes;
 							likeDailyLimit.value = snapshot.dailyLimit;
-							likeSelection.value = likeCandidates.value.filter((row) => !row.reachFreeIntimacyLimit);
+							likeSelection.value = candidates.filter((row) => !row.reachFreeIntimacyLimit);
+							const checkedRoomids = new Set(likeSelection.value.map((row) => row.roomid));
+							likeCandidates.value = candidates.sort((a, b) => Number(checkedRoomids.has(b.roomid)) - Number(checkedRoomids.has(a.roomid)) || b.medal_level - a.medal_level);
 							medalInfoPanelMode.value = "like";
 							applyDefaultPanelWidth();
 							resetMedalFilters();
 							medalInfoPanelVisible.value = true;
 							await (0, vue.nextTick)();
 							medalInfoTableRef.value?.clearSelection();
+							medalInfoTableRef.value?.clearSort();
 							syncSelection();
 						} catch (error) {
 							element_plus.ElMessage.error(`获取可点赞直播间失败：${error.message}`);
@@ -5293,7 +5293,7 @@
 						]);
 					};
 				}
-			}), [["__scopeId", "data-v-a1972651"]]),
+			}), [["__scopeId", "data-v-f087ba62"]]),
 			OtherTasks: (0, vue.defineComponent)({
 				__name: "OtherTasks",
 				setup(__props) {
