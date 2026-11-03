@@ -94,8 +94,6 @@
                     "watch": {
                         "enabled": true,
                         "time": 180,
-                        "_watchingProgress": {},
-                        "_lastWatchTime": 0,
                         "_lastCompleteTime": 0
                     },
                     "isWhiteList": false,
@@ -833,26 +831,6 @@
                         {
                             "roomid": 21708004,
                             "name": "白雪深白Official"
-                        },
-                        {
-                            "roomid": 1888549069,
-                            "name": "知梦_yume"
-                        },
-                        {
-                            "roomid": 30678908,
-                            "name": "丁小薯"
-                        },
-                        {
-                            "roomid": 1852878215,
-                            "name": "久爱薰Kaoru"
-                        },
-                        {
-                            "roomid": 23222837,
-                            "name": "礼墨Sumi"
-                        },
-                        {
-                            "roomid": 1883943131,
-                            "name": "小雾uya"
                         }
                     ]
                 }
