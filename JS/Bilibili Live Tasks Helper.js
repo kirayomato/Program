@@ -2080,7 +2080,7 @@
 		}
 	};
 	var RoomHeart = class {
-		constructor(roomID, uname, areaID, parentID, ruid, watchMinutes) {
+		constructor(roomID, uname, areaID, parentID, ruid, watchMinutes, initialProgress) {
 			this.roomID = roomID;
 			this.areaID = areaID;
 			this.parentID = parentID;
@@ -2088,10 +2088,16 @@
 			this.config = useModuleStore().moduleConfig.DailyTasks.LiveTasks.medalTasks.watch;
 			this.uname = uname;
 			this.watchMinutes = watchMinutes;
+			this.initialProgress = initialProgress;
+			this.targetProgress = watchMinutes / 15;
+			this.maxWatchSeconds = (watchMinutes + 15) * 60;
 		}
 		logger = new Logger("RoomHeart");
 		config;
 		watchMinutes;
+		initialProgress;
+		targetProgress;
+		maxWatchSeconds;
 		set status(s) {
 			useModuleStore().moduleStatus.DailyTasks.LiveTasks.medalTasks.watch = s;
 		}
@@ -2166,17 +2172,20 @@
 					this.seq += 1;
 					this.watchedSeconds += this.heartBeatInterval;
 					const [prog, total] = await MedalModule.getMissionProgress(this.ruid, "观看");
-					if (total > 0) {
-						if (prog != this.progress) {
-							this.progress = prog;
-							this.logger.log(`${this.uname}(${this.roomID}) 观看直播进度: ${prog}/${total}`);
-						}
-						if (prog == total) {
-							this.logger.log(`${this.uname}(${this.roomID}) 观看直播进度已满，观看结束`);
-							return;
-						}
+					if (total <= 0) {
+						this.logger.log(`${this.uname}(${this.roomID}) 获取不到观看直播进度，结束观看`);
+						return;
 					}
-					if (this.watchedSeconds >= this.watchMinutes * 60) return;
+					if (prog != this.progress) {
+						this.progress = prog;
+						this.logger.log(`${this.uname}(${this.roomID}) 观看直播进度: ${prog}/${total}`);
+					}
+					const gained = prog - this.initialProgress;
+					if (gained >= this.targetProgress || prog >= total) {
+						this.logger.log(`${this.uname}(${this.roomID}) 本次观看进度已达标(新增 ${gained}, 当前 ${prog}/${total}, 目标 ${this.targetProgress})，观看结束`);
+						return;
+					}
+					if (this.watchedSeconds >= this.maxWatchSeconds) return;
 					({ heartbeat_interval: this.heartBeatInterval, secret_key: this.secretKey, secret_rule: this.secretRule, timestamp: this.timestamp } = response.data);
 					await sleep(this.heartBeatInterval * 1e3);
 					return this.X();
@@ -2287,18 +2296,21 @@
 					const uname = medal.anchor_info.nick_name;
 					const [area_id, parent_area_id] = await this.getAreaInfo(medal.room_info.url, roomid);
 					let watchMinutes = this.config.time;
-					if (this.config.autoAllocateTime) {
-						watchMinutes = Math.min(watchMinutes, delayToNextMoment(0, 0).ms / (6e4 * _len));
-						watchMinutes = Math.ceil(watchMinutes / 15) * 15;
-					}
+					if (this.config.autoAllocateTime) watchMinutes = Math.min(watchMinutes, delayToNextMoment(0, 0).ms / (6e4 * _len));
+					watchMinutes = Math.ceil(watchMinutes / 15) * 15;
 					if (area_id > 0 && parent_area_id > 0) {
 						const [prog, total] = await MedalModule.getMissionProgress(uid, "观看");
-						if (prog > 0 && prog == total) {
+						const targetProgress = watchMinutes / 15;
+						if (total <= 0) {
+							this.logger.log(`${uname}(${roomid}) 获取不到观看直播进度，跳过该直播间`);
+							continue;
+						}
+						if (prog >= total) {
 							this.logger.log(`${uname}(${roomid}) 观看直播进度已满，${prog}/${total}`);
 							continue;
 						}
-						this.logger.log(`粉丝勋章【${medal.medal.medal_name}】 开始直播间 ${roomid}（主播【${uname}】，UID：${uid}）的观看直播任务，本次观看时间上限: ${watchMinutes}分钟`);
-						await new RoomHeart(roomid, uname, area_id, parent_area_id, uid, watchMinutes).start();
+						this.logger.log(`粉丝勋章【${medal.medal.medal_name}】 开始直播间 ${roomid}（主播【${uname}】，UID：${uid}）的观看直播任务，本次目标进度: +${targetProgress}，当前进度: ${prog}/${total}，设定观看时间: ${watchMinutes}分钟`);
+						await new RoomHeart(roomid, uname, area_id, parent_area_id, uid, watchMinutes, prog).start();
 					}
 					_len--;
 				}
