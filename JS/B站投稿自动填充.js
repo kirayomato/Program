@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         B站投稿自动填充
+// @name         B站投稿自动填充（按 BV 号）
 // @namespace    local.bili.upload.autofill
-// @version      1.0.0
+// @version      1.1.0
 // @description  在 B站创作中心投稿页，按指定 BV 号自动填充相同的标题、简介、标签
 // @match        https://member.bilibili.com/*
 // @grant        none
@@ -27,6 +27,7 @@
  *   2) 标签默认「补全」而非覆盖（跳过重复），勾选「先清空已有标签」才删除已有标签；
  *   3) 标签优先走「后台写组件数据模型/方法」，一次性批量添加全部标签（一次写入 + 一次校验，
  *      秒级完成），不碰输入框、不抢焦点，与你手动操作互不干扰；
+ *      数组真伪靠「探针写入→chip 是否渲染」验证（不靠字段名猜，避免写错 submitTags 这类影子数组）；
  *      仅当找不到挂载点时才退回模拟输入（逐个），且该路径会等你停手、保留你输入到一半的文本；
  *   4) 逐标签独立填充：任一标签失败/异常只记入跳过列表，不影响后续标签与标题/简介；
  *      填充期间按钮变为「停止填充」，可随时中止；
@@ -160,6 +161,17 @@
             .filter(Boolean);
     }
 
+    // 表单自己会拒绝话题类标签（toast：当前tag为话题专用，不允许自定义添加）
+    // 接口分不出来，但添加失败时能从弹出的提示识别，把跳过原因标清楚
+    function detectTopicReject() {
+        var nodes = document.querySelectorAll('[class*="message"], [class*="toast"], [class*="Message"], [class*="Toast"]');
+        for (var i = 0; i < nodes.length; i++) {
+            var t = nodes[i].textContent || '';
+            if (t.indexOf('话题专用') >= 0 || t.indexOf('不允许自定义添加') >= 0) return true;
+        }
+        return false;
+    }
+
     // ---------------- 基础事件 ----------------
     function setNativeValue(el, value) {
         var proto = window.HTMLInputElement.prototype;
@@ -262,7 +274,18 @@
         return null;
     }
 
-    function descDomText(ql) {
+    // 比对用：折行空白（Quill 空段落会让 innerText 膨胀出多余 \n，源文本行数对不上）
+    function squash(s) {
+        return normalize(s).replace(/[ \t]+/g, ' ').replace(/\n{2,}/g, '\n');
+    }
+
+    function descDomText(ql, quill) {
+        // 优先读 Quill 模型文本（与 setText 写入的完全一致），innerText 仅兜底
+        if (quill && typeof quill.getText === 'function') {
+            try {
+                return normalize(quill.getText());
+            } catch (e) { /* ignore */ }
+        }
         return normalize(ql.innerText || ql.textContent || '');
     }
 
@@ -273,7 +296,12 @@
         if (!ql) return { ok: false, msg: '未找到简介编辑区', strategy: 'none' };
 
         var want = normalize(text);
+        var wantSoft = squash(text);
         var quill = findQuillInstance(container);
+
+        function descOk(got) {
+            return got === want || squash(got) === wantSoft;
+        }
 
         // 策略 1：Quill 实例 setText（模型层写入，最稳）
         if (quill && typeof quill.setText === 'function') {
@@ -281,12 +309,12 @@
                 quill.setText(text);
                 // 以 user 源补一次空 update，兜底只监听 user 源的 Vue 封装
                 if (typeof quill.updateContents === 'function') quill.updateContents([], 'user');
-                var got = descDomText(ql);
-                if (got === want) {
+                var got = descDomText(ql, quill);
+                if (descOk(got)) {
                     log('简介填充（Quill setText）成功');
                     return { ok: true, msg: '简介已填充', strategy: 'quill' };
                 }
-                log('简介 Quill setText 后 DOM 不一致，继续尝试其他策略。回读=', JSON.stringify(got));
+                log('简介 Quill setText 后文本不一致，继续尝试其他策略。回读=', JSON.stringify(got));
             } catch (e) {
                 log('Quill setText 失败：', e);
             }
@@ -306,12 +334,12 @@
                 try { prevActive.focus(); } catch (e2) { /* ignore */ }
             }
             if (inserted) {
-                var got2 = descDomText(ql);
-                if (got2 === want) {
+                var got2 = descDomText(ql, quill);
+                if (descOk(got2)) {
                     log('简介填充（execCommand）成功');
                     return { ok: true, msg: '简介已填充', strategy: 'execCommand' };
                 }
-                log('execCommand 后 DOM 不一致。回读=', JSON.stringify(got2));
+                log('execCommand 后文本不一致。回读=', JSON.stringify(got2));
             }
         } catch (e) {
             log('execCommand 失败：', e);
@@ -324,8 +352,8 @@
             }).join('');
             ql.innerHTML = html;
             ql.dispatchEvent(new Event('input', { bubbles: true }));
-            var got3 = descDomText(ql);
-            var ok3 = got3 === want;
+            var got3 = descDomText(ql, quill);
+            var ok3 = descOk(got3);
             log(ok3 ? '简介填充（innerHTML）成功' : '简介 innerHTML 后仍不一致', JSON.stringify(got3));
             return {
                 ok: ok3,
@@ -343,7 +371,8 @@
         return arr.map(function (it) {
             if (typeof it === 'string') return it;
             if (it && typeof it === 'object') {
-                return String(it.name || it.tag_name || it.tag || it.label || it.value || it.text || '');
+                return String(it.name || it.tag_name || it.tagName || it.tag || it.label ||
+                    it.labelName || it.value || it.text || '');
             }
             return '';
         });
@@ -359,54 +388,110 @@
         return vms;
     }
 
-    function scanContainerForTagList(container, chipNames, depth) {
-        if (!container || depth > 2) return null;
-        for (var key in container) {
-            if (!Object.prototype.hasOwnProperty.call(container, key)) continue;
-            var val = container[key];
-            if (Array.isArray(val)) {
-                var names = arrayAsNames(val);
-                if (chipNames.length > 0) {
-                    var all = chipNames.every(function (n) { return names.indexOf(n) >= 0; });
-                    if (all) {
-                        return {
-                            obj: container,
-                            key: key,
-                            kind: (val.length && typeof val[0] === 'object' && val[0]) ? 'objects' : 'strings'
-                        };
-                    }
-                } else if (/tag|label/i.test(key)) {
-                    return {
-                        obj: container,
-                        key: key,
-                        kind: (val.length && typeof val[0] === 'object' && val[0]) ? 'objects' : 'strings'
-                    };
-                }
-            } else if (val && typeof val === 'object' && !val._isVue && !val.$el &&
-                typeof val.nodeType !== 'number' && !Array.isArray(val)) {
-                var sub = scanContainerForTagList(val, chipNames, depth + 1);
-                if (sub) return sub;
-            }
+    // 收集输入框 + 标签容器 + chip 自身的组件链，再带上各自的子组件——
+    // 真正驱动 chip 渲染的数组经常在子组件上，只看输入框祖先会找错（如 submitTags）
+    function collectRelatedVms(input) {
+        var vms = [];
+        function addChain(el) {
+            collectVueChain(el).forEach(function (vm) {
+                if (vms.indexOf(vm) < 0) vms.push(vm);
+            });
         }
-        return null;
+        addChain(input.closest('.input-container') || input);
+        var tagRoot = document.querySelector('#tag-container');
+        if (tagRoot) {
+            addChain(tagRoot);
+            var chip = tagRoot.querySelector('.label-item-v2-container');
+            if (chip) addChain(chip);
+        }
+        var base = vms.slice();
+        base.forEach(function (vm) {
+            (vm.$children || []).forEach(function (c) {
+                if (vms.indexOf(c) < 0) vms.push(c);
+                (c.$children || []).forEach(function (c2) {
+                    if (vms.indexOf(c2) < 0) vms.push(c2);
+                });
+            });
+        });
+        return vms;
     }
 
-    function findTagListRef(vms, chipNames) {
-        for (var i = 0; i < vms.length; i++) {
-            var hit = scanContainerForTagList(vms[i].$data, chipNames, 0) ||
-                scanContainerForTagList(vms[i]._props, chipNames, 0);
-            if (hit) return hit;
+    function nameKeyOf(tpl) {
+        var k = null;
+        ['name', 'tag_name', 'tagName', 'tag', 'label', 'labelName', 'value', 'text'].forEach(function (key) {
+            if (!k && tpl && typeof tpl[key] === 'string') k = key;
+        });
+        return k || 'name';
+    }
+
+    // 收集全部候选数组（而非第一个匹配项），附带模板/字段名，供逐个探测
+    function collectTagArrayCandidates(vms, chipNames) {
+        var out = [];
+        var seen = [];
+
+        function consider(container, depth, vmIndex) {
+            if (!container || depth > 3) return;
+            for (var key in container) {
+                if (!Object.prototype.hasOwnProperty.call(container, key)) continue;
+                var val = container[key];
+                if (Array.isArray(val)) {
+                    if (seen.indexOf(val) >= 0) continue;
+                    var names = arrayAsNames(val);
+                    var matched;
+                    if (chipNames.length > 0) {
+                        matched = chipNames.every(function (n) { return names.indexOf(n) >= 0; });
+                    } else {
+                        matched = /tag|label/i.test(key);
+                    }
+                    if (!matched) continue;
+                    seen.push(val);
+                    var tpl = (val.length && typeof val[0] === 'object' && val[0]) ? val[0] : null;
+                    out.push({
+                        obj: container,
+                        key: key,
+                        kind: tpl ? 'objects' : 'strings',
+                        tpl: tpl,
+                        nameKey: tpl ? nameKeyOf(tpl) : null,
+                        vmIndex: vmIndex
+                    });
+                } else if (val && typeof val === 'object' && !val._isVue && !val.$el &&
+                    typeof val.nodeType !== 'number' && !Array.isArray(val)) {
+                    consider(val, depth + 1, vmIndex);
+                }
+            }
         }
-        return null;
+
+        for (var i = 0; i < vms.length; i++) {
+            if (vms[i].$data) consider(vms[i].$data, 0, i);
+            if (vms[i]._props) consider(vms[i]._props, 0, i);
+        }
+        // 越靠近输入框的组件越优先；字段名像标签列表的优先
+        out.sort(function (a, b) {
+            var sa = (/tag|label/i.test(a.key) ? 0 : 1) * 100 + a.vmIndex;
+            var sb = (/tag|label/i.test(b.key) ? 0 : 1) * 100 + b.vmIndex;
+            return sa - sb;
+        });
+        return out;
     }
 
     function findTagAddMethod(vms) {
-        var names = ['addTag', 'createTag', 'handleAddTag', 'onAddTag', 'appendTag', 'submitTag', 'confirmTag'];
+        var explicit = ['addTag', 'createTag', 'handleAddTag', 'onAddTag', 'appendTag', 'submitTag', 'confirmTag'];
+        // 运行时方法名可能被改写：再按「add/create 类动词 + tag/label 名词」模式扫 $options.methods
+        var ADD_VERB = /add|create|insert|append|push|confirm|apply|save/i;
+        var TAG_NOUN = /tag|label/i;
+        var BAD = /remove|delete|del|clear|reset|upload|submit(?!Tag)/i;
         var out = [];
         vms.forEach(function (vm) {
-            names.forEach(function (n) {
-                // 只用显式接收标签名参数的方法，避免无参方法误读输入框里用户的内容
-                if (typeof vm[n] === 'function' && vm[n].length >= 1) out.push({ vm: vm, fnName: n });
+            var seen = {};
+            var methods = (vm.$options && vm.$options.methods) || {};
+            Object.keys(methods).forEach(function (n) {
+                if (seen[n]) return;
+                seen[n] = true;
+                var fn = vm[n];
+                if (typeof fn !== 'function' || fn.length < 1) return;
+                var hit = explicit.indexOf(n) >= 0 ||
+                    ((ADD_VERB.test(n) && TAG_NOUN.test(n)) && !BAD.test(n));
+                if (hit) out.push({ vm: vm, fnName: n });
             });
         });
         return out;
@@ -414,15 +499,34 @@
 
     function makeTagItem(ref, name) {
         if (ref.kind !== 'objects') return name;
-        var arr = ref.obj[ref.key];
-        var tpl = (Array.isArray(arr) && arr[0]) || {};
-        var nameKey = null;
-        ['name', 'tag_name', 'tag', 'label', 'value', 'text'].forEach(function (k) {
-            if (!nameKey && typeof tpl[k] === 'string') nameKey = k;
-        });
+        var tpl = ref.tpl || {};
         var item = {};
-        item[nameKey || 'name'] = name;
+        // 复制模板字段结构（渲染可能依赖），但 id/计数类字段清零，避免和旧 tag 串号
+        for (var k in tpl) {
+            if (!Object.prototype.hasOwnProperty.call(tpl, k)) continue;
+            var v = tpl[k];
+            if (/id$/i.test(k) || k === 'count' || k === 'is_atten') {
+                item[k] = typeof v === 'string' ? '' : 0;
+            } else {
+                item[k] = v;
+            }
+        }
+        item[ref.nameKey || 'name'] = name;
         return item;
+    }
+
+    // 探针：向候选数组写入一个名字，验证 chip 真的渲染出来；失败回滚并试下一个候选
+    async function probeRef(ref, name) {
+        var arr = ref.obj[ref.key];
+        if (!Array.isArray(arr)) return false;
+        var item = makeTagItem(ref, name);
+        arr.push(item);
+        await sleep(TAG_STEP_MS);
+        if (getExistingTagNames().indexOf(name) >= 0) return true;
+        var idx = arr.indexOf(item);
+        if (idx >= 0) arr.splice(idx, 1);
+        await sleep(120);
+        return false;
     }
 
     // 一次性批量写数据模型：全部一次 push + 一次校验；未生效的逐个回滚
@@ -455,9 +559,10 @@
     async function probeAddViaMethod(cands, name) {
         for (var i = 0; i < cands.length; i++) {
             try {
-                cands[i].vm[cands[i].fnName](name);
+                var ret = cands[i].vm[cands[i].fnName](name);
+                if (ret && typeof ret.then === 'function') await ret; // 方法可能是 async，rejection 也要收
             } catch (e) {
-                log('组件方法', cands[i].fnName, '调用异常：', e);
+                log('组件方法', cands[i].fnName, '调用异常：', e && e.message ? e.message : e);
                 continue;
             }
             await sleep(TAG_STEP_MS);
@@ -472,15 +577,16 @@
     async function bulkAddViaMethod(cand, names) {
         var thrown = [];
         var sent = [];
-        names.forEach(function (n) {
+        for (var i = 0; i < names.length; i++) {
             try {
-                cand.vm[cand.fnName](n);
-                sent.push(n);
+                var ret = cand.vm[cand.fnName](names[i]);
+                if (ret && typeof ret.then === 'function') await ret;
+                sent.push(names[i]);
             } catch (e) {
-                log('组件方法批量写入异常：', e);
-                thrown.push(n);
+                log('组件方法批量写入异常：', e && e.message ? e.message : e);
+                thrown.push(names[i]);
             }
-        });
+        }
         await sleep(TAG_STEP_MS);
         var now = getExistingTagNames();
         var okNames = sent.filter(function (n) { return now.indexOf(n) >= 0; });
@@ -506,54 +612,57 @@
         return getExistingTagNames().indexOf(name) >= 0;
     }
 
-    async function clearTags(ref) {
-        // 优先后台清空（直接改模型）
-        if (ref) {
+    // 后台清空：逐个候选试，谁的清空真让 chip 消失谁就是真数组；返回生效的 ref
+    async function clearTags(candidates) {
+        for (var i = 0; i < candidates.length; i++) {
+            var ref = candidates[i];
             var arr = ref.obj[ref.key];
-            if (Array.isArray(arr) && arr.length) {
-                var snapshot = arr.slice();
-                arr.splice(0, arr.length);
-                await sleep(300);
-                if (!getExistingTagNames().length) return true;
-                snapshot.forEach(function (it) { arr.push(it); });
-                log('模型清空未生效，已还原并改用点击删除');
+            if (!Array.isArray(arr) || !arr.length) continue;
+            var snapshot = arr.slice();
+            arr.splice(0, arr.length);
+            await sleep(300);
+            if (!getExistingTagNames().length) {
+                log('模型清空生效于：', ref.key);
+                return ref;
             }
+            snapshot.forEach(function (it) { arr.push(it); });
+            log('模型清空未生效（', ref.key, '），已还原');
         }
         // 兜底：点击关闭按钮（会碰 UI，逐个避让用户操作）
         for (var guard = 0; guard < 30; guard++) {
-            if (stopRequested) return false;
-            if (!(await waitUserIdle('标签清空'))) return false;
+            if (stopRequested) return null;
+            if (!(await waitUserIdle('标签清空'))) return null;
             var chips = Array.prototype.slice.call(
                 document.querySelectorAll('#tag-container .label-item-v2-container')
             );
-            if (!chips.length) return true;
+            if (!chips.length) return null;
             var closeBtn = chips[0].querySelector('svg.close') ||
                 chips[0].querySelector('[class*="close"]');
-            if (!closeBtn) return false;
+            if (!closeBtn) return null;
             fireClick(closeBtn);
             await sleep(140);
         }
-        return !getExistingTagNames().length;
+        return null;
     }
 
     async function fillTags(tags, clearFirst) {
         var input = findTagInput();
         if (!input) return { ok: false, msg: '未找到标签输入框', added: [], skipped: [] };
 
-        // 能定位到数据模型/组件方法就全程后台批量写入，不碰输入框、不抢焦点
-        var vms = collectVueChain(input.closest('.input-container') || input);
+        // 收集全部候选数组 + 组件方法；真数组靠「探针写入→chip 是否渲染」验证，不靠名字猜
+        var vms = collectRelatedVms(input);
         var chipNames = getExistingTagNames();
-        var tagRef = findTagListRef(vms, chipNames);
+        var candidates = collectTagArrayCandidates(vms, chipNames);
         var methodCands = findTagAddMethod(vms);
-        log('标签写入通道：', tagRef
-            ? ('数据模型 ' + tagRef.key + '（批量一次性）')
-            : (methodCands.length ? ('组件方法 ' + methodCands.map(function (c) { return c.fnName; }).join('/') + '（批量连发）') : '无（退回模拟输入）'),
+        log('标签写入通道：候选数组', candidates.map(function (c) { return c.key; }),
+            '候选方法', methodCands.map(function (c) { return c.fnName; }),
             '；已有标签：', chipNames);
 
-        // 清空失败不阻断后续填充
+        // 清空失败不阻断后续填充；清空生效的那个数组就是真数组，直接复用
+        var activeRef = null;
         if (clearFirst) {
             try {
-                await clearTags(tagRef);
+                activeRef = await clearTags(candidates);
             } catch (e) {
                 log('清空已有标签异常（继续填充）：', e);
             }
@@ -584,14 +693,32 @@
 
         var rest = toAdd.slice();
 
-        // 通道 1：数据模型（真正的一次性：全部一次 push，一次校验）
-        if (rest.length && tagRef) {
-            try {
-                var r1 = await batchAddViaModel(tagRef, rest);
-                added = added.concat(r1.okNames);
-                rest = r1.failNames;
-            } catch (e) {
-                log('模型批量写入异常：', e);
+        // 通道 1：数据模型（先探针验证数组真伪，再一次性批量写入）
+        if (rest.length) {
+            if (!activeRef) {
+                for (var ci = 0; ci < candidates.length && rest.length; ci++) {
+                    try {
+                        if (await probeRef(candidates[ci], rest[0])) {
+                            activeRef = candidates[ci];
+                            added.push(rest[0]);
+                            log('探针命中真实数组：', candidates[ci].key, '，其余标签批量写入');
+                            rest = rest.slice(1);
+                            break;
+                        }
+                        log('候选数组未通过探针：', candidates[ci].key);
+                    } catch (e) {
+                        log('探针异常（', candidates[ci].key, '）：', e);
+                    }
+                }
+            }
+            if (activeRef && rest.length) {
+                try {
+                    var r1 = await batchAddViaModel(activeRef, rest);
+                    added = added.concat(r1.okNames);
+                    rest = r1.failNames;
+                } catch (e) {
+                    log('模型批量写入异常：', e);
+                }
             }
         }
 
@@ -621,13 +748,19 @@
                 var ok = await addTagViaKeyboard(input, rest[k]);
                 if (ok) {
                     added.push(rest[k]);
+                } else if (detectTopicReject()) {
+                    skipped.push(rest[k] + '（话题标签，表单不允许自定义添加）');
                 } else {
                     skipped.push(rest[k] + (stopRequested ? '（已停止）' : '（未成功创建）'));
                 }
             } catch (e) {
                 var reason = (e && e.message) ? e.message : String(e);
                 log('标签「' + rest[k] + '」填充异常，已跳过，继续后续标签：', e);
-                skipped.push(rest[k] + '（异常:' + reason + '）');
+                if (reason.indexOf('话题专用') >= 0 || reason.indexOf('不允许自定义添加') >= 0) {
+                    skipped.push(rest[k] + '（话题标签，表单不允许自定义添加）');
+                } else {
+                    skipped.push(rest[k] + '（异常:' + reason + '）');
+                }
             }
         }
 
