@@ -25,8 +25,9 @@
  * 注意：
  *   1) 投稿表单一般在选择/上传视频文件后才出现，未出现时脚本会自动等待；
  *   2) 标签默认「补全」而非覆盖（跳过重复），勾选「先清空已有标签」才删除已有标签；
- *   3) 标签优先走「后台写组件数据模型/方法」，不碰输入框、不抢焦点，与你手动操作互不干扰；
- *      仅当找不到挂载点时才退回模拟输入，且该路径会等你停手、保留你输入到一半的文本；
+ *   3) 标签优先走「后台写组件数据模型/方法」，一次性批量添加全部标签（一次写入 + 一次校验，
+ *      秒级完成），不碰输入框、不抢焦点，与你手动操作互不干扰；
+ *      仅当找不到挂载点时才退回模拟输入（逐个），且该路径会等你停手、保留你输入到一半的文本；
  *   4) 逐标签独立填充：任一标签失败/异常只记入跳过列表，不影响后续标签与标题/简介；
  *      填充期间按钮变为「停止填充」，可随时中止；
  *   5) 视频页上的 BGM/音乐关联标签（如「发现《xxx》」）不属于普通标签接口，不会被填充。
@@ -411,31 +412,47 @@
         return out;
     }
 
-    // 写模型后回读校验，失败回滚，绝不留下错误数据
-    async function addTagViaModel(ref, name) {
+    function makeTagItem(ref, name) {
+        if (ref.kind !== 'objects') return name;
         var arr = ref.obj[ref.key];
-        if (!Array.isArray(arr)) return false;
-        var pushed;
-        if (ref.kind === 'objects') {
-            var tpl = arr[0] || {};
-            var nameKey = null;
-            ['name', 'tag_name', 'tag', 'label', 'value', 'text'].forEach(function (k) {
-                if (!nameKey && typeof tpl[k] === 'string') nameKey = k;
-            });
-            pushed = {};
-            pushed[nameKey || 'name'] = name;
-        } else {
-            pushed = name;
-        }
-        arr.push(pushed);
-        await sleep(TAG_STEP_MS);
-        if (getExistingTagNames().indexOf(name) >= 0) return true;
-        var idx = arr.indexOf(pushed);
-        if (idx >= 0) arr.splice(idx, 1);
-        return false;
+        var tpl = (Array.isArray(arr) && arr[0]) || {};
+        var nameKey = null;
+        ['name', 'tag_name', 'tag', 'label', 'value', 'text'].forEach(function (k) {
+            if (!nameKey && typeof tpl[k] === 'string') nameKey = k;
+        });
+        var item = {};
+        item[nameKey || 'name'] = name;
+        return item;
     }
 
-    async function addTagViaMethods(cands, name) {
+    // 一次性批量写数据模型：全部一次 push + 一次校验；未生效的逐个回滚
+    async function batchAddViaModel(ref, names) {
+        var arr = ref.obj[ref.key];
+        if (!Array.isArray(arr) || !names.length) return { okNames: [], failNames: names.slice() };
+        var pushed = names.map(function (n) {
+            var item = makeTagItem(ref, n);
+            arr.push(item);
+            return { item: item, name: n };
+        });
+        await sleep(TAG_STEP_MS);
+        var now = getExistingTagNames();
+        var okNames = [];
+        var failNames = [];
+        pushed.forEach(function (p) {
+            if (now.indexOf(p.name) >= 0) {
+                okNames.push(p.name);
+            } else {
+                var idx = arr.indexOf(p.item);
+                if (idx >= 0) arr.splice(idx, 1);
+                failNames.push(p.name);
+            }
+        });
+        log('模型批量写入：成功', okNames, '回滚', failNames);
+        return { okNames: okNames, failNames: failNames };
+    }
+
+    // 组件方法：先用一个名字探测出可用方法，再一次性连发剩余
+    async function probeAddViaMethod(cands, name) {
         for (var i = 0; i < cands.length; i++) {
             try {
                 cands[i].vm[cands[i].fnName](name);
@@ -445,11 +462,31 @@
             }
             await sleep(TAG_STEP_MS);
             if (getExistingTagNames().indexOf(name) >= 0) {
-                log('通过组件方法', cands[i].fnName, '添加标签：', name);
+                log('组件方法', cands[i].fnName, '可用，其余标签将一次性连发');
                 return cands[i];
             }
         }
         return null;
+    }
+
+    async function bulkAddViaMethod(cand, names) {
+        var thrown = [];
+        var sent = [];
+        names.forEach(function (n) {
+            try {
+                cand.vm[cand.fnName](n);
+                sent.push(n);
+            } catch (e) {
+                log('组件方法批量写入异常：', e);
+                thrown.push(n);
+            }
+        });
+        await sleep(TAG_STEP_MS);
+        var now = getExistingTagNames();
+        var okNames = sent.filter(function (n) { return now.indexOf(n) >= 0; });
+        var failNames = thrown.concat(sent.filter(function (n) { return now.indexOf(n) < 0; }));
+        log('方法批量写入：成功', okNames, '失败', failNames);
+        return { okNames: okNames, failNames: failNames };
     }
 
     // 兜底：模拟输入（唯一会碰可见输入框的路径，等用户停手并保留其草稿）
@@ -503,15 +540,14 @@
         var input = findTagInput();
         if (!input) return { ok: false, msg: '未找到标签输入框', added: [], skipped: [] };
 
-        // 能定位到数据模型/组件方法就全程后台写入，不碰输入框、不抢焦点
+        // 能定位到数据模型/组件方法就全程后台批量写入，不碰输入框、不抢焦点
         var vms = collectVueChain(input.closest('.input-container') || input);
         var chipNames = getExistingTagNames();
         var tagRef = findTagListRef(vms, chipNames);
         var methodCands = findTagAddMethod(vms);
-        var usedMethod = null;
         log('标签写入通道：', tagRef
-            ? ('数据模型 ' + tagRef.key)
-            : (methodCands.length ? ('组件方法 ' + methodCands.map(function (c) { return c.fnName; }).join('/')) : '无（退回模拟输入）'),
+            ? ('数据模型 ' + tagRef.key + '（批量一次性）')
+            : (methodCands.length ? ('组件方法 ' + methodCands.map(function (c) { return c.fnName; }).join('/') + '（批量连发）') : '无（退回模拟输入）'),
             '；已有标签：', chipNames);
 
         // 清空失败不阻断后续填充
@@ -523,75 +559,75 @@
             }
         }
 
+        // ---- 批量规划：去重 / 截断 / 上限，算出一次性要添加的名单 ----
         var existing = {};
         getExistingTagNames().forEach(function (n) { existing[n] = true; });
         var added = [];
         var skipped = [];
-
-        // 逐个独立 try/catch：单个标签失败只记入 skipped，不影响后续标签
+        var toAdd = [];
+        var baseCount = getExistingTagNames().length;
         for (var i = 0; i < tags.length; i++) {
             var name = String(tags[i]).trim().slice(0, TAG_MAX_LEN);
             if (!name) continue;
+            if (existing[name]) {
+                skipped.push(name + '（已存在）');
+                continue;
+            }
+            if (baseCount + toAdd.length >= TAG_LIMIT) {
+                skipped.push(name + '（超出 ' + TAG_LIMIT + ' 个上限）');
+                continue;
+            }
+            if (toAdd.indexOf(name) >= 0) continue;
+            existing[name] = true;
+            toAdd.push(name);
+        }
+
+        var rest = toAdd.slice();
+
+        // 通道 1：数据模型（真正的一次性：全部一次 push，一次校验）
+        if (rest.length && tagRef) {
+            try {
+                var r1 = await batchAddViaModel(tagRef, rest);
+                added = added.concat(r1.okNames);
+                rest = r1.failNames;
+            } catch (e) {
+                log('模型批量写入异常：', e);
+            }
+        }
+
+        // 通道 2：组件方法（探测一个，其余一次性连发）
+        if (rest.length && methodCands.length) {
+            var probe = null;
+            try {
+                probe = await probeAddViaMethod(methodCands, rest[0]);
+            } catch (e) {
+                log('组件方法探测异常：', e);
+            }
+            if (probe) {
+                added.push(rest[0]);
+                var bulk = await bulkAddViaMethod(probe, rest.slice(1));
+                added = added.concat(bulk.okNames);
+                rest = bulk.failNames;
+            }
+        }
+
+        // 通道 3：模拟输入兜底（仅剩未成功的，逐个独立容错）
+        for (var k = 0; k < rest.length; k++) {
             if (stopRequested) {
-                for (var j = i; j < tags.length; j++) {
-                    var rest = String(tags[j]).trim().slice(0, TAG_MAX_LEN);
-                    if (rest) skipped.push(rest + '（未执行）');
-                }
+                for (var m = k; m < rest.length; m++) skipped.push(rest[m] + '（未执行）');
                 break;
             }
             try {
-                if (existing[name]) {
-                    skipped.push(name + '（已存在）');
-                    continue;
-                }
-                if (Object.keys(existing).length >= TAG_LIMIT) {
-                    skipped.push(name + '（超出 ' + TAG_LIMIT + ' 个上限）');
-                    continue;
-                }
-
-                var ok = false;
-
-                // 通道 1：组件方法（后台）
-                if (usedMethod && !ok) {
-                    try {
-                        usedMethod.vm[usedMethod.fnName](name);
-                        await sleep(TAG_STEP_MS);
-                        ok = getExistingTagNames().indexOf(name) >= 0;
-                    } catch (e) {
-                        log('组件方法写入异常：', e);
-                        ok = false;
-                    }
-                }
-                if (!ok && !usedMethod && methodCands.length) {
-                    usedMethod = await addTagViaMethods(methodCands, name);
-                    ok = !!usedMethod;
-                }
-
-                // 通道 2：直接写数据模型（后台）
-                if (!ok && tagRef) {
-                    try {
-                        ok = await addTagViaModel(tagRef, name);
-                    } catch (e) {
-                        log('模型写入异常：', e);
-                        ok = false;
-                    }
-                }
-
-                // 通道 3：模拟输入（兜底）
-                if (!ok) {
-                    ok = await addTagViaKeyboard(input, name);
-                }
-
+                var ok = await addTagViaKeyboard(input, rest[k]);
                 if (ok) {
-                    existing[name] = true;
-                    added.push(name);
+                    added.push(rest[k]);
                 } else {
-                    skipped.push(name + (stopRequested ? '（已停止）' : '（未成功创建）'));
+                    skipped.push(rest[k] + (stopRequested ? '（已停止）' : '（未成功创建）'));
                 }
             } catch (e) {
                 var reason = (e && e.message) ? e.message : String(e);
-                log('标签「' + name + '」填充异常，已跳过，继续后续标签：', e);
-                skipped.push(name + '（异常:' + reason + '）');
+                log('标签「' + rest[k] + '」填充异常，已跳过，继续后续标签：', e);
+                skipped.push(rest[k] + '（异常:' + reason + '）');
             }
         }
 
