@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         B站投稿自动填充（按 BV 号）
+// @name         B站投稿自动填充
 // @namespace    local.bili.upload.autofill
-// @version      1.1.0
+// @version      1.2.0
 // @description  在 B站创作中心投稿页，按指定 BV 号自动填充相同的标题、简介、标签
 // @match        https://member.bilibili.com/*
 // @grant        none
@@ -24,7 +24,9 @@
  *           标签输入框（#tag-container，回车创建）。
  * 注意：
  *   1) 投稿表单一般在选择/上传视频文件后才出现，未出现时脚本会自动等待；
- *   2) 标签默认「补全」而非覆盖（跳过重复），勾选「先清空已有标签」才删除已有标签；
+ *   2) 标签默认勾选「先清空已有标签」（覆盖式填充）；取消勾选则只补全、跳过重复；
+ *      清空走「模型删除 → 组件删除方法 → 点击关闭」三级容错，失败不会卡死/重复/误伤；
+ *      清不掉时继续填新标签，面板会明确提示「旧标签未能清除（剩余 N 个）」；
  *   3) 标签优先走「后台写组件数据模型/方法」，一次性批量添加全部标签（一次写入 + 一次校验，
  *      秒级完成），不碰输入框、不抢焦点，与你手动操作互不干扰；
  *      数组真伪靠「探针写入→chip 是否渲染」验证（不靠字段名猜，避免写错 submitTags 这类影子数组）；
@@ -497,6 +499,106 @@
         return out;
     }
 
+    // 删除类组件方法（remove/delete/del/close 动词 + tag/label 名词），清空时优先走后台
+    function findTagRemoveMethod(vms) {
+        var explicit = ['removeTag', 'deleteTag', 'delTag', 'removeLabel', 'deleteLabel', 'delLabel',
+            'closeTag', 'handleRemoveTag', 'handleDeleteTag', 'onRemoveTag', 'onDeleteTag'];
+        var DEL_VERB = /remove|delete|del|close/i;
+        var TAG_NOUN = /tag|label/i;
+        var BAD = /add|create|insert|append|push/i;
+        var out = [];
+        vms.forEach(function (vm) {
+            var methods = (vm.$options && vm.$options.methods) || {};
+            Object.keys(methods).forEach(function (n) {
+                var fn = vm[n];
+                if (typeof fn !== 'function' || fn.length < 1) return;
+                var hit = explicit.indexOf(n) >= 0 || (DEL_VERB.test(n) && TAG_NOUN.test(n) && !BAD.test(n));
+                if (hit) out.push({ vm: vm, fnName: n });
+            });
+        });
+        return out;
+    }
+
+    // 关闭按钮多选择器兜底（chip 结构变了也能找到 ×）
+    function pickCloseBtn(chip) {
+        return chip.querySelector('svg.close') ||
+            chip.querySelector('svg[class*="close"]') ||
+            (function () {
+                var use = chip.querySelector('use');
+                return use ? (use.closest('svg') || use.parentElement) : null;
+            })() ||
+            chip.querySelector('[class*="close"]');
+    }
+
+    // 误伤还原：把被误删的标签按名写回模型（哪个数组能渲染就写哪个）
+    async function restoreNames(names, candidates) {
+        for (var i = 0; i < names.length; i++) {
+            var restored = false;
+            for (var c = 0; c < candidates.length && !restored; c++) {
+                try {
+                    var arr = candidates[c].obj[candidates[c].key];
+                    if (!Array.isArray(arr)) continue;
+                    arr.push(makeTagItem(candidates[c], names[i]));
+                    await sleep(240);
+                    if (getExistingTagNames().indexOf(names[i]) >= 0) {
+                        restored = true;
+                        log('误伤标签已还原：', names[i]);
+                    } else {
+                        arr.pop();
+                    }
+                } catch (e) {
+                    log('还原标签异常：', e);
+                }
+            }
+            if (!restored) log('误伤标签还原失败（需手动加回）：', names[i]);
+        }
+    }
+
+    // 组件方法删标签：只用「名字 / 模型对象」入参（索引入参误伤风险大，不用）；
+    // 严格校验目标消失且无误伤才算成功；一旦误伤立即还原并放弃该通道
+    async function removeTagViaMethods(cands, name, candidates) {
+        for (var i = 0; i < cands.length; i++) {
+            var cand = cands[i];
+            var args = [name];
+            for (var c = 0; c < candidates.length; c++) {
+                var arr = candidates[c].obj[candidates[c].key];
+                if (!Array.isArray(arr)) continue;
+                for (var j = 0; j < arr.length; j++) {
+                    if (arrayAsNames([arr[j]])[0] === name && arr[j] && typeof arr[j] === 'object') {
+                        args.push(arr[j]);
+                        break;
+                    }
+                }
+            }
+            for (var a = 0; a < args.length; a++) {
+                if (getExistingTagNames().indexOf(name) < 0) return true;
+                var pre = getExistingTagNames();
+                try {
+                    var r = cand.vm[cand.fnName](args[a]);
+                    if (r && typeof r.then === 'function') {
+                        try { await r; } catch (e) { log('组件删除方法异步异常：', e); }
+                    }
+                } catch (e) {
+                    log('组件删除方法', cand.fnName, '调用异常：', e);
+                    break;
+                }
+                await sleep(220);
+                var post = getExistingTagNames();
+                if (post.indexOf(name) < 0) {
+                    var lost = pre.filter(function (n) { return n !== name && post.indexOf(n) < 0; });
+                    if (!lost.length) {
+                        log('通过组件方法', cand.fnName, '删除标签：', name);
+                        return true;
+                    }
+                    log('组件删除方法', cand.fnName, '误伤标签：', lost, '，尝试还原后放弃该通道');
+                    await restoreNames(lost, candidates);
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
     function makeTagItem(ref, name) {
         if (ref.kind !== 'objects') return name;
         var tpl = ref.tpl || {};
@@ -612,37 +714,90 @@
         return getExistingTagNames().indexOf(name) >= 0;
     }
 
-    // 后台清空：逐个候选试，谁的清空真让 chip 消失谁就是真数组；返回生效的 ref
-    async function clearTags(candidates) {
+    // 清空旧标签：模型删除 → 组件删除方法 → 点击关闭按钮，逐级降级、逐级容错；
+    // 返回 { ok, ref, removed, remaining }，ref 为已验证的真实数组（后续写入可复用）
+    async function clearTags(candidates, vms) {
+        var before = getExistingTagNames();
+        if (!before.length) return { ok: true, ref: null, removed: [], remaining: [] };
+        var modelRef = null;
+
+        // ---- 通道 1：数据模型删除（按名逐项删，不整段 splice 误伤非 chip 项）----
         for (var i = 0; i < candidates.length; i++) {
+            if (stopRequested || !getExistingTagNames().length) break;
             var ref = candidates[i];
             var arr = ref.obj[ref.key];
             if (!Array.isArray(arr) || !arr.length) continue;
             var snapshot = arr.slice();
-            arr.splice(0, arr.length);
-            await sleep(300);
-            if (!getExistingTagNames().length) {
-                log('模型清空生效于：', ref.key);
-                return ref;
+            var hitNames = {};
+            getExistingTagNames().forEach(function (n) { hitNames[n] = true; });
+            var preCount = getExistingTagNames().length;
+            var touched = false;
+            for (var j = arr.length - 1; j >= 0; j--) {
+                var nm = arrayAsNames([arr[j]])[0];
+                if (nm && hitNames[nm]) { arr.splice(j, 1); touched = true; }
             }
-            snapshot.forEach(function (it) { arr.push(it); });
-            log('模型清空未生效（', ref.key, '），已还原');
+            if (!touched) continue;
+            await sleep(300);
+            if (getExistingTagNames().length < preCount) {
+                if (!modelRef) modelRef = ref;
+                log('模型删除生效于：', ref.key, '剩余：', getExistingTagNames());
+            } else {
+                // 未生效：只补回缺失项，防止重复插入
+                snapshot.forEach(function (it) {
+                    if (arr.indexOf(it) < 0 &&
+                        arrayAsNames([it]).every(function (n) { return !n || getExistingTagNames().indexOf(n) < 0; })) {
+                        arr.push(it);
+                    }
+                });
+                log('模型删除未生效（', ref.key, '），已还原');
+            }
         }
-        // 兜底：点击关闭按钮（会碰 UI，逐个避让用户操作）
-        for (var guard = 0; guard < 30; guard++) {
-            if (stopRequested) return null;
-            if (!(await waitUserIdle('标签清空'))) return null;
-            var chips = Array.prototype.slice.call(
-                document.querySelectorAll('#tag-container .label-item-v2-container')
-            );
-            if (!chips.length) return null;
-            var closeBtn = chips[0].querySelector('svg.close') ||
-                chips[0].querySelector('[class*="close"]');
-            if (!closeBtn) return null;
+
+        // ---- 通道 2：组件删除方法（名字/对象入参，严格校验防误伤）----
+        var methodCands = findTagRemoveMethod(vms);
+        if (methodCands.length && !stopRequested) {
+            var namesNow = getExistingTagNames().slice();
+            for (var mi = 0; mi < namesNow.length; mi++) {
+                if (stopRequested) break;
+                if (getExistingTagNames().indexOf(namesNow[mi]) < 0) continue;
+                await removeTagViaMethods(methodCands, namesNow[mi], candidates);
+            }
+        }
+
+        // ---- 通道 3：点击关闭按钮（多选择器 + 进度检测，卡住的跳过，不重复点同一个）----
+        var stuck = {};
+        for (var guard = 0; guard < 40; guard++) {
+            if (stopRequested) break;
+            if (!getExistingTagNames().length) break;
+            if (!(await waitUserIdle('标签清空'))) break;
+            var container = document.querySelector('#tag-container');
+            var chips = container
+                ? Array.prototype.slice.call(container.querySelectorAll('.label-item-v2-container'))
+                : [];
+            if (!chips.length) break;
+            var target = null;
+            for (var ci = 0; ci < chips.length; ci++) {
+                var nmm = ((chips[ci].querySelector('.label-item-v2-content') || {}).textContent || '').trim() || ('#' + ci);
+                if (!stuck[nmm]) { target = { el: chips[ci], name: nmm }; break; }
+            }
+            if (!target) {
+                log('剩余标签均无法关闭，停止清空：', getExistingTagNames());
+                break;
+            }
+            var closeBtn = pickCloseBtn(target.el);
+            if (!closeBtn) { stuck[target.name] = true; continue; }
+            var cntBefore = getExistingTagNames().length;
             fireClick(closeBtn);
-            await sleep(140);
+            await sleep(220);
+            if (getExistingTagNames().length < cntBefore) continue; // 有进展
+            stuck[target.name] = true;
+            log('点击关闭未生效，跳过：', target.name);
         }
-        return null;
+
+        var remaining = getExistingTagNames();
+        var removed = before.filter(function (n) { return remaining.indexOf(n) < 0; });
+        log('清空结果：删除=', removed, '剩余=', remaining);
+        return { ok: remaining.length === 0, ref: modelRef, removed: removed, remaining: remaining };
     }
 
     async function fillTags(tags, clearFirst) {
@@ -660,12 +815,30 @@
 
         // 清空失败不阻断后续填充；清空生效的那个数组就是真数组，直接复用
         var activeRef = null;
+        var clearResult = null;
         if (clearFirst) {
             try {
-                activeRef = await clearTags(candidates);
+                clearResult = await clearTags(candidates, vms);
+                activeRef = clearResult.ref || null;
+                if (clearResult.ok) {
+                    log('旧标签已全部清除');
+                } else if (clearResult.remaining.length) {
+                    log('旧标签未能清除，剩余：', clearResult.remaining, '——继续填充新标签');
+                }
             } catch (e) {
                 log('清空已有标签异常（继续填充）：', e);
             }
+        }
+        if (stopRequested) {
+            var unrun = tags.map(function (t) { return String(t).trim().slice(0, TAG_MAX_LEN); })
+                .filter(Boolean)
+                .map(function (n) { return n + '（未执行）'; });
+            return {
+                ok: false,
+                added: [],
+                skipped: unrun,
+                msg: '已停止填充' + (clearFirst ? '（旧标签清空中止）' : '')
+            };
         }
 
         // ---- 批量规划：去重 / 截断 / 上限，算出一次性要添加的名单 ----
@@ -683,7 +856,9 @@
                 continue;
             }
             if (baseCount + toAdd.length >= TAG_LIMIT) {
-                skipped.push(name + '（超出 ' + TAG_LIMIT + ' 个上限）');
+                skipped.push(name + (clearFirst && clearResult && clearResult.remaining.length
+                    ? '（旧标签未清除、已占名额，超出 ' + TAG_LIMIT + ' 个上限）'
+                    : '（超出 ' + TAG_LIMIT + ' 个上限）'));
                 continue;
             }
             if (toAdd.indexOf(name) >= 0) continue;
@@ -764,15 +939,21 @@
             }
         }
 
+        var clearMsg = '';
+        if (clearFirst) {
+            clearMsg = (clearResult && clearResult.ok)
+                ? '旧标签已清除 | '
+                : '旧标签未能清除（剩余 ' + ((clearResult && clearResult.remaining.length) || getExistingTagNames().length) + ' 个） | ';
+        }
         var hardFail = skipped.some(function (s) {
             return s.indexOf('未成功创建') >= 0 || s.indexOf('异常') >= 0;
         });
         log('标签结果 新增=', added, '跳过=', skipped);
         return {
-            ok: !hardFail,
+            ok: !hardFail && !(clearFirst && (!clearResult || !clearResult.ok)),
             added: added,
             skipped: skipped,
-            msg: '标签: +' + added.length + ' / 跳过 ' + skipped.length
+            msg: clearMsg + '标签: +' + added.length + ' / 跳过 ' + skipped.length
         };
     }
 
@@ -836,7 +1017,7 @@
             '<input id="' + PANEL_ID + '-bv" type="text" placeholder="BV号或视频链接，如 BV1nV4x6CEt4" ' +
             '  style="width:100%;box-sizing:border-box;padding:6px 8px;border:1px solid #dcdfe6;border-radius:6px;outline:none">' +
             '<label style="display:flex;align-items:center;gap:6px;margin:8px 0;cursor:pointer;user-select:none">' +
-            '  <input id="' + PANEL_ID + '-clear" type="checkbox"> 先清空已有标签（默认只补全、不覆盖）' +
+            '  <input id="' + PANEL_ID + '-clear" type="checkbox" checked> 先清空已有标签（取消勾选则只补全、不覆盖）' +
             '</label>' +
             '<button id="' + PANEL_ID + '-run" ' +
             '  style="width:100%;padding:8px 0;border:0;border-radius:6px;background:#00a1d6;color:#fff;cursor:pointer;font-size:14px">' +
