@@ -89,13 +89,15 @@
                         ],
                         "_lastCompleteTime": 0,
                         "_todayLightLikes": 0,
-                        "_lastLikeTime": 0
+                        "_lastLikeTime": 0,
+                        "_likeStopped": false
                     },
                     "watch": {
                         "enabled": true,
                         "time": 150,
                         "autoAllocateTime": true,
-                        "_lastCompleteTime": 0
+                        "_lastCompleteTime": 0,
+                        "restartDelayMinutes": 150
                     },
                     "isWhiteList": false,
                     "roomidList": [
